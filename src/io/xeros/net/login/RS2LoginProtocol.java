@@ -276,32 +276,6 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
 						}
 					}
 
-					boolean passedCaptcha = false;
-					CaptchaRequirement captchaRequirement = LoginCaptcha.get(nameLower);
-					if (captchaRequirement != null) {
-						logger.debug("Player {} has pending captcha {}, entered {}.", name, captchaRequirement.getCaptcha(), captcha);
-						if (captchaRequirement.isIncorrect(captcha)) {
-							captchaRequirement = LoginCaptcha.refresh(nameLower);
-							LoginThrottler.addIncorrectLoginAttempt(nameLower, ip, macAddress, uuid);
-							sendCaptcha(channel, LoginReturnCode.CAPTCHA_INCORRECT, captchaRequirement);
-							logger.debug("Player failed captcha, sending again, name={}, captchaInput={}", name, captcha);
-							return;
-						}
-
-						logger.debug("Player {} passed captcha.", name);
-						LoginCaptcha.remove(nameLower);
-						passedCaptcha = true;
-					} else {
-						logger.debug("Player {} has no pending captcha.", name);
-					}
-
-					if (!Configuration.DISABLE_CAPTCHA_EVERY_LOGIN && !passedCaptcha) {
-						CaptchaRequirement captchaRequirement1 = LoginCaptcha.create(nameLower);
-						sendCaptcha(channel, LoginReturnCode.CAPTCHA_INCORRECT, captchaRequirement1);
-						logger.debug("Requiring captcha for every login, name={}, captchaInput={}", name, captcha);
-						return;
-					}
-
 					final int[] isaacSeed = { (int) (clientHalf >> 32), (int) clientHalf, (int) (serverHalf >> 32), (int) serverHalf };
 					final ISAACCipher inCipher = new ISAACCipher(isaacSeed);
 					for (int i = 0; i < isaacSeed.length; i++)
@@ -310,10 +284,10 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
 
 					ctx.pipeline().replace("decoder", "decoder", new RS2Decoder(inCipher));
 
-					Player login = login(channel, outCipher, version, name, pass, macAddress, uuid, start, passedCaptcha);
+					Player login = login(channel, outCipher, version, name, pass, macAddress, uuid, start);
 
 					StringJoiner log = new StringJoiner(", ");
-					log.add("time=" + Misc.insertCommas("" + (System.currentTimeMillis() - start)) + "ms");
+					log.add("time=" + Misc.insertCommas(String.valueOf(System.currentTimeMillis() - start)) + "ms");
 					log.add("mac=" + macAddress);
 					log.add("uuid=" + uuid);
 
@@ -423,7 +397,7 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
 
 
 	private static Player login(Channel channel, ISAACCipher outCipher, int version, String name, String pass,
-								String macAddress, String uuid, long startTime, boolean passedCaptcha)
+								String macAddress, String uuid, long startTime)
 			throws Exception {
 
 		String lowercaseLoginName = name.toLowerCase();
@@ -468,7 +442,7 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
 			}
 
 			if (returnCode == LoginReturnCode.SUCCESS) {
-				returnCode = loadPlayer(player, name, returnCode, passedCaptcha);
+				returnCode = loadPlayer(player, name, returnCode);
 			}
 
 			if (player.getRights().isNot(Right.OWNER)) {
@@ -482,11 +456,6 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
 
 			if (returnCode == LoginReturnCode.INVALID_USERNAME_OR_PASSWORD) {
 				LoginThrottler.addIncorrectLoginAttempt(name, player.connectedFrom, macAddress, uuid);
-			}
-
-			if (returnCode == LoginReturnCode.CAPTCHA_REQUIRED) {
-				sendCaptcha(channel, LoginReturnCode.CAPTCHA_REQUIRED, LoginCaptcha.create(name.toLowerCase()));
-				return null;
 			}
 
 			long time = System.currentTimeMillis() - startTime;
@@ -509,13 +478,10 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
 		}
 	}
 
-	public static LoginReturnCode loadPlayer(Player player, String name, LoginReturnCode returnCode, boolean passedCaptcha) throws Exception {
-		LoadGameResult load = PlayerSave.loadGame(player, player.getLoginName(), player.playerPass, passedCaptcha);
+	public static LoginReturnCode loadPlayer(Player player, String name, LoginReturnCode returnCode) throws Exception {
+		LoadGameResult load = PlayerSave.loadGame(player, player.getLoginName(), player.playerPass);
 		if (load == LoadGameResult.ERROR_OCCURRED) {
 			returnCode = LoginReturnCode.ERROR_OCCURRED_ON_PLAYER_LOAD;
-		} else if (load == LoadGameResult.REQUIRE_CAPTCHA) {
-			logger.info("Requiring captcha for player because mac or uuid changed: {}", name);
-			return LoginReturnCode.CAPTCHA_REQUIRED;
 		} else {
 			player.getCollectionLog().loadForPlayer(player);
 
@@ -537,11 +503,6 @@ public class RS2LoginProtocol extends ByteToMessageDecoder {
 
 				if (Configuration.DISABLE_REGISTRATION) {
 					return LoginReturnCode.UNABLE_TO_CONNECT;
-				}
-
-				if (!Configuration.DISABLE_NEW_ACCOUNT_CAPTCHA && !passedCaptcha) {
-					logger.debug("New player, requiring captcha: {}", name);
-					return LoginReturnCode.CAPTCHA_REQUIRED;
 				}
 
 				logger.debug("Registered {}", player);

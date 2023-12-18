@@ -1182,7 +1182,7 @@ public class Player extends Entity {
 
         Server.getIoExecutorService().submit(() -> {
             try {
-                LoginReturnCode code = RS2LoginProtocol.loadPlayer(player, player.getLoginNameLower(), LoginReturnCode.SUCCESS, true);
+                LoginReturnCode code = RS2LoginProtocol.loadPlayer(player, player.getLoginNameLower(), LoginReturnCode.SUCCESS);
                 if (code != LoginReturnCode.SUCCESS) {
                     logger.error("Could not login bot, return code was {}", code);
                     return;

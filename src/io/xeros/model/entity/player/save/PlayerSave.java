@@ -131,7 +131,7 @@ public class PlayerSave {
      * Loading
      */
 
-        public static LoadGameResult loadGame(Player p, String playerName, String playerPass, boolean passedCaptcha) {
+        public static LoadGameResult loadGame(Player p, String playerName, String playerPass) {
 
 
             Misc.createDirectory(getSaveDirectory());
@@ -220,8 +220,6 @@ public class PlayerSave {
                                     }
                                 } else if (token.equals("character-mac-address")) {
                                     if (!p.getMacAddress().equalsIgnoreCase(token2)) {
-                                        if (!Configuration.DISABLE_CHANGE_ADDRESS_CAPTCHA && !passedCaptcha)
-                                            return LoadGameResult.REQUIRE_CAPTCHA;
                                         p.setAddressChanged("mac", token2, p.getMacAddress(), true);
                                     }
                                 } else if (token.equals("character-ip-address")) {
@@ -230,8 +228,6 @@ public class PlayerSave {
                                     }
                                 } else if (token.equals("character-uuid")) {
                                     if (!p.getUUID().equalsIgnoreCase(token2)) {
-                                        if (!Configuration.DISABLE_CHANGE_ADDRESS_CAPTCHA && !passedCaptcha)
-                                            return LoadGameResult.REQUIRE_CAPTCHA;
                                         p.setAddressChanged("uuid", token2, p.getUUID(), true);
                                     }
                                 } else if (token.equals("play-time")) {
