@@ -1,6 +1,7 @@
 package io.xeros.model.entity.player.packets.dialogueoptions;
 
 import com.google.common.collect.Lists;
+import io.xeros.Configuration;
 import io.xeros.content.dailytasks.DailyTasks;
 import io.xeros.content.shatteredshards.ShatteredShards;
 import io.xeros.content.achievement_diary.impl.ArdougneDiaryEntry;
@@ -362,7 +363,7 @@ public class ThreeOptions {
 		switch (c.dialogueAction) {
 
 			case 85252://Perk option
-				c.sendMessage("Coming soon to Vanguard.");
+				c.sendMessage("Coming soon to "+ Configuration.SERVER_NAME+".");
 				c.getPA().closeAllWindows();
 				break;
 

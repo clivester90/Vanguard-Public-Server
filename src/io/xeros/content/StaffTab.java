@@ -1,5 +1,6 @@
 package io.xeros.content;
 
+import io.xeros.Configuration;
 import io.xeros.Server;
 import io.xeros.content.combat.Hitmark;
 import io.xeros.content.combat.melee.MeleeData;
@@ -193,25 +194,25 @@ public class StaffTab {
 		target = Player.getPlayerByName(name);
 
 		if (target == null) {
-			player.sendMessage("[ <col=255>Vanguard</col> ] Player <col=255>" + name + "</col> is not online!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] Player <col=255>" + name + "</col> is not online!");
 			return false;
 		}
 
 		if (target.getLoginName().equalsIgnoreCase("Rogue") || target.getLoginName().equalsIgnoreCase("Rogue test")) {
-			player.sendMessage("[ <col=255>Vanguard</col> ] You may not punish <col=255>" + name + "</col>!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You may not punish <col=255>" + name + "</col>!");
 			return false;
 		}
 		
 		boolean access = false;
-		for (int i = 0; i < rights.length; i++) {
-			if (player.getRights().contains(Right.get(rights[i]))) {
+		for (int right : rights) {
+			if (player.getRights().contains(Right.get(right))) {
 				access = true;
 				break;
 			}
 		}
 		
 		if (!access) {
-			player.sendMessage("[ <col=255>Vanguard</col> ] You do not have access to this!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You do not have access to this!");
 			return false;
 		}
 		
@@ -242,7 +243,7 @@ public class StaffTab {
 			if (optionalPlayer.isPresent()) {
 				player.getPA().openOtherBank(optionalPlayer.get());
 				Player otherPlayer = optionalPlayer.get();
-				player.sendMessage("[ <col=255>Vanguard</col> ] You are now viewing <col=255>" + name + "</col>'s bank!");
+				player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You are now viewing <col=255>" + name + "</col>'s bank!");
 				player.sendMessage("@red@" + otherPlayer.getLoginName() + " @blu@has @red@" + Misc.format(otherPlayer.getMoneyPouch()) + " @blu@in their money pouch.");
 			} else {
 				player.sendMessage(name + " is not online. You can only view the bank of online players.");
@@ -261,41 +262,41 @@ public class StaffTab {
 				CycleEventHandler.getSingleton().stopEvents(c2);
 				c2.forceLogout();
 				ConnectedFrom.addConnectedFrom(c2, c2.connectedFrom);
-				player.sendMessage("[ <col=255>Vanguard</col> ] You have successfully kicked <col=255>" + name + "</col>!");
+				player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have successfully kicked <col=255>" + name + "</col>!");
 			} else {
 				player.sendMessage(name + " is not online. You can only kick online players.");
 			}
 			break;
 			
 		case MUTE:
-			player.muteEnd = System.currentTimeMillis() + 1 * 3_600_000;
-			target.sendMessage("[ <col=255>Vanguard</col> ] You have been muted for 1 hour!");
+			player.muteEnd = System.currentTimeMillis() + 3_600_000;
+			target.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have been muted for 1 hour!");
 			PlayerSave.saveGame(target);
-			player.sendMessage("[ <col=255>Vanguard</col> ] You have successfully muted <col=255>" + name + "</col> for 1 hour!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have successfully muted <col=255>" + name + "</col> for 1 hour!");
 			break;
 			
 		case UNMUTE:
 			player.muteEnd = 0;
-			target.sendMessage("[ <col=255>Vanguard</col> ] You have been un-muted!");
+			target.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have been un-muted!");
 			PlayerSave.saveGame(target);
-			player.sendMessage("[ <col=255>Vanguard</col> ] You have successfully un-muted <col=255>" + name + "</col>!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have successfully un-muted <col=255>" + name + "</col>!");
 			break;
 			
 		case BAN:
 //			target.setBanned(true);
 			target.forceLogout();
-			target.disconnectTime = System.currentTimeMillis() + 1 * 3_600_000;
-			target.sendMessage("[ <col=255>Vanguard</col> ] You have been banned for 1 hour!");
+			target.disconnectTime = System.currentTimeMillis() + 3_600_000;
+			target.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have been banned for 1 hour!");
 			PlayerSave.saveGame(target);
-			player.sendMessage("[ <col=255>Vanguard</col> ] You have successfully banned <col=255>" + name + "</col> for 1 hour!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have successfully banned <col=255>" + name + "</col> for 1 hour!");
 			break;
 			
 		case UNBAN:
 //			target.setBanned(false);
 			target.disconnectTime = 0;
-			target.sendMessage("[ <col=255>Vanguard</col> ] You have been unbanned!");
+			target.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have been unbanned!");
 			PlayerSave.saveGame(target);
-			player.sendMessage("[ <col=255>Vanguard</col> ] You have successfully unbanned <col=255>" + name + "</col>!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have successfully unbanned <col=255>" + name + "</col>!");
 			break;
 			
 		case JAIL:
@@ -310,25 +311,25 @@ public class StaffTab {
 			target.setTeleportToX(2086);
 			target.setTeleportToY(4466);
 			target.heightLevel = 0;
-			target.jailEnd = System.currentTimeMillis() + 1 * 3_600_000;
-     		target.sendMessage("[ <col=255>Vanguard</col> ] You have been jailed for 1 hour!");
+			target.jailEnd = System.currentTimeMillis() + 3_600_000;
+     		target.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have been jailed for 1 hour!");
 			PlayerSave.saveGame(target);
-			player.sendMessage("[ <col=255>Vanguard</col> ] You have successfully jailed <col=255>" + name + "</col> for 1 hour!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have successfully jailed <col=255>" + name + "</col> for 1 hour!");
 			break;
 			
 		case UNJAIL:
 			target.getPA().movePlayer(3090, 3500, 0);
 			target.jailEnd = 0;
 			target.isStuck = false;
-			target.sendMessage("[ <col=255>Vanguard</col> ] You have been un-jailed!");
+			target.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have been un-jailed!");
 			PlayerSave.saveGame(target);
-			player.sendMessage("[ <col=255>Vanguard</col> ] You have successfully un-jailed <col=255>" + name + "</col>!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have successfully un-jailed <col=255>" + name + "</col>!");
 			break;
 			
 		case MOVE_HOME:
 			target.getPA().movePlayer(3090,3500);//Edgville home
-			target.sendMessage("[ <col=255>Vanguard</col> ] You have been moved home!");
-			player.sendMessage("[ <col=255>Vanguard</col> ] You have successfully moved <col=255>" + name + "</col>!");
+			target.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have been moved home!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have successfully moved <col=255>" + name + "</col>!");
 			break;
 			
 		case COPY:
@@ -364,7 +365,7 @@ public class StaffTab {
 				MeleeData.setWeaponAnimations(player);
 				player.getItems().calculateBonuses();
 				player.getItems().sendEquipmentContainer();
-				player.sendMessage("[ <col=255>Vanguard</col> ] You have successfully copied <col=255>" + name + "</col>!");
+				player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have successfully copied <col=255>" + name + "</col>!");
 			} else {
 				player.sendMessage("There was no user with the name " + name);
 			}
@@ -384,7 +385,7 @@ public class StaffTab {
 					session.finish(MultiplayerSessionFinalizeType.WITHDRAW_ITEMS);
 				}
 				c2.forceLogout();
-				player.sendMessage("[ <col=255>Vanguard</col> ] You have IP banned the user: <col=255>" + c2.getDisplayName() + "</col> with the host: " + c2.connectedFrom);
+				player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have IP banned the user: <col=255>" + c2.getDisplayName() + "</col> with the host: " + c2.connectedFrom);
 			}
 			break;
 			
@@ -394,23 +395,23 @@ public class StaffTab {
 		    }
 			player.getPA().sendString("Information Viewer", 8144);
 			player.getPA().sendString("@dre@Username:", 8145);
-			player.getPA().sendString("" + target.getLoginName(), 8146);
+			player.getPA().sendString(target.getLoginName(), 8146);
 			player.getPA().sendString("@dre@Password:", 8147);
 			if (target.getRights().hasStaffPosition()) {
 				player.getPA().sendString("You cant see an staff members password.", 8148);
 			} else {
-				player.getPA().sendString("" + target.playerPass, 8148);
+				player.getPA().sendString(target.playerPass, 8148);
 			}
 
 			player.getPA().sendString("@dre@IP Address:", 8149);
 			if (target.getRights().hasStaffPosition()) {
 				player.getPA().sendString("You cant see an staff members ip address.", 8150);
 			} else {
-				player.getPA().sendString("" + target.getIpAddress(), 8150);
+				player.getPA().sendString(target.getIpAddress(), 8150);
 			}
 					
 			player.getPA().showInterface(8134);
-			player.sendMessage("[ <col=255>Vanguard</col> ] You are now viewing <col=255>" + name + "</col>'s account info!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You are now viewing <col=255>" + name + "</col>'s account info!");
 			break;
 			
 		case DEMOTE:
@@ -423,30 +424,30 @@ public class StaffTab {
 				return;
 			}
 			PlayerSave.saveGame(target);
-			player.sendMessage("[ <col=255>Vanguard</col> ] You have now demoted <col=255>" + name + "</col>!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have now demoted <col=255>" + name + "</col>!");
 			break;
 			
 		case GIVE_MODERATOR:
 			target.getRights().add(Right.get(1));
 			target.getRights().updatePrimary();
-			target.sendMessage("[ <col=255>Vanguard</col> ] You have been given moderator status by " + player.getLoginName() + "!");
-			player.sendMessage("[ <col=255>Vanguard</col> ] You have given <col=255>" + name + "</col> moderator status.");
+			target.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have been given moderator status by " + player.getLoginName() + "!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have given <col=255>" + name + "</col> moderator status.");
 			break;
 			
 		case KILL:
 			target.appendDamage(player, target.getHealth().getMaximumHealth(), Hitmark.HIT);
-			player.sendMessage("[ <col=255>Vanguard</col> ] You have killed <col=255>" + name + "</col>!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have killed <col=255>" + name + "</col>!");
 			break;
 			
 		case TELETO:
 			player.getPA().movePlayer(target.getX(), target.getY());
-			player.sendMessage("[ <col=255>Vanguard</col> ] You have teleported to <col=255>" + name + "</col>!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have teleported to <col=255>" + name + "</col>!");
 			break;
 
 		case TELETOME:
 			target.getPA().movePlayer(player.getX(), player.getY());
-			target.sendMessage("[ <col=255>Vanguard</col> ] You have been teleported to <col=255>" + player.getLoginName() + "</col>!");
-			player.sendMessage("[ <col=255>Vanguard</col> ] You have teleported <col=255>" + name + "</col> to your location!");
+			target.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have been teleported to <col=255>" + player.getLoginName() + "</col>!");
+			player.sendMessage("[ <col=255>"+Configuration.SERVER_NAME+"</col> ] You have teleported <col=255>" + name + "</col> to your location!");
 			break;
 			
 		case INVENTORY:

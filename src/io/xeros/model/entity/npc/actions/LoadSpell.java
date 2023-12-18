@@ -486,7 +486,7 @@ public class LoadSpell {
 
             case 3833://Koranian
                 int randomAttack8 = Misc.random(10);
-                String[] shout8 = {"I am the queen of Vanguard", "I dare you trespass the ditch!", "Its time to end you!", "You will never leave here!", "You are as week as my left toe!"};
+                String[] shout8 = {"I am the queen of "+Configuration.SERVER_NAME, "I dare you trespass the ditch!", "Its time to end you!", "You will never leave here!", "You are as week as my left toe!"};
                 String randomShout8 = (shout8[new Random().nextInt(shout8.length)]);
                 if (player.distanceToPoint(npc.absX, npc.absY) < 2) {
                     npc.forceChat(randomShout8);

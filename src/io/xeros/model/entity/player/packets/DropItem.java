@@ -223,13 +223,13 @@ public class DropItem implements PacketType {
 
 		if (itemId == 21753) {//Rune rogue ring i
 			if (c.getItems().freeSlots() < 2) {
-				c.sendMessage("You need at least two free slots to dismantle the ring of Vanguard (i).");
+				c.sendMessage("You need at least two free slots to dismantle the ring of "+Configuration.SERVER_NAME+" (i).");
 				return;
 			}
 			c.getItems().deleteItem(21753, 1);
 			c.getItems().addItem(21752, 1);
 			c.getItems().addItem(6806, 1);
-			c.sendMessage("@red@You have dismantled the Vanguard ring (i).");
+			c.sendMessage("@red@You have dismantled the "+Configuration.SERVER_NAME+" ring (i).");
 		}
 
 

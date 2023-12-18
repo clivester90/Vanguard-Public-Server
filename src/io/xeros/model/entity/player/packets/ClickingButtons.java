@@ -429,7 +429,7 @@ public class ClickingButtons implements PacketType {
 				AchievementInterface.sendInterfaceForAchievement(c, AchievementList.ANSWER_15_TRIVIABOTS_CORRECTLY);
 				c.setAchievement(AchievementHandler.AchievementDifficulty.EASY);
 				c.getPA().showInterface(35_000);
-				//c.sendMessage("@red@Coming soon to Vanguard.");
+				//c.sendMessage("@red@Coming soon to "+Configuration.SERVER_NAME+".");
 				break;
 
 			case 136201:
@@ -467,7 +467,7 @@ public class ClickingButtons implements PacketType {
 			case 2203:
 			//	c.getDH().sendOption3("Pay by inventory", "Pay by pouch", "-- Cancel --");
 			//	c.dialogueAction = 9080;
-				//c.sendMessage("@red@Soon to be released to Vanguard.");
+				//c.sendMessage("@red@Soon to be released to "+Configuration.SERVER_NAME+".");
 				c.moneyPouchTickets = true;
 				c.getOutStream().createFrame(28);//27
 				break;

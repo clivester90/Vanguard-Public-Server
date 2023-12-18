@@ -38,7 +38,7 @@ public class Configuration {
 	public static boolean BENCHMARK = false;
 
 	public static final int CLIENT_VERSION = 230;
-	public static String SERVER_NAME = "Vanguard";
+	public static String SERVER_NAME = "Runescape";
 	public static final int PORT_DEFAULT = 43594;//52777
 	public static final int PORT_TEST = 43595;
 

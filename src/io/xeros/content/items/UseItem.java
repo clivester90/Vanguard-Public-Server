@@ -3,6 +3,7 @@ package io.xeros.content.items;
 import java.util.List;
 import java.util.Optional;
 
+import io.xeros.Configuration;
 import io.xeros.Server;
 import io.xeros.content.*;
 import io.xeros.content.achievement.AchievementType;
@@ -555,7 +556,7 @@ public class UseItem {
 			c.getItems().deleteItem(21752, 1);
 			c.getItems().deleteItem(6806, 1);
 			c.getItems().addItem(21753, 1);
-			c.getDH().sendStatement("You combined the items and create the @red@ring of Vanguard(i)");
+			c.getDH().sendStatement("You combined the items and create the @red@ring of "+ Configuration.SERVER_NAME+"(i)");
 		}
 
 		if (itemUsed == 26370 && useWith == 11798) {//ancient godsword making

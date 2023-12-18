@@ -23,7 +23,7 @@ public enum AchievementList {
 
 	/* Easy Achievements */
 	ANSWER_15_TRIVIABOTS_CORRECTLY("Trivia I", "Correctly answer 15 Trivia Questions",15, AchievementHandler.AchievementDifficulty.EASY, new GameItem(995, 1000000)),//1M GP
-	CLAIM_5_VOTES("Supporter", "Vote 5 times for Vanguard",5, AchievementHandler.AchievementDifficulty.EASY, new GameItem(1464, 10)),//10 VOTE TICKETS
+	CLAIM_5_VOTES("Supporter", "Vote 5 times for " + Configuration.SERVER_NAME,5, AchievementHandler.AchievementDifficulty.EASY, new GameItem(1464, 10)),//10 VOTE TICKETS
 	COMPLETE_25_EASY_CLUES("Clue Hunter I", "Complete 25 Easy Clue Scrolls", 25, AchievementHandler.AchievementDifficulty.EASY, new GameItem(995, 3000000)),//3M GP
 	COMPLETE_25_NORMAL_CLUES("Clue Hunter II", "Complete 25 Medium Clue Scrolls", 25, AchievementHandler.AchievementDifficulty.EASY, new GameItem(995, 5000000)),//5M GP
 	ADVANCED_OPTIONS("Configurator", "Open the Advanced Settings menu", 1, AchievementHandler.AchievementDifficulty.EASY, new GameItem(21046 , 1)),//CHEST RATE BONUS

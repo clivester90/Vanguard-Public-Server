@@ -1,5 +1,6 @@
 package io.xeros.content;
 
+import io.xeros.Configuration;
 import io.xeros.model.entity.player.Player;
 import io.xeros.model.entity.player.PlayerAssistant;
 
@@ -22,7 +23,7 @@ public class RulesInterface {
 							"1st Offense: Warning  | 2nd Offense: 24H Mute  | 3rd Offense: 72H Mute, Permanent Mute or Ban",
 					"",
 					"3. Advertising or Discussion of Other Servers\n" +
-							"There is a zero tolerance for advertisement or encouragement to join other servers on any platform owned and operated by Vanguard.  This includes but not limited to In-game, Forums or Discord. \n" +
+							"There is a zero tolerance for advertisement or encouragement to join other servers on any platform owned and operated by "+ Configuration.SERVER_NAME+".  This includes but not limited to In-game, Forums or Discord. \n" +
 							"1st Offense: 24H Mute  | 2nd Offense: 72H Mute, Permanent Mute or Ban",
 					"",
 					"4. Threats \n" +
@@ -50,12 +51,12 @@ public class RulesInterface {
 							"[15:33]\n",
 					"",
 					"8. In game '::yell' Command\n" +
-							"The yell system Vanguard has to offer provides a fantastic opportunity or social platform for players wishing to interact with one another. Due to the yell system being in the noticeable eyes of the public the list below administers a few examples of punishable offences if seen/reported.\n" +
-							"Staff members are here to protect the goodwill & longevity of Vanguard. Failing to oblige by a staff members request (Server Support & higher) on yell will be warned and furthermore muted if the request to stop has been ignored.\n" +
+							"The yell system "+Configuration.SERVER_NAME+" has to offer provides a fantastic opportunity or social platform for players wishing to interact with one another. Due to the yell system being in the noticeable eyes of the public the list below administers a few examples of punishable offences if seen/reported.\n" +
+							"Staff members are here to protect the goodwill & longevity of "+Configuration.SERVER_NAME+". Failing to oblige by a staff members request (Server Support & higher) on yell will be warned and furthermore muted if the request to stop has been ignored.\n" +
 							"-Any bitter or aggressive intensified PvP banter related discussions that occur on yell, as per discretion by staff members, will now be considered as a punishable offence. Please keep PvP banter inside of Clan-chats or Private messaging.\n" +
 							"-To maintain a clean, toxic free, enjoyable yell environment, any form of excessive verbal griefing or false advertising will now be considered and viewed as a punishable offense. \n" +
-							"-Griefing refers to the act of one player intentionally disrupting another player's game experience for personal pleasure and possibly potential gain. Players of Vanguard should not attempt to grief another player by either trolling or provoking one another via global yell.\n" +
-							"-Vanguard player base is largely from the United Kingdom & the United States, therefore (due to moderation purposes) we ask that all language over yell is to be written in English ONLY. In most cases, a warning will be issued first, failing to oblige by the given warning will result in a yell-mute.\n" +
+							"-Griefing refers to the act of one player intentionally disrupting another player's game experience for personal pleasure and possibly potential gain. Players of "+Configuration.SERVER_NAME+" should not attempt to grief another player by either trolling or provoking one another via global yell.\n" +
+							"-"+Configuration.SERVER_NAME+" player base is largely from the United Kingdom & the United States, therefore (due to moderation purposes) we ask that all language over yell is to be written in English ONLY. In most cases, a warning will be issued first, failing to oblige by the given warning will result in a yell-mute.\n" +
 							"1st Offense: Warning  | 2nd Offense: 24H Yell Mute  | 3rd Offense: Permanent Yell Mute or Ban ",
 					"",
 					"9. Third Party Software\n" +
@@ -66,7 +67,7 @@ public class RulesInterface {
 							"1st Offense: 72H Ban [Skill Reset to Level 1] | 2nd Offense: Permanent Ban  | 3rd Offense: IP Ban",
 					"",
 					"10. Real world trading (Account & items selling/buying)\n" +
-							"The act of trading Vanguard currency, items, services, etc for outside currency is NOT allowed. This includes but is not limited to; RSGP, fiat currencies, IRL goods/services, online currencies, etc. Both parties will be punished if found to be doing so. \n" +
+							"The act of trading "+Configuration.SERVER_NAME+" currency, items, services, etc for outside currency is NOT allowed. This includes but is not limited to; RSGP, fiat currencies, IRL goods/services, online currencies, etc. Both parties will be punished if found to be doing so. \n" +
 							"- The act of trading/selling, or the attempt of trading/selling, any account for other goods will not be allowed on the server or forums, a ban will be issued for the account being traded off.\n" +
 							"- As per Old School Runescape, RuneRogue has decided to follow route & enforce the rule of Infernal cape services. Inferno services are at your own risk, account sharing is not advised, however if you do and you get hacked or scammed it is at your own risk and will not be refunded. \n" +
 							" 1st Offense: Permanent Ban (Bank reset)  | 2nd Offense:  IP Ban (Bank reset) (edited)\n" +
