@@ -1,5 +1,5 @@
 
-import io.xeros.model.entity.player.Player;
+import io.runescape.model.entity.player.Player;
 
 
 import java.sql.Connection;
