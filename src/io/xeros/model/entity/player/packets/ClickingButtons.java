@@ -729,7 +729,7 @@ public class ClickingButtons implements PacketType {
 			c.getBH().teleportToTarget();
 			break;
 		case 183156:
-			if (!c.inDonatorBox && !c.getUltraInterface().isActive() && !c.getSuperBoxInterface().isActive() && !c.getNormalBoxInterface().isActive() && !c.getFoeInterface().isActive()) {
+			if (c.inDonatorBox == false && !c.getUltraInterface().isActive() && !c.getSuperBoxInterface().isActive() && !c.getNormalBoxInterface().isActive() && !c.getFoeInterface().isActive()) {
 				CheatEngineBlock.DonatorBoxAlert(c);
 				return;
 			}
@@ -890,10 +890,10 @@ public class ClickingButtons implements PacketType {
 			break;
 
 		case 226158:
-			if (!c.inBank && System.currentTimeMillis() - c.clickDelay <= 2200) {
+			if (c.inBank == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
 				return;
 			}
-			if (!c.inBank) {
+			if (c.inBank == false) {
 				CheatEngineBlock.BankAlert(c);
 				return;
 			}
@@ -997,7 +997,7 @@ public class ClickingButtons implements PacketType {
 			if (System.currentTimeMillis() - c.clickDelay <= 2200) {
 				return;
 			}
-			if (!c.inBank) {
+			if (c.inBank == false) {
 				CheatEngineBlock.BankAlert(c);
 				return;
 			}
@@ -1090,7 +1090,7 @@ public class ClickingButtons implements PacketType {
 			if (System.currentTimeMillis() - c.clickDelay <= 2200) {
 				return;
 			}
-			if (!c.inBank) {
+			if (c.inBank == false) {
 				CheatEngineBlock.BankAlert(c);
 				return;
 			}
@@ -1109,7 +1109,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			}
 
-			if (!c.inBank) {
+			if (c.inBank == false) {
 				CheatEngineBlock.BankAlert(c);
 				return;
 			}
@@ -1140,7 +1140,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			}
 
-			if (!c.inBank) {
+			if (c.inBank == false) {
 				CheatEngineBlock.BankAlert(c);
 				return;
 			}
@@ -1185,7 +1185,7 @@ public class ClickingButtons implements PacketType {
 		case 226253:
 		case 227008:
 		case 227019:
-			if (!c.inBank && System.currentTimeMillis() - c.clickDelay <= 2200) {
+			if (c.inBank == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
 				return;
 			}
 			if (!c.isBanking) {

@@ -109,20 +109,20 @@ public class PollTab {
      * @param player
      */
     public static void updateTabIcon(Player player) {
-//        if (poll == null || !isPollActive(poll) || poll.getQuestion().equalsIgnoreCase("")) {
-//            player.getPA().sendFrame126(":pollOn-false", 21406);
-//        } else {
-//            player.getPA().sendFrame126(":pollOn-true", 21406);
-//        }
+        if (poll == null || !isPollActive(poll) || poll.getQuestion().equalsIgnoreCase("")) {
+            player.getPA().sendFrame126(":pollOn-false", 21406);
+        } else {
+            player.getPA().sendFrame126(":pollOn-true", 21406);
+        }
     }
 
     public static void updatePollTabDisplay(Player player) {
-//        if (isPollActive(getPoll())) {
-//            player.setSidebarInterface(13, 21406);
-//            player.sendMessage("@red@A poll is running, be sure to vote!");
-//        } else {
-//            player.setSidebarInterface(13, 0);
-//        }
+        if (isPollActive(getPoll())) {
+            player.setSidebarInterface(13, 21406);
+            player.sendMessage("@red@A poll is running, be sure to vote!");
+        } else {
+            player.setSidebarInterface(13, 962);
+        }
     }
 
     /**
@@ -155,7 +155,7 @@ public class PollTab {
             poll.getAnswers().removeIf(String::isEmpty);
             player.getPA().sendFrame126(":pollHeight-" + poll.getQuestion().split("\\|").length, 21406);
             player.getPA().sendFrame126((poll.getRight() != Right.PLAYER ? "<img=" + (poll.getRight().getValue() - 1) + ">" : "") + "Poll:\\n" + poll.getQuestion().replace("|", "\\n"), 21408);
-            player.getPA().sendFrame126("Time Left to Vote: @whi@" + (getHoursLeft() == -1 ? "TBD" : getHoursLeft() <= 0 ? "~ 1" : "" + getHoursLeft()) + " hour(s)", 21409);
+            player.getPA().sendFrame126("Time Left to Vote: @whi@" + (getHoursLeft() == -1 ? "TBD" : getHoursLeft() <= 0 ? "~ 1" : String.valueOf(getHoursLeft())) + " hour(s)", 21409);
 
             for (int i = 0; i < 5; i++) {
                 if (i < poll.getAnswers().size()) {
@@ -280,7 +280,7 @@ public class PollTab {
         String prettyJson = prettyGson.toJson(polls);
         BufferedWriter bw;
         try {
-            bw = new BufferedWriter(new FileWriter(new File(Server.getDataDirectory() + "/cfg/poll/polls_backup.json")));
+            bw = new BufferedWriter(new FileWriter(Server.getDataDirectory() + "/cfg/poll/polls_backup.json"));
             bw.write(prettyJson);
             bw.flush();
             bw.close();

@@ -668,23 +668,6 @@ public class Commands implements PacketType {
                 c.sendMessage("@red@This command will be closed in one week.");
             }
 
-
-            if (playerCommand.toLowerCase().contentEquals("stafftab")) {
-                if (!c.getRights().isOrInherits(Right.HELPER)) {
-                    c.sendMessage(NO_ACCESS);
-                    return;
-                }
-                c.getPA().sendString("</col>Rank: " + c.getRights().buildCrownString() + " " + c.getRights().getPrimary().toString(), 43705);
-                if (c.getRights().contains(Right.HELPER) || c.getRights().contains(Right.MODERATOR)) {
-                    c.getPA().sendString("You have limited access.", 43704);
-                } else {
-                    c.getPA().sendString("You have full access.", 43704);
-                }
-                c.setSidebarInterface(2, 43700);
-                c.sendMessage("Staff tab has been turned on.");
-                return;
-            }
-
             if (playerCommand.equals("rights")) {
                 c.sendMessage("isOwner: " + c.getRights().contains(Right.OWNER));
                 c.sendMessage("isAdmin: " + c.getRights().contains(Right.ADMINISTRATOR));

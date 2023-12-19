@@ -488,26 +488,6 @@ public class ItemOptionOne implements PacketType {
                 }
                 break;
 
-            case 21027: //dark relic
-            	  c.inLamp = true;
-            	  c.usingLamp = true;
-                  c.normalLamp = true;
-                  c.antiqueLamp = false;
-                  c.sendMessage("You rub the lamp...");
-                  c.getPA().showInterface(2808);
-            	break;
-
-            case 13148:
-                c.start(new DialogueBuilder(c).statement("This lamp will reset a skill of your choice.").exit(plr -> {
-                    c.inLamp = true;
-                    c.usingLamp = true;
-                    c.normalLamp = true;
-                    c.antiqueLamp = false;
-                    c.sendMessage("You have rubbed the skill reset lamp.");
-                    c.getPA().showInterface(2808);
-                }));
-          	break;
-
             case 13190:
                 if (c.getItems().playerHasItem(13190, 1)) {
                     c.getItems().deleteItem(13190, 1);

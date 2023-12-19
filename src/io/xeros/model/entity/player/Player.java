@@ -406,10 +406,8 @@ public class Player extends Entity {
     public boolean unlockedUltimateChest;
     public boolean inPresets;
     public boolean inDonatorBox;
+
     public boolean usingLamp;
-    public boolean normalLamp;
-    public boolean antiqueLamp;
-    public boolean inLamp;
     public int rubbedLamp = -1;
     // Raids
     public int xericDamage;
@@ -1861,13 +1859,13 @@ public class Player extends Entity {
         getDiaryManager().setDiariesCompleted();
         Barrows.updateSavedBarrowsProgress(this);
         Barrows.updateBarrowsInterface(this);
-        getPA().sendFrame126(getMoneyPouch() + "", 8135);//Money pouch
+        getPA().sendFrame126(String.valueOf(getMoneyPouch()), 8135);//Money pouch
         graceSum();
         setStopPlayer(false);
         inPresets = false;
         inTradingPost = false;
         inBank = false;
-        inLamp = false;
+        usingLamp = false;
         inDonatorBox = false;
         getSuperMysteryBox().canMysteryBox();
         getNormalMysteryBox().canMysteryBox();
@@ -1986,7 +1984,7 @@ public class Player extends Entity {
         setSidebarInterface(10, 2449);
         setSidebarInterface(11, 42500); // wrench tab
         setSidebarInterface(12, 147); // run tab
-        setSidebarInterface(13, 44500);//Credits tabs
+        setSidebarInterface(13, 962);//Credits tabs
 
         InterfaceHandler.writeText(new CreditTab(this));
         getPA().sendString("</col>Donation Points: @gre@" + Misc.format(this.donatorPoints), 44504);

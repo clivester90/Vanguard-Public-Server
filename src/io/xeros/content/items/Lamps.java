@@ -56,27 +56,18 @@ public class Lamps {
     public static void handleItemOptionOne(Player player, int itemId) {
         if (itemId == Items.ANTIQUE_LAMP_31) {
             player.start(new DialogueBuilder(player).statement("<col=ff0000>This lamp will reset a skill of your choice.</col>").exit(plr -> {
-                player.inLamp = true;
                 player.usingLamp = true;
-                player.normalLamp = true;
-                player.antiqueLamp = false;
                 handleInterfaceOpen(player, true);
             }));
         }
 
         if (itemId == Items.EXPERIENCE_LAMP) {
-            player.inLamp = true;
             player.usingLamp = true;
-            player.normalLamp = true;
-            player.antiqueLamp = false;
             handleInterfaceOpen(player, true);
         }
 
         if (itemId == Items.DARK_RELIC) {
-            player.inLamp = true;
             player.usingLamp = true;
-            player.normalLamp = true;
-            player.antiqueLamp = false;
             player.sendMessage("A dark power emanates from the relic. You sense that this power can be directed.");
             handleInterfaceOpen(player, false);
         }
@@ -95,11 +86,11 @@ public class Lamps {
     public static boolean handleLampButtons(Player player, int buttonId) {
         for (LampConstants lamp : LampConstants.values()) {
             if (buttonId == lamp.getButtonId()) {
-                if (!player.inLamp && System.currentTimeMillis() - player.clickDelay <= 2200) {
+                if (!player.usingLamp && System.currentTimeMillis() - player.clickDelay <= 2200) {
                     return false;
                 }
 
-                if (!player.inLamp) {
+                if (!player.usingLamp) {
                     CheatEngineBlock.ExperienceAbuseAlert(player);
                     return false;
                 }
@@ -125,11 +116,11 @@ public class Lamps {
     }
 
     public static void handleLampClose(Player player, int itemId, boolean bonusExperience) {
-        if (itemId == Items.EXPERIENCE_LAMP && player.normalLamp && !player.antiqueLamp) {
+        if (itemId == Items.EXPERIENCE_LAMP) {
             player.sendMessage("The lamp mysteriously vanishes...");
         }
 
-        if (itemId == Items.DARK_RELIC && player.normalLamp && !player.antiqueLamp) {
+        if (itemId == Items.DARK_RELIC) {
             player.getItems().deleteItem(Items.DARK_RELIC, 1);
             player.sendMessage("The dark relic mysteriously vanishes...");
             player.sendMessage("...and you gain some experience!");
@@ -143,7 +134,6 @@ public class Lamps {
         int playerLevel = player.playerLevel[player.antiqueItemResetSkillId];
         int experience = itemId == Items.DARK_RELIC ? playerLevel * (bonusExperience ? 150 : 50) : playerLevel * 10;
         player.usingLamp = false;
-        player.inLamp = false;
         player.getItems().deleteItem(itemId, 1);
         player.getPA().addSkillXP(experience, player.antiqueItemResetSkillId, true);
         player.getPA().closeAllWindows();

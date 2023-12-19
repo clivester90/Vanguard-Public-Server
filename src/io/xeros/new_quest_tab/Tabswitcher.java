@@ -60,22 +60,6 @@ public class Tabswitcher {
                     player.infoTabSelected = 0;
                     return true;
 
-                case 180128://Staff tab
-                    if (!player.getRights().hasStaffPosition()) {
-                        player.sendMessage("@red@You do not have access to this tab.");
-                        return false;
-                    }
-                    player.getPA().sendString("</col>Rank: " + player.getRights().buildCrownString() + " " + player.getRights().getPrimary().toString(), 43705);
-                    if (player.getRights().contains(Right.HELPER) || player.getRights().contains(Right.MODERATOR)) {
-                        player.getPA().sendString("You have limited access.", 43704);
-                    } else {
-                        player.getPA().sendString("You have full access.", 43704);
-                    }
-                    player.setSidebarInterface(2, 43700);
-                    player.sendMessage("Staff tab has been turned on.");
-                    player.infoTabSelected = 4;
-                    return true;
-
                // Achievement diaries
                 case 183076://New system
                     player.getDiaryManager().getVarrockDiary().display();

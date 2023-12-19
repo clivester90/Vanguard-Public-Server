@@ -1,20 +1,21 @@
 package io.xeros.model.entity.player.packets;
 
-import java.nio.file.Path;
-import java.util.Optional;
-
 import io.xeros.Server;
 import io.xeros.content.PriceChecker;
 import io.xeros.content.skills.SkillHandler;
 import io.xeros.content.tradingpost.Listing;
-import io.xeros.content.world_event.Tournament;
-import io.xeros.model.entity.player.*;
+import io.xeros.model.entity.player.Boundary;
+import io.xeros.model.entity.player.PacketType;
+import io.xeros.model.entity.player.PathFinder;
+import io.xeros.model.entity.player.Player;
 import io.xeros.model.multiplayersession.MultiplayerSessionFinalizeType;
 import io.xeros.model.multiplayersession.MultiplayerSessionStage;
 import io.xeros.model.multiplayersession.MultiplayerSessionType;
 import io.xeros.model.multiplayersession.duel.DuelSession;
 import io.xeros.model.multiplayersession.duel.DuelSessionRules;
 import io.xeros.util.Misc;
+
+import java.util.Optional;
 
 /**
  * Walking packet
@@ -58,7 +59,7 @@ public class Walking implements PacketType {
 			c.sendMessage("You did not leave the tournament properly, therefore your items have been deleted.");
 			c.getItems().deleteAllItems();
 		}
-		if (c.rottenPotatoOption != "") {
+		if (!c.rottenPotatoOption.equals("")) {
 			c.rottenPotatoOption = "";
 		}
 		if (c.getInferno() != null && c.getInferno().cutsceneWalkBlock)
@@ -115,8 +116,8 @@ public class Walking implements PacketType {
 			c.inPresets = false;
 			c.clickDelay = System.currentTimeMillis();
 		}
-		if(c.inLamp) {
-			c.inLamp = false;
+		if(c.usingLamp) {
+			c.usingLamp = false;
 			c.clickDelay = System.currentTimeMillis();
 		}
 
@@ -229,7 +230,7 @@ public class Walking implements PacketType {
 			return;
 		}
 
-		if (c.isListing = true) { //item bug fix - makes people wield their item after closing the interface randomly
+		if (c.isListing) { //item bug fix - makes people wield their item after closing the interface randomly
 			c.getPA().closeAllWindows();
 			Listing.resetEverything(c);
 

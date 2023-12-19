@@ -6,8 +6,6 @@ import io.xeros.util.Misc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.stream.Collectors;
 
 
@@ -22,23 +20,8 @@ public class WogwHighscore implements Highscore {
 
     @Override
     public void process() {
-        playerList = (ArrayList<Player>) Arrays.asList(PlayerHandler.players).stream().filter(p -> p != null).collect(Collectors.toList());
-
-        Collections.sort(playerList, new Comparator<Player>() {
-            @Override
-            public int compare(Player player1, Player player2) {
-                Player client1 = (Player) player1;
-                Player client2 = (Player) player2;
-
-                if (client1.donationWell == client2.donationWell) {
-                    return 0;
-                } else if (client2.donationWell > client1.donationWell) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            }
-        });
+        playerList = (ArrayList<Player>) Arrays.stream(PlayerHandler.players).filter(p -> p != null).collect(Collectors.toList());
+        playerList.sort((player1, player2) -> Integer.compare(player2.donationWell, player1.donationWell));
     }
 
     @Override
@@ -52,39 +35,39 @@ public class WogwHighscore implements Highscore {
         if (playerList.size() > 10) {
             for (int i = 0; i < 10; i++) {
         	Player rankedClient = (Player) playerList.get(i);
-        	client.getPA().sendFrame126("10m X:", 46509);
-        	client.getPA().sendFrame126("Seeds:", 46510);
-        	client.getPA().sendFrame126("N/A:", 46511);
-        	client.getPA().sendFrame126("Cmb level:", 46512);
-        	client.getPA().sendFrame126((i + 1) + "): @gre@" + Misc.optimizeText(rankedClient.getLoginName()), 46513 + i);
-        	client.getPA().sendFrame126(String.valueOf(rankedClient.donationWell), 46523 + i);
-        	client.getPA().sendFrame126(String.valueOf(rankedClient.donationSeed), 46533 + i);
-        	//client.getPA().sendFrame126(String.valueOf(rankedClient.lotteryMbox), 46543 + i);
-        	client.getPA().sendFrame126(String.valueOf(rankedClient.combatLevel), 46553 + i);
+        	client.getPA().sendFrame126("10m X:", 56509);
+        	client.getPA().sendFrame126("Seeds:", 56510);
+        	client.getPA().sendFrame126("N/A:", 56511);
+        	client.getPA().sendFrame126("Cmb level:", 56512);
+        	client.getPA().sendFrame126((i + 1) + "): @gre@" + Misc.optimizeText(rankedClient.getLoginName()), 56513 + i);
+        	client.getPA().sendFrame126(String.valueOf(rankedClient.donationWell), 56523 + i);
+        	client.getPA().sendFrame126(String.valueOf(rankedClient.donationSeed), 56533 + i);
+        	//client.getPA().sendFrame126(String.valueOf(rankedClient.lotteryMbox), 56543 + i);
+        	client.getPA().sendFrame126(String.valueOf(rankedClient.combatLevel), 56553 + i);
             }
         } else {
         	 for (int i = 0; i < playerList.size(); i++) {
                  Player rankedClient = (Player) playerList.get(i);
-                 client.getPA().sendFrame126("10m X:", 46509);
-                 client.getPA().sendFrame126("Seeds:", 46510);
-                 client.getPA().sendFrame126("N/A:", 46511);
-                 client.getPA().sendFrame126("Cmb level:", 46512);
-                 client.getPA().sendFrame126((i + 1) + "): @gre@" + Misc.optimizeText(rankedClient.getLoginName()), 46513 + i);
-                 client.getPA().sendFrame126(String.valueOf(rankedClient.donationWell), 46523 + i);
-                 client.getPA().sendFrame126(String.valueOf(rankedClient.donationSeed), 46533 + i);
-             //    client.getPA().sendFrame126(String.valueOf(rankedClient.lotteryMbox), 46543 + i);
-                 client.getPA().sendFrame126(String.valueOf(rankedClient.combatLevel), 46553 + i);
+                 client.getPA().sendFrame126("10m X:", 56509);
+                 client.getPA().sendFrame126("Seeds:", 56510);
+                 client.getPA().sendFrame126("N/A:", 56511);
+                 client.getPA().sendFrame126("Cmb level:", 56512);
+                 client.getPA().sendFrame126((i + 1) + "): @gre@" + Misc.optimizeText(rankedClient.getLoginName()), 56513 + i);
+                 client.getPA().sendFrame126(String.valueOf(rankedClient.donationWell), 56523 + i);
+                 client.getPA().sendFrame126(String.valueOf(rankedClient.donationSeed), 56533 + i);
+             //    client.getPA().sendFrame126(String.valueOf(rankedClient.lotteryMbox), 56543 + i);
+                 client.getPA().sendFrame126(String.valueOf(rankedClient.combatLevel), 56553 + i);
         	 }
         }
-        client.getPA().showInterface(46500);
+        client.getPA().showInterface(56500);
         client.flushOutStream();
         playerList.clear();
     }
 
     @Override
     public void resetList(Player client) {
-        client.getPA().sendFrame126("Live Wogw Hiscores" + getType(), 46502);
-        for (int i = 46513; i < 46563; i++) {
+        client.getPA().sendFrame126("Live Wogw Hiscores" + getType(), 56502);
+        for (int i = 56513; i < 56563; i++) {
             client.getPA().sendFrame126("", i);
             client.flushOutStream();
         }
