@@ -10,8 +10,6 @@ import io.xeros.model.entity.player.Player;
 import io.xeros.model.entity.player.packets.ItemOnItem;
 import io.xeros.util.Misc;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.Consumer;
 
 public class BryophytaStaff {
@@ -36,7 +34,7 @@ public class BryophytaStaff {
             player.getItems().addItem(UNCHARGED_STAFF, 1);
             player.startAnimation(7981);
             player.startGraphic(new Graphic(264, 20, Graphic.GraphicHeight.HIGH));
-            player.getPA().addSkillXPMultiplied(1, Skill.CRAFTING.getId(), true);
+            player.getPA().addSkillXP(1, Skill.CRAFTING.getId(), true);
         }
 
         return true;

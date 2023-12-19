@@ -1,33 +1,18 @@
 package io.xeros.content.hespori;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
+import io.xeros.Server;
+import io.xeros.content.skills.Skill;
+import io.xeros.model.entity.player.Player;
+import io.xeros.model.entity.player.PlayerHandler;
+import io.xeros.util.Misc;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
-import io.xeros.Server;
-import io.xeros.content.achievement.AchievementType;
-import io.xeros.content.achievement.Achievements;
-import io.xeros.content.dialogue.DialogueBuilder;
-import io.xeros.content.dialogue.DialogueOption;
-import io.xeros.content.event.eventcalendar.EventChallenge;
-import io.xeros.content.leaderboards.LeaderboardType;
-import io.xeros.content.leaderboards.LeaderboardUtils;
-import io.xeros.content.skills.Skill;
-import io.xeros.model.Items;
-import io.xeros.model.definitions.NpcStats;
-import io.xeros.model.entity.npc.NPC;
-import io.xeros.model.entity.npc.NPCHandler;
-import io.xeros.model.entity.player.Boundary;
-import io.xeros.model.entity.player.Player;
-import io.xeros.model.entity.player.PlayerHandler;
-import io.xeros.model.world.objects.GlobalObject;
-import io.xeros.util.Misc;
-
-import static io.xeros.content.combat.Hitmark.HIT;
 
 
 public class Hespori {
@@ -63,11 +48,7 @@ public class Hespori {
 			hesporiBonus.activate(player);
 			hesporiBonus.updateObject(true);
 			player.donationSeed+=1;
-			if (!player.getMode().isOsrs() && !player.getMode().is5x()) {
-				player.getPA().addSkillXP(250000 , Skill.FARMING.getId(), true);
-			} else {
-				player.getPA().addSkillXP(50000 , Skill.FARMING.getId(), true);
-			}
+			player.getPA().addSkillXP(5000, Skill.FARMING.getId(), true);
 
 			if (Misc.random(10) == 1) {
 				player.getItems().addItemUnderAnyCircumstance(4589, 1);

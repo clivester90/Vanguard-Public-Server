@@ -1,11 +1,8 @@
 package io.xeros.content.skills.fletching;
 
 import io.xeros.content.skills.Skill;
-import io.xeros.content.skills.slayer.SlayerUnlock;
 import io.xeros.model.cycleevent.Event;
 import io.xeros.model.entity.player.Player;
-
-import java.util.Optional;
 
 public class MakeArrowEvent extends Event<Player> {
 
@@ -46,6 +43,6 @@ public class MakeArrowEvent extends Event<Player> {
         attachment.getItems().deleteItem2(53, 15);
         attachment.getItems().deleteItem2(a.getId(), 15);
         attachment.getItems().addItem(a.getReward(), 15);
-        attachment.getPA().addSkillXPMultiplied((int) a.getExperience() * 10, Skill.FLETCHING.getId(), true);
+        attachment.getPA().addSkillXP((int) a.getExperience() * 10, Skill.FLETCHING.getId(), true);
     }
 }

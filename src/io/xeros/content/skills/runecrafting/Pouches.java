@@ -97,7 +97,6 @@ public class Pouches {
 			player.getItems().addItem(PURE_ESS, 1);
 			player.setPureEssencePouch(size, player.getPureEssencePouch(size) - 1);
 		}
-		return;
 	}
 
 	public static void check(Player player, int size) {

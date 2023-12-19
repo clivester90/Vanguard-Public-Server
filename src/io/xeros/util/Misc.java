@@ -101,7 +101,7 @@ public class Misc {
 			synx = "GP";
 			useFormat = false;
 		}
-		format = useFormat ? new DecimalFormat("0.00").format(amount) : ""+amount;
+		format = useFormat ? new DecimalFormat("0.00").format(amount) : String.valueOf(amount);
 		return format+synx;
 	}
 
@@ -176,11 +176,7 @@ public class Misc {
 		int year = LocalDate.now().getYear();
 		if ((year % 4 == 0) && year % 100 != 0) {
 			return true;
-		} else if ((year % 4 == 0) && (year % 100 == 0) && (year % 400 == 0)) {
-			return true;
-		} else {
-			return false;
-		}
+		} else return (year % 4 == 0) && (year % 100 == 0) && (year % 400 == 0);
 	}
 
 	public static <T> Predicate<T> distinctByKey(Function<T, ?> keyExtractor) {
@@ -387,7 +383,7 @@ public class Misc {
 	}
 
 	public static String insertCommas(int str) {
-		return insertCommas("" + str);
+		return insertCommas(String.valueOf(str));
 	}
 
 	public static String insertCommas(String str) {
@@ -485,10 +481,10 @@ public class Misc {
 			java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
 			byte[] array = md.digest(md5.getBytes());
 
-			StringBuffer sb = new StringBuffer();
+			StringBuilder sb = new StringBuilder();
 
-			for (int i = 0; i < array.length; ++i) {
-				sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100), 1, 3);
+			for (byte hashByte : array) {
+				sb.append(Integer.toHexString((hashByte & 0xFF) | 0x100), 1, 3);
 			}
 
 			return sb.toString();
@@ -626,7 +622,7 @@ public class Misc {
 			return coinFormat.format(((double) amount) / 1_000_000d) + "M";
 		else if (amount >= 1_000)
 			return (amount / 1_000) + "K";
-		return "" + amount;
+		return String.valueOf(amount);
 	}
 
 	public static String colorWrap(String color, String message) {
@@ -1001,6 +997,10 @@ public class Misc {
 		return Double.parseDouble(df.format(number));
 	}
 
+	public static String formatEnum(final String string) {
+		return capitalize(string.toLowerCase().replace("_", " "));
+	}
+
 	public static String formatNumber(long number) {
 		// Do not use return NumberFormat.getIntegerInstance().format(number);. It is 9 times slower.
 		String string = Long.toString(number);
@@ -1142,8 +1142,8 @@ public class Misc {
 	}
 
 	public static boolean arrayHasNumber(int[] array, int number) {
-		for (int index = 0; index < array.length; index++) {
-			if (number == array[index]) {
+		for (int numberToAdd : array) {
+			if (number == numberToAdd) {
 				return true;
 			}
 		}
@@ -1155,10 +1155,10 @@ public class Misc {
 	public static String getCurrentServerTime() {
 		zonedDateTime = ZonedDateTime.now();
 		int hour = zonedDateTime.getHour();
-		String hourPrefix = hour < 10 ? "0"+hour+"" : ""+hour+"";
+		String hourPrefix = hour < 10 ? "0"+hour : String.valueOf(hour);
 		int minute = zonedDateTime.getMinute();
-		String minutePrefix = minute < 10 ? "0"+minute+"" : ""+minute+"";
-		return ""+hourPrefix+":"+minutePrefix+"";
+		String minutePrefix = minute < 10 ? "0"+minute : String.valueOf(minute);
+		return hourPrefix+":"+minutePrefix;
 	}
 
 	public static String getAOrAn(String nextWord) {

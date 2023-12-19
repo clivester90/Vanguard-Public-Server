@@ -123,10 +123,8 @@ public enum Right implements Comparator<Right> {
 				return Mode.forType(ModeType.ROGUE_HARDCORE_IRONMAN);
 			case ROGUE_IRONMAN:
 				return Mode.forType(ModeType.ROGUE_IRONMAN);
-			case OSRS:
-				return Mode.forType(ModeType.OSRS);
 			case ROGUE:
-				return Mode.forType(ModeType.ROGUE);
+				return Mode.forType(ModeType.HARDCORE);
 			case GROUP_IRONMAN:
 				return Mode.forType(ModeType.GROUP_IRONMAN);
 		}

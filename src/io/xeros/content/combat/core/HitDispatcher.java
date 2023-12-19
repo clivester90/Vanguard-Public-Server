@@ -37,9 +37,7 @@ import io.xeros.model.entity.npc.NPCHandler;
 import io.xeros.model.entity.player.*;
 import io.xeros.model.items.EquipmentSet;
 import io.xeros.util.Misc;
-import org.apache.commons.net.io.SocketOutputStream;
 
-import java.lang.reflect.AccessibleObject;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -649,53 +647,53 @@ public abstract class HitDispatcher {
             }
         }
 
-        attacker.getPA().addSkillXPMultiplied(hitpointsExperience, Skill.HITPOINTS.getId(), !pvpExperienceDrops);
+        attacker.getPA().addSkillXP(hitpointsExperience, Skill.HITPOINTS.getId(), !pvpExperienceDrops);
 
         if (type == CombatType.MAGE && attacker.autocastingDefensive) {
-            attacker.getPA().addSkillXPMultiplied(hitpointsExperience, Skill.MAGIC.getId(), !pvpExperienceDrops);
-            attacker.getPA().addSkillXPMultiplied(damage, Skill.DEFENCE.getId(), !pvpExperienceDrops);
+            attacker.getPA().addSkillXP(hitpointsExperience, Skill.MAGIC.getId(), !pvpExperienceDrops);
+            attacker.getPA().addSkillXP(damage, Skill.DEFENCE.getId(), !pvpExperienceDrops);
         } else if (type == CombatType.MAGE) {
-            attacker.getPA().addSkillXPMultiplied(standardExperience, Skill.MAGIC.getId(), !pvpExperienceDrops);
+            attacker.getPA().addSkillXP(standardExperience, Skill.MAGIC.getId(), !pvpExperienceDrops);
         } else {
             switch (attacker.getCombatConfigs().getWeaponMode().getAttackStyle()) {
                 case ACCURATE:
                     if (type == CombatType.MELEE) {
-                        attacker.getPA().addSkillXPMultiplied(standardExperience, Skill.ATTACK.getId(),
+                        attacker.getPA().addSkillXP(standardExperience, Skill.ATTACK.getId(),
                                 !pvpExperienceDrops);
                     } else if (type == CombatType.RANGE) {
-                        attacker.getPA().addSkillXPMultiplied(standardExperience, Skill.RANGED.getId(),
+                        attacker.getPA().addSkillXP(standardExperience, Skill.RANGED.getId(),
                                 !pvpExperienceDrops);
                     }
                     break;
                 case AGGRESSIVE:
                     if (type == CombatType.MELEE) {
-                        attacker.getPA().addSkillXPMultiplied(standardExperience, Skill.STRENGTH.getId(),
+                        attacker.getPA().addSkillXP(standardExperience, Skill.STRENGTH.getId(),
                                 !pvpExperienceDrops);
                     } else if (type == CombatType.RANGE) {
-                        attacker.getPA().addSkillXPMultiplied(standardExperience, Skill.RANGED.getId(),
+                        attacker.getPA().addSkillXP(standardExperience, Skill.RANGED.getId(),
                                 !pvpExperienceDrops);
                     }
                     break;
                 case DEFENSIVE:
                     if (type == CombatType.MELEE) {
-                        attacker.getPA().addSkillXPMultiplied(standardExperience, Skill.DEFENCE.getId(),
+                        attacker.getPA().addSkillXP(standardExperience, Skill.DEFENCE.getId(),
                                 !pvpExperienceDrops);
                     } else if (type == CombatType.RANGE) {
-                        attacker.getPA().addSkillXPMultiplied(damage, Skill.DEFENCE.getId(), !pvpExperienceDrops);
-                        attacker.getPA().addSkillXPMultiplied(hitpointsExperience, Skill.RANGED.getId(),
+                        attacker.getPA().addSkillXP(damage, Skill.DEFENCE.getId(), !pvpExperienceDrops);
+                        attacker.getPA().addSkillXP(hitpointsExperience, Skill.RANGED.getId(),
                                 !pvpExperienceDrops);
                     }
                     break;
                 case CONTROLLED:
                     if (type == CombatType.MELEE) {
-                        attacker.getPA().addSkillXPMultiplied(hitpointsExperience, Skill.STRENGTH.getId(),
+                        attacker.getPA().addSkillXP(hitpointsExperience, Skill.STRENGTH.getId(),
                                 !pvpExperienceDrops);
-                        attacker.getPA().addSkillXPMultiplied(hitpointsExperience, Skill.ATTACK.getId(),
+                        attacker.getPA().addSkillXP(hitpointsExperience, Skill.ATTACK.getId(),
                                 !pvpExperienceDrops);
-                        attacker.getPA().addSkillXPMultiplied(hitpointsExperience, Skill.DEFENCE.getId(),
+                        attacker.getPA().addSkillXP(hitpointsExperience, Skill.DEFENCE.getId(),
                                 !pvpExperienceDrops);
                     } else if (type == CombatType.RANGE) {
-                        attacker.getPA().addSkillXPMultiplied(standardExperience, Skill.RANGED.getId(),
+                        attacker.getPA().addSkillXP(standardExperience, Skill.RANGED.getId(),
                                 !pvpExperienceDrops);
                     }
                     break;

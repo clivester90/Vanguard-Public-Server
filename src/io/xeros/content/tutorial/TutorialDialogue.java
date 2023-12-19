@@ -22,8 +22,8 @@ public class TutorialDialogue extends DialogueBuilder {
     public static final int TUTORIAL_NPC = 3248;
     private static final String IN_TUTORIAL_KEY = "in_tutorial";
     private static final DialogueOption[] XP_RATES = {
-            new DialogueOption("Fast Xp Rate (standard) ", p -> chosenXpRate(p, ModeType.STANDARD)),
-            new DialogueOption("5x Xp Rate (rogue)", p -> chosenXpRate(p, ModeType.ROGUE))
+            new DialogueOption("75x Xp Rate (standard) ", p -> chosenXpRate(p, ModeType.STANDARD)),
+            new DialogueOption("5x Xp Rate (hardcore)", p -> chosenXpRate(p, ModeType.HARDCORE))
     };
 
     public static boolean inTutorial(Player player) {
@@ -80,12 +80,8 @@ public class TutorialDialogue extends DialogueBuilder {
                 player.setMode(Mode.forType(ModeType.HC_IRON_MAN));
                 player.getRights().setPrimary(Right.HC_IRONMAN);
                 break;
-            case OSRS:
-                player.setMode(Mode.forType(ModeType.OSRS));
-                player.getRights().setPrimary(Right.OSRS);
-                break;
-            case ROGUE:
-                player.setMode(Mode.forType(ModeType.ROGUE));
+            case HARDCORE:
+                player.setMode(Mode.forType(ModeType.HARDCORE));
                 player.getRights().setPrimary(Right.ROGUE);
                 break;
             case ROGUE_HARDCORE_IRONMAN:
@@ -140,10 +136,6 @@ public class TutorialDialogue extends DialogueBuilder {
                             + "><img=9></img>Hardcore Iron Man</col>, or neither.", "Choose from the following interface.");
             exit(p -> p.getModeSelection().openInterface());
         }
-
-        // Then "Please decide what experience rate you would like to have."
-        // Then option ["Fast Xp Rates", "5x", "1x"]
-        // You have chosen X xp rates, good luck!
     }
 
     @Override
@@ -156,42 +148,4 @@ public class TutorialDialogue extends DialogueBuilder {
         npc(text).action(player -> player.moveTo(teleport));
     }
 
-    /*
-    case 647:
-			String modetype = c.getMode().getType().toString();
-			if (c.getMode().getType().equals(ModeType.REGULAR)) {
-				sendNpcChat("Please decide what experience rates you would like to have.");
-				c.nextChat = 2647;
-			} else if (c.getMode().getType().equals(ModeType.OSRS)) {
-				sendNpcChat("You have chosen the OSRS mode, with x1 experience rates.");
-			} else if (c.getMode().getType().equals(ModeType.ROGUE)) {
-				sendNpcChat("You have chosen the 5x mode, with x5 experience rates.");
-			} else {
-				sendNpcChat("You have chosen the mode " + modetype.replace("_", " ") + ".",
-						"Take this set of armor to help you on your way.");
-				c.nextChat = -1;
-				c.getTutorial().proceed();
-			}
-
-			break;
-
-			case 3647:
-			sendNpcChat("You have chosen fast xp rates, good luck!");
-			c.getTutorial().proceed();
-
-			break;
-		case 4647:
-			c.setMode(Mode.forType(ModeType.OSRS));
-			c.getRights().setPrimary(Right.OSRS);
-			sendNpcChat("You have chosen @red@Extreme Rates @bla@,good luck!");
-			c.getTutorial().proceed();
-
-			break;
-		case 5647:
-			c.setMode(Mode.forType(ModeType.ROGUE));
-			c.getRights().setPrimary(Right.ROGUE);
-			sendNpcChat("You have chosen @red@5x Rates @bla@,good luck!");
-			c.getTutorial().proceed();
-			break;
-     */
 }

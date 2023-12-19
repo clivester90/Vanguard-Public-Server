@@ -2,35 +2,36 @@ package io.xeros.content.skills;
 
 import java.util.stream.Stream;
 
-import io.xeros.Configuration;
 import io.xeros.util.Misc;
+import lombok.Getter;
 
 public enum Skill {
 
 
 
-	ATTACK(0, Configuration.DEFAULT_COMBAT_EXPERIENCE_RATE),
-	DEFENCE(1, Configuration.DEFAULT_COMBAT_EXPERIENCE_RATE),
-	STRENGTH(2, Configuration.DEFAULT_COMBAT_EXPERIENCE_RATE),
-	HITPOINTS(3, Configuration.DEFAULT_COMBAT_EXPERIENCE_RATE),
-	RANGED(4, Configuration.DEFAULT_COMBAT_EXPERIENCE_RATE),
-	PRAYER(5, 50),
-	MAGIC(6, Configuration.DEFAULT_COMBAT_EXPERIENCE_RATE),
-	COOKING(7, 40),
-	WOODCUTTING(8, 55),
-	FLETCHING(9, 40),
-	FISHING(10, 55),
-	FIREMAKING(11, 50),
-	CRAFTING(12, 45),
-	SMITHING(13, 70),
-	MINING(14, 55),
-	HERBLORE(15, 60),
-	AGILITY(16, 70),
-	THIEVING(17, 80),
-	SLAYER(18, 70),
-	FARMING(19, 35),
-	RUNECRAFTING(20, 75),
-	HUNTER(21, 60);
+	ATTACK(0),
+	DEFENCE(1),
+	STRENGTH(2),
+	HITPOINTS(3),
+	RANGED(4),
+	PRAYER(5),
+	MAGIC(6),
+	COOKING(7),
+	WOODCUTTING(8),
+	FLETCHING(9),
+	FISHING(10),
+	FIREMAKING(11),
+	CRAFTING(12),
+	SMITHING(13),
+	MINING(14),
+	HERBLORE(15),
+	AGILITY(16),
+	THIEVING(17),
+	SLAYER(18),
+	FARMING(19),
+	RUNECRAFTING(20),
+	HUNTER(21),
+	CONSTRUCTION(22);
 
 	public static final int MAX_EXP = 200_000_000;
 
@@ -158,24 +159,11 @@ public enum Skill {
 		return values().length;
 	}
 
+	@Getter
 	private final int id;
-	private final int experienceRate;
 
 	Skill(int id) {
-		this(id, 1);
-	}
-
-	Skill(int id, int experienceRate) {
 		this.id = id;
-		this.experienceRate = experienceRate;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public double getExperienceRate() {
-		return experienceRate;
 	}
 
 	@Override

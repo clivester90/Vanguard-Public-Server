@@ -2,7 +2,6 @@ package io.xeros.content.skills.woodcutting;
 
 import java.util.Optional;
 
-import io.xeros.Configuration;
 import io.xeros.Server;
 import io.xeros.content.SkillcapePerks;
 import io.xeros.content.achievement.AchievementType;
@@ -14,12 +13,10 @@ import io.xeros.content.achievement_diary.impl.KandarinDiaryEntry;
 import io.xeros.content.achievement_diary.impl.LumbridgeDraynorDiaryEntry;
 import io.xeros.content.achievement_diary.impl.VarrockDiaryEntry;
 import io.xeros.content.achievement_diary.impl.WildernessDiaryEntry;
-import io.xeros.content.bosspoints.BossPoints;
 import io.xeros.content.dailytasks.DailyTasks;
 import io.xeros.content.event.eventcalendar.EventChallenge;
 import io.xeros.content.evil_tree.EvilTree;
 import io.xeros.content.hespori.Hespori;
-import io.xeros.content.shooting_star.ShootingStar;
 import io.xeros.content.skills.Skill;
 import io.xeros.content.skills.firemake.Firemaking;
 import io.xeros.model.Items;
@@ -28,9 +25,7 @@ import io.xeros.model.cycleevent.Event;
 import io.xeros.model.entity.player.Boundary;
 import io.xeros.model.entity.player.Player;
 import io.xeros.model.entity.player.PlayerHandler;
-import io.xeros.model.entity.player.Position;
 import io.xeros.model.world.objects.GlobalObject;
-import io.xeros.util.Location3D;
 import io.xeros.util.Misc;
 
 import static io.xeros.Server.amountCut;
@@ -92,7 +87,7 @@ public class WoodcuttingEvent extends Event<Player> {
 			Server.getGlobalObjects().add(new GlobalObject(tree.equals(Tree.REDWOOD) ? stumpId : tree.getStumpId(), x, y, attachment.heightLevel, face, 10, tree.getRespawnTime(), objectId));
 			attachment.getItems().addItem(tree.getWood(), 1);
 			attachment.getEventCalendar().progress(EventChallenge.CUT_DOWN_X_MAGIC_LOGS);
-			attachment.getPA().addSkillXPMultiplied((int)osrsExperience, Skill.WOODCUTTING.getId(), true);
+			attachment.getPA().addSkillXP((int)osrsExperience, Skill.WOODCUTTING.getId(), true);
 			Achievements.increase(attachment, AchievementType.WOODCUT, 1);
 			attachment.getPA().sendSound(2734);
 			handleRewards();
@@ -104,7 +99,7 @@ public class WoodcuttingEvent extends Event<Player> {
 			if (Misc.random(chopChance) == 0 || chops >= tree.getChopsRequired()) {
 				chops = 0;
 				int random = Misc.random(4);
-				attachment.getPA().addSkillXPMultiplied((int) osrsExperience, Skill.WOODCUTTING.getId(), true);
+				attachment.getPA().addSkillXP((int) osrsExperience, Skill.WOODCUTTING.getId(), true);
 				Achievements.increase(attachment, AchievementType.WOODCUT, 1);
 				if ((attachment.getItems().isWearingItem(13241) || attachment.getItems().playerHasItem(13241)) && random == 2) {
 					Firemaking.lightFire(attachment, tree.getWood(), "infernal_axe");

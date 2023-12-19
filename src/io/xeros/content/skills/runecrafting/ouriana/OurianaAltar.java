@@ -44,7 +44,7 @@ public class OurianaAltar {
                 }
 
                 runes.forEach(rune -> player.getInventory().addOrDrop(rune));
-                player.getPA().addSkillXPMultiplied(xpGained, Skill.RUNECRAFTING.getId(), true);
+                player.getPA().addSkillXP(xpGained, Skill.RUNECRAFTING.getId(), true);
                 Runecrafting.petRoll(player, Runecrafting.RunecraftingData.AIR);
             } else {
                 player.sendMessage("You don't have any pure essence to craft.");

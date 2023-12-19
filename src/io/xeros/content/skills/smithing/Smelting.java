@@ -5,7 +5,6 @@ import java.util.Objects;
 import io.xeros.Server;
 import io.xeros.content.achievement.AchievementType;
 import io.xeros.content.achievement.Achievements;
-import io.xeros.content.skills.Skill;
 import io.xeros.model.cycleevent.CycleEventHandler;
 import io.xeros.model.cycleevent.Event;
 import io.xeros.model.entity.player.Player;
@@ -157,7 +156,7 @@ public class Smelting {
 					c.getItems().deleteItem(c.bar.getOre1(), 1);
 					c.getItems().deleteItem(c.bar.getOre2(), 1);
 					c.getItems().addItem(c.bar.getBar(), 1);
-					c.getPA().addSkillXPMultiplied((int) (Objects.equals(usage, "INFERNAL") ? c.bar.getExp() / 2 : c.bar.getExp() + (goldSmithGaunts ? percentOfXp : 0)), Player.playerSmithing, true);
+					c.getPA().addSkillXP((int) (Objects.equals(usage, "INFERNAL") ? c.bar.getExp() / 2 : c.bar.getExp() + (goldSmithGaunts ? percentOfXp : 0)), Player.playerSmithing, true);
 				} else {
 					if (!Objects.equals(usage, "INFERNAL")) {
 						c.startAnimation(899);
@@ -167,7 +166,7 @@ public class Smelting {
 						c.sendMessage("The ore is too impure and you fail to refine it.");
 					else {
 						c.getItems().addItem(c.bar.getBar(), 1);
-						c.getPA().addSkillXPMultiplied((int) (usage == "INFERNAL" ? c.bar.getExp() / 2 : c.bar.getExp() + (goldSmithGaunts ? percentOfXp : 0)), Player.playerSmithing, true);
+						c.getPA().addSkillXP((int) (usage == "INFERNAL" ? c.bar.getExp() / 2 : c.bar.getExp() + (goldSmithGaunts ? percentOfXp : 0)), Player.playerSmithing, true);
 					}
 				}
 			}

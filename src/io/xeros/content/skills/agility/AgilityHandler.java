@@ -593,7 +593,7 @@ public class AgilityHandler {
             resetAgilityProgress();
             experience = assignXP(c, experience);
             c.sendMessage("You received some XP for completing the track!");
-            c.getPlayerAssistant().addSkillXPMultiplied(experience, 16, true);
+            c.getPlayerAssistant().addSkillXP(experience, 16, true);
             Achievements.increase(c, AchievementType.AGIL, 1);
 
             if (Misc.hasOneOutOf(10)) {//Agility tomes
@@ -627,7 +627,7 @@ public class AgilityHandler {
             }
 
             experience = assignXP(c, experience);
-            c.getPlayerAssistant().addSkillXPMultiplied(experience, 16, true);
+            c.getPlayerAssistant().addSkillXP(experience, 16, true);
             Achievements.increase(c, AchievementType.ROOFTOP, 1);
 
             if (Misc.random(petChance) == 20 && c.getItems().getItemCount(20659, false) == 0 && c.petSummonId != 20659) {

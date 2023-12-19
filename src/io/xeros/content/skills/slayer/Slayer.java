@@ -28,7 +28,6 @@ import io.xeros.model.entity.npc.NPC;
 import io.xeros.model.entity.npc.NPCSpawning;
 import io.xeros.model.entity.player.Boundary;
 import io.xeros.model.entity.player.Player;
-import io.xeros.model.entity.player.PlayerHandler;
 import io.xeros.model.entity.player.Right;
 import io.xeros.model.items.ItemAssistant;
 import io.xeros.util.Misc;
@@ -319,9 +318,9 @@ public class Slayer {
 									//PlayerHandler.executeGlobalMessage("@cr21@ @pur@" + player.playerName + " received a drop: Brimstone's key from Konar slayer.");
 								}
 								if (npc.getNpcId() == 494) {
-									player.getPA().addSkillXPMultiplied(255, Skill.SLAYER.getId(), true);
+									player.getPA().addSkillXP(255, Skill.SLAYER.getId(), true);
 								} else {
-									player.getPA().addSkillXPMultiplied(player.getRechargeItems().hasAnyItem(13113, 13114, 13115) && Boundary.isIn(player, Boundary.SLAYER_TOWER_BOUNDARY) ? (int) (task.getExperience() * 1.10) : task.getExperience(),
+									player.getPA().addSkillXP(player.getRechargeItems().hasAnyItem(13113, 13114, 13115) && Boundary.isIn(player, Boundary.SLAYER_TOWER_BOUNDARY) ? (int) (task.getExperience() * 1.10) : task.getExperience(),
 											Skill.SLAYER.getId(), true);
 								}
 							} else {
@@ -338,9 +337,9 @@ public class Slayer {
 						case 5870:
 							reduceTaskAmount(player);
 							if (npc.getNpcId() == 494) {
-								player.getPA().addSkillXPMultiplied(255, Skill.SLAYER.getId(), true);
+								player.getPA().addSkillXP(255, Skill.SLAYER.getId(), true);
 							} else {
-								player.getPA().addSkillXPMultiplied(player.getRechargeItems().hasAnyItem(13113, 13114, 13115) && Boundary.isIn(player, Boundary.SLAYER_TOWER_BOUNDARY) ? (int) (task.getExperience() * 1.10) : task.getExperience(),
+								player.getPA().addSkillXP(player.getRechargeItems().hasAnyItem(13113, 13114, 13115) && Boundary.isIn(player, Boundary.SLAYER_TOWER_BOUNDARY) ? (int) (task.getExperience() * 1.10) : task.getExperience(),
 										Skill.SLAYER.getId(), true);
 							}
 							break;
@@ -348,7 +347,7 @@ public class Slayer {
 							if (npc.getPosition().inWild()) {
 								LarrensKey.roll(player, npc);
 								reduceTaskAmount(player);
-								player.getPA().addSkillXPMultiplied(player.getRechargeItems().hasAnyItem(13113, 13114, 13115) && Boundary.isIn(player, Boundary.SLAYER_TOWER_BOUNDARY) ? (int) (task.getExperience() * 1.10) : task.getExperience(),
+								player.getPA().addSkillXP(player.getRechargeItems().hasAnyItem(13113, 13114, 13115) && Boundary.isIn(player, Boundary.SLAYER_TOWER_BOUNDARY) ? (int) (task.getExperience() * 1.10) : task.getExperience(),
 										Skill.SLAYER.getId(), true);
 								break;
 							}
@@ -682,7 +681,7 @@ public class Slayer {
 					return;
 				}
 				if (isSuperiorNpc()) {
-					player.getPA().addSkillXPMultiplied(player.getRechargeItems().hasAnyItem(13113, 13114, 13115) && Boundary.isIn(player, Boundary.SLAYER_TOWER_BOUNDARY) ? (int) (task.getExperience() * 1.10)
+					player.getPA().addSkillXP(player.getRechargeItems().hasAnyItem(13113, 13114, 13115) && Boundary.isIn(player, Boundary.SLAYER_TOWER_BOUNDARY) ? (int) (task.getExperience() * 1.10)
 									: task.getExperience() * 10, Skill.SLAYER.getId(), true);
 					superiorSpawned = false;
 					player.sendMessage("You receive bonus xp for killing a superior slayer npc!");

@@ -11,7 +11,6 @@ import io.xeros.content.achievement_diary.impl.KaramjaDiaryEntry;
 import io.xeros.content.achievement_diary.impl.LumbridgeDraynorDiaryEntry;
 import io.xeros.content.achievement_diary.impl.VarrockDiaryEntry;
 import io.xeros.content.achievement_diary.impl.WildernessDiaryEntry;
-import io.xeros.content.bosspoints.BossPoints;
 import io.xeros.content.dailytasks.DailyTasks;
 import io.xeros.content.hespori.Hespori;
 import io.xeros.content.shooting_star.ShootingStar;
@@ -228,7 +227,7 @@ public class MiningEvent extends Event<Player> {
 		 * Experience calculation
 		 */
 		osrsExperience = mineral.getExperience() + mineral.getExperience() / 10 * pieces;
-		attachment.getPA().addSkillXPMultiplied((int) osrsExperience, Skill.MINING.getId(), true);
+		attachment.getPA().addSkillXP((int) osrsExperience, Skill.MINING.getId(), true);
 		switch (mineral) {
 			case ADAMANT:
 				break;

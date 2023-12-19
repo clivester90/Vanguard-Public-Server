@@ -213,7 +213,7 @@ public class Enchantment {
 					if (getEnchantmentLevel(spellID) == enc.getELevel()) {
 						player.getItems().deleteItem(enc.getUnenchanted(), 1);
 						player.getItems().addItem(enc.getEnchanted(), 1);
-						player.getPA().addSkillXPMultiplied(enc.getXp(), Player.playerMagic, true);
+						player.getPA().addSkillXP(enc.getXp(), Player.playerMagic, true);
 						player.startAnimation(enc.getAnim());
 						player.gfx100(enc.getGFX());
 						player.getPA().sendFrame106(6);

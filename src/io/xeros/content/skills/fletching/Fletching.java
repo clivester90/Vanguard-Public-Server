@@ -147,7 +147,7 @@ public class Fletching {
 				player.startAnimation(886);
 				player.getItems().deleteItem2(g.getGem(), 1);
 				player.getItems().addItem(g.getTips(), g.getAmount());
-				player.getPA().addSkillXPMultiplied(g.getExperience(), Skill.FLETCHING.getId(), true);
+				player.getPA().addSkillXP(g.getExperience(), Skill.FLETCHING.getId(), true);
 				player.getPA().removeAllWindows();
 			};
 
@@ -195,7 +195,7 @@ public class Fletching {
 			player.getItems().deleteItem2(314, 10);
 			player.getItems().deleteItem2(b.getUnfinished(), 10);
 			player.getItems().addItem(b.getBolt(), 10);
-			player.getPA().addSkillXPMultiplied(b.getExperience() * 10, Skill.FLETCHING.getId(), true);
+			player.getPA().addSkillXP(b.getExperience() * 10, Skill.FLETCHING.getId(), true);
 		});
 	}
 
@@ -218,7 +218,7 @@ public class Fletching {
 		player.getItems().deleteItem2(314, 15);
 		player.getItems().deleteItem2(52, 15);
 		player.getItems().addItem(53, 15);
-		player.getPA().addSkillXPMultiplied(15, Skill.FLETCHING.getId(), true);
+		player.getPA().addSkillXP(15, Skill.FLETCHING.getId(), true);
 	}
 
 	public void fletchUnstrung(int bowId) {

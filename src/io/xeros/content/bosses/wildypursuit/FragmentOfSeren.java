@@ -8,8 +8,6 @@ import io.xeros.content.achievement.AchievementType;
 import io.xeros.content.achievement.Achievements;
 import io.xeros.content.event.eventcalendar.EventChallenge;
 import io.xeros.content.events.monsterhunt.MonsterHunt;
-import io.xeros.content.leaderboards.LeaderboardType;
-import io.xeros.content.leaderboards.LeaderboardUtils;
 import io.xeros.content.wogw.Wogw;
 import io.xeros.model.cycleevent.CycleEvent;
 import io.xeros.model.cycleevent.CycleEventContainer;
@@ -146,7 +144,6 @@ public class FragmentOfSeren {
 						p.sendMessage("[WOGW] Double drops is activated and you received 2 extra keys!");
 					}
 					p.getEventCalendar().progress(EventChallenge.OBTAIN_X_WILDY_EVENT_KEYS);
-					LeaderboardUtils.addCount(LeaderboardType.WILDY_EVENTS, p, 1);
 					Achievements.increase(p, AchievementType.WILDY_EVENT, 1);
 					p.setIceQueenDamageCounter(0);
 				} else {

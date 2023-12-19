@@ -224,12 +224,8 @@ public class PestControlRewards {
 			player.buyPestControlTimer = System.currentTimeMillis();
 			player.pcPoints -= cost;
 			player.getQuestTab().updateInformationTab();
-			boolean lowerRate = player.getMode().getType().getExperienceRate(Skill.ATTACK) != ModeType.STANDARD.getExperienceRate(Skill.ATTACK);
-			player.getPA().addSkillXP((lowerRate? experience / 20 : experience) * cost, skillId, true);
-			player.sendMessage("You have received " + ((lowerRate ? experience / 20 : experience) * cost) + " experience in exchange for " + cost + " points.");
-			if (lowerRate) {
-				player.sendMessage("You get a lower xp reward for your game mode.");
-			}
+			player.getPA().addSkillXP(experience * cost, skillId, true);
+			player.sendMessage("You have received " + (experience * cost) + " experience in exchange for " + cost + " points.");
 		}
 	}
 

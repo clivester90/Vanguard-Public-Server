@@ -5,8 +5,6 @@ import io.xeros.Server;
 import io.xeros.annotate.Init;
 import io.xeros.content.event.eventcalendar.EventChallenge;
 import io.xeros.content.hespori.Hespori;
-import io.xeros.content.leaderboards.LeaderboardType;
-import io.xeros.content.leaderboards.LeaderboardUtils;
 import io.xeros.model.entity.npc.NPC;
 import io.xeros.model.entity.player.Player;
 import io.xeros.util.JsonUtil;

@@ -1,12 +1,5 @@
 package io.xeros.model.entity.player;
 
-import java.time.LocalDate;
-import java.util.*;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
-
 import com.google.common.collect.Lists;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -16,12 +9,38 @@ import io.xeros.Server;
 import io.xeros.achievements.AchievementList;
 import io.xeros.achievements.InterfaceHandler;
 import io.xeros.content.*;
-import io.xeros.content.achievement.AchievementType;
+import io.xeros.content.achievement.AchievementHandler;
+import io.xeros.content.achievement_diary.AchievementDiaryManager;
+import io.xeros.content.achievement_diary.RechargeItems;
 import io.xeros.content.barrows.Barrows;
-import io.xeros.content.bosses.*;
+import io.xeros.content.bosses.Cerberus;
+import io.xeros.content.bosses.Nex;
+import io.xeros.content.bosses.Skotizo;
+import io.xeros.content.bosses.Vorkath;
+import io.xeros.content.bosses.godwars.God;
+import io.xeros.content.bosses.godwars.Godwars;
+import io.xeros.content.bosses.godwars.GodwarsEquipment;
+import io.xeros.content.bosses.nightmare.NightmareConstants;
+import io.xeros.content.bosses.zulrah.Zulrah;
 import io.xeros.content.bosspoints.BossPoints;
+import io.xeros.content.cheatprevention.RandomEventInterface;
+import io.xeros.content.collection_log.CollectionLog;
+import io.xeros.content.combat.CombatItems;
+import io.xeros.content.combat.EntityDamageQueue;
+import io.xeros.content.combat.Hitmark;
+import io.xeros.content.combat.core.AttackEntity;
+import io.xeros.content.combat.death.PlayerDeath;
 import io.xeros.content.combat.effects.damageeffect.impl.amuletofthedamned.impl.ToragsEffect;
+import io.xeros.content.combat.formula.MeleeMaxHit;
+import io.xeros.content.combat.magic.CombatSpellData;
+import io.xeros.content.combat.melee.CombatPrayer;
+import io.xeros.content.combat.melee.MeleeData;
 import io.xeros.content.combat.melee.MeleeExtras;
+import io.xeros.content.combat.melee.QuickPrayers;
+import io.xeros.content.combat.pvp.Killstreak;
+import io.xeros.content.combat.stats.BossTimers;
+import io.xeros.content.combat.stats.NPCDeathTracker;
+import io.xeros.content.combat.weapon.CombatStyle;
 import io.xeros.content.combat.weapon.WeaponMode;
 import io.xeros.content.compromised.CompromisedAccounts;
 import io.xeros.content.dailyrewards.DailyRewards;
@@ -31,112 +50,22 @@ import io.xeros.content.dialogue.DialogueBuilder;
 import io.xeros.content.dialogue.DialogueOption;
 import io.xeros.content.donationrewards.DonationRewards;
 import io.xeros.content.dwarfmulticannon.Cannon;
+import io.xeros.content.event.eventcalendar.EventCalendar;
+import io.xeros.content.event.eventcalendar.EventChallenge;
 import io.xeros.content.event.eventcalendar.EventChallengeMonthlyReward;
 import io.xeros.content.hs.Highscore;
 import io.xeros.content.item.lootable.impl.*;
+import io.xeros.content.item.lootable.unref.*;
+import io.xeros.content.items.Degrade;
 import io.xeros.content.items.PvpWeapons;
 import io.xeros.content.items.RingOfKoranes;
 import io.xeros.content.items.RingOfKoranesImbue;
-import io.xeros.content.itemskeptondeath.perdu.PerduLostPropertyShop;
-import io.xeros.content.leaderboards.LeaderboardPeriodicity;
-import io.xeros.content.leaderboards.LeaderboardUtils;
-import io.xeros.content.minigames.LastManStanding;
-import io.xeros.content.minigames.tob.TobConstants;
-import io.xeros.content.minigames.tob.TobContainer;
-import io.xeros.content.minigames.tob.instance.TobInstance;
-import io.xeros.content.party.PlayerParty;
-import io.xeros.content.pkertab.Feedlist;
-import io.xeros.content.pkertab.Toplist;
-import io.xeros.content.privatemessaging.FriendsList;
-import io.xeros.content.minigames.raids.Raids;
-import io.xeros.content.miniquests.magearenaii.MageArenaII;
-import io.xeros.content.questing.Questing;
-import io.xeros.content.teleportation.inter.TeleportInterface;
-import io.xeros.content.tutorial.ModeSelection;
-import io.xeros.content.tutorial.TutorialDialogue;
-import io.xeros.content.upgrade.UpgradeData;
-import io.xeros.content.upgrade.UpgradeHandler;
-import io.xeros.content.upgrade.UpgradeType;
-import io.xeros.content.wogw.Wogw;
-import io.xeros.content.world_event.Tournament;
-import io.xeros.model.*;
-import io.xeros.content.bosses.nightmare.NightmareConstants;
-import io.xeros.content.combat.core.AttackEntity;
-import io.xeros.content.combat.EntityDamageQueue;
-import io.xeros.content.combat.formula.MeleeMaxHit;
-import io.xeros.content.combat.melee.CombatPrayer;
-import io.xeros.content.combat.melee.MeleeData;
-import io.xeros.content.combat.weapon.CombatStyle;
-import io.xeros.content.miniquests.MageArena;
-import io.xeros.content.skills.Skill;
-import io.xeros.content.vote_panel.VotePanelManager;
-import io.xeros.content.vote_panel.VoteUser;
-import io.xeros.model.collisionmap.RegionProvider;
-import io.xeros.model.collisionmap.doors.Location;
-import io.xeros.model.controller.Controller;
-import io.xeros.model.controller.ControllerRepository;
-import io.xeros.model.entity.player.lock.PlayerLock;
-import io.xeros.model.entity.player.lock.Unlocked;
-import io.xeros.model.entity.player.migration.PlayerMigrationRepository;
-import io.xeros.model.entity.player.mode.ModeRevertType;
-import io.xeros.model.entity.player.mode.group.GroupIronmanGroup;
-import io.xeros.model.entity.player.mode.group.GroupIronmanRepository;
-import io.xeros.model.entity.player.packets.ChangeAppearance;
-import io.xeros.model.entity.player.save.PlayerAddresses;
-import io.xeros.model.items.*;
-import io.xeros.model.StringInput;
-import io.xeros.model.lobby.impl.LastManStandingLobby;
-import io.xeros.model.multiplayersession.flowerpoker.FlowerPoker;
-import io.xeros.model.multiplayersession.flowerpoker.FlowerPokerHand;
-import io.xeros.model.tickable.Tickable;
-import io.xeros.model.tickable.TickableContainer;
-import io.xeros.model.definitions.ItemDef;
-import io.xeros.model.entity.EntityReference;
-import io.xeros.model.entity.player.save.PlayerSave;
-import io.xeros.model.multiplayersession.MultiplayerSessionFinalizeType;
-import io.xeros.model.timers.TickTimer;
-import io.xeros.net.PacketBuilder;
-import io.xeros.model.cycleevent.CycleEventHandler;
-import io.xeros.model.cycleevent.Event;
-import io.xeros.model.cycleevent.impl.MinigamePlayersEvent;
-import io.xeros.model.cycleevent.impl.RunEnergyEvent;
-import io.xeros.model.cycleevent.impl.SkillRestorationEvent;
-import io.xeros.content.item.lootable.unref.CoinBagBuldging;
-import io.xeros.content.achievement.AchievementHandler;
-import io.xeros.content.achievement.Achievements;
-import io.xeros.content.achievement_diary.AchievementDiaryManager;
-import io.xeros.content.achievement_diary.RechargeItems;
-import io.xeros.content.bosses.godwars.God;
-import io.xeros.content.bosses.godwars.Godwars;
-import io.xeros.content.bosses.godwars.GodwarsEquipment;
-import io.xeros.content.bosses.zulrah.Zulrah;
-import io.xeros.content.cheatprevention.RandomEventInterface;
-import io.xeros.content.collection_log.CollectionLog;
-import io.xeros.content.combat.CombatItems;
-import io.xeros.content.combat.Hitmark;
-import io.xeros.content.combat.death.PlayerDeath;
-import io.xeros.content.combat.magic.CombatSpellData;
-import io.xeros.content.combat.melee.QuickPrayers;
-import io.xeros.content.combat.stats.BossTimers;
-import io.xeros.content.combat.stats.NPCDeathTracker;
-import io.xeros.content.combat.pvp.Killstreak;
-import io.xeros.content.event.eventcalendar.EventCalendar;
-import io.xeros.content.event.eventcalendar.EventChallenge;
-import io.xeros.content.item.lootable.impl.VoteMysteryBox;
-import io.xeros.content.item.lootable.impl.NormalMysteryBox;
-import io.xeros.content.item.lootable.impl.PvmCasket;
-import io.xeros.content.item.lootable.impl.SuperMysteryBox;
-import io.xeros.content.item.lootable.impl.UltraMysteryBox;
-import io.xeros.content.item.lootable.unref.CoinBagLarge;
-import io.xeros.content.item.lootable.unref.CoinBagMedium;
-import io.xeros.content.item.lootable.unref.CoinBagSmall;
-import io.xeros.content.item.lootable.unref.DailyGearBox;
-import io.xeros.content.item.lootable.unref.DailySkillBox;
-import io.xeros.content.items.Degrade;
 import io.xeros.content.items.pouch.GemBag;
 import io.xeros.content.items.pouch.HerbSack;
 import io.xeros.content.items.pouch.RunePouch;
+import io.xeros.content.itemskeptondeath.perdu.PerduLostPropertyShop;
 import io.xeros.content.lootbag.LootingBag;
+import io.xeros.content.minigames.LastManStanding;
 import io.xeros.content.minigames.bounty_hunter.BountyHunter;
 import io.xeros.content.minigames.fight_cave.FightCave;
 import io.xeros.content.minigames.inferno.Inferno;
@@ -145,26 +74,29 @@ import io.xeros.content.minigames.pest_control.PestControlRewards;
 import io.xeros.content.minigames.pk_arena.Highpkarena;
 import io.xeros.content.minigames.pk_arena.Lowpkarena;
 import io.xeros.content.minigames.raids.RaidConstants;
+import io.xeros.content.minigames.raids.Raids;
+import io.xeros.content.minigames.tob.TobConstants;
+import io.xeros.content.minigames.tob.TobContainer;
+import io.xeros.content.minigames.tob.instance.TobInstance;
 import io.xeros.content.minigames.warriors_guild.WarriorsGuild;
 import io.xeros.content.minigames.xeric.XericLobby;
+import io.xeros.content.miniquests.MageArena;
+import io.xeros.content.miniquests.magearenaii.MageArenaII;
+import io.xeros.content.party.PlayerParty;
+import io.xeros.content.pkertab.Feedlist;
+import io.xeros.content.pkertab.Toplist;
 import io.xeros.content.polls.PollTab;
 import io.xeros.content.preset.Preset;
 import io.xeros.content.prestige.PrestigeSkills;
+import io.xeros.content.privatemessaging.FriendsList;
+import io.xeros.content.questing.Questing;
 import io.xeros.content.skills.Agility;
 import io.xeros.content.skills.ExpLock;
+import io.xeros.content.skills.Skill;
 import io.xeros.content.skills.SkillInterfaces;
 import io.xeros.content.skills.agility.AgilityHandler;
-import io.xeros.content.skills.agility.impl.BarbarianAgility;
-import io.xeros.content.skills.agility.impl.GnomeAgility;
-import io.xeros.content.skills.agility.impl.Lighthouse;
-import io.xeros.content.skills.agility.impl.Shortcuts;
-import io.xeros.content.skills.agility.impl.WildernessAgility;
-import io.xeros.content.skills.agility.impl.rooftop.RooftopAlkharid;
-import io.xeros.content.skills.agility.impl.rooftop.RooftopCanafis;
-import io.xeros.content.skills.agility.impl.rooftop.RooftopDraynor;
-import io.xeros.content.skills.agility.impl.rooftop.RooftopFalador;
-import io.xeros.content.skills.agility.impl.rooftop.RooftopPollnivneach;
-import io.xeros.content.skills.agility.impl.rooftop.RooftopRellekka;
+import io.xeros.content.skills.agility.impl.*;
+import io.xeros.content.skills.agility.impl.rooftop.*;
 import io.xeros.content.skills.farming.Farming;
 import io.xeros.content.skills.fletching.Fletching;
 import io.xeros.content.skills.herblore.Herblore;
@@ -176,28 +108,68 @@ import io.xeros.content.skills.smithing.Smelting;
 import io.xeros.content.skills.smithing.Smithing;
 import io.xeros.content.skills.smithing.SmithingInterface;
 import io.xeros.content.skills.thieving.Thieving;
+import io.xeros.content.teleportation.inter.TeleportInterface;
 import io.xeros.content.titles.Titles;
 import io.xeros.content.trails.TreasureTrails;
+import io.xeros.content.tutorial.ModeSelection;
+import io.xeros.content.tutorial.TutorialDialogue;
+import io.xeros.content.upgrade.UpgradeData;
+import io.xeros.content.upgrade.UpgradeHandler;
+import io.xeros.content.upgrade.UpgradeType;
+import io.xeros.content.vote_panel.VotePanelManager;
+import io.xeros.content.vote_panel.VoteUser;
+import io.xeros.content.wogw.Wogw;
+import io.xeros.content.world_event.Tournament;
+import io.xeros.model.*;
+import io.xeros.model.collisionmap.RegionProvider;
+import io.xeros.model.collisionmap.doors.Location;
+import io.xeros.model.controller.Controller;
+import io.xeros.model.controller.ControllerRepository;
+import io.xeros.model.cycleevent.CycleEventHandler;
+import io.xeros.model.cycleevent.Event;
+import io.xeros.model.cycleevent.impl.MinigamePlayersEvent;
+import io.xeros.model.cycleevent.impl.RunEnergyEvent;
+import io.xeros.model.cycleevent.impl.SkillRestorationEvent;
+import io.xeros.model.definitions.ItemDef;
 import io.xeros.model.entity.Entity;
+import io.xeros.model.entity.EntityReference;
 import io.xeros.model.entity.HealthStatus;
 import io.xeros.model.entity.npc.NPC;
 import io.xeros.model.entity.npc.NPCHandler;
 import io.xeros.model.entity.npc.pets.PetHandler;
+import io.xeros.model.entity.player.lock.PlayerLock;
+import io.xeros.model.entity.player.lock.Unlocked;
+import io.xeros.model.entity.player.migration.PlayerMigrationRepository;
 import io.xeros.model.entity.player.mode.Mode;
+import io.xeros.model.entity.player.mode.ModeRevertType;
 import io.xeros.model.entity.player.mode.ModeType;
 import io.xeros.model.entity.player.mode.RegularMode;
+import io.xeros.model.entity.player.mode.group.GroupIronmanGroup;
+import io.xeros.model.entity.player.mode.group.GroupIronmanRepository;
+import io.xeros.model.entity.player.packets.ChangeAppearance;
+import io.xeros.model.entity.player.save.PlayerAddresses;
+import io.xeros.model.entity.player.save.PlayerSave;
+import io.xeros.model.items.*;
 import io.xeros.model.items.bank.Bank;
 import io.xeros.model.items.bank.BankPin;
 import io.xeros.model.lobby.LobbyManager;
 import io.xeros.model.lobby.LobbyType;
+import io.xeros.model.lobby.impl.LastManStandingLobby;
+import io.xeros.model.multiplayersession.MultiplayerSessionFinalizeType;
 import io.xeros.model.multiplayersession.MultiplayerSessionStage;
 import io.xeros.model.multiplayersession.MultiplayerSessionType;
 import io.xeros.model.multiplayersession.duel.Duel;
 import io.xeros.model.multiplayersession.duel.DuelSession;
+import io.xeros.model.multiplayersession.flowerpoker.FlowerPoker;
+import io.xeros.model.multiplayersession.flowerpoker.FlowerPokerHand;
 import io.xeros.model.multiplayersession.trade.Trade;
 import io.xeros.model.shops.ShopAssistant;
+import io.xeros.model.tickable.Tickable;
+import io.xeros.model.tickable.TickableContainer;
+import io.xeros.model.timers.TickTimer;
 import io.xeros.model.world.Clan;
 import io.xeros.net.Packet;
+import io.xeros.net.PacketBuilder;
 import io.xeros.net.login.LoginReturnCode;
 import io.xeros.net.login.RS2LoginProtocol;
 import io.xeros.net.outgoing.UnnecessaryPacketDropper;
@@ -216,6 +188,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.time.LocalDate;
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 import static io.xeros.model.entity.player.PlayerHandler.players;
 
@@ -427,7 +406,11 @@ public class Player extends Entity {
     public boolean unlockedUltimateChest;
     public boolean inPresets;
     public boolean inDonatorBox;
+    public boolean usingLamp;
+    public boolean normalLamp;
+    public boolean antiqueLamp;
     public boolean inLamp;
+    public int rubbedLamp = -1;
     // Raids
     public int xericDamage;
     public int raidCount;
@@ -535,20 +518,28 @@ public class Player extends Entity {
     private final Zulrah zulrah = new Zulrah(this);
     private Entity targeted;
     // Minigames
+    @Getter
     private final MageArena mageArena = new MageArena(this);
     private final PestControlRewards pestControlRewards = new PestControlRewards(this);
     private final WarriorsGuild warriorsGuild = new WarriorsGuild(this);
     // Items
+    @Getter
     private RunePouch runePouch = new RunePouch(this);
+    @Getter
     private HerbSack herbSack = new HerbSack(this);
+    @Getter
     private GemBag gemBag = new GemBag(this);
+    @Getter
     private final RechargeItems rechargeItems = new RechargeItems(this);
+    @Getter
     private LootingBag lootingBag = new LootingBag(this);
     public int[] degradableItem = new int[Degrade.getMaximumItems()];
     public boolean[] claimDegradableItem = new boolean[Degrade.getMaximumItems()];
     // Skilling
+    @Getter
     private final ExpLock explock = new ExpLock(this);
     private final PrestigeSkills prestigeskills = new PrestigeSkills(this);
+    @Getter
     private final Mining mining = new Mining(this);
     public Smelting.Bars bar;
     // Instances..
@@ -558,8 +549,11 @@ public class Player extends Entity {
     private final Questing questing = new Questing(this);
     private final NotificationsTab notificationsTab = new NotificationsTab(this);
     private final DonationRewards donationRewards = new DonationRewards(this);
+    @Getter
     private final Farming farming = new Farming(this);
+    @Getter
     private final DailyRewards dailyRewards = new DailyRewards(this);
+    @Getter
     private Cannon cannon;
     public final Stopwatch last_trap_layed = new Stopwatch();
     public List<Integer> dropInterfaceSearchList = new ArrayList<>();
@@ -963,9 +957,6 @@ public class Player extends Entity {
     public boolean isFullHelm;
     public boolean isFullMask;
     public boolean isOperate;
-    public boolean usingLamp;
-    public boolean normalLamp;
-    public boolean antiqueLamp;
     public boolean setPin;
     public boolean teleporting;
     public boolean isWc;
@@ -1800,12 +1791,10 @@ public class Player extends Entity {
         playerListSize = 0;
         npcListSize = 0;
         for (int i = 0; i < maxPlayerListSize; i++) playerList[i] = null;
-        for (int i = 0; i < maxNPCListSize; i++) npcList[i] = null;
+        Arrays.fill(npcList, null);
         if (Configuration.DEBUG_MODE && !isBot()) {
             logger.info(Misc.formatPlayerName(getLoginName()) + " is logging out..");
         }
-        boolean debugMessage = false;
-        com.everythingrs.hiscores.Hiscores.update(""+Configuration.EVERYTHINGRS_KEY, "Normal Mode", this.getLoginName(), this.xpMaxSkills, this.playerXP, debugMessage);
     }
 
     public void declineTrades() {
@@ -2065,15 +2054,6 @@ public class Player extends Entity {
         }
 
         if (!completedTutorial) {
-            Server.clanManager.getHelpClan().addMember(this);
-
-            if (Server.isDebug() && !bot) {
-              //  getRights().add(Right.ADMINISTRATOR);
-             // //  getRights().add(Right.OWNER);
-             //   getRights().add(Right.ONYX_CLUB);
-            //    getRights().setPrimary(Right.OWNER);
-            }
-
             getRights().remove(Right.IRONMAN);
             getRights().remove(Right.ULTIMATE_IRONMAN);
             getRights().remove(Right.HC_IRONMAN);
@@ -2125,7 +2105,7 @@ public class Player extends Entity {
             playerAssistant.sendExperienceDrop(false, experienceCounter, ids);
         }
 
-        rechargeItems.onLogin();
+        getRechargeItems().onLogin();
         for (int i = 0; i < getQuick().getNormal().length; i++) {
             if (getQuick().getNormal()[i]) {
                 getPA().sendConfig(QuickPrayers.CONFIG + i, 1);
@@ -2145,7 +2125,6 @@ public class Player extends Entity {
         correctCoordinates();
         BossPoints.doRefund(this);
         EventChallengeMonthlyReward.onLogin(this);
-        LeaderboardUtils.checkRewards(this);
         DailyTasks.complete(this);
         DailyTasks.assignTask(this);
         Feedlist.sendEntries(this);//toplist
@@ -3437,10 +3416,6 @@ public class Player extends Entity {
         return pestControlRewards;
     }
 
-    public Mining getMining() {
-        return mining;
-    }
-
     public SpellBook getSpellBook() {
         switch (playerMagicBook) {
             case 0:
@@ -4255,7 +4230,7 @@ public class Player extends Entity {
         int output = 0;
         for (int lvl = 1; lvl <= 99; lvl++) {
             points += Math.floor(lvl + 300.0 * Math.pow(2.0, lvl / 7.0));
-            output = (int) Math.floor(points / 4);
+            output = (int) ((double) points / 4);
             if (output >= exp) return lvl;
         }
         return 99;
@@ -5490,28 +5465,8 @@ public class Player extends Entity {
         this.targeted = targeted;
     }
 
-    public LootingBag getLootingBag() {
-        return lootingBag;
-    }
-
     public PrestigeSkills getPrestige() {
         return prestigeskills;
-    }
-
-    public ExpLock getExpLock() {
-        return explock;
-    }
-
-    public RunePouch getRunePouch() {
-        return runePouch;
-    }
-
-    public HerbSack getHerbSack() {
-        return herbSack;
-    }
-
-    public GemBag getGemBag() {
-        return gemBag;
     }
 
     public AchievementDiaryManager getDiaryManager() {
@@ -5570,10 +5525,6 @@ public class Player extends Entity {
         return runningToggled;
     }
 
-    public RechargeItems getRechargeItems() {
-        return rechargeItems;
-    }
-
     public UltraMysteryBox getUltraMysteryBox() {
         return ultraMysteryBox;
     }
@@ -5602,14 +5553,6 @@ public class Player extends Entity {
     }
 
 
-    public MageArena getMageArena() {
-        return mageArena;
-    }
-
-    public Cannon getCannon() {
-        return cannon;
-    }
-
     public void setCannon(Cannon cannon) {
         this.cannon = cannon;
     }
@@ -5624,14 +5567,6 @@ public class Player extends Entity {
 
     public void setDialogueBuilder(DialogueBuilder dialogueBuilder) {
         this.dialogueBuilder = dialogueBuilder;
-    }
-
-    public DailyRewards getDailyRewards() {
-        return dailyRewards;
-    }
-
-    public Farming getFarming() {
-        return farming;
     }
 
     public ModeSelection getModeSelection() {
@@ -5880,18 +5815,6 @@ public class Player extends Entity {
     public PerduLostPropertyShop getPerduLostPropertyShop() {
         return perduLostPropertyShop;
     }
-    
-    public LeaderboardPeriodicity getCurrentLeaderboardPeriod() {
-        if (currentLeaderboardPeriod == null)
-            return LeaderboardPeriodicity.TODAY;
-        return currentLeaderboardPeriod;
-    }
-
-    public void setCurrentLeaderboardPeriod(LeaderboardPeriodicity currentLeaderboardPeriod) {
-        this.currentLeaderboardPeriod = currentLeaderboardPeriod;
-    }
-
-    private LeaderboardPeriodicity currentLeaderboardPeriod;
 
     public CollectionBox getCollectionBox() {
         return collectionBox;

@@ -72,7 +72,7 @@ public class NonCombatSpellData extends MagicRequirements {
 		c.getItems().replaceItem(c, item[0], item[1]);
 		c.gfx100(141);
 		c.startAnimation(722);
-		c.getPA().addSkillXPMultiplied(35, 6, true);
+		c.getPA().addSkillXP(35, 6, true);
 		c.sendMessage("You use your magic power to convert bones into " + ItemAssistant.getItemName(item[1]).toLowerCase() + (item[1] != 526 ? ("e") : ("")) + "s!");
 		c.getDiaryManager().getLumbridgeDraynorDiary().progress(LumbridgeDraynorDiaryEntry.BONES_TO_PEACHES);
 		c.attacking.reset();
@@ -114,8 +114,8 @@ public class NonCombatSpellData extends MagicRequirements {
 					}
 					c.getItems().addItem(data[i][4], 1);
 					c.alchDelay = System.currentTimeMillis();
-					c.getPA().addSkillXPMultiplied(data[i][5], Player.playerSmithing, true);
-					c.getPA().addSkillXPMultiplied(53, 6, true);
+					c.getPA().addSkillXP(data[i][5], Player.playerSmithing, true);
+					c.getPA().addSkillXP(53, 6, true);
 					c.startAnimation(CombatSpellData.MAGIC_SPELLS[54][2]);
 					c.gfx100(CombatSpellData.MAGIC_SPELLS[54][3]);
 					c.getPA().sendFrame106(6);

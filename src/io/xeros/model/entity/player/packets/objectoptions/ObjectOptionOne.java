@@ -1,41 +1,23 @@
 package io.xeros.model.entity.player.packets.objectoptions;
 
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.IntStream;
-
 import com.google.common.collect.Lists;
 import io.xeros.Server;
 import io.xeros.achievements.AchievementHandler;
 import io.xeros.achievements.AchievementList;
 import io.xeros.content.*;
-import io.xeros.content.achievement_diary.impl.ArdougneDiaryEntry;
-import io.xeros.content.achievement_diary.impl.DesertDiaryEntry;
-import io.xeros.content.achievement_diary.impl.FaladorDiaryEntry;
-import io.xeros.content.achievement_diary.impl.FremennikDiaryEntry;
-import io.xeros.content.achievement_diary.impl.KandarinDiaryEntry;
-import io.xeros.content.achievement_diary.impl.KaramjaDiaryEntry;
-import io.xeros.content.achievement_diary.impl.LumbridgeDraynorDiaryEntry;
-import io.xeros.content.achievement_diary.impl.VarrockDiaryEntry;
-import io.xeros.content.achievement_diary.impl.WildernessDiaryEntry;
+import io.xeros.content.achievement_diary.impl.*;
 import io.xeros.content.barrows.Barrows;
 import io.xeros.content.bosses.*;
 import io.xeros.content.bosses.godwars.God;
 import io.xeros.content.bosses.hydra.AlchemicalHydra;
 import io.xeros.content.bosses.kratos.KratosNpc;
-import io.xeros.content.bosses.wildypursuit.FragmentOfSeren;
 import io.xeros.content.combat.Hitmark;
-import io.xeros.content.combat.weapon.WeaponDataConstants;
 import io.xeros.content.dialogue.impl.CrystalCaveEntryDialogue;
 import io.xeros.content.dialogue.impl.FireOfDestructionDialogue;
 import io.xeros.content.dialogue.impl.SkillingPortalDialogue;
-import io.xeros.content.event.eventcalendar.EventChallenge;
 import io.xeros.content.hs.NexHighscore;
-import io.xeros.content.hs.PKHighscore;
 import io.xeros.content.hs.XericHighscore;
 import io.xeros.content.item.lootable.impl.*;
-import io.xeros.content.leaderboards.LeaderboardInterface;
-import io.xeros.content.minigames.inferno.InfernoWaveData;
 import io.xeros.content.minigames.pest_control.PestControl;
 import io.xeros.content.minigames.pk_arena.Highpkarena;
 import io.xeros.content.minigames.pk_arena.Lowpkarena;
@@ -57,7 +39,6 @@ import io.xeros.content.skills.woodcutting.Tree;
 import io.xeros.content.skills.woodcutting.Woodcutting;
 import io.xeros.content.tradingpost.Listing;
 import io.xeros.content.wilderness.SpiderWeb;
-import io.xeros.content.wogw.Wogw;
 import io.xeros.content.world_event.Tournament;
 import io.xeros.model.Items;
 import io.xeros.model.collisionmap.ObjectDef;
@@ -68,8 +49,6 @@ import io.xeros.model.cycleevent.CycleEventContainer;
 import io.xeros.model.cycleevent.CycleEventHandler;
 import io.xeros.model.entity.HealthStatus;
 import io.xeros.model.entity.npc.NPCHandler;
-import io.xeros.model.entity.npc.NPCSpawning;
-import io.xeros.model.entity.npc.data.NpcMaxHit;
 import io.xeros.model.entity.player.*;
 import io.xeros.model.entity.player.mode.group.GroupIronmanBank;
 import io.xeros.model.entity.player.mode.group.GroupIronmanGroup;
@@ -86,6 +65,10 @@ import io.xeros.model.multiplayersession.duel.DuelSessionRules.Rule;
 import io.xeros.model.world.objects.GlobalObject;
 import io.xeros.util.Location3D;
 import io.xeros.util.Misc;
+
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.IntStream;
 
 /*
  * @author Matt
@@ -547,9 +530,6 @@ public class ObjectOptionOne {
 				Optional<GroupIronmanGroup> group = GroupIronmanRepository.getGroupForOnline(c);
 				group.ifPresentOrElse(it -> it.getBank().open(c),
 						() -> c.sendMessage("This chest is only for group ironmen!"));
-				break;
-			case 29064:
-				LeaderboardInterface.openInterface(c);
 				break;
 			case 16666:
 				c.getPA().movePlayer(3045, 10323, 0);
@@ -1127,7 +1107,7 @@ public class ObjectOptionOne {
 				break;
 			case 1206:
 				c.facePosition(obX, obY);
-				if (c.getLevelForXP(c.playerXP[19]) < 50) {
+				if (c.playerLevel[Skill.FARMING.getId()] < 50) {
 					c.sendMessage("You need a Farming level of 50 to pick these.");
 					return;
 				}
@@ -1137,12 +1117,7 @@ public class ObjectOptionOne {
 				}
 				c.startAnimation(827);
 				c.getItems().addItem(9017, 1);
-
-				if (!c.getMode().isOsrs() && !c.getMode().is5x()) {
-					c.getPA().addSkillXP(200, 19, true);
-				} else {
-					c.getPA().addSkillXP(10, 19, true);
-				}
+				c.getPA().addSkillXP(10, Skill.FARMING.getId(), true);
 				break;
 
 

@@ -3,7 +3,6 @@ package io.xeros.content.skills.crafting;
 import java.util.Arrays;
 
 import io.xeros.Server;
-import io.xeros.content.skills.Skill;
 import io.xeros.model.cycleevent.Event;
 import io.xeros.model.entity.player.Player;
 
@@ -63,7 +62,7 @@ public class SpinMaterial {
 		public void execute() {
 			attachment.getItems().deleteItem2(material.required, 1);
 			attachment.getItems().addItem(material.result, 1);
-			attachment.getPA().addSkillXPMultiplied(material.experience, Player.playerCrafting, true);
+			attachment.getPA().addSkillXP(material.experience, Player.playerCrafting, true);
 			attachment.startAnimation(894);
 		}
 

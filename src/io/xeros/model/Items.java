@@ -2437,6 +2437,7 @@ public class Items {
     public static final int BLACK_TOY_HORSEY_NOTED = 2_525;
     public static final int GREY_TOY_HORSEY = 2_526;
     public static final int GREY_TOY_HORSEY_NOTED = 2_527;
+    public static final int EXPERIENCE_LAMP = 2528;
     public static final int DEAD_ORB = 2_529;
     public static final int BONES_2 = 2_530;
     public static final int BONES_NOTED_2 = 2_531;
@@ -22341,6 +22342,9 @@ public class Items {
     public static final int RUNNER_HAT_BROKEN = 24_531;
     public static final int RUNNER_HAT_BROKEN_2 = 24_532;
     public static final int RUNNER_HAT_L = 24_533;
+
+    public static final int ANTIQUE_LAMP_31 = 27_299;
+
     public static final int RESOURCE_BOXSMALL = 30_000;
     public static final int RESOURCE_BOXMEDIUM = 30_001;
     public static final int RESOURCE_BOXLARGE = 30_002;

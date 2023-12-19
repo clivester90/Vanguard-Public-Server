@@ -37,8 +37,7 @@ public abstract class Mode {
 					new RogueIronman(ModeType.ROGUE_IRONMAN),
 					new RogueIronman(ModeType.ROGUE_HARDCORE_IRONMAN),
 					new UltimateIronmanMode(ModeType.ULTIMATE_IRON_MAN),
-					new OsrsMode(ModeType.OSRS),
-					new RogueMode(ModeType.ROGUE),
+					new RogueMode(ModeType.HARDCORE),
 					new GroupIronmanMode(ModeType.GROUP_IRONMAN)
 			));
 
@@ -210,17 +209,8 @@ public abstract class Mode {
 		return type == ModeType.STANDARD;
 	}
 
-	/**
-	 * Determines if the {@link #type} is equal to {@link ModeType#OSRS}
-	 * 
-	 * @return {@code true} if the player is of this type, otherwise {@code false}
-	 */
-	public boolean isOsrs() {
-		return type == ModeType.OSRS;
-	}
-
 	public boolean is5x() {
-		return type == ModeType.ROGUE || type == ModeType.ROGUE_HARDCORE_IRONMAN || type == ModeType.ROGUE_IRONMAN;
+		return type == ModeType.HARDCORE || type == ModeType.ROGUE_HARDCORE_IRONMAN || type == ModeType.ROGUE_IRONMAN;
 	}
 
 	public double getDropModifier() {

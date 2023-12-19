@@ -83,7 +83,7 @@ public class FletchLogEvent extends Event<Player> {
 			attachment.getItems().addItem(fletch.getProduct(), 1);
 		}
 
-		attachment.getPA().addSkillXPMultiplied(fletch.getExperience(), Skill.FLETCHING.getId(), true);
+		attachment.getPA().addSkillXP(fletch.getExperience(), Skill.FLETCHING.getId(), true);
 		if (amount <= 0) {
 			stop();
 			return;

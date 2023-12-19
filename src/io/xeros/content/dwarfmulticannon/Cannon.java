@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import com.google.common.collect.Lists;
 import io.xeros.Server;
 import io.xeros.content.combat.Hitmark;
-import io.xeros.content.combat.weapon.AttackStyle;
 import io.xeros.content.skills.Skill;
 import io.xeros.model.Items;
 import io.xeros.model.Npcs;
@@ -289,7 +288,7 @@ public class Cannon {
                         maxDamage /= 2;
                     }
                     int damage = Misc.random(maxDamage);
-                    player.getPA().addSkillXPMultiplied(damage * 2, Skill.RANGED.getId(), true);
+                    player.getPA().addSkillXP(damage * 2, Skill.RANGED.getId(), true);
                     Projectile.createTargeted(getPosition().getCenterPosition(3), 2, npc, new ProjectileBaseBuilder().setProjectileId(PROJECTILE_ID).setCurve(0).setSendDelay(2).createProjectileBase()).send(null);
                     CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
                         @Override

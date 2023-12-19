@@ -46,6 +46,6 @@ public class MakeBoltEvent extends Event<Player> {
         attachment.getItems().deleteItem2(boltId, 15);
         attachment.getItems().deleteItem2(tipId, 15);
         attachment.getItems().addItem(b.getBolt(), 15);
-        attachment.getPA().addSkillXPMultiplied(b.getExperience(), Skill.FLETCHING.getId(), true);
+        attachment.getPA().addSkillXP(b.getExperience(), Skill.FLETCHING.getId(), true);
     }
 }

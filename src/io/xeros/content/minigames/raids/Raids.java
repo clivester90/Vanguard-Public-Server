@@ -10,8 +10,6 @@ import io.xeros.content.achievement.AchievementType;
 import io.xeros.content.achievement.Achievements;
 import io.xeros.content.event.eventcalendar.EventChallenge;
 import io.xeros.content.hespori.Hespori;
-import io.xeros.content.leaderboards.LeaderboardType;
-import io.xeros.content.leaderboards.LeaderboardUtils;
 import io.xeros.model.collisionmap.doors.Location;
 import io.xeros.model.cycleevent.CycleEvent;
 import io.xeros.model.cycleevent.CycleEventContainer;
@@ -85,12 +83,12 @@ public class Raids {
     }
 
     public static void filterPlayers() {
-        raidPlayers.entrySet().stream().filter(entry -> !PlayerHandler.getOptionalPlayerByLoginName(entry.getKey()).isPresent()).forEach(entry -> raidPlayers.remove(entry.getKey()));
+        raidPlayers.entrySet().stream().filter(entry -> PlayerHandler.getOptionalPlayerByLoginName(entry.getKey()).isEmpty()).forEach(entry -> raidPlayers.remove(entry.getKey()));
     }
 
     public void removePlayer(Player player) {
         raidPlayers.remove(player.getLoginNameLower());
-        groupPoints = raidPlayers.entrySet().stream().mapToInt(val -> val.getValue()).sum();
+        groupPoints = raidPlayers.values().stream().mapToInt(i -> i).sum();
         if (raidPlayers.isEmpty()) {
             lastActivity = System.currentTimeMillis();
         }
@@ -99,9 +97,7 @@ public class Raids {
     public static List<Player> getPlayers() {
         List<Player> activePlayers = Lists.newArrayList();
         filterPlayers();
-        raidPlayers.keySet().stream().forEach(playerName -> {
-            PlayerHandler.getOptionalPlayerByLoginName(playerName).ifPresent(player -> activePlayers.add(player));
-        });
+        raidPlayers.keySet().stream().forEach(playerName -> PlayerHandler.getOptionalPlayerByLoginName(playerName).ifPresent(activePlayers::add));
         return activePlayers;
     }
 
@@ -112,7 +108,7 @@ public class Raids {
         if (!raidPlayers.containsKey(player.getLoginNameLower())) return 0;
         int currentPoints = raidPlayers.getOrDefault(player.getLoginNameLower(), 0);
         raidPlayers.put(player.getLoginNameLower(), currentPoints + points);
-        groupPoints = raidPlayers.entrySet().stream().mapToInt(val -> val.getValue()).sum();
+        groupPoints = raidPlayers.values().stream().mapToInt(i -> i).sum();
         return currentPoints + points;
     }
 
@@ -156,11 +152,11 @@ public class Raids {
     /**
      * The door location of the current paths
      */
-    private final ArrayList<Location> roomPaths = new ArrayList<Location>();
+    private final ArrayList<Location> roomPaths = new ArrayList<>();
     /**
      * The names of the current rooms in path
      */
-    private final ArrayList<String> roomNames = new ArrayList<String>();
+    private final ArrayList<String> roomNames = new ArrayList<>();
     /**
      * Current monsters needed to kill
      */
@@ -171,16 +167,14 @@ public class Raids {
      * @return path
      */
     public Location getStartLocation() {
-        switch (path) {
-        case 0: 
+        if (path == 0) {
             return RaidRooms.STARTING_ROOM_2.doorLocation;
         }
         return RaidRooms.STARTING_ROOM.doorLocation;
     }
 
     public Location getOlmWaitLocation() {
-        switch (path) {
-        case 0: 
+        if (path == 0) {
             return RaidRooms.ENERGY_ROOM.doorLocation;
         }
         return RaidRooms.ENERGY_ROOM_2.doorLocation;
@@ -384,19 +378,17 @@ public class Raids {
         if (chance >= 0 && chance < rareChance) {
             player.getItems().addItemUnderAnyCircumstance(COMMON_KEY, 1);
             player.getEventCalendar().progress(EventChallenge.COMPLETE_X_RAIDS);
-            LeaderboardUtils.addCount(LeaderboardType.COX, player, 1);
             Achievements.increase(player, AchievementType.COX, 1);
             player.keysCollected+=1;
             player.sendMessage("@pur@You have just received a @red@common key @pur@from the chambers of xeric.");
         } else if (chance >= rareChance) {
             player.getItems().addItemUnderAnyCircumstance(RARE_KEY, 1);
             player.getEventCalendar().progress(EventChallenge.COMPLETE_X_RAIDS);
-            LeaderboardUtils.addCount(LeaderboardType.COX, player, 1);
             Achievements.increase(player, AchievementType.COX, 1);
             player.rarekeysCollected+=1;
             player.sendMessage("@pur@You have just received a @red@rare key @pur@ from the chambers of xeric.");
             PlayerHandler.executeGlobalMessage("@red@" + player.getDisplayName() + "@pur@ has just received a @red@rare key @pur@from the chambers of xeric!");
-            Discord.writeDropsSyncMessage(""+ player.getLoginName() + " has received: Rare Key from the Chambers of Xeric.");
+            Discord.writeDropsSyncMessage(player.getLoginName() + " has received: Rare Key from the Chambers of Xeric.");
         }
         if (!kronosReward) {
             if (player.raidCount == 25) {
@@ -452,7 +444,7 @@ public class Raids {
 
 		case OLM_RIGHT_HAND:
 			rightHand = true;
-			if(leftHand == true) {
+			if(leftHand) {
 				getPlayers().stream().forEach(player ->	player.sendMessage("@pur@ You have defeated @red@ both of The Great Olm's hands @pur@he is now vulnerable."));
 				Server.getGlobalObjects().add(new GlobalObject(29888, 3220, 5733, currentHeight, 3, 10));
 			}else {
@@ -486,7 +478,7 @@ public class Raids {
 				}
 			
 			});
-			if(rightHand == true) {
+			if(rightHand) {
 				Server.getGlobalObjects().remove(new GlobalObject(29884, 3220, 5743, currentHeight, 3, 10));
 				Server.getGlobalObjects().add(new GlobalObject(29885, 3220, 5743, currentHeight, 3, 10));
 				getPlayers().stream().forEach(player ->	player.sendMessage("@pur@ You have defeated @red@both of The Great Olm's hands @pur@he is now vulnerable."));
@@ -795,7 +787,7 @@ public class Raids {
 			player.raidCount+=1;
 			if (Boundary.isIn(player, Boundary.FULL_RAIDS)) {
 				giveReward(player, false);
-                if (Hespori.activeKronosSeed == true) {
+                if (Hespori.activeKronosSeed) {
                     giveReward(player, true);
                     player.sendMessage("@pur@The @red@Kronos seed@pur@ doubles your chances for the @red@rewards!" );
                 }

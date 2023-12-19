@@ -27,7 +27,7 @@ public class StringCrossbowEvent extends Event<Player> {
 		attachment.getItems().deleteItem2(crossbow.getItem(), 1);
 		attachment.getItems().deleteItem2(9438, 1);
 		attachment.getItems().addItem(crossbow.getProduct(), 1);
-		attachment.getPA().addSkillXPMultiplied((int) crossbow.getExperience(), Skill.FLETCHING.getId(), true);
+		attachment.getPA().addSkillXP((int) crossbow.getExperience(), Skill.FLETCHING.getId(), true);
 	}
 
 	@Override

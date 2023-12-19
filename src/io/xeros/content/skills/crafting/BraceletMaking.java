@@ -37,7 +37,7 @@ public class BraceletMaking extends CraftingData {
 				c.getItems().deleteItem2(Items.ONYX, 1);
 				c.getItems().deleteItem2(Items.GOLD_BAR, 1);
 				c.getItems().addItem(Items.ONYX_BRACELET, 1);
-				c.getPA().addSkillXPMultiplied(125, 12, true);
+				c.getPA().addSkillXP(125, 12, true);
 				c.startAnimation(899);
 			}
 		}
@@ -48,7 +48,7 @@ public class BraceletMaking extends CraftingData {
 				c.getItems().deleteItem2(Items.DRAGONSTONE, 1);
 				c.getItems().deleteItem2(Items.GOLD_BAR, 1);
 				c.getItems().addItem(Items.DRAGONSTONE_BRACELET, 1);
-				c.getPA().addSkillXPMultiplied(110, 12, true);
+				c.getPA().addSkillXP(110, 12, true);
 				c.startAnimation(899);
 			}
 		}
@@ -59,7 +59,7 @@ public class BraceletMaking extends CraftingData {
 				c.getItems().deleteItem2(Items.ZENYTE, 1);
 				c.getItems().deleteItem2(Items.GOLD_BAR, 1);
 				c.getItems().addItem(19532, 1); // ZENYTE_BRACELET_2
-				c.getPA().addSkillXPMultiplied(180, 12, true);
+				c.getPA().addSkillXP(180, 12, true);
 				c.startAnimation(899);
 			}
 		}

@@ -149,7 +149,7 @@ public class Thieving {
 
 		player.startAnimation(ANIMATION);
 		player.getItems().addItem(item.getId(), item.getAmount());
-		player.getPA().addSkillXPMultiplied((int) (stall.experience * (1 + (getRoguesPieces() * 0.12))), Skill.THIEVING.getId(), true);
+		player.getPA().addSkillXP((int) (stall.experience * (1 + (getRoguesPieces() * 0.12))), Skill.THIEVING.getId(), true);
 		player.sendMessage("You steal a " + definition.getName() + " from the stall.");
 		Achievements.increase(player, AchievementType.THIEV, 1);
 		lastInteraction = System.currentTimeMillis();
@@ -250,7 +250,7 @@ public class Thieving {
 		}
 
 		Achievements.increase(player, AchievementType.THIEV, 1);
-		player.getPA().addSkillXPMultiplied((int) (pickpocket.experience * (1 + (getRoguesPieces() * 0.12))), Skill.THIEVING.getId(), true);
+		player.getPA().addSkillXP((int) (pickpocket.experience * (1 + (getRoguesPieces() * 0.12))), Skill.THIEVING.getId(), true);
 		lastInteraction = System.currentTimeMillis();
 	}
 

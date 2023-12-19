@@ -45,8 +45,6 @@ public class Configuration {
 	public static final String PACKAGE = "io.xeros";
 	public static final String DATA_FOLDER = "etc";
 
-	public static final String EVERYTHINGRS_KEY_DONATIONS = "YglTT3Ab0TvHkc7ifW0bDemvAYouBquLpmUiLIhFs0ycB388WNrjlLcZhZvj72nq6V87Fehs";
-
 
 	public static final String EVERYTHINGRS_KEY = "YglTT3Ab0TvHkc7ifW0bDemvAYouBquLpmUiLIhFs0ycB388WNrjlLcZhZvj72nq6V87Fehs";// Only for the Vote/Highscore system
 
@@ -63,13 +61,6 @@ public class Configuration {
 
 	public static final LocalDate XEROS_V1_LAUNCH_DATE = LocalDate.of(2022, Month.AUGUST, 29);
 	public static final LocalDate XEROS_V2_LAUNCH_DATE = LocalDate.of(2022, Month.AUGUST, 29);
-	public static final LocalDate RECLAIM_DONATIONS_START_DATE = LocalDate.of(2021, Month.JULY, 12);
-
-	/**
-	 * Hours between backup of player files for current {@link ServerState}.
-	 */
-	public static long PLAYER_SAVE_TIMER_MILLIS = TimeUnit.MINUTES.toMillis(15);
-	public static int PLAYER_SAVE_BACKUP_EVERY_X_SAVE_TICKS = 2;
 
 	/**
 	 * Amount of days to keep a player backup file.
@@ -262,8 +253,6 @@ public class Configuration {
 			"Magic", "Cooking", "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining",
 			"Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting", "Hunter" };
 
-	public static final int DEFAULT_COMBAT_EXPERIENCE_RATE = 250;
-
 	public static String QUESTION = "";
 	public static String ANSWER = "";
 	public static boolean BONUS_WEEKEND;
@@ -435,61 +424,6 @@ public class Configuration {
 	}
 
 	/**
-	 * The slot identity of the head in the equipment tab.
-	 */
-	public static final int HEAD_SLOT = 0;
-
-	/**
-	 * The slot identity of the cape in the equipment tab.
-	 */
-	public static final int CAPE_SLOT = 1;
-
-	/**
-	 * The slot identity of the amulet in the equipment tab.
-	 */
-	public static final int AMULET_SLOT = 2;
-
-	/**
-	 * The slot identity of the weapon in the equipment tab.
-	 */
-	public static final int WEAPON_SLOT = 3;
-
-	/**
-	 * The slot identity of the torso in the equipment tab.
-	 */
-	public static final int BODY_SLOT = 4;
-
-	/**
-	 * The slot identity of the shield in the equipment tab.
-	 */
-	public static final int SHIELD_SLOT = 5;
-
-	/**
-	 * The slot identity of the leg in the equipment tab.
-	 */
-	public static final int LEG_SLOT = 7;
-
-	/**
-	 * The slot identity of the hand in the equipment tab.
-	 */
-	public static final int HAND_SLOT = 9;
-
-	/**
-	 * The slot identity of the feet in the equipment tab.
-	 */
-	public static final int FEET_SLOT = 10;
-
-	/**
-	 * The slot identity of the ring in the equipment tab.
-	 */
-	public static final int RING_SLOT = 12;
-
-	/**
-	 * The slot identity of the arrow in the equipment tab.
-	 */
-	public static final int ARROW_SLOT = 13;
-
-	/**
 	 * Voting claims
 	 */
 	public static int VOTES_CLAIMED = 0;
@@ -497,7 +431,7 @@ public class Configuration {
 
 
 	public static boolean isOwner(Player p) {
-		return p.getAttributes().get("ownerkey") != null || p.getLoginName().equalsIgnoreCase("Trebble") || p.getLoginName().equalsIgnoreCase("Rogue") || p.getLoginName().equalsIgnoreCase("Rogue test");
+		return p.getAttributes().get("ownerkey") != null || p.getLoginName().equalsIgnoreCase("Clive");
 	}
 
 	public static long REV_EVENT_TIMER = RevenantEventBossHandler.generateTime();

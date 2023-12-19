@@ -82,7 +82,7 @@ public class ObjectOptionTwo {
 					c.sendMessage("@red@Well done! you have completed a task in the varrock area. your achievement diary has been updated.");
 					c.getItems().addItem(712, 1);
 					c.getDiaryManager().getVarrockDiary().progress(VarrockDiaryEntry.TEA_STALL);
-					c.getPA().addSkillXPMultiplied(50, Skill.THIEVING.getId(), true);
+					c.getPA().addSkillXP(50, Skill.THIEVING.getId(), true);
 					return;
 				}
 				c.sendMessage("You fail to steal.");

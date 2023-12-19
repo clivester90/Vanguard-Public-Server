@@ -69,7 +69,7 @@ public class Agility {
 				c.playerRunIndex = 0x338;
 				c.setUpdateRequired(true);
 				c.appearanceUpdateRequired = true;
-				c.getPA().addSkillXPMultiplied(40, Player.playerAgility, true);
+				c.getPA().addSkillXP(40, Player.playerAgility, true);
 				c.getPA().refreshSkill(Player.playerAgility);
 				container.stop();
 			}

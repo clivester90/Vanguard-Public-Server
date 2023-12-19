@@ -43,6 +43,6 @@ public class MakeDartEvent extends Event<Player> {
         attachment.getItems().deleteItem2(314, 10);
         attachment.getItems().deleteItem2(d.getId(), 10);
         attachment.getItems().addItem(d.getReward(), 10);
-        attachment.getPA().addSkillXPMultiplied((int) (10 * d.getExperience()), Skill.FLETCHING.getId(), true);
+        attachment.getPA().addSkillXP((int) (10 * d.getExperience()), Skill.FLETCHING.getId(), true);
     }
 }

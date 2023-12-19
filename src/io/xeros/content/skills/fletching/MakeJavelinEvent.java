@@ -43,6 +43,6 @@ public class MakeJavelinEvent extends Event<Player> {
         attachment.getItems().deleteItem2(19584, 15);
         attachment.getItems().deleteItem2(a.getId(), 15);
         attachment.getItems().addItem(a.getReward(), 15);
-        attachment.getPA().addSkillXPMultiplied((int) a.getExperience(), Skill.FLETCHING.getId(), true);
+        attachment.getPA().addSkillXP((int) a.getExperience(), Skill.FLETCHING.getId(), true);
     }
 }

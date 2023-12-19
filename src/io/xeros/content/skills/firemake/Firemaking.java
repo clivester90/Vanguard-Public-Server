@@ -146,9 +146,9 @@ public class Firemaking {
 			osrsExperience = log.getExperience() + log.getExperience() / 10 * pieces;
 			
 			if (usage == "infernal_axe") {
-				player.getPA().addSkillXPMultiplied((int) osrsExperience / 2, 11, true);
+				player.getPA().addSkillXP((int) osrsExperience / 2, 11, true);
 			} else {
-				player.getPA().addSkillXPMultiplied((int) osrsExperience, 11, true);
+				player.getPA().addSkillXP((int) osrsExperience, 11, true);
 			}
 
 			if (Misc.hasOneOutOf(25)) {//Firemaking tomes

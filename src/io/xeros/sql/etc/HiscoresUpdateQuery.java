@@ -185,10 +185,8 @@ public class HiscoresUpdateQuery implements SqlQuery<Boolean> {
             mode = "Ultimate Iron Man";
         } else if (player.getMode().getType() == ModeType.HC_IRON_MAN) {
             mode = "Hardcore Iron Man";
-        } else if (player.getMode().getType() == ModeType.OSRS) {
-            mode = "Extreme";
-        } else if (player.getMode().getType() == ModeType.ROGUE) {
-            mode = "Rogue";
+        } else if (player.getMode().getType() == ModeType.HARDCORE) {
+            mode = "Hardcore";
         } else if (player.getMode().getType() == ModeType.ROGUE_IRONMAN) {
             mode = "Rogue Ironman";
         }  else if (player.getMode().getType() == ModeType.ROGUE_HARDCORE_IRONMAN) {

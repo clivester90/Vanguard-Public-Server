@@ -31,7 +31,7 @@ public class IronmanNpcDialogue extends DialogueBuilder {
     static {
         SWITCHES = new HashMap<>();
 
-        SWITCHES.put(Mode.forType(ModeType.ROGUE), EnumSet.of(PLAYER));
+        SWITCHES.put(Mode.forType(ModeType.HARDCORE), EnumSet.of(PLAYER));
         SWITCHES.put(Mode.forType(ModeType.ROGUE_IRONMAN), EnumSet.of(PLAYER, ROGUE));
         SWITCHES.put(Mode.forType(ModeType.ROGUE_HARDCORE_IRONMAN), EnumSet.of(PLAYER, ROGUE));
 
@@ -131,7 +131,7 @@ public class IronmanNpcDialogue extends DialogueBuilder {
                 case ROGUE_IRONMAN:
                     p.getRights().remove(Right.ROGUE_IRONMAN);
                     break;
-                case ROGUE:
+                case HARDCORE:
                     p.getRights().remove(Right.ROGUE);
                     break;
                 default:

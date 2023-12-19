@@ -2,10 +2,7 @@ package io.xeros.content;
 
 
 import io.xeros.Configuration;
-import io.xeros.Server;
 import io.xeros.content.skills.Skill;
-import io.xeros.model.cycleevent.CycleEvent;
-import io.xeros.model.cycleevent.CycleEventContainer;
 import io.xeros.model.entity.npc.drops.DropManager;
 import io.xeros.model.entity.player.Player;
 import io.xeros.util.Misc;

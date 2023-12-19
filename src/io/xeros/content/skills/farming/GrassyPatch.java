@@ -72,7 +72,7 @@ public class GrassyPatch {
 				GrassyPatch grassyPatch = GrassyPatch.this;
 				grassyPatch.stage = ((byte) (grassyPatch.stage + 1));
 				doConfig(p);
-				p.getPA().addSkillXPMultiplied(Misc.trueRand(1) + 1, Skill.FARMING.getId(), true);
+				p.getPA().addSkillXP(Misc.trueRand(1) + 1, Skill.FARMING.getId(), true);
 				p.getInventory().addAnywhere(new ImmutableItem(6055, 1));
 				if (isRaked()) {
 					p.sendMessage("Your patch is raked, no compost is required, just plant and water!");

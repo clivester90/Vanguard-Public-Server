@@ -172,7 +172,7 @@ public class Runecrafting extends SkillHandler {
 				player.gfx100(186);
 				player.startAnimation(791);
 				double percentOfXp = data.getExperience() * count * 2.5;
-				player.getPA().addSkillXPMultiplied((int) (((data.getExperience()) * count) + (player.getItems().isWearingItem(20008) ? percentOfXp : 0)), 20, true);
+				player.getPA().addSkillXP((int) (((data.getExperience()) * count) + (player.getItems().isWearingItem(20008) ? percentOfXp : 0)), 20, true);
 				player.getItems().addItem(data.getRuneId(), multiply);
 				player.getPA().requestUpdates();
 				player.getPA().sendSound(2710);

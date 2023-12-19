@@ -19,8 +19,6 @@ import io.xeros.content.event.eventcalendar.EventChallenge;
 import io.xeros.content.items.Degrade;
 import io.xeros.content.items.Degrade.DegradableItem;
 import io.xeros.content.items.pouch.RunePouch;
-import io.xeros.content.leaderboards.LeaderboardType;
-import io.xeros.content.leaderboards.LeaderboardUtils;
 import io.xeros.content.lootbag.LootingBag;
 import io.xeros.content.minigames.inferno.Inferno;
 import io.xeros.content.minigames.pk_arena.Highpkarena;
@@ -51,7 +49,6 @@ import io.xeros.model.entity.Entity;
 import io.xeros.model.entity.npc.NPC;
 import io.xeros.model.entity.npc.NPCHandler;
 import io.xeros.model.entity.player.broadcasts.Broadcast;
-import io.xeros.model.entity.player.broadcasts.BroadcastManager;
 import io.xeros.model.entity.player.broadcasts.BroadcastType;
 import io.xeros.model.items.EquipmentSet;
 import io.xeros.model.items.GameItem;
@@ -349,7 +346,7 @@ public class PlayerAssistant {
 	 * @param s
 	 */
 	public void sendBroadCast(final String s) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrameVarSizeWord(170);
 			c.getOutStream().writeString(s);
 			c.getOutStream().endFrameVarSizeWord();
@@ -372,13 +369,6 @@ public class PlayerAssistant {
 		c.getOutStream().createFrameVarSizeWord(179);//
 		c.getOutStream().writeByte(type.ordinal());//
 		c.getOutStream().writeByte(broadcast.getIndex());//
-		if (type.ordinal() == -1) {//
-			/**
-			 * Never removes server sided
-			 */
-			BroadcastManager.removeBroadcast(broadcast.index);//
-			return;//
-		}//
 		c.getOutStream().writeString(broadcast.getMessage());//
 //
 		if (type == BroadcastType.LINK)//
@@ -476,7 +466,7 @@ public class PlayerAssistant {
 
 	public void setConfig(int id, int state) {
 		// synchronized (c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(36);
 			c.getOutStream().writeWordBigEndian(id);
 			c.getOutStream().writeByte(state);
@@ -772,7 +762,7 @@ public class PlayerAssistant {
 	}
 	public void sendFrame171(int state, int componentId) {
 		if (c.getPacketDropper().requiresUpdate(171, new ComponentVisibility(state, componentId))) {
-			if (c.getOutStream() != null && c != null) {
+			if (c.getOutStream() != null) {
 				c.getOutStream().createFrame(171);
 				c.getOutStream().writeByte(state);
 				c.getOutStream().writeWord(componentId);
@@ -785,7 +775,7 @@ public class PlayerAssistant {
 
 	public void object(WorldObject object) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(85);
 			c.getOutStream().writeByteC(object.getY() - (c.getLocation().getRegionY() * 8));
 			c.getOutStream().writeByteC(object.getX() - (c.getLocation().getRegionX() * 8));
@@ -804,7 +794,7 @@ public class PlayerAssistant {
 
 	}
 	public void sendFrame200(int MainFrame, int SubFrame) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			//c.sendMessage(":npctype" + c.npcType);
 			c.getOutStream().createFrame(200);
 			c.getOutStream().writeWord(MainFrame);
@@ -815,7 +805,7 @@ public class PlayerAssistant {
 
 	public void sendFrame75(int MainFrame, int SubFrame) {
 
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(75);
 			c.getOutStream().writeWordBigEndianA(MainFrame);
 			c.getOutStream().writeWordBigEndianA(SubFrame);
@@ -824,7 +814,7 @@ public class PlayerAssistant {
 	}
 	public void sendFrame164(int Frame) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(164); //im getting v good at naming differences :))
 			c.getOutStream().writeWordBigEndian_dup(Frame);
 			c.flushOutStream();
@@ -891,7 +881,7 @@ public class PlayerAssistant {
 	}
 
 	public void sendEnterString(String header, StringInput stringInputHandler) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrameVarSizeWord(187);
 			c.getOutStream().writeString(header);
 			c.getOutStream().endFrameVarSizeWord();
@@ -900,7 +890,7 @@ public class PlayerAssistant {
 	}
 
 	public void setSkillLevel(int skillNum, int currentLevel, int XP) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			if (skillNum == 22) { 	// Client hunter id, it's 21 in server
 				return;
 			}
@@ -919,7 +909,7 @@ public class PlayerAssistant {
 
 	public void sendFrame106(int sideIcon) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(106);
 			c.getOutStream().writeByteC(sideIcon);
 			c.flushOutStream();
@@ -932,7 +922,7 @@ public class PlayerAssistant {
 	 */
 	public void resetScreenShake() {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(107);
 			c.flushOutStream();
 		}
@@ -945,7 +935,7 @@ public class PlayerAssistant {
 
 	public void sendFrame36(int id, int state) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(36);
 			c.getOutStream().writeWordBigEndian(id);
 			c.getOutStream().writeByte(state);
@@ -956,7 +946,7 @@ public class PlayerAssistant {
 
 	public void sendPlayerHeadOnInterface(int interfaceId) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(185);
 			c.getOutStream().writeWordBigEndianA(interfaceId);
 		}
@@ -998,7 +988,7 @@ public class PlayerAssistant {
 			c.sendMessage("You should stop what you are doing before continuing.");
 			return;
 		}
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(97);
 			c.getOutStream().writeUnsignedWord(interfaceid);
 			c.flushOutStream();
@@ -1008,7 +998,7 @@ public class PlayerAssistant {
 
 	public void sendFrame248(int MainFrame, int SubFrame) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(248);
 			c.getOutStream().writeWordA(MainFrame);
 			c.getOutStream().writeUnsignedWord(SubFrame);
@@ -1019,7 +1009,7 @@ public class PlayerAssistant {
 
 	public void sendFrame246(int MainFrame, int SubFrame, int SubFrame2) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(246);
 			c.getOutStream().writeWordBigEndian(MainFrame);
 			c.getOutStream().writeUnsignedWord(SubFrame);
@@ -1050,7 +1040,7 @@ public class PlayerAssistant {
 
 	public void sendInterfaceAnimation(int interfaceId, int animation) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(200);
 			c.getOutStream().writeUnsignedWord(interfaceId);
 			c.getOutStream().writeUnsignedWord(animation);
@@ -1060,7 +1050,7 @@ public class PlayerAssistant {
 
 	public void sendFrame70(int i, int o, int id) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(70);
 			c.getOutStream().writeUnsignedWord(i);
 			c.getOutStream().writeWordBigEndian(o);
@@ -1071,7 +1061,7 @@ public class PlayerAssistant {
 	}
 
 	public void sendNpcHeadOnInterface(int npcId, int interfaceId) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(75);
 			c.getOutStream().writeWordBigEndianA(npcId);
 			c.getOutStream().writeWordBigEndianA(interfaceId);
@@ -1082,7 +1072,7 @@ public class PlayerAssistant {
 
 	public void sendNPCOnInterface(int interfaceId, int npcId) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(75);
 			c.getOutStream().writeByte(6);
 			c.getOutStream().writeWordBigEndianA(npcId);
@@ -1091,7 +1081,7 @@ public class PlayerAssistant {
 	}
 
 	public void sendChatboxInterface(int Frame) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(164);
 			c.getOutStream().writeWordBigEndian_dup(Frame);
 			c.flushOutStream();
@@ -1101,7 +1091,7 @@ public class PlayerAssistant {
 
 	public void sendFrame87(int id, int state) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(87);
 			c.getOutStream().writeWordBigEndian_dup(id);
 			c.getOutStream().writeDWord_v1(state);
@@ -1119,7 +1109,7 @@ public class PlayerAssistant {
 	}
 
 	public void createPlayerHints(int type, int id) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(254);
 			c.getOutStream().writeByte(type);
 			c.getOutStream().writeUnsignedWord(id);
@@ -1130,7 +1120,7 @@ public class PlayerAssistant {
 
 	public void createObjectHints(int x, int y, int height, int pos) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(254);
 			c.getOutStream().writeByte(pos);
 			c.getOutStream().writeUnsignedWord(x);
@@ -1191,7 +1181,7 @@ public class PlayerAssistant {
 	}
 
 	public void removeAllWindows() {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getPA().resetVariables();
 
 			c.getOutStream().createFrame(219);
@@ -1217,7 +1207,7 @@ public class PlayerAssistant {
 	}
 
 	public void closeAllWindows(boolean sendPacket) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			if (sendPacket) {
 				c.getOutStream().createFrame(219);
 				c.flushOutStream();
@@ -1270,7 +1260,7 @@ public class PlayerAssistant {
 		if (currentWalkableInterface == id && id != -2)
 			return;
 
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(208);
 			c.getOutStream().writeUnsignedWord(id);
 			c.flushOutStream();
@@ -1299,7 +1289,7 @@ public class PlayerAssistant {
 	}
 
 	public void flush() {
-		if (c.getOutStream() != null && c != null)
+		if (c.getOutStream() != null)
 			c.flushOutStream();
 	}
 
@@ -1332,7 +1322,7 @@ public class PlayerAssistant {
 	public void createProjectile(int x, int y, int offX, int offY, int angle, int speed, int gfxMoving,
 								 int startHeight, int endHeight, int lockon, int time) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(85);
 			c.getOutStream().writeByteC((y - (c.getMapRegionY() * 8)) - 2);
 			c.getOutStream().writeByteC((x - (c.getMapRegionX() * 8)) - 3);
@@ -1355,7 +1345,7 @@ public class PlayerAssistant {
 	public void createProjectile(int x, int y, int offX, int offY, int angle, int scale, int pitch, int speed, int gfxMoving,
 								 int startHeight, int endHeight, int lockon, int time) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(85);
 			c.getOutStream().writeByteC((y - (c.getMapRegionY() * 8)) - 2);
 			c.getOutStream().writeByteC((x - (c.getMapRegionX() * 8)) - 3);
@@ -1406,7 +1396,7 @@ public class PlayerAssistant {
 	private void createProjectile2(int x, int y, int offX, int offY, int angle, int speed, int gfxMoving,
 								   int startHeight, int endHeight, int lockon, int time, int slope) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(85);
 			c.getOutStream().writeByteC((y - (c.getMapRegionY() * 8)) - 2);
 			c.getOutStream().writeByteC((x - (c.getMapRegionX() * 8)) - 3);
@@ -1522,7 +1512,7 @@ public class PlayerAssistant {
 	 **/
 	public void stillGfx(int id, int x, int y, int height, int time) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(85);
 			c.getOutStream().writeByteC(y - (c.getMapRegionY() * 8));
 			c.getOutStream().writeByteC(x - (c.getMapRegionX() * 8));
@@ -1601,7 +1591,7 @@ public class PlayerAssistant {
 	 **/
 	public void object(int objectId, int objectX, int objectY, int face, int objectType, boolean flushOutStream) {
 		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(85);
 			c.getOutStream().writeByteC(objectY - (c.getMapRegionY() * 8));
 			c.getOutStream().writeByteC(objectX - (c.getMapRegionX() * 8));
@@ -1765,7 +1755,7 @@ public class PlayerAssistant {
 		c.getPA().sendGameTimer(ClientGameTimer.VENGEANCE, TimeUnit.SECONDS, 30);
 		c.startAnimation(8317);
 		c.gfx100(726);
-		addSkillXPMultiplied(112, 6, true);
+		this.addSkillXP(112, 6, true);
 		refreshSkill(6);
 		c.vengOn = true;
 		c.usingMagic = false;
@@ -1828,7 +1818,7 @@ public class PlayerAssistant {
 					c.gfx100(CombatSpellData.MAGIC_SPELLS[49][3]);
 					c.alchDelay = System.currentTimeMillis();
 					sendFrame106(6);
-					addSkillXPMultiplied(CombatSpellData.MAGIC_SPELLS[49][7], 6,true);
+					this.addSkillXP(CombatSpellData.MAGIC_SPELLS[49][7], 6,true);
 					refreshSkill(6);
 				}
 				break;
@@ -1875,7 +1865,7 @@ public class PlayerAssistant {
 					c.gfx100(CombatSpellData.MAGIC_SPELLS[50][3]);
 					c.alchDelay = System.currentTimeMillis();
 					sendFrame106(6);
-					addSkillXPMultiplied(CombatSpellData.MAGIC_SPELLS[50][7], 6,true);
+					this.addSkillXP(CombatSpellData.MAGIC_SPELLS[50][7], 6,true);
 					refreshSkill(6);
 				}
 				break;
@@ -2000,7 +1990,7 @@ public class PlayerAssistant {
 		}
 	}
 	public void sendSpecialAttack(int amount, int specialEnabled) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrame(204);
 			c.getOutStream().writeByte(amount);
 			c.getOutStream().writeByte(specialEnabled);
@@ -2166,7 +2156,7 @@ public class PlayerAssistant {
 			return false;
 		}
 
-		if (Boundary.isIn(c, Boundary.HUNLLEF_BOSS_ROOM)  && c.hunllefDead == false) {
+		if (Boundary.isIn(c, Boundary.HUNLLEF_BOSS_ROOM)  && !c.hunllefDead) {
 			c.sendMessage("The Hunllef's powers disable your teleport.");
 			return false;
 		}
@@ -2403,7 +2393,7 @@ public class PlayerAssistant {
 			c.getBankPin().open(2);
 			return;
 		}
-		if (Boundary.isIn(c, Boundary.HUNLLEF_BOSS_ROOM) && c.hunllefDead == false) {
+		if (Boundary.isIn(c, Boundary.HUNLLEF_BOSS_ROOM) && !c.hunllefDead) {
 			c.sendMessage("The Hunllef's powers disable your teleport.");
 			return;
 		}
@@ -2437,7 +2427,7 @@ public class PlayerAssistant {
 		if (c.isDead) {
 			return;
 		}
-		if (!c.isDead && c.teleTimer == 0) {
+		if (c.teleTimer == 0) {
 			c.stopMovement();
 			removeAllWindows();
 			c.teleX = x;
@@ -2559,7 +2549,7 @@ public class PlayerAssistant {
 									y3++;
 								}
 								x3--;
-							} else if (k == 3) {
+							} else {
 								if (i == 0) {
 									x3--;
 								}
@@ -2567,8 +2557,7 @@ public class PlayerAssistant {
 							}
 
 							if (Misc.distance(x3, y3, x, y) < lowDist) {
-								boolean allowsInteraction = !projectile
-										|| projectile &&  PathChecker.raycast(c, npc, true);
+								boolean allowsInteraction = !projectile || PathChecker.raycast(c, npc, true);
 								boolean accessible = PathFinder.getPathFinder().accessable(c, x3, y3);
 
 								if (allowsInteraction && accessible) {
@@ -2822,8 +2811,7 @@ public class PlayerAssistant {
 
 	public void walkTo3(int i, int j) {
 		c.newWalkCmdSteps = 0;
-		if (++c.newWalkCmdSteps > 50)
-			c.newWalkCmdSteps = 0;
+		++c.newWalkCmdSteps;
 		int k = c.absX + i;
 		k -= c.mapRegionX * 8;
 		c.getNewWalkCmdX()[0] = c.getNewWalkCmdY()[0] = tmpNWCX[0] = tmpNWCY[0] = 0;
@@ -2841,8 +2829,7 @@ public class PlayerAssistant {
 
 	public void walkTo(int i, int j) {
 		c.newWalkCmdSteps = 0;
-		if (++c.newWalkCmdSteps > 50)
-			c.newWalkCmdSteps = 0;
+		++c.newWalkCmdSteps;
 		int k = c.getX() + i;
 		k -= c.mapRegionX * 8;
 		c.getNewWalkCmdX()[0] = c.getNewWalkCmdY()[0] = 0;
@@ -2859,8 +2846,7 @@ public class PlayerAssistant {
 		if (c.freezeDelay > 0)
 			return;
 		c.newWalkCmdSteps = 0;
-		if (++c.newWalkCmdSteps > 50)
-			c.newWalkCmdSteps = 0;
+		++c.newWalkCmdSteps;
 		int k = c.getX() + i;
 		k -= c.mapRegionX * 8;
 		c.getNewWalkCmdX()[0] = c.getNewWalkCmdY()[0] = 0;
@@ -3229,11 +3215,8 @@ public class PlayerAssistant {
 			c.getPA().sendExperienceDrop(true, drop.amount, drop.skill);
 		}
 	}
-	public boolean addSkillXPMultiplied(double amount, int skill, boolean dropExperience) {
-		return addSkillXP((int) (c.getMode().getType().getExperienceRate(Skill.forId(skill)) * amount), skill, dropExperience);
-	}
 
-	public boolean addSkillXP(int amount, int skill, boolean dropExperience) {
+	public boolean addSkillXP(double amount, int skill, boolean dropExperience) {
 		if (amount <= 0)
 			return false;
 		if (c.skillLock[skill]) {
@@ -3254,14 +3237,9 @@ public class PlayerAssistant {
 		if (!boosts.isEmpty()) {
 			amount *= 1.5; // All boosts are 1.5 for now!
 		}
-		if (c.getMode().getType().isStandardRate(Skill.forId(skill))) {
-			LeaderboardUtils.addCount(LeaderboardType.STANDARD_XP, c, amount);
-		} else {
-			LeaderboardUtils.addCount(LeaderboardType.ROGUE_XP, c, amount);
-		}
 
 		if (dropExperience) {
-			addXpDrop(new XpDrop(amount, skill));
+			addXpDrop(new XpDrop((int) amount, skill));
 		}
 		int oldLevel = getLevelForXP(c.playerXP[skill]);
 		int oldExperience = c.playerXP[skill];
@@ -3271,7 +3249,7 @@ public class PlayerAssistant {
 			c.xpMaxSkills += 1;
 			if (c.getRights().isNotAdmin()) {
 				PlayerHandler.executeGlobalMessage("<col=6432a8>" + c.getDisplayNameFormatted() + " has reached 200M XP in " +
-						"<icon=" + iconId + "> " + s.toString() + " on " + c.getMode().getType().getFormattedName() + " mode!");
+						"<icon=" + iconId + "> " + s + " on " + c.getMode().getType().getFormattedName() + " mode!");
 				c.sendMessage("@blu@You have now maxed 200m experience in @red@" + c.xpMaxSkills + " skills!");
 
 				if (c.xpMaxSkills > 21) {
@@ -3298,7 +3276,7 @@ public class PlayerAssistant {
 
 			c.combatLevel = c.calculateCombatLevel();
 			c.totalLevel = c.getPA().calculateTotalLevel();
-			c.getPA().sendFrame126("Combat Level: " + c.combatLevel + "", 3983);
+			c.getPA().sendFrame126("Combat Level: " + c.combatLevel, 3983);
 			levelUp(skill);
 			c.gfx100(199);
 			if (skill == Skill.HITPOINTS.getId()) {
@@ -3394,57 +3372,57 @@ public class PlayerAssistant {
 	}
 
 	public void updateQuestTab(){
-		if (c.d1Complete == true) {
+		if (c.d1Complete) {
 			sendFrame126("@gre@Varrock", 29480);
 		} else {
 			sendFrame126("@red@Varrock", 29480);
 		}
-		if (c.d2Complete == true) {
+		if (c.d2Complete) {
 			sendFrame126("@gre@Ardougne", 29481);
 		} else {
 			sendFrame126("@red@Ardougne", 29481);
 		}
-		if (c.d3Complete == true) {
+		if (c.d3Complete) {
 			sendFrame126("@gre@Desert", 29482);
 		} else {
 			sendFrame126("@red@Desert", 29482);
 		}
-		if (c.d4Complete == true) {
+		if (c.d4Complete) {
 			sendFrame126("@gre@Falador", 29483);
 		} else {
 			sendFrame126("@red@Falador", 29483);
 		}
-		if (c.d5Complete == true) {
+		if (c.d5Complete) {
 			sendFrame126("@gre@Fremnnik", 29484);
 		} else {
 			sendFrame126("@red@Fremnnik", 29484);
 		}
-		if (c.d6Complete == true) {
+		if (c.d6Complete) {
 			sendFrame126("@gre@Kandarin", 29485);
 		} else {
 			sendFrame126("@red@Kandarin", 29485);
 		}
-		if (c.d7Complete == true) {
+		if (c.d7Complete) {
 			sendFrame126("@gre@Karamja", 29486);
 		} else {
 			sendFrame126("@red@Karamja", 29486);
 		}
-		if (c.d8Complete == true) {
+		if (c.d8Complete) {
 			sendFrame126("@gre@Lumbridge & Draynor", 29487);
 		} else {
 			sendFrame126("@red@Lumbridge & Draynor", 29487);
 		}
-		if (c.d9Complete == true) {
+		if (c.d9Complete) {
 			sendFrame126("@gre@Morytania", 29488);
 		} else {
 			sendFrame126("@red@Morytania", 29488);
 		}
-		if (c.d10Complete == true) {
+		if (c.d10Complete) {
 			sendFrame126("@gre@Western", 29489);
 		} else {
 			sendFrame126("@red@Western", 29489);
 		}
-		if (c.d11Complete == true) {
+		if (c.d11Complete) {
 			sendFrame126("@gre@Wilderness", 29490);
 		} else {
 			sendFrame126("@red@Wilderness", 29490);
@@ -3533,28 +3511,27 @@ public class PlayerAssistant {
 		return Arrays.stream(c.playerXP).asLongStream().sum();
 	}
 
-	public static boolean ringOfCharosTeleport(final Player player) {
+	public static void ringOfCharosTeleport(final Player player) {
 		Task task = player.getSlayer().getTask().orElse(null);
 
 		if (task == null) {
 			player.sendMessage("You need a slayer task to use this.");
-			return false;
+			return;
 		}
 		if (player.getPosition().inWild()) {
 			player.sendMessage("You cannot use this from the wilderness.");
-			return false;
+			return;
 		}
 		int x = task.getTeleportLocation()[0];
 		int y = task.getTeleportLocation()[1];
 		int z = task.getTeleportLocation()[2];
 		if (x == -1 && y == -1 && z == -1) {
 			player.sendMessage("This task cannot be easily teleported to.");
-			return false;
+			return;
 		}
 
 		player.sendMessage("You are teleporting to your task of " + task.getPrimaryName() + ".");
 		player.getPA().startTeleport(x, y, z, "modern", false);
-		return true;
 	}
 
 	public void useOperate(int itemId) {
@@ -4301,7 +4278,7 @@ public class PlayerAssistant {
 	}
 
 	public void sendConfig(final int id, final int state) {
-		if (this.c.getOutStream() != null && this.c != null) {
+		if (this.c.getOutStream() != null) {
 			if (state < 128) {
 				this.c.getOutStream().createFrame(36);
 				this.c.getOutStream().writeWordBigEndian(id);
@@ -4316,7 +4293,7 @@ public class PlayerAssistant {
 	}
 
 	public void sendTradingPost(int frame, int item, int slot, int amount) {
-		if (c.getOutStream() != null && c != null) {
+		if (c.getOutStream() != null) {
 			c.getOutStream().createFrameVarSizeWord(34);
 			c.getOutStream().writeUnsignedWord(frame);
 			c.getOutStream().writeDWord(slot);

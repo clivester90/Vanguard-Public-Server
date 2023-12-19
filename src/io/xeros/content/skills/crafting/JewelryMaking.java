@@ -1,6 +1,5 @@
 package io.xeros.content.skills.crafting;
 
-import io.xeros.model.Items;
 import io.xeros.model.entity.player.Player;
 import io.xeros.model.items.ItemAssistant;
 
@@ -153,7 +152,7 @@ public class JewelryMaking extends CraftingData {
 				c.getItems().deleteItem(gem, 1);
 				c.getItems().deleteItem(GOLD_BAR, 1);
 				c.getItems().addItem(itemAdd, 1);
-				c.getPA().addSkillXPMultiplied(xp, Player.playerCrafting, true);
+				c.getPA().addSkillXP(xp, Player.playerCrafting, true);
 				c.getPA().refreshSkill(Player.playerCrafting);
 				done++;
 			}

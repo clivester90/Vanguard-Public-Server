@@ -5,8 +5,6 @@ import io.xeros.Server;
 import io.xeros.content.achievement.AchievementType;
 import io.xeros.content.achievement.Achievements;
 import io.xeros.content.event.eventcalendar.EventChallenge;
-import io.xeros.content.leaderboards.LeaderboardType;
-import io.xeros.content.leaderboards.LeaderboardUtils;
 import io.xeros.model.Items;
 import io.xeros.model.entity.player.Player;
 import io.xeros.model.entity.player.PlayerHandler;
@@ -75,9 +73,9 @@ public class ShatteredShards {
 		TOTAL_POINTS_EXCHANGED += exchangePrice;
         List<Player> staff = PlayerHandler.nonNullStream().filter(Objects::nonNull).filter(p -> (p.getRights().isOrInherits(Right.OWNER)|| p.getRights().isOrInherits(Right.MODERATOR))).collect(Collectors.toList());
         Discord.writeServerSyncMessage("[Shattered Shards] "+ c.getDisplayName() +" burned " + ItemAssistant.getItemName(c.currentExchangeItem)
-                +  " x" + c.currentExchangeItemAmount + "");
+                +  " x" + c.currentExchangeItemAmount);
         Discord.writeFoeMessage("[Shattered Shards] "+ c.getDisplayName() +" burned " + ItemAssistant.getItemName(c.currentExchangeItem)
-                +  " x" + c.currentExchangeItemAmount + "");
+                +  " x" + c.currentExchangeItemAmount);
 		if (TOTAL_POINTS_EXCHANGED >= 100000) {
 			PlayerHandler.executeGlobalMessage("@bla@[@red@Shattered Shards@bla@]@blu@ Another @red@100,000@blu@ shards has been consumed by the mist!");
 			TOTAL_POINTS_EXCHANGED = 0;
@@ -86,7 +84,6 @@ public class ShatteredShards {
         c.sendMessage("The mist takes your @blu@" + ItemAssistant.getItemName(c.currentExchangeItem) + "@bla@ and gives back @blu@" + Misc.formatCoins(exchangePrice) + " shards!");
         if (canBurnWithBranch(c)) {
         c.getEventCalendar().progress(EventChallenge.GAIN_X_EXCHANGE_POINTS, exchangePrice);
-        LeaderboardUtils.addCount(LeaderboardType.MOST_BURNED, c, exchangePrice);
         }
         if (c.currentExchangeItem != 691 &&
                 c.currentExchangeItem != 692 &&

@@ -104,7 +104,6 @@ public class ServerStartup {
         Server.getEventHandler().submit(new BonusApplianceEvent());
         Server.getEventHandler().submit(new PunishmentCycleEvent(Server.getPunishments(), 50));
         Server.getEventHandler().submit(new UpdateQuestTab());
-        Server.getEventHandler().submit(new LeaderboardUpdateEvent());
         Server.getEventHandler().submit(new EventTimersEvent());
 
         new GameBenchmark("pker-tab-event", ToplistExecution::execute, 100, TimeUnit.MILLISECONDS, Configuration.BENCHMARK).execute();

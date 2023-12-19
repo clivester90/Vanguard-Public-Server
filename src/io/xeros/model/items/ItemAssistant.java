@@ -2502,7 +2502,7 @@ public class ItemAssistant {
 			}
 			player.getItems().deleteItem(21347, 1);
 			player.getItems().addItem(21338, 15);
-			player.getPA().addSkillXPMultiplied(60, 12, true);
+			player.getPA().addSkillXP(60, 12, true);
 			player.sendMessage("You make some amethyst bolt tips.");
 		} else if (player.arrowTips) {
 			if (player.playerLevel[Skill.CRAFTING.getId()] < 85) {
@@ -2511,7 +2511,7 @@ public class ItemAssistant {
 			}
 			player.getItems().deleteItem(21347, 1);
 			player.getItems().addItem(21350, 15);
-			player.getPA().addSkillXPMultiplied(60, 12, true);
+			player.getPA().addSkillXP(60, 12, true);
 			player.sendMessage("You make some amethyst arrowtips.");
 		} else if (player.dartTips) {
 			if (player.playerLevel[Skill.FLETCHING.getId()] < 90) {
@@ -2520,7 +2520,7 @@ public class ItemAssistant {
 			}
 			player.getItems().deleteItem(21347, 1);
 			player.getItems().addItem(25853, 15);
-			player.getPA().addSkillXPMultiplied(60, 12, true);
+			player.getPA().addSkillXP(60, 12, true);
 			player.sendMessage("You make some amethyst dart tips.");
 		} else {
 			player.sendMessage("Error. Please report.");

@@ -30,7 +30,6 @@ import io.xeros.content.skills.prayer.Bone;
 import io.xeros.content.skills.prayer.Prayer;
 import io.xeros.content.skills.slayer.SlayerUnlock;
 import io.xeros.content.trails.MasterClue;
-import io.xeros.content.wogw.Wogw;
 import io.xeros.model.Animation;
 import io.xeros.model.Items;
 import io.xeros.model.collisionmap.ObjectDef;
@@ -387,7 +386,7 @@ public class UseItem {
 						c.getItems().deleteItem(11286, c.getItems().getInventoryItemSlot(11286), 1);
 						c.getItems().addItem(11284, 1);
 						c.getDH().sendItemStatement("You combine the two materials to create a dragonfire shield.", 11284);
-						c.getPA().addSkillXPMultiplied(5, Player.playerSmithing, true);
+						c.getPA().addSkillXP(5, Player.playerSmithing, true);
 					} else {
 						c.sendMessage("You need a smithing level of 90 to create a dragonfire shield.");
 					}
@@ -743,7 +742,7 @@ public class UseItem {
 					c.getItems().deleteItem(1734, c.getItems().getInventoryItemSlot(1734), 1);
 					c.getItems().deleteItem2(1743, 1);
 					c.getItems().addItem(1131, 1);
-					c.getPA().addSkillXPMultiplied(35, 12, true);
+					c.getPA().addSkillXP(35, 12, true);
 					//c.sendMessage("Crafting hardleather body.");
 				} else {
 					c.sendMessage("You need 28 crafting to do this.");
@@ -760,7 +759,7 @@ public class UseItem {
 				c.startAnimation(1248);
 				c.getItems().deleteItem2(19669, 1);
 				c.getItems().addItem(52, 105);
-				c.getPA().addSkillXPMultiplied(35, 9, true);
+				c.getPA().addSkillXP(35, 9, true);
 			} else {
 				c.sendMessage("You need 90 Fletching to do this.");
 			}
@@ -805,7 +804,7 @@ public class UseItem {
 				c.getItems().deleteItem(3016, 1);
 				c.getItems().deleteItem(12640, 3);
 				c.getItems().addItem(12625, 1);
-				c.getPA().addSkillXPMultiplied(152, Skill.HERBLORE.getId(), true);
+				c.getPA().addSkillXP(152, Skill.HERBLORE.getId(), true);
 				c.sendMessage("You combine all of the ingredients and make a Stamina potion.");
 				Achievements.increase(c, AchievementType.HERB, 1);
 			}
@@ -1576,7 +1575,7 @@ public class UseItem {
 				c.getItems().deleteItem2(11722, 1);
 				c.getItems().deleteItem2(11726, 1);
 				c.getItems().addItem(11730, 1);//overload
-				c.getPA().addSkillXPMultiplied(125, Skill.HERBLORE.getId(), true);
+				c.getPA().addSkillXP(125, Skill.HERBLORE.getId(), true);
 				c.sendMessage("You put the " + ItemDef.forId(269).getName() + " into the Potion and create a " + ItemDef.forId(11730).getName() + ".");
 			} else {
 				c.sendMessage("You have run out of supplies to do this.");
@@ -1669,30 +1668,9 @@ public class UseItem {
 			}
 			return;
 		}
-		if (npcId == 1504) {//lamp on hunter for hunter xp
-			if (itemId == 2528) {
-				if (player.getItems().playerHasItem(2528, 1)) {
-					if (!player.getMode().isOsrs() && !player.getMode().is5x()) {
-						player.getPA().addSkillXP(125000, 21, true);
 
-					} else {
-						player.getPA().addSkillXP(12500, 21, true);
-						player.sendMessage("As a restricted game mode you receive less xp.");
-					}
-
-					player.getItems().deleteItem(2528, 1);
-					player.sendMessage("The lamp mysteriously vanishes...");
-
-					player.getPA().closeAllWindows();
-				}
-			}
-
-			return;
-		}
 		switch (npcId) {
 			case 8583:
-				switch (itemId) {
-				}
 				break;
 			case 8208:
 				PetCollector.exchangePetForGp(player, itemId);
@@ -1701,21 +1679,16 @@ public class UseItem {
 		PlayerAssistant.decantResource(player, itemId);
 		break;
 		case 5906:
-			switch (itemId) {
-			case 11144:
+			if (itemId == 11144) {
 				player.getItems().deleteItem(11144, 1);
 				player.getItems().addItem(12002, 1);
-				break;
 			}
 			break;
 		
 		case 7303:
 			MasterClue.exchangeClue(player);
 			break;
-			
-		/*case 7439: //Plain rock golem
-			PetHandler.recolor(player, player.npcType, itemId);
-			break;*/
+
 		case 3894:
 				Packs.openSuperSet(player,13066);
 			break;

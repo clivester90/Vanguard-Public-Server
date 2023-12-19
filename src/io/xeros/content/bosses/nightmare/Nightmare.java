@@ -23,8 +23,6 @@ import io.xeros.content.combat.death.NPCDeath;
 import io.xeros.content.combat.formula.MeleeMaxHit;
 import io.xeros.content.event.eventcalendar.EventChallenge;
 import io.xeros.content.instances.InstancedArea;
-import io.xeros.content.leaderboards.LeaderboardType;
-import io.xeros.content.leaderboards.LeaderboardUtils;
 import io.xeros.model.entity.Entity;
 import io.xeros.model.entity.HealthStatus;
 import io.xeros.model.entity.npc.NPC;
@@ -230,7 +228,6 @@ public class Nightmare extends NPC {
                 Achievements.increase(plr, AchievementType.NIGHTMARE, 1);
                 NPCDeath.dropItemsFor(this, plr, NIGHTMARE_ACTIVE_ID);
                 plr.getEventCalendar().progress(EventChallenge.KILL_X_NIGHTMARE);
-                LeaderboardUtils.addCount(LeaderboardType.NIGHTMARE, plr, 1);
                 plr.getSlayer().killTaskMonster(this);
                 plr.getBossTimers().death(this);
 

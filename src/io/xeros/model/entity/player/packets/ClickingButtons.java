@@ -1,11 +1,5 @@
 package io.xeros.model.entity.player.packets;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import io.xeros.Configuration;
 import io.xeros.Server;
 import io.xeros.achievements.*;
@@ -23,36 +17,26 @@ import io.xeros.content.dialogue.DialogueAction;
 import io.xeros.content.dialogue.DialogueActionButton;
 import io.xeros.content.dialogue.DialogueConstants;
 import io.xeros.content.dialogue.impl.CrystalCaveEntryDialogue;
-import io.xeros.content.shatteredshards.help.HelpDatabase;
-import io.xeros.content.hespori.Hespori;
 import io.xeros.content.item.lootable.LootableInterface;
+import io.xeros.content.items.Lamps;
 import io.xeros.content.itemskeptondeath.ItemsKeptOnDeathInterface;
-import io.xeros.content.leaderboards.LeaderboardInterface;
 import io.xeros.content.polls.PollTab;
 import io.xeros.content.preset.PresetManager;
+import io.xeros.content.shatteredshards.help.HelpDatabase;
 import io.xeros.content.skills.Cooking;
 import io.xeros.content.skills.Skill;
-import io.xeros.content.skills.crafting.BattlestaveMaking;
-import io.xeros.content.skills.crafting.BraceletMaking;
+import io.xeros.content.skills.crafting.*;
 import io.xeros.content.skills.crafting.CraftingData.tanningData;
-import io.xeros.content.skills.crafting.GlassBlowing;
-import io.xeros.content.skills.crafting.LeatherMaking;
-import io.xeros.content.skills.crafting.Tanning;
 import io.xeros.content.skills.slayer.SlayerRewardsInterface;
 import io.xeros.content.skills.smithing.Smelting;
 import io.xeros.content.tradingpost.Listing;
 import io.xeros.content.tutorial.TutorialDialogue;
 import io.xeros.content.vote_panel.VotePanelInterface;
 import io.xeros.content.wogw.Wogw;
-import io.xeros.model.Items;
 import io.xeros.model.definitions.ItemDef;
 import io.xeros.model.entity.player.*;
 import io.xeros.model.entity.player.mode.group.GroupIronmanBank;
-import io.xeros.model.entity.player.packets.dialogueoptions.FiveOptions;
-import io.xeros.model.entity.player.packets.dialogueoptions.FourOptions;
-import io.xeros.model.entity.player.packets.dialogueoptions.OptionHandler;
-import io.xeros.model.entity.player.packets.dialogueoptions.ThreeOptions;
-import io.xeros.model.entity.player.packets.dialogueoptions.TwoOptions;
+import io.xeros.model.entity.player.packets.dialogueoptions.*;
 import io.xeros.model.items.ContainerUpdate;
 import io.xeros.model.items.GameItem;
 import io.xeros.model.items.bank.BankItem;
@@ -69,6 +53,12 @@ import io.xeros.new_quest_tab.Tabswitcher;
 import io.xeros.util.Misc;
 import io.xeros.util.discord.Discord;
 import io.xeros.util.logging.player.ClickButtonLog;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Clicking most buttons
@@ -151,7 +141,7 @@ public class ClickingButtons implements PacketType {
 			return;
 		}
 
-		if (c.getExpLock().ExpLockClicking(actionButtonId)) {
+		if (c.getExplock().ExpLockClicking(actionButtonId)) {
 			return;
 		}
 		c.getUpgradeHandler().selectTab(actionButtonId);
@@ -201,7 +191,7 @@ public class ClickingButtons implements PacketType {
 			return;
 		}
 
-		if (LeaderboardInterface.handleButtons(c, realButtonId)) {
+		if(Lamps.handleLampButtons(c, actionButtonId)) {
 			return;
 		}
 
@@ -739,7 +729,7 @@ public class ClickingButtons implements PacketType {
 			c.getBH().teleportToTarget();
 			break;
 		case 183156:
-			if (c.inDonatorBox == false && !c.getUltraInterface().isActive() && !c.getSuperBoxInterface().isActive() && !c.getNormalBoxInterface().isActive() && !c.getFoeInterface().isActive()) {
+			if (!c.inDonatorBox && !c.getUltraInterface().isActive() && !c.getSuperBoxInterface().isActive() && !c.getNormalBoxInterface().isActive() && !c.getFoeInterface().isActive()) {
 				CheatEngineBlock.DonatorBoxAlert(c);
 				return;
 			}
@@ -900,10 +890,10 @@ public class ClickingButtons implements PacketType {
 			break;
 
 		case 226158:
-			if (c.inBank == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
+			if (!c.inBank && System.currentTimeMillis() - c.clickDelay <= 2200) {
 				return;
 			}
-			if (c.inBank == false) {
+			if (!c.inBank) {
 				CheatEngineBlock.BankAlert(c);
 				return;
 			}
@@ -1007,7 +997,7 @@ public class ClickingButtons implements PacketType {
 			if (System.currentTimeMillis() - c.clickDelay <= 2200) {
 				return;
 			}
-			if (c.inBank == false) {
+			if (!c.inBank) {
 				CheatEngineBlock.BankAlert(c);
 				return;
 			}
@@ -1100,7 +1090,7 @@ public class ClickingButtons implements PacketType {
 			if (System.currentTimeMillis() - c.clickDelay <= 2200) {
 				return;
 			}
-			if (c.inBank == false) {
+			if (!c.inBank) {
 				CheatEngineBlock.BankAlert(c);
 				return;
 			}
@@ -1119,7 +1109,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			}
 
-			if (c.inBank == false) {
+			if (!c.inBank) {
 				CheatEngineBlock.BankAlert(c);
 				return;
 			}
@@ -1150,7 +1140,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			}
 
-			if (c.inBank == false) {
+			if (!c.inBank) {
 				CheatEngineBlock.BankAlert(c);
 				return;
 			}
@@ -1195,7 +1185,7 @@ public class ClickingButtons implements PacketType {
 		case 226253:
 		case 227008:
 		case 227019:
-			if (c.inBank == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
+			if (!c.inBank && System.currentTimeMillis() - c.clickDelay <= 2200) {
 				return;
 			}
 			if (!c.isBanking) {
@@ -1477,315 +1467,7 @@ public class ClickingButtons implements PacketType {
 			break;
 		case 39244:
 			break;
-		case 10252:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 0;
-			c.sendMessage("You select Attack");
-			break;
-		case 10253:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 2;
-			c.sendMessage("You select Strength");
-			break;
-		case 10254:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 4;
-			c.sendMessage("You select Ranged");
-			break;
-		case 10255:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 6;
-			c.sendMessage("You select Magic");
-			break;
-		case 11000:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 1;
-			c.sendMessage("You select Defence");
-			break;
-		case 116181:
-			c.getPA().closeAllWindows();
-			break;
-		case 11001:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 3;
-			c.sendMessage("You select Hitpoints");
-			break;
-		case 11002:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 5;
-			c.sendMessage("You select Prayer");
-			break;
-		case 11003:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 16;
-			c.sendMessage("You select Agility");
-			break;
-		case 11004:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 15;
-			c.sendMessage("You select Herblore");
-			break;
-		case 11005:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 17;
-			c.sendMessage("You select Thieving");
-			break;
-		case 11006:
-			if (c.inLamp == false && c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 12;
-			c.sendMessage("You select Crafting");
-			break;
-		case 11007:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 20;
-			c.sendMessage("You select Runecrafting");
-			break;
-		case 47002:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 18;
-			c.sendMessage("You select Slayer");
-			break;
-		case 54090:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 19;
-			c.sendMessage("You select Farming");
-			break;
-		case 11008:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 14;
-			c.sendMessage("You select Mining");
-			break;
-		case 11009:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 13;
-			c.sendMessage("You select Smithing");
-			break;
-		case 11010:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 10;
-			c.sendMessage("You select Fishing");
-			break;
-		case 11011:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 7;
-			c.sendMessage("You select Cooking");
-			break;
-		case 11012:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 11;
-			c.sendMessage("You select Firemaking");
-			break;
-		case 11013:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 8;
-			c.sendMessage("You select Woodcutting");
-			break;
-		case 11014:
-			if (c.inLamp == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.inLamp == false) {
-				CheatEngineBlock.ExperienceAbuseAlert(c);
-				return;
-			}
-			c.antiqueItemResetSkillId = 9;
-			c.sendMessage("You select Fletching");
-			break;
-		case 11015:
-			if (c.inLamp == false && Hespori.activeKronosSeed == false && System.currentTimeMillis() - c.clickDelay <= 2200) {
-				return;
-			}
-			if (c.getItems().playerHasItem(13148)) {
-				if (c.getItems().freeEquipmentSlots() != 14) {
-					c.sendMessage("Please take off all equipment before doing this.");
-					return;
-				}
-				if (c.antiqueItemResetSkillId == 3) {
-					c.sendMessage("@red@You cannot reset your hitpoints level.");
-					return;
-				}
-				c.playerLevel[c.antiqueItemResetSkillId] = 1;
-				c.playerXP[c.antiqueItemResetSkillId] = c.getPA().getXPForLevel(1) + 1;
-				c.getPA().refreshSkill(c.antiqueItemResetSkillId);
-				c.getPA().setSkillLevel(c.antiqueItemResetSkillId, c.playerLevel[c.antiqueItemResetSkillId], c.playerXP[c.antiqueItemResetSkillId]);
-				c.getItems().deleteItem(13148, 1);
-				c.sendMessage("@red@You have reset your skill of choice.");
-				c.getPA().closeAllWindows();
-				return;
-			}
 
-			if (!c.getItems().playerHasItem(2528) && (!c.getItems().playerHasItem(Items.DARK_RELIC) && (!c.getItems().playerHasItem(13148)))) {
-				return;
-			}
-
-
-			if (c.usingLamp) {
-				if (c.getItems().playerHasItem(2528) && c.normalLamp && !c.antiqueLamp) {
-					c.usingLamp = false;
-					c.inLamp = false;
-
-					if (!c.getMode().isOsrs() && !c.getMode().is5x()) {
-						c.getPA().addSkillXP(125000, c.antiqueItemResetSkillId, true);
-
-					} else {
-						c.getPA().addSkillXP(12500, c.antiqueItemResetSkillId, true);
-						c.sendMessage("As a restricted game mode you receive less xp.");
-					}
-
-					c.getItems().deleteItem(2528, 1);
-					c.sendMessage("The lamp mysteriously vanishes...");
-
-					c.getPA().closeAllWindows();
-				}
-
-				if (c.getItems().playerHasItem(Items.DARK_RELIC) && c.normalLamp && !c.antiqueLamp) {
-					c.usingLamp = false;
-					c.inLamp = false;
-
-					if (!c.getMode().isOsrs() && !c.getMode().is5x()) {
-						c.getPA().addSkillXP(125_000, c.antiqueItemResetSkillId, true);
-					} else {
-						c.getPA().addSkillXP(12_500, c.antiqueItemResetSkillId, true);
-					}
-
-					c.getItems().deleteItem(Items.DARK_RELIC, 1);
-					c.sendMessage("The dark relic mysteriously vanishes...");
-					c.sendMessage("...and you gain some experience!");
-					c.getPA().closeAllWindows();
-				}
-
-
-			}
-			break;
-
-			/*
-			 * case 28172: if (c.expLock == false) { c.expLock = true; c.sendMessage(
-			 * "Your experience is now locked. You will not gain experience.");
-			 * c.getPA().sendFrame126( "@whi@EXP: @gre@LOCKED", 7340); } else { c.expLock =
-			 * false; c.sendMessage(
-			 * "Your experience is now unlocked. You will gain experience.");
-			 * c.getPA().sendFrame126( "@whi@EXP: @gre@UNLOCKED", 7340); } break;
-			 */
 		case 28215:
 			if (c.getSlayer().getTask().isPresent()) {
 				c.sendMessage("You do not have a task, please talk with a slayer master!");

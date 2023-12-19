@@ -48,7 +48,7 @@ public class ModeSelection {
 
     private enum Button {
         STANDARD(ModeType.STANDARD, 94_245),
-        ROGUE(ModeType.ROGUE, 94_248),
+        ROGUE(ModeType.HARDCORE, 94_248),
         IRONMAN(ModeType.IRON_MAN, 94_251),
         HARDCORE_IRONMAN(ModeType.HC_IRON_MAN, 94_254),
         ULTIMATE_IRONMAN(ModeType.ULTIMATE_IRON_MAN, 95_001),

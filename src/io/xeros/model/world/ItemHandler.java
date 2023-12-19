@@ -22,7 +22,6 @@ import io.xeros.model.entity.player.PlayerHandler;
 import io.xeros.model.entity.player.Position;
 import io.xeros.model.items.GameItem;
 import io.xeros.model.items.GroundItem;
-import io.xeros.model.shops.ItemList;
 import io.xeros.model.shops.ShopAssistant;
 import io.xeros.util.Misc;
 import io.xeros.util.logging.player.ItemPickupLog;
@@ -224,7 +223,7 @@ public class ItemHandler {
 				double experience = player.getRechargeItems().hasItem(13114) ? 0.75 : player.getRechargeItems().hasItem(13115) ? 1 : player.getDiaryManager().getMorytaniaDiary().hasCompleted("ELITE") ?  1 : 0.50 ;
 				if (itemId == bone.getItemId()) {
 					player.getPrayer().onBonesBuriedOrCrushed(bone, true);
-					player.getPA().addSkillXPMultiplied((int) (bone.getExperience() * experience),
+					player.getPA().addSkillXP((int) (bone.getExperience() * experience),
 							Skill.PRAYER.getId(), true);
 					return;
 				}

@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Stopwatch;
-import io.xeros.Configuration;
 import io.xeros.Server;
 import io.xeros.content.event.eventcalendar.EventChallenge;
 import io.xeros.content.skills.Skill;
@@ -84,7 +83,7 @@ public class Prayer {
 		}
 		ItemDef definition = ItemDef.forId(bone.getItemId());
 		player.sendMessage("You bury the " + (definition == null ? "bone" : definition.getName()) + ".");
-		player.getPA().addSkillXPMultiplied(bone.getExperience() * (Boundary.isIn(player, Boundary.LAVA_DRAGON_ISLE) && bone.getItemId() == 11943 ? 4 : 1), Skill.PRAYER.getId(), true);
+		player.getPA().addSkillXP(bone.getExperience() * (Boundary.isIn(player, Boundary.LAVA_DRAGON_ISLE) && bone.getItemId() == 11943 ? 4 : 1), Skill.PRAYER.getId(), true);
 		player.getItems().deleteItem2(bone.getItemId(), 1);
 		player.startAnimation(827);
 		player.getPA().sendSound(2738);
@@ -114,7 +113,7 @@ public class Prayer {
 			xpAdd += bone.getExperience() * (Skill.PRAYER.getId() * 3) * 1.05 - bone.getExperience() * (Skill.PRAYER.getId() * 3);
 		}
 		player.getPA().stillGfx(624, objectX, objectY, player.heightLevel, 1);
-		player.getPA().addSkillXPMultiplied(bone.getExperience() * 3 + xpAdd, Skill.PRAYER.getId(), true);
+		player.getPA().addSkillXP(bone.getExperience() * 3 + xpAdd, Skill.PRAYER.getId(), true);
 		player.getItems().deleteItem2(bone.getItemId(), 1);
 		player.startAnimation(3705);
 		lastAction.reset();
@@ -141,7 +140,7 @@ public class Prayer {
 				remaining--;
 				player.facePosition(player.objectX, player.objectY);
 				player.getPA().stillGfx(624, objectX, objectY, player.heightLevel, 1);
-				player.getPA().addSkillXPMultiplied(bone.getExperience() * 3 + xpAdd, Skill.PRAYER.getId(), true);
+				player.getPA().addSkillXP(bone.getExperience() * 3 + xpAdd, Skill.PRAYER.getId(), true);
 				if (player.getPosition().inWild() && chance == 1) {
 					player.getItems().addItem(bone.getItemId(), 1);
 					player.sendMessage("@red@The god of chaos smiles on you and returns your sacrifice.");

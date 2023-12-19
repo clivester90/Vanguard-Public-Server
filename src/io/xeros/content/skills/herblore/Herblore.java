@@ -70,7 +70,7 @@ public class Herblore {
 				return;
 			}
 			ItemDef definition = ItemDef.forId(h.getClean());
-			player.getPA().addSkillXPMultiplied(h.getExperience(), Skill.HERBLORE.getId(), true);
+			player.getPA().addSkillXP(h.getExperience(), Skill.HERBLORE.getId(), true);
 			player.getItems().deleteItem2(h.getGrimy(), 1);
 			player.getItems().addItem(h.getClean(), 1);
 			player.sendMessage("You identify the herb as " + definition.getName() + ".");
@@ -114,7 +114,7 @@ public class Herblore {
 					}
 					
 					player.getItems().addItem(p.getResult().getId(), p.getResult().getAmount());
-					player.getPA().addSkillXPMultiplied(p.getExperience(), Skill.HERBLORE.getId(), true);
+					player.getPA().addSkillXP(p.getExperience(), Skill.HERBLORE.getId(), true);
 					player.sendMessage("You combine all of the ingredients and make a " + name + ".");
 					Achievements.increase(player, AchievementType.HERB, 1);
 					switch (p) {

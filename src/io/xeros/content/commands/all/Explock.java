@@ -14,7 +14,7 @@ public class Explock extends Command {
 
 	@Override
 	public void execute(Player c, String commandName, String input) {
-		c.getExpLock().OpenExpLock();
+		c.getExplock().OpenExpLock();
 	}
 
 	@Override

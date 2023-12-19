@@ -22,6 +22,7 @@ import io.xeros.content.dialogue.impl.ClaimDonatorScrollDialogue;
 import io.xeros.content.dwarfmulticannon.Cannon;
 import io.xeros.content.item.lootable.impl.*;
 import io.xeros.content.items.CluescrollRateIncreaseScroll;
+import io.xeros.content.items.Lamps;
 import io.xeros.content.items.Packs;
 import io.xeros.content.items.Starter;
 import io.xeros.content.items.pouch.RunePouch;
@@ -160,6 +161,11 @@ public class ItemOptionOne implements PacketType {
             return;
         }
 
+        if(itemId == Items.EXPERIENCE_LAMP || itemId == Items.DARK_RELIC || itemId == Items.ANTIQUE_LAMP_31) {
+            Lamps.handleItemOptionOne(c, itemId);
+            return;
+        }
+
         switch (itemId) {
 
             case 25590://runecrating casket
@@ -180,12 +186,12 @@ public class ItemOptionOne implements PacketType {
                     c.getItems().deleteItem(4447, 1);
                     return;
                 }
-                if (c.skillingPetRateScroll == false && c.getItems().playerHasItem(4447)) {
+                if (!c.skillingPetRateScroll && c.getItems().playerHasItem(4447)) {
                     c.getItems().deleteItem(4447, 1);
                     SkillPetRateIncreaseScroll.openScroll(c);
                     c.sendMessage("@blu@The lamp activates @red@30 minutes @blu@ of bonus skilling pet rate increase.");
                     c.getPA().sendGameTimer(ClientGameTimer.BONUS_SKILLING_PET_RATE, TimeUnit.MINUTES, 30);
-                } else if (c.skillingPetRateScroll == true) {
+                } else if (c.skillingPetRateScroll) {
                     c.sendMessage("@red@You already have a pet bonus going.");
                 }
                 break;
@@ -297,13 +303,13 @@ public class ItemOptionOne implements PacketType {
         	    c.sendMessage("@red@Bonus XP Weekend is @gre@active@red@, no need to use that now!");
         	    return;
         	}
-        	else if (c.xpScroll == false && c.getItems().playerHasItem(2841)) {
+        	else if (!c.xpScroll && c.getItems().playerHasItem(2841)) {
         	    c.getItems().deleteItem(2841, 1);
         	    DoubleExpScroll.openScroll(c);
         	    c.sendMessage("@red@You have activated 1 hour of bonus experience.");
                 c.getPA().sendGameTimer(ClientGameTimer.BONUS_XP, TimeUnit.MINUTES, 60);
         	    c.getQuestTab().updateInformationTab();
-        	} else if (c.xpScroll == true) {
+        	} else if (c.xpScroll) {
         	    c.sendMessage("@red@You already used this up.");
         	}
         	break;
@@ -312,12 +318,12 @@ public class ItemOptionOne implements PacketType {
                     c.sendMessage("You need an Bonus Pet Scroll to do this!");
                     return;
                 }
-                if (c.skillingPetRateScroll == false && c.getItems().playerHasItem(7968)) {
+                if (!c.skillingPetRateScroll && c.getItems().playerHasItem(7968)) {
                     c.getItems().deleteItem(7968, 1);
                     SkillPetRateIncreaseScroll.openScroll(c);
                     c.sendMessage("@red@You have activated 30 minutes of bonus skilling pet rate increase.");
                     c.getPA().sendGameTimer(ClientGameTimer.BONUS_SKILLING_PET_RATE, TimeUnit.MINUTES, 30);
-                } else if (c.skillingPetRateScroll == true) {
+                } else if (c.skillingPetRateScroll) {
                     c.sendMessage("@red@You already have a pet bonus going.");
                 }
                 break;
@@ -326,12 +332,12 @@ public class ItemOptionOne implements PacketType {
                     c.sendMessage("You need a Faster clues scroll to do this!");
                     return;
                 }
-                if (c.fasterCluesScroll == false && c.getItems().playerHasItem(24460)) {
+                if (!c.fasterCluesScroll && c.getItems().playerHasItem(24460)) {
                     c.getItems().deleteItem(24460, 1);
                     CluescrollRateIncreaseScroll.openScroll(c);
                     c.sendMessage("@red@You have activated 30 minutes of bonus clues for pvm and skilling.");
                     c.getPA().sendGameTimer(ClientGameTimer.BONUS_CLUES, TimeUnit.MINUTES, 30);
-                } else if (c.fasterCluesScroll == true) {
+                } else if (c.fasterCluesScroll) {
                     c.sendMessage("@red@You already have a faster clue rate going.");
                 }
                 break;
@@ -439,13 +445,13 @@ public class ItemOptionOne implements PacketType {
                 }
                 break;
             case 6121:
-            	if (c.barbarian == false && c.getItems().playerHasItem(6121)) {
+            	if (!c.barbarian && c.getItems().playerHasItem(6121)) {
             		c.getItems().deleteItem(6121, 1);
             		c.barbarian = true;
                     c.breakVials = true;
             		c.getDH().sendStatement("You may now use ::vials to turn off and on vial smashing!", "It is now set to on.");
             		
-            	}else if (c.barbarian == true) {
+            	}else if (c.barbarian) {
             		c.sendMessage("You already learned how to do this");
             	}
             	break;
@@ -745,9 +751,6 @@ public class ItemOptionOne implements PacketType {
                 Pouches.fill(c, Pouches.Pouch.forId(itemId), 1);
                 break;
             case 5512:
-                Pouches.fill(c, Pouches.Pouch.forId(itemId), 2);
-                break;
-
             case 26784://colossal pouch
                 Pouches.fill(c, Pouches.Pouch.forId(itemId), 2);
                 break;
@@ -921,15 +924,6 @@ public class ItemOptionOne implements PacketType {
 				c.getSkillCasket().open();
 				return;
 			}*/
-
-        if (itemId == 2528) {
-        	c.inLamp = true;
-            c.usingLamp = true;
-            c.normalLamp = true;
-            c.antiqueLamp = false;
-            c.sendMessage("You rub the lamp...");
-            c.getPA().showInterface(2808);
-        }
 
    }
 }

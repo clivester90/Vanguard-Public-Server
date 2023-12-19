@@ -24,7 +24,6 @@ import io.xeros.model.Items;
 import io.xeros.model.cycleevent.CycleEvent;
 import io.xeros.model.cycleevent.CycleEventContainer;
 import io.xeros.model.cycleevent.CycleEventHandler;
-import io.xeros.model.cycleevent.impl.LeaderboardUpdateEvent;
 import io.xeros.model.definitions.ItemDef;
 import io.xeros.model.entity.npc.NPC;
 import io.xeros.model.entity.npc.NPCDumbPathFinder;
@@ -74,11 +73,9 @@ public class Test extends Command {
 				}, () -> player.sendMessage("No gim group."));
 				break;
 			case "collect":
-				for (int i = 0; i < 20; i++)
-				player.getCollectionBox().add(player, new GameItem(4151));
-				break;
-			case "leaderboardsselect":
-				LeaderboardUpdateEvent.runUpdate(true);
+				for (int i = 0; i < 20; i++) {
+					player.getCollectionBox().add(player, new GameItem(4151));
+				}
 				break;
 			case "resetwildwarn":
 				WildWarning.resetWarningCount(player);
@@ -185,7 +182,9 @@ public class Test extends Command {
 			
 		case "walk":
 			NPC TEKTON = NPCHandler.getNpc(7544);
-			NPCDumbPathFinder.walkTowards(TEKTON, 3308, 5296);
+			if (TEKTON != null) {
+				NPCDumbPathFinder.walkTowards(TEKTON, 3308, 5296);
+			}
 			break;
 		
 		case "placeholder"://might conflict with the other placeholder cmd
@@ -251,7 +250,7 @@ public class Test extends Command {
 			player.sendMessage("Killstreaks of players online:");
 			PlayerHandler.nonNullStream().filter(Objects::nonNull).forEach(a -> {
 				//if (a.getKillstreak().getTotalKillstreak() > 0) {
-					player.sendMessage("" + a.getDisplayName() + " -> " + a.getKillstreak().getTotalKillstreak() +" streak.");
+					player.sendMessage(a.getDisplayName() + " -> " + a.getKillstreak().getTotalKillstreak() +" streak.");
 				//}
 			});
 			break;
@@ -259,7 +258,7 @@ public class Test extends Command {
 		case "pkkills":
 			player.sendMessage("Kills of players online:");
 			PlayerHandler.nonNullStream().filter(Objects::nonNull).forEach(a -> {
-					player.sendMessage("" + a.getDisplayName() + " -> " + a.killcount +" kills.");
+					player.sendMessage(a.getDisplayName() + " -> " + a.killcount +" kills.");
 			});
 			break;
 			
@@ -280,7 +279,7 @@ public class Test extends Command {
 		case "b":
 			for (int i = 31011; i < 31069; i++) {
 				player.getPA().sendChangeSprite(i, (byte) 0);
-				player.getPA().sendFrame126("S:" + (i - 1) + " T:"+ i +"", i);
+				player.getPA().sendFrame126("S:" + (i - 1) + " T:"+ i, i);
 			}
 //			player.getPA().sendChangeSprite(31052, (byte) 1);
 			//TeleportationInterface.open(player)

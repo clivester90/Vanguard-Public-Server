@@ -39,7 +39,7 @@ public class GemCutting {
 						attachment.getItems().addItem(g.getCut(), 1);
 						if (g.getCut() == 1615)
 							DailyTasks.increase(attachment, DailyTasks.PossibleTasks.DRAGONSTONES);//May not work so double check cam
-						attachment.getPA().addSkillXPMultiplied(g.getExperience(), Skill.CRAFTING.getId(), true);
+						attachment.getPA().addSkillXP(g.getExperience(), Skill.CRAFTING.getId(), true);
 						attachment.startAnimation(886);
 					}
 					if (!attachment.getItems().playerHasItem(g.getUncut())) {
