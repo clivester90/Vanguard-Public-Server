@@ -200,10 +200,6 @@ public class Test extends Command {
 			Wogw.init();
 			break;
 			
-		case "corp":
-			player.getPA().walkableInterface(38000);
-			break;
-			
 		case "tele":
 			player.getPA().sendFrame126("Slayer Tower", 62112);
 			player.getPA().sendFrame126("Lletya", 62119);

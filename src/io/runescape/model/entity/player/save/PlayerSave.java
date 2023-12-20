@@ -1,36 +1,12 @@
 package io.runescape.model.entity.player.save;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDate;
-import java.util.*;
-import java.util.Map.Entry;
-
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import io.runescape.Server;
 import io.runescape.achievements.AchievementList;
 import io.runescape.content.achievement.AchievementTier;
 import io.runescape.content.achievement_diary.DifficultyAchievementDiary;
-import io.runescape.content.achievement_diary.impl.ArdougneDiaryEntry;
-import io.runescape.content.achievement_diary.impl.DesertDiaryEntry;
-import io.runescape.content.achievement_diary.impl.FaladorDiaryEntry;
-import io.runescape.content.achievement_diary.impl.FremennikDiaryEntry;
-import io.runescape.content.achievement_diary.impl.KandarinDiaryEntry;
-import io.runescape.content.achievement_diary.impl.KaramjaDiaryEntry;
-import io.runescape.content.achievement_diary.impl.LumbridgeDraynorDiaryEntry;
-import io.runescape.content.achievement_diary.impl.MorytaniaDiaryEntry;
-import io.runescape.content.achievement_diary.impl.VarrockDiaryEntry;
-import io.runescape.content.achievement_diary.impl.WesternDiaryEntry;
-import io.runescape.content.achievement_diary.impl.WildernessDiaryEntry;
+import io.runescape.content.achievement_diary.impl.*;
 import io.runescape.content.combat.pvp.Killstreak;
 import io.runescape.content.dailytasks.DailyTasks;
 import io.runescape.content.dailytasks.TaskTypes;
@@ -60,6 +36,12 @@ import io.runescape.util.PasswordHashing;
 import io.runescape.util.Reflection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.Map.Entry;
 
 public class PlayerSave {
 
@@ -170,7 +152,7 @@ public class PlayerSave {
             List<FriendsListEntry> friends = new ArrayList<>();
 
             main:
-            while (EndOfFile == false && line != null) {
+            while (!EndOfFile && line != null) {
                 line = line.trim();
                 try {
                     int spot = line.indexOf("=");
@@ -274,23 +256,8 @@ public class PlayerSave {
                                 } else if (token.equals("dailyTaskPoints")) {
                                     p.dailyTaskPoints = Integer.parseInt(token2);
 
-                                } else if (token.equals("Likes")) {
-                                    p.setLikes(Integer.parseInt(token2));
-
-                                } else if (token.equals("LastLike")) {
-                                    p.setLastLike(Long.parseLong(token2));
-
-                                } else if (token.equals("LikesGiven")) {
-                                    p.setLikesGiven((byte) Integer.parseInt(token2));
-
-                                } else if (token.equals("ProfileViews")) {
-                                    p.setProfileViews(Integer.parseInt(token2));
-
-                                } else if (token.equals("Dislikes")) {
-                                    p.setDislikes(Integer.parseInt(token2));
-
-
-                                } else if (token.equals("RingofVanguard")) {
+                                }
+                                else if (token.equals("RingofVanguard")) {
                                     p.setRingOfKoranesColletion(RingOfKoranes.CollectionLocation.valueOf(token2));
 
                                 } else if (token.equals("RingofVanguardImbue")) {
@@ -787,59 +754,37 @@ public class PlayerSave {
                                             }
                                             // Varrock
                                             Optional<VarrockDiaryEntry> varrock = VarrockDiaryEntry.fromName(comp);
-                                            if (varrock.isPresent()) {
-                                                p.getDiaryManager().getVarrockDiary().nonNotifyComplete(varrock.get());
-                                            }
+                                            varrock.ifPresent(varrockDiaryEntry -> p.getDiaryManager().getVarrockDiary().nonNotifyComplete(varrockDiaryEntry));
                                             // Ardougne
                                             Optional<ArdougneDiaryEntry> ardougne = ArdougneDiaryEntry.fromName(comp);
-                                            if (ardougne.isPresent()) {
-                                                p.getDiaryManager().getArdougneDiary().nonNotifyComplete(ardougne.get());
-                                            }
+                                            ardougne.ifPresent(ardougneDiaryEntry -> p.getDiaryManager().getArdougneDiary().nonNotifyComplete(ardougneDiaryEntry));
                                             // Desert
                                             Optional<DesertDiaryEntry> desert = DesertDiaryEntry.fromName(comp);
-                                            if (desert.isPresent()) {
-                                                p.getDiaryManager().getDesertDiary().nonNotifyComplete(desert.get());
-                                            }
+                                            desert.ifPresent(desertDiaryEntry -> p.getDiaryManager().getDesertDiary().nonNotifyComplete(desertDiaryEntry));
                                             // Falador
                                             Optional<FaladorDiaryEntry> falador = FaladorDiaryEntry.fromName(comp);
-                                            if (falador.isPresent()) {
-                                                p.getDiaryManager().getFaladorDiary().nonNotifyComplete(falador.get());
-                                            }
+                                            falador.ifPresent(faladorDiaryEntry -> p.getDiaryManager().getFaladorDiary().nonNotifyComplete(faladorDiaryEntry));
                                             // Fremennik
                                             Optional<FremennikDiaryEntry> fremennik = FremennikDiaryEntry.fromName(comp);
-                                            if (fremennik.isPresent()) {
-                                                p.getDiaryManager().getFremennikDiary().nonNotifyComplete(fremennik.get());
-                                            }
+                                            fremennik.ifPresent(fremennikDiaryEntry -> p.getDiaryManager().getFremennikDiary().nonNotifyComplete(fremennikDiaryEntry));
                                             // Kandarin
                                             Optional<KandarinDiaryEntry> kandarin = KandarinDiaryEntry.fromName(comp);
-                                            if (kandarin.isPresent()) {
-                                                p.getDiaryManager().getKandarinDiary().nonNotifyComplete(kandarin.get());
-                                            }
+                                            kandarin.ifPresent(kandarinDiaryEntry -> p.getDiaryManager().getKandarinDiary().nonNotifyComplete(kandarinDiaryEntry));
                                             // Karamja
                                             Optional<KaramjaDiaryEntry> karamja = KaramjaDiaryEntry.fromName(comp);
-                                            if (karamja.isPresent()) {
-                                                p.getDiaryManager().getKaramjaDiary().nonNotifyComplete(karamja.get());
-                                            }
+                                            karamja.ifPresent(karamjaDiaryEntry -> p.getDiaryManager().getKaramjaDiary().nonNotifyComplete(karamjaDiaryEntry));
                                             // Lumbridge
                                             Optional<LumbridgeDraynorDiaryEntry> lumbridge = LumbridgeDraynorDiaryEntry.fromName(comp);
-                                            if (lumbridge.isPresent()) {
-                                                p.getDiaryManager().getLumbridgeDraynorDiary().nonNotifyComplete(lumbridge.get());
-                                            }
+                                            lumbridge.ifPresent(lumbridgeDraynorDiaryEntry -> p.getDiaryManager().getLumbridgeDraynorDiary().nonNotifyComplete(lumbridgeDraynorDiaryEntry));
                                             // Morytania
                                             Optional<MorytaniaDiaryEntry> morytania = MorytaniaDiaryEntry.fromName(comp);
-                                            if (morytania.isPresent()) {
-                                                p.getDiaryManager().getMorytaniaDiary().nonNotifyComplete(morytania.get());
-                                            }
+                                            morytania.ifPresent(morytaniaDiaryEntry -> p.getDiaryManager().getMorytaniaDiary().nonNotifyComplete(morytaniaDiaryEntry));
                                             // Western
                                             Optional<WesternDiaryEntry> western = WesternDiaryEntry.fromName(comp);
-                                            if (western.isPresent()) {
-                                                p.getDiaryManager().getWesternDiary().nonNotifyComplete(western.get());
-                                            }
+                                            western.ifPresent(westernDiaryEntry -> p.getDiaryManager().getWesternDiary().nonNotifyComplete(westernDiaryEntry));
                                             // Wilderness
                                             Optional<WildernessDiaryEntry> wilderness = WildernessDiaryEntry.fromName(comp);
-                                            if (wilderness.isPresent()) {
-                                                p.getDiaryManager().getWildernessDiary().nonNotifyComplete(wilderness.get());
-                                            }
+                                            wilderness.ifPresent(wildernessDiaryEntry -> p.getDiaryManager().getWildernessDiary().nonNotifyComplete(wildernessDiaryEntry));
                                         }
                                     } catch (Exception e) {
                                         logger.error("Error while loading {}", playerName, e);
@@ -857,59 +802,37 @@ public class PlayerSave {
                                             int stage = Integer.parseInt(part[1]);
                                             //Varrock
                                             Optional<VarrockDiaryEntry> varrock = VarrockDiaryEntry.fromName(part[0]);
-                                            if (varrock.isPresent()) {
-                                                p.getDiaryManager().getVarrockDiary().setAchievementStage(varrock.get(), stage, false);
-                                            }
+                                            varrock.ifPresent(varrockDiaryEntry -> p.getDiaryManager().getVarrockDiary().setAchievementStage(varrockDiaryEntry, stage, false));
                                             //Ardougne
                                             Optional<ArdougneDiaryEntry> ardougne = ArdougneDiaryEntry.fromName(part[0]);
-                                            if (ardougne.isPresent()) {
-                                                p.getDiaryManager().getArdougneDiary().setAchievementStage(ardougne.get(), stage, false);
-                                            }
+                                            ardougne.ifPresent(ardougneDiaryEntry -> p.getDiaryManager().getArdougneDiary().setAchievementStage(ardougneDiaryEntry, stage, false));
                                             //Desert
                                             Optional<DesertDiaryEntry> desert = DesertDiaryEntry.fromName(part[0]);
-                                            if (desert.isPresent()) {
-                                                p.getDiaryManager().getDesertDiary().setAchievementStage(desert.get(), stage, false);
-                                            }
+                                            desert.ifPresent(desertDiaryEntry -> p.getDiaryManager().getDesertDiary().setAchievementStage(desertDiaryEntry, stage, false));
                                             //Falador
                                             Optional<FaladorDiaryEntry> falador = FaladorDiaryEntry.fromName(part[0]);
-                                            if (falador.isPresent()) {
-                                                p.getDiaryManager().getFaladorDiary().setAchievementStage(falador.get(), stage, false);
-                                            }
+                                            falador.ifPresent(faladorDiaryEntry -> p.getDiaryManager().getFaladorDiary().setAchievementStage(faladorDiaryEntry, stage, false));
                                             //Fremennik
                                             Optional<FremennikDiaryEntry> fremennik = FremennikDiaryEntry.fromName(part[0]);
-                                            if (fremennik.isPresent()) {
-                                                p.getDiaryManager().getFremennikDiary().setAchievementStage(fremennik.get(), stage, false);
-                                            }
+                                            fremennik.ifPresent(fremennikDiaryEntry -> p.getDiaryManager().getFremennikDiary().setAchievementStage(fremennikDiaryEntry, stage, false));
                                             //Kandarin
                                             Optional<KandarinDiaryEntry> kandarin = KandarinDiaryEntry.fromName(part[0]);
-                                            if (kandarin.isPresent()) {
-                                                p.getDiaryManager().getKandarinDiary().setAchievementStage(kandarin.get(), stage, false);
-                                            }
+                                            kandarin.ifPresent(kandarinDiaryEntry -> p.getDiaryManager().getKandarinDiary().setAchievementStage(kandarinDiaryEntry, stage, false));
                                             //Karamja
                                             Optional<KaramjaDiaryEntry> karamja = KaramjaDiaryEntry.fromName(part[0]);
-                                            if (karamja.isPresent()) {
-                                                p.getDiaryManager().getKaramjaDiary().setAchievementStage(karamja.get(), stage, false);
-                                            }
+                                            karamja.ifPresent(karamjaDiaryEntry -> p.getDiaryManager().getKaramjaDiary().setAchievementStage(karamjaDiaryEntry, stage, false));
                                             //Lumbridge
                                             Optional<LumbridgeDraynorDiaryEntry> lumbridge = LumbridgeDraynorDiaryEntry.fromName(part[0]);
-                                            if (lumbridge.isPresent()) {
-                                                p.getDiaryManager().getLumbridgeDraynorDiary().setAchievementStage(lumbridge.get(), stage, false);
-                                            }
+                                            lumbridge.ifPresent(lumbridgeDraynorDiaryEntry -> p.getDiaryManager().getLumbridgeDraynorDiary().setAchievementStage(lumbridgeDraynorDiaryEntry, stage, false));
                                             //Morytania
                                             Optional<MorytaniaDiaryEntry> morytania = MorytaniaDiaryEntry.fromName(part[0]);
-                                            if (morytania.isPresent()) {
-                                                p.getDiaryManager().getMorytaniaDiary().setAchievementStage(morytania.get(), stage, false);
-                                            }
+                                            morytania.ifPresent(morytaniaDiaryEntry -> p.getDiaryManager().getMorytaniaDiary().setAchievementStage(morytaniaDiaryEntry, stage, false));
                                             //Western
                                             Optional<WesternDiaryEntry> western = WesternDiaryEntry.fromName(part[0]);
-                                            if (western.isPresent()) {
-                                                p.getDiaryManager().getWesternDiary().setAchievementStage(western.get(), stage, false);
-                                            }
+                                            western.ifPresent(westernDiaryEntry -> p.getDiaryManager().getWesternDiary().setAchievementStage(westernDiaryEntry, stage, false));
                                             //Wilderness
                                             Optional<WildernessDiaryEntry> wilderness = WildernessDiaryEntry.fromName(part[0]);
-                                            if (wilderness.isPresent()) {
-                                                p.getDiaryManager().getWildernessDiary().setAchievementStage(wilderness.get(), stage, false);
-                                            }
+                                            wilderness.ifPresent(wildernessDiaryEntry -> p.getDiaryManager().getWildernessDiary().setAchievementStage(wildernessDiaryEntry, stage, false));
                                         }
                                     } catch (Exception e) {
                                         logger.error("Error while loading {}", playerName, e);
@@ -994,9 +917,9 @@ public class PlayerSave {
                                     }
                                     p.getSlayer().setRemoved(backing);
                                 } else if (token.equals("slayer-unlocks")) {
-                                    for (int index = 0; index < token3.length; index++) {
+                                    for (String s : token3) {
                                         try {
-                                            SlayerUnlock unlock = SlayerUnlock.valueOf(token3[index]);
+                                            SlayerUnlock unlock = SlayerUnlock.valueOf(s);
                                             if (unlock != null && !p.getSlayer().getUnlocks().contains(unlock)) {
                                                 p.getSlayer().getUnlocks().add(unlock);
                                             }
@@ -1006,9 +929,9 @@ public class PlayerSave {
                                         }
                                     }
                                 } else if (token.equals("extended-slayer-tasks")) {
-                                    for (int index = 0; index < token3.length; index++) {
+                                    for (String s : token3) {
                                         try {
-                                            TaskExtension extension = TaskExtension.valueOf(token3[index]);
+                                            TaskExtension extension = TaskExtension.valueOf(s);
                                             if (extension != null && !p.getSlayer().getExtensions().contains(extension)) {
                                                 p.getSlayer().getExtensions().add(extension);
                                             }
@@ -1224,72 +1147,100 @@ public class PlayerSave {
 
                         }
                     } else {
-                        if (line.equals("[ACCOUNT]")) {
-                            ReadMode = 1;
-                        } else if (line.equals("[CHARACTER]")) {
-                            ReadMode = 2;
-                        } else if (line.equals("[EQUIPMENT]")) {
-                            ReadMode = 3;
-                        } else if (line.equals("[LOOK]")) {
-                            ReadMode = 4;
-                        } else if (line.equals("[SKILLS]")) {
-                            ReadMode = 5;
-                        } else if (line.equals("[ITEMS]")) {
-                            ReadMode = 6;
-                        } else if (line.equals("[LOOTBAG]")) {
-                            ReadMode = 46;
-                        } else if (line.equals("[RECHARGEITEMS]")) {
-                            ReadMode = 52;
-                        } else if (line.equals("[RUNEPOUCH]")) {
-                            ReadMode = 55;
-                        } else if (line.equals("[HERBSACK]")) {
-                            ReadMode = 56;
-                        } else if (line.equals("[GEMBAG]")) {
-                            ReadMode = 57;
-                        } else if (line.equals("[SAFEBOX]")) {
-                            ReadMode = 58;
-                        } else if (line.equals("[BANK]")) {
-                            ReadMode = 7;
-                        } else if (line.equals("[FRIENDS]")) { // Legacy
-                            ReadMode = 8;
-                        } else if (line.equals("[IGNORES]")) { // Legacy
-                            ReadMode = 12;
-                        } else if (line.equals("[ACHIEVEMENTS-TIER-1]")) {
-                            ReadMode = 9;
-                        } else if (line.equals("[ACHIEVEMENTS-TIER-2]")) {
-                            ReadMode = 10;
-                        } else if (line.equals("[ACHIEVEMENTS-TIER-3]")) {
-                            ReadMode = 11;
-                        } else if (line.equals("[HOLIDAY-EVENTS]")) {
-                            ReadMode = 13;
-                        } else if (line.equals("[DEGRADEABLES]")) {
-                            ReadMode = 14;
-                        } else if (line.equals("[PRESETS]")) {
-                            ReadMode = 15;
-                        } else if (line.equals("[KILLSTREAKS]")) {
-                            ReadMode = 16;
-                        } else if (line.equals("[TITLES]")) {
-                            ReadMode = 17;
-                        } else if (line.equals("[NPC-TRACKER]")) {
-                            ReadMode = 18;
-                        } else if (line.equals("[ACHIEVEMENTS-TIER-4]")) {
-                            ReadMode = 19;
-                        } else if (line.equals("[ACHIEVEMENTS-TIER-5]")) {
-                            ReadMode = 20;
+                        switch (line) {
+                            case "[ACCOUNT]":
+                                ReadMode = 1;
+                                break;
+                            case "[CHARACTER]":
+                                ReadMode = 2;
+                                break;
+                            case "[EQUIPMENT]":
+                                ReadMode = 3;
+                                break;
+                            case "[LOOK]":
+                                ReadMode = 4;
+                                break;
+                            case "[SKILLS]":
+                                ReadMode = 5;
+                                break;
+                            case "[ITEMS]":
+                                ReadMode = 6;
+                                break;
+                            case "[LOOTBAG]":
+                                ReadMode = 46;
+                                break;
+                            case "[RECHARGEITEMS]":
+                                ReadMode = 52;
+                                break;
+                            case "[RUNEPOUCH]":
+                                ReadMode = 55;
+                                break;
+                            case "[HERBSACK]":
+                                ReadMode = 56;
+                                break;
+                            case "[GEMBAG]":
+                                ReadMode = 57;
+                                break;
+                            case "[SAFEBOX]":
+                                ReadMode = 58;
+                                break;
+                            case "[BANK]":
+                                ReadMode = 7;
+                                break;
+                            case "[FRIENDS]":  // Legacy
+                                ReadMode = 8;
+                                break;
+                            case "[IGNORES]":  // Legacy
+                                ReadMode = 12;
+                                break;
+                            case "[ACHIEVEMENTS-TIER-1]":
+                                ReadMode = 9;
+                                break;
+                            case "[ACHIEVEMENTS-TIER-2]":
+                                ReadMode = 10;
+                                break;
+                            case "[ACHIEVEMENTS-TIER-3]":
+                                ReadMode = 11;
+                                break;
+                            case "[HOLIDAY-EVENTS]":
+                                ReadMode = 13;
+                                break;
+                            case "[DEGRADEABLES]":
+                                ReadMode = 14;
+                                break;
+                            case "[PRESETS]":
+                                ReadMode = 15;
+                                break;
+                            case "[KILLSTREAKS]":
+                                ReadMode = 16;
+                                break;
+                            case "[TITLES]":
+                                ReadMode = 17;
+                                break;
+                            case "[NPC-TRACKER]":
+                                ReadMode = 18;
+                                break;
+                            case "[ACHIEVEMENTS-TIER-4]":
+                                ReadMode = 19;
+                                break;
+                            case "[ACHIEVEMENTS-TIER-5]":
+                                ReadMode = 20;
 
-                        } else if (line.equals("[ACHIEVEMENTSNEW]")) {//For the new achievments system
-                            ReadMode = 96;
+                                break;
+                            case "[ACHIEVEMENTSNEW]": //For the new achievments system
+                                ReadMode = 96;
 
-                        } else if (line.equals("[EOF]")) {
-                            try {
-                                characterfile.close();
-                            } catch (IOException ioexception) {
-                                logger.error("Error while loading {}", playerName, ioexception);
-                                ioexception.printStackTrace();
-                            }
+                                break;
+                            case "[EOF]":
+                                try {
+                                    characterfile.close();
+                                } catch (IOException ioexception) {
+                                    logger.error("Error while loading {}", playerName, ioexception);
+                                    ioexception.printStackTrace();
+                                }
 
-                            p.getFriendsList().addFromSave(friends);
-                            return LoadGameResult.SUCCESS;
+                                p.getFriendsList().addFromSave(friends);
+                                return LoadGameResult.SUCCESS;
                         }
                     }
                     line = characterfile.readLine();
@@ -1362,7 +1313,7 @@ public class PlayerSave {
                 characterfile.write("character-rights = " + p.getRights().getPrimary().getValue());
                 characterfile.newLine();
                 StringBuilder sb = new StringBuilder();
-                p.getRights().getSet().stream().forEach(r -> sb.append(r.getValue() + "\t"));
+                p.getRights().getSet().stream().forEach(r -> sb.append(r.getValue()).append("\t"));
                 characterfile.write("character-rights-secondary = " + sb.substring(0, sb.length() - 1));
                 characterfile.newLine();
                 characterfile.write("character-mac-address = " + p.getMacAddress());
@@ -1456,16 +1407,6 @@ public class PlayerSave {
                 characterfile.write("dailyTaskMultiplier = " + p.dailyTaskMultiplier);
                 characterfile.newLine();
                 characterfile.write("dailyTaskDate = " + p.dailyTaskDate);
-                characterfile.newLine();
-                characterfile.write("Likes = " + p.getLikes());
-                characterfile.newLine();
-                characterfile.write("Dislikes = " + p.getDislikes());
-                characterfile.newLine();
-                characterfile.write("LastLike = " + p.getLastLike());
-                characterfile.newLine();
-                characterfile.write("LikesGiven = " + p.getLikesGiven());
-                characterfile.newLine();
-                characterfile.write("ProfileViews = " + p.getProfileViews());
                 characterfile.newLine();
                 characterfile.write("dailyResetDate = " + p.dailyResetDate);
                 characterfile.newLine();
@@ -1565,34 +1506,34 @@ public class PlayerSave {
 
                 for (int i = 0; i < p.historyItems.length; i++) {
                     if (p.saleItems.size() > 0)
-                        p.historyItems[i] = p.saleItems.get(i).intValue();
+                        p.historyItems[i] = p.saleItems.get(i);
                 }
                 characterfile.write("character-historyItems = ", 0, 25);
-                String toWrite = "";
+                StringBuilder toWrite = new StringBuilder();
                 for (int i1 = 0; i1 < p.historyItems.length; i1++) {
-                    toWrite += p.historyItems[i1] + "\t";
+                    toWrite.append(p.historyItems[i1]).append("\t");
                 }
-                characterfile.write(toWrite);
+                characterfile.write(toWrite.toString());
                 characterfile.newLine();
                 for (int i = 0; i < p.historyItemsN.length; i++) {
-                    if (p.saleItems.size() > 0) p.historyItemsN[i] = p.saleAmount.get(i).intValue();
+                    if (p.saleItems.size() > 0) p.historyItemsN[i] = p.saleAmount.get(i);
                 }
                 characterfile.write("character-historyItemsN = ", 0, 26);
-                String toWrite2 = "";
+                StringBuilder toWrite2 = new StringBuilder();
                 for (int i1 = 0; i1 < p.historyItemsN.length; i1++) {
-                    toWrite2 += p.historyItemsN[i1] + "\t";
+                    toWrite2.append(p.historyItemsN[i1]).append("\t");
                 }
-                characterfile.write(toWrite2);
+                characterfile.write(toWrite2.toString());
                 characterfile.newLine();
                 for (int i = 0; i < p.historyPrice.length; i++) {
-                    if (p.salePrice.size() > 0) p.historyPrice[i] = p.salePrice.get(i).intValue();
+                    if (p.salePrice.size() > 0) p.historyPrice[i] = p.salePrice.get(i);
                 }
                 characterfile.write("character-historyPrice = ", 0, 25);
-                String toWrite3 = "";
+                StringBuilder toWrite3 = new StringBuilder();
                 for (int i1 = 0; i1 < p.historyPrice.length; i1++) {
-                    toWrite3 += p.historyPrice[i1] + "\t";
+                    toWrite3.append(p.historyPrice[i1]).append("\t");
                 }
-                characterfile.write(toWrite3);
+                characterfile.write(toWrite3.toString());
                 characterfile.newLine();
                 characterfile.write("lastLoginDate = ", 0, 16);
                 characterfile.write(Integer.toString(p.lastLoginDate), 0, Integer.toString(p.lastLoginDate).length());
@@ -1665,23 +1606,23 @@ public class PlayerSave {
                 characterfile.newLine();
                 characterfile.write("activeMageArena2BossId  = ");
                 for (int i = 0; i < p.activeMageArena2BossId.length; i++)
-                    characterfile.write("" + p.activeMageArena2BossId[i] + ((i == p.activeMageArena2BossId.length - 1) ? "" : "\t"));
+                    characterfile.write(p.activeMageArena2BossId[i] + ((i == p.activeMageArena2BossId.length - 1) ? "" : "\t"));
                 characterfile.newLine();
                 characterfile.write("mageArena2SpawnsX  = ");
                 for (int i = 0; i < p.mageArena2SpawnsX.length; i++)
-                    characterfile.write("" + p.mageArena2SpawnsX[i] + ((i == p.mageArena2SpawnsX.length - 1) ? "" : "\t"));
+                    characterfile.write(p.mageArena2SpawnsX[i] + ((i == p.mageArena2SpawnsX.length - 1) ? "" : "\t"));
                 characterfile.newLine();
                 characterfile.write("mageArena2SpawnsY  = ");
                 for (int i = 0; i < p.mageArena2SpawnsY.length; i++)
-                    characterfile.write("" + p.mageArena2SpawnsY[i] + ((i == p.mageArena2SpawnsY.length - 1) ? "" : "\t"));
+                    characterfile.write(p.mageArena2SpawnsY[i] + ((i == p.mageArena2SpawnsY.length - 1) ? "" : "\t"));
                 characterfile.newLine();
                 characterfile.write("mageArenaBossKills  = ");
                 for (int i = 0; i < p.mageArenaBossKills.length; i++)
-                    characterfile.write("" + p.mageArenaBossKills[i] + ((i == p.mageArenaBossKills.length - 1) ? "" : "\t"));
+                    characterfile.write(p.mageArenaBossKills[i] + ((i == p.mageArenaBossKills.length - 1) ? "" : "\t"));
                 characterfile.newLine();
                 characterfile.write("mageArena2Stages  = ");
                 for (int i = 0; i < p.mageArena2Stages.length; i++)
-                    characterfile.write("" + p.mageArena2Stages[i] + ((i == p.mageArena2Stages.length - 1) ? "" : "\t"));
+                    characterfile.write(p.mageArena2Stages[i] + ((i == p.mageArena2Stages.length - 1) ? "" : "\t"));
                 characterfile.newLine();
                 characterfile.write("flamesOfZamorakCasts  = ");
                 characterfile.write(Integer.toString(p.flamesOfZamorakCasts));
@@ -1736,11 +1677,11 @@ public class PlayerSave {
                 characterfile.newLine();
                 characterfile.write("counters = ");
                 for (int i = 0; i < p.counters.length; i++)
-                    characterfile.write("" + p.counters[i] + ((i == p.counters.length - 1) ? "" : "\t"));
+                    characterfile.write(p.counters[i] + ((i == p.counters.length - 1) ? "" : "\t"));
                 characterfile.newLine();
                 characterfile.write("max-cape = ");
                 for (int i = 0; i < p.maxCape.length; i++)
-                    characterfile.write("" + p.maxCape[i] + ((i == p.maxCape.length - 1) ? "" : "\t"));
+                    characterfile.write(p.maxCape[i] + ((i == p.maxCape.length - 1) ? "" : "\t"));
                 characterfile.newLine();
                 characterfile.write("zulrah-best-time = " + p.getBestZulrahTime());
                 characterfile.newLine();
@@ -2215,7 +2156,7 @@ public class PlayerSave {
                         int stage = keyval.getValue();
                         bldr.append(prefix);
                         prefix = ",";
-                        bldr.append(entry.name() + ":" + stage);
+                        bldr.append(entry.name()).append(":").append(stage);
                     }
                     //Ardougne
                     for (Entry<ArdougneDiaryEntry, Integer> keyval : p.getDiaryManager().getArdougneDiary().getPartialAchievements().entrySet()) {
@@ -2223,7 +2164,7 @@ public class PlayerSave {
                         int stage = keyval.getValue();
                         bldr.append(prefix);
                         prefix = ",";
-                        bldr.append(entry.name() + ":" + stage);
+                        bldr.append(entry.name()).append(":").append(stage);
                     }
                     //Desert
                     for (Entry<DesertDiaryEntry, Integer> keyval : p.getDiaryManager().getDesertDiary().getPartialAchievements().entrySet()) {
@@ -2231,7 +2172,7 @@ public class PlayerSave {
                         int stage = keyval.getValue();
                         bldr.append(prefix);
                         prefix = ",";
-                        bldr.append(entry.name() + ":" + stage);
+                        bldr.append(entry.name()).append(":").append(stage);
                     }
                     //Falador
                     for (Entry<FaladorDiaryEntry, Integer> keyval : p.getDiaryManager().getFaladorDiary().getPartialAchievements().entrySet()) {
@@ -2239,7 +2180,7 @@ public class PlayerSave {
                         int stage = keyval.getValue();
                         bldr.append(prefix);
                         prefix = ",";
-                        bldr.append(entry.name() + ":" + stage);
+                        bldr.append(entry.name()).append(":").append(stage);
                     }
                     //Fremennik
                     for (Entry<FremennikDiaryEntry, Integer> keyval : p.getDiaryManager().getFremennikDiary().getPartialAchievements().entrySet()) {
@@ -2247,7 +2188,7 @@ public class PlayerSave {
                         int stage = keyval.getValue();
                         bldr.append(prefix);
                         prefix = ",";
-                        bldr.append(entry.name() + ":" + stage);
+                        bldr.append(entry.name()).append(":").append(stage);
                     }
                     //Kandarin
                     for (Entry<KandarinDiaryEntry, Integer> keyval : p.getDiaryManager().getKandarinDiary().getPartialAchievements().entrySet()) {
@@ -2255,7 +2196,7 @@ public class PlayerSave {
                         int stage = keyval.getValue();
                         bldr.append(prefix);
                         prefix = ",";
-                        bldr.append(entry.name() + ":" + stage);
+                        bldr.append(entry.name()).append(":").append(stage);
                     }
                     //Karamja
                     for (Entry<KaramjaDiaryEntry, Integer> keyval : p.getDiaryManager().getKaramjaDiary().getPartialAchievements().entrySet()) {
@@ -2263,7 +2204,7 @@ public class PlayerSave {
                         int stage = keyval.getValue();
                         bldr.append(prefix);
                         prefix = ",";
-                        bldr.append(entry.name() + ":" + stage);
+                        bldr.append(entry.name()).append(":").append(stage);
                     }
                     //Lumbridge
                     for (Entry<LumbridgeDraynorDiaryEntry, Integer> keyval : p.getDiaryManager().getLumbridgeDraynorDiary().getPartialAchievements().entrySet()) {
@@ -2271,7 +2212,7 @@ public class PlayerSave {
                         int stage = keyval.getValue();
                         bldr.append(prefix);
                         prefix = ",";
-                        bldr.append(entry.name() + ":" + stage);
+                        bldr.append(entry.name()).append(":").append(stage);
                     }
                     //Morytania
                     for (Entry<MorytaniaDiaryEntry, Integer> keyval : p.getDiaryManager().getMorytaniaDiary().getPartialAchievements().entrySet()) {
@@ -2279,7 +2220,7 @@ public class PlayerSave {
                         int stage = keyval.getValue();
                         bldr.append(prefix);
                         prefix = ",";
-                        bldr.append(entry.name() + ":" + stage);
+                        bldr.append(entry.name()).append(":").append(stage);
                     }
                     //Western
                     for (Entry<WesternDiaryEntry, Integer> keyval : p.getDiaryManager().getWesternDiary().getPartialAchievements().entrySet()) {
@@ -2287,7 +2228,7 @@ public class PlayerSave {
                         int stage = keyval.getValue();
                         bldr.append(prefix);
                         prefix = ",";
-                        bldr.append(entry.name() + ":" + stage);
+                        bldr.append(entry.name()).append(":").append(stage);
                     }
                     //Wilderness
                     for (Entry<WildernessDiaryEntry, Integer> keyval : p.getDiaryManager().getWildernessDiary().getPartialAchievements().entrySet()) {
@@ -2295,7 +2236,7 @@ public class PlayerSave {
                         int stage = keyval.getValue();
                         bldr.append(prefix);
                         prefix = ",";
-                        bldr.append(entry.name() + ":" + stage);
+                        bldr.append(entry.name()).append(":").append(stage);
                     }
                     characterfile.write(bldr.toString(), 0, bldr.toString().length());
                 }
@@ -2369,11 +2310,11 @@ public class PlayerSave {
                 characterfile.write(toWrite55);
                 characterfile.newLine();
                 characterfile.write("quickprayer = ", 0, 14);
-                String quick = "";
+                StringBuilder quick = new StringBuilder();
                 for (int i = 0; i < p.getQuick().getNormal().length; i++) {
-                    quick += p.getQuick().getNormal()[i] + "\t";
+                    quick.append(p.getQuick().getNormal()[i]).append("\t");
                 }
-                characterfile.write(quick);
+                characterfile.write(quick.toString());
                 characterfile.newLine();
                 characterfile.write("pouch-rune = " + p.getRuneEssencePouch(0) + "\t" + p.getRuneEssencePouch(1) + "\t" + p.getRuneEssencePouch(2));
                 characterfile.newLine();
@@ -2384,7 +2325,7 @@ public class PlayerSave {
                 characterfile.newLine();
                 characterfile.write("district-levels = ");
                 for (int i = 0; i < p.playerStats.length; i++)
-                    characterfile.write("" + p.playerStats[i] + ((i == p.playerStats.length - 1) ? "" : "\t"));
+                    characterfile.write(p.playerStats[i] + ((i == p.playerStats.length - 1) ? "" : "\t"));
                 characterfile.newLine();
                 characterfile.write("inDistrict = ", 0, 13);
                 characterfile.write(Boolean.toString(p.pkDistrict), 0, Boolean.toString(p.pkDistrict).length());
@@ -2407,10 +2348,10 @@ public class PlayerSave {
                 characterfile.write(p.getController().getKey());
                 characterfile.newLine();
                 characterfile.write("joinedIronmanGroup = ");
-                characterfile.write(p.isJoinedIronmanGroup() + "");
+                characterfile.write(String.valueOf(p.isJoinedIronmanGroup()));
                 characterfile.newLine();
                 characterfile.write("receivedCalendarCosmeticJune2021 = ");
-                characterfile.write(p.isReceivedCalendarCosmeticJune2021() + "");
+                characterfile.write(String.valueOf(p.isReceivedCalendarCosmeticJune2021()));
                 characterfile.newLine();
 
                 // Don't add new stuff below this line
@@ -2672,8 +2613,5 @@ public class PlayerSave {
             }
             return true;
         }
-
-
-    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
 }

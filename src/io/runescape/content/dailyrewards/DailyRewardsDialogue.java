@@ -25,16 +25,16 @@ public class DailyRewardsDialogue extends DialogueBuilder {
     private static void howOftenCanIClaim(Player player) {
         player.start(new DialogueBuilder(player)
                 .setNpcId(DAILY_REWARDS_NPC)
-                .player("How often can I claim these rewards?")
-                .npc("You can claim them once every day, and only", "once per person. This means you can't", "claim rewards on alts. Choose wisely!")
+                .player(DialogueExpression.CALM_TALK,"How often can I claim these rewards?")
+                .npc(DialogueExpression.CALM_TALK, "You can claim them once every day, and only", "once per person. This means you can't", "claim rewards on alts. Choose wisely!")
                 .option(OPTIONS));
     }
 
     private static void whatAreYouDoingHere(Player player) {
         player.start(new DialogueBuilder(player)
             .setNpcId(DAILY_REWARDS_NPC)
-            .player("What are you doing here?")
-            .npc("I'm responsible for rationing the", "daily login rewards.", "Fancy a look?")
+            .player(DialogueExpression.CALM_TALK, "What are you doing here?")
+            .npc(DialogueExpression.CALM_TALK, "I'm responsible for rationing the", "daily login rewards.", "Fancy a look?")
             .option(new DialogueOption("Sure!", p -> p.getDailyRewards().openInterface()),
                     new DialogueOption("No thanks", p -> p.getDialogueBuilder().end())));
     }

@@ -66,25 +66,21 @@ public class DailyTasks {
 		;
 		;
 		
-		public TaskTypes type;
-		public int amount;
-		String message;
+		public final TaskTypes type;
+		public final int amount;
+		final String message;
 		
-		private PossibleTasks(TaskTypes type, int amount, String message) {
-			
+		PossibleTasks(TaskTypes type, int amount, String message) {
 			this.type = type;
 			this.amount = amount;
 			this.message = message;
-			
 		}
 		
 	}
 	
 	/**
 	 * Gets today's date
-	 * @return
 	 */
-	
 	public static int getTodayDate() {
 		Calendar cal = new GregorianCalendar();
 		int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -94,9 +90,7 @@ public class DailyTasks {
 	
 	/**
 	 * Assigns a task to a player when it has daily's enabled and has no current task.
-	 * @param player
 	 */
-	
 	public static void assignTask(Player player) {
 		if (player.dailyEnabled) {
 
@@ -110,7 +104,6 @@ public class DailyTasks {
 			
 			if (player.dailyTaskDate == getTodayDate() && player.currentDailyTask == null && player.completedDailyTask) {
 				player.sendMessage("<col=6666FF>You have already completed your daily task today!");
-				return;
 			} else if (player.dailyTaskDate != getTodayDate() && player.currentDailyTask == null) {
 					player.currentDailyTask = getRandomTask(player.playerChoice);
 					player.sendMessage("@red@New Daily Task@bla@: " + player.currentDailyTask.message+" "+(player.currentDailyTask.amount - player.totalDailyDone)+".");
@@ -122,9 +115,7 @@ public class DailyTasks {
 	}
 	/**
 	 * Assigns a task to a player when it has daily's enabled and has no current task.
-	 * @param player
 	 */
-	
 	public static void checkTask(Player player) {
 		if (player.dailyEnabled) {
 
@@ -137,8 +128,7 @@ public class DailyTasks {
 			}
 			
 			if (player.dailyTaskDate == getTodayDate() && player.currentDailyTask == null && player.completedDailyTask) {
-				player.sendMessage("@red@You already completed your daily task today.");
-				return;
+				player.sendMessage("@red@You have already completed your daily task today.");
 			}
 			
 		} else
@@ -157,23 +147,23 @@ public class DailyTasks {
 			if (Misc.hasOneOutOf(MYSTERY_BOX_CHANCE)) {
 				player.getItems().addItem(6199, 1);
 				PlayerHandler.executeGlobalMessage("@red@"+ Misc.capitalize(player.getLoginName()) + " @pur@has received an @red@Mystery Box @pur@from an @red@Daily Task.");
-				Discord.writeDropsSyncMessage(""+ player.getLoginName() + " has received: Mystery Box from an Daily Task.");
+				Discord.writeDropsSyncMessage(player.getLoginName() + " has received: Mystery Box from an Daily Task.");
 			}
 			if (player.dailyTaskAmount == 10) {
 				player.getItems().addItem(995, 1000000);
 				PlayerHandler.executeGlobalMessage("@red@"+ Misc.capitalize(player.getLoginName()) + " @blu@has received @red@1m @blu@for completing @red@10 Daily Tasks.");
-				Discord.writeDropsSyncMessage(""+ player.getLoginName() + " has received: 1m for completing 10 Daily Tasks.");
+				Discord.writeDropsSyncMessage(player.getLoginName() + " has received: 1m for completing 10 Daily Tasks.");
 			}
 			if (player.dailyTaskAmount == 20) {
 				player.getItems().addItem(995, 5000000);
 				PlayerHandler.executeGlobalMessage("@red@"+ Misc.capitalize(player.getLoginName()) + " @blu@has received @red@5m @blu@for completing @red@20 Daily Tasks.");
-				Discord.writeDropsSyncMessage(""+ player.getLoginName() + " has received: 1m for completing 20 Daily Tasks.");
+				Discord.writeDropsSyncMessage(player.getLoginName() + " has received: 1m for completing 20 Daily Tasks.");
 			}
 			if (player.dailyTaskAmount == 33) {
 				player.getItems().addItem(995, 20000000);
 				player.getItems().addItem(6199, 1);
 				PlayerHandler.executeGlobalMessage("@red@"+ Misc.capitalize(player.getLoginName()) + " @blu@has received @red@20m & mbox @blu@for completing @red@all the Daily Tasks.");
-				Discord.writeDropsSyncMessage(""+ player.getLoginName() + " has received: 20m & mbox for completing all the Daily Tasks.");
+				Discord.writeDropsSyncMessage(player.getLoginName() + " has received: 20m & mbox for completing all the Daily Tasks.");
 			}
 			player.getItems().addItemUnderAnyCircumstance(995, Misc.random(400000, 650000));
 			player.getItems().addItemUnderAnyCircumstance(20791, 1);
@@ -206,17 +196,7 @@ public class DailyTasks {
 	
 	/**
 	 * Gets a random task on the choice of what the player has selected
-	 * @param type
-	 * @return
 	 */
-	//private static PossibleTasks getRandomTask(TaskTypes type) {
-	//	ArrayList<PossibleTasks> possibleTasks = new ArrayList<>();
-	//	for(PossibleTasks tasks : PossibleTasks.values())
-	//		if(tasks.type == type)
-	//			possibleTasks.add(tasks);
-	//	return possibleTasks.get(Misc.random(possibleTasks.size()));
-	//}
-
 	private static PossibleTasks getRandomTask(TaskTypes type) {
 		ArrayList<PossibleTasks> possibleTasks = new ArrayList<>();
 		for(PossibleTasks tasks : PossibleTasks.values())

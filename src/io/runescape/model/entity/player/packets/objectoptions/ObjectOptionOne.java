@@ -2691,10 +2691,6 @@ public class ObjectOptionOne {
 				c.getPA().movePlayer(2687, 9506, 0);
 				break;
 
-			case 6097:
-				WellOfGoodWillObject.sendInterfaces(c);
-				break;
-
 			case 5090:
 			case 20884:
 				if (c.playerLevel[16] < 30) {

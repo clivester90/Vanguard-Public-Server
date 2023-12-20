@@ -31,8 +31,6 @@ import io.runescape.content.skills.slayer.SlayerRewardsInterface;
 import io.runescape.content.skills.smithing.Smelting;
 import io.runescape.content.tradingpost.Listing;
 import io.runescape.content.tutorial.TutorialDialogue;
-import io.runescape.content.vote_panel.VotePanelInterface;
-import io.runescape.content.wogw.Wogw;
 import io.runescape.model.definitions.ItemDef;
 import io.runescape.model.entity.player.*;
 import io.runescape.model.entity.player.mode.group.GroupIronmanBank;
@@ -154,9 +152,6 @@ public class ClickingButtons implements PacketType {
             return;
         }
         if (PresetManager.getSingleton().handleActionButtons(c, actionButtonId)) {
-            return;
-        }
-        if (VotePanelInterface.handleActionButton(c, actionButtonId)) {
             return;
         }
         if (c.getCollectionLog().handleActionButtons(c, actionButtonId)) {
@@ -420,67 +415,6 @@ public class ClickingButtons implements PacketType {
                 c.getTeleportInterface().openInterface();
                 break;
 
-            case 119016:
-                c.checkWellOfGoodwillTimers();
-                break;
-
-            case 148121:
-                //c.sendMessage("int:" + c.xInterfaceId+ " " + c.interfaceId);
-                c.wogw = true;
-                c.getOutStream().createFrame(28);//27
-                break;
-
-            case 148118: // Exp
-                c.getPA().sendChangeSprite(38006, (byte) 2);
-                c.getPA().sendChangeSprite(38007, (byte) 1);
-                c.getPA().sendChangeSprite(38008, (byte) 1);
-                c.getPA().sendChangeSprite(38019, (byte) 1);
-
-                c.wogwOption = "experience";
-                break;
-
-            case 148119: // Pc points
-                c.getPA().sendChangeSprite(38006, (byte) 1);
-                c.getPA().sendChangeSprite(38007, (byte) 2);
-                c.getPA().sendChangeSprite(38008, (byte) 1);
-                c.getPA().sendChangeSprite(38019, (byte) 1);
-
-                c.wogwOption = "pc";
-                break;
-
-            case 148120: // Drops
-                c.getPA().sendChangeSprite(38006, (byte) 1);
-                c.getPA().sendChangeSprite(38007, (byte) 1);
-                c.getPA().sendChangeSprite(38008, (byte) 2);
-                c.getPA().sendChangeSprite(38019, (byte) 1);
-
-                c.wogwOption = "drops";
-                break;
-
-            case 148131: // Barrows
-                c.getPA().sendChangeSprite(38006, (byte) 1);
-                c.getPA().sendChangeSprite(38007, (byte) 1);
-                c.getPA().sendChangeSprite(38008, (byte) 1);
-                c.getPA().sendChangeSprite(38019, (byte) 2);
-
-                c.wogwOption = "barrows";
-                break;
-
-
-            case 148137:
-                c.getPA().sendFrame171(1, 38020);
-                c.getPA().sendChangeSprite(38006, (byte) 1);
-                c.getPA().sendChangeSprite(38007, (byte) 1);
-                c.getPA().sendChangeSprite(38008, (byte) 1);
-                c.getPA().sendChangeSprite(38019, (byte) 1);
-                c.sendMessage("You decided to end your donation to the well of goodwill.");
-                break;
-
-            case 148135: // Confirm donation
-                Wogw.donate(c, (int) c.wogwDonationAmount);
-                c.getPA().showInterface(38000);
-                break;
-
             case 113078://upgrade machine
                 c.getUpgradeHandler().upgrade();
                 break;
@@ -497,18 +431,6 @@ public class ClickingButtons implements PacketType {
 
 
                 break;
-
-//          case 108012: // call follower
-//			if (c.petSummonId > 0) {
-//				Arrays.stream(NPCHandler.npcs).filter(npc -> npc != null && npc.spawnedBy == c.getIndex()).forEach(npc -> {
-//					if (PetHandler.isPet(npc.getNpcId())) {
-//						npc.teleport(c.getAdjacentPosition());
-//					}
-//				});
-//			} else {
-//				c.sendMessage("You don't have a pet.");
-//			}
-//			break;
 
             case 132111: //abyssal demon
                 c.getPA().startTeleport(1671, 10087, 0, "MODERN", false);//done

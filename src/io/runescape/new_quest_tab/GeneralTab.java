@@ -6,7 +6,6 @@ import io.runescape.Server;
 import io.runescape.model.entity.player.Boundary;
 import io.runescape.model.entity.player.Player;
 import io.runescape.model.entity.player.PlayerHandler;
-import io.runescape.model.entity.player.Right;
 import io.runescape.util.Misc;
 
 import java.text.SimpleDateFormat;
@@ -39,12 +38,8 @@ public class GeneralTab {
 
         player.getPA().sendFrame126("@or1@<img=28> Server:", lines.get(index++));
 
-       // player.getPA().sendFrame126("<col=CC8400>Players Online:</col> @gre@" + PlayerHandler.getPlayerCount(), lines.get(index++));
-        if (player.getRights().contains(Right.OWNER)) {
-            player.getPA().sendFrame126("<col=CC8400>Players Online:</col> @gre@" + PlayerHandler.getPlayerCount() + " (u" + PlayerHandler.getUniquePlayerCount() + ") (m" + Configuration.PLAYERMODIFIER + ")", lines.get(index++));
-        } else {
-            player.getPA().sendFrame126("<col=CC8400>Players Online:@gre@" + PlayerHandler.getPlayerCount(), lines.get(index++));
-        }
+        player.getPA().sendFrame126("<col=CC8400>Players Online:@gre@" + PlayerHandler.getPlayerCount(), lines.get(index++));
+
         player.getPA().sendFrame126("<col=CC8400>Wilderness count:</col> @gre@" + (Boundary.entitiesInArea(Boundary.WILDERNESS) + Boundary.entitiesInArea(Boundary.WILDERNESS_UNDERGROUND)), lines.get(index++));
         player.getPA().sendFrame126("<col=CC8400>Pest Control count:</col> @gre@" + Boundary.entitiesInArea(Boundary.PEST_CONTROL_AREA), lines.get(index++));
 
@@ -52,7 +47,7 @@ public class GeneralTab {
         String date = sdf.format(new Date());
         player.getPA().sendFrame126("<col=CC8400>Server Time: @gre@"+ date +" GMT", lines.get(index++));
 
-        player.getPA().sendFrame126("<col=CC8400>Server Run Time: @gre@"+ Misc.cyclesToTime(Server.getTickCount())+"", lines.get(index++));
+        player.getPA().sendFrame126("<col=CC8400>Server Run Time: @gre@"+ Misc.cyclesToTime(Server.getTickCount()), lines.get(index++));
 
         player.getPA().sendFrame126("", lines.get(index++));
 
@@ -60,7 +55,7 @@ public class GeneralTab {
 
         player.getPA().sendFrame126("<col=CC8400>View NPC Drop tables", lines.get(index++));
 
-        player.getPA().sendFrame126("<col=CC8400>View collection log", lines.get(index++));
+        player.getPA().sendFrame126("<col=CC8400>View Collection log", lines.get(index++));
 
         player.getPA().sendFrame126("<col=CC8400>View achievements", lines.get(index++));
 
@@ -74,7 +69,7 @@ public class GeneralTab {
 
         player.getPA().sendFrame126("<col=CC8400>View titles", lines.get(index++));
 
-        player.getPA().sendFrame126("<col=CC8400>Vote for "+ Configuration.SERVER_NAME+"", lines.get(index++));
+        player.getPA().sendFrame126("<col=CC8400>Vote for "+ Configuration.SERVER_NAME, lines.get(index++));
 
         player.getPA().sendFrame126("<col=CC8400>Join the discord", lines.get(index++));
 
