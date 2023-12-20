@@ -45,7 +45,7 @@ public class DialogueHandler {
 		switch (dialogue) {
 
 			case 6798://Ancient coins
-				sendStatement(""+c.getLoginName()+" converting this coin",
+				sendStatement(c.getLoginName()+" converting this coin",
 						"will mean you will loose 30% of the currently",
 						"value when burned on the fire of exchange",
 						"@red@there is no way to re-vert this option.");
@@ -58,7 +58,7 @@ public class DialogueHandler {
 				break;
 
 			case 6700://talisman
-				sendStatement(""+c.getLoginName()+" converting this talisman",
+				sendStatement(c.getLoginName()+" converting this talisman",
 						"will mean you will loose 30% of the currently",
 						"value when burned on the fire of exchange",
 						"@red@there is no way to re-vert this option.");
@@ -147,7 +147,7 @@ public class DialogueHandler {
 
 
 			case 6767://death npc
-				sendStatement(""+c.getLoginName()+" are you sure you want to commit suicide",
+				sendStatement(c.getLoginName()+" are you sure you want to commit suicide",
 								"if so you will be able to collect your items from the ground",
 						"@red@you will have 3 minutes to collect them before there visible",
 						"@red@to all players.");
@@ -420,7 +420,7 @@ public class DialogueHandler {
 		break;
 		case 190:
 			sendNpcChat2("You're currently assigned to kill "+c.getSlayer().getTask().get().getPrimaryName()+"; Only",
-						""+c.getSlayer().getTaskAmount()+" more to go.", c.talkingNpc, "Nieve");
+						c.getSlayer().getTaskAmount()+" more to go.", c.talkingNpc, "Nieve");
 			c.nextChat = -1;
 		break;
 		case 191://medium
@@ -493,7 +493,7 @@ public class DialogueHandler {
 			break;
 		case 801:
 			sendOption5("What is this?", "I would like to "
-					+ (c.getPosition().inClanWars() || c.getPosition().inClanWarsSafe() ? "go back to reality." : "go to pk district.") + "",
+					+ (c.getPosition().inClanWars() || c.getPosition().inClanWarsSafe() ? "go back to reality." : "go to pk district."),
 					"How do I transfer my blood money?", "I would like to view my safe-box", "Nevermind..");
 			c.dialogueAction = 801;
 			break;
@@ -1402,7 +1402,7 @@ public class DialogueHandler {
 			c.nextChat = 14013;
 			break;
 		case 14013:
-			sendNpcChat1("Precisely. Talk to you later, Neil! Err..." + c.getDisplayName() + "", c.talkingNpc,
+			sendNpcChat1("Precisely. Talk to you later, Neil! Err..." + c.getDisplayName(), c.talkingNpc,
 					"Barrelchest Jr");
 			c.nextChat = 0;
 			break;
