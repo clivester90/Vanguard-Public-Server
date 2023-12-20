@@ -80,7 +80,8 @@ public class PersonalTab {
         points(player, player.dailyTaskPoints, "Daily points", lines.get(index++));
         points(player, player.dailyTaskAmount, "Tasks completed: @gr3@", lines.get(index++));
         if (player.currentDailyTask != null) {
-            player.getPA().sendFrame126("<col=CC8400>- Daily Task: @gre@" +player.currentDailyTask, lines.get(index++));
+            player.getPA().sendFrame126("<col=CC8400>- Daily Task: @gre@" + Misc.formatEnum(player.currentDailyTask.name()), lines.get(index++));
+            points(player, player.currentDailyTask.amount, "Amount:", lines.get(index++));
         } else {
             player.getPA().sendFrame126("<col=CC8400>- Daily Task: @red@ No task active", lines.get(index++));
         }
