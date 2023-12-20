@@ -27,8 +27,6 @@ import io.runescape.util.Misc;
 import lombok.Getter;
 import lombok.Setter;
 
-import static io.runescape.MultiwayCombatScript.getPossibleTargets;
-
 public class PestilentBloat extends TobBoss {
 
     @Getter

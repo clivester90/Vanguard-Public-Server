@@ -39,7 +39,6 @@ import io.runescape.content.skills.woodcutting.Tree;
 import io.runescape.content.skills.woodcutting.Woodcutting;
 import io.runescape.content.tradingpost.Listing;
 import io.runescape.content.wilderness.SpiderWeb;
-import io.runescape.content.world_event.Tournament;
 import io.runescape.model.Items;
 import io.runescape.model.collisionmap.ObjectDef;
 import io.runescape.model.collisionmap.doors.DoorDefinition;
@@ -254,17 +253,6 @@ public class ObjectOptionOne {
 			case 40389://wilderness slayer cave exit
 				AgilityHandler.delayEmote(c, "CRAWL", 3260, 3662, 0, 3);
 				break;
-
-			case 76://Tournament supplies chest
-				if (c.getHeight() == 20) {
-					Tournament.openShop(c);
-				}
-				break;
-
-			case 26646://Tourny exit portal to home
-				Tournament.exitTournament(c);
-				break;
-
 
 			case 42936://Nex leaderboards
 				c.setHighscore(new NexHighscore());

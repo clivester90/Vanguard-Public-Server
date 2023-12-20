@@ -119,7 +119,6 @@ import io.runescape.content.upgrade.UpgradeType;
 import io.runescape.content.vote_panel.VotePanelManager;
 import io.runescape.content.vote_panel.VoteUser;
 import io.runescape.content.wogw.Wogw;
-import io.runescape.content.world_event.Tournament;
 import io.runescape.model.*;
 import io.runescape.model.collisionmap.RegionProvider;
 import io.runescape.model.collisionmap.doors.Location;
@@ -1704,7 +1703,6 @@ public class Player extends Entity {
         getController().onLogout(this);
 
         clearUpPlayerNPCsForLogout();
-        Tournament.logOutUpdate(this, false);//tournaments
 
         declineTrades();
 
@@ -2795,13 +2793,6 @@ public class Player extends Entity {
             this.getPA().walkableInterface(-1);
             //  this.getPA().showOption(3, 0, "Attack", 1);
             getPA().showOption(3, 0, "Attack");
-        } else if (this.getHeight() == 20 && this.tournamentTarget == -1 && Boundary.isIn(this, Boundary.TOURNY_COMBAT_AREA)) {
-            this.getPA().sendFrame126("Lobby: " + Tournament.playerListLobby.size(), 25982);
-            this.getPA().sendFrame126("Tournament: " + Tournament.playerListTournament.size(), 25983);
-            this.getPA().walkableInterface(25980);//25980
-            //this.getPA().showOption(3, 0, "Null", 1);
-            this.getPA().showOption(3, 0, "Attack");
-
         } else if (Boundary.isIn(this, Boundary.SKOTIZO_BOSSROOM)) {
             getPA().walkableInterface(29230);
 
@@ -3694,25 +3685,6 @@ public class Player extends Entity {
             this.getRegionProvider().removeNpcClipping(RegionProvider.NPC_TILE_FLAG, absX, absY, this.getHeight());
         } else {
             this.getRegionProvider().addNpcClipping(RegionProvider.NPC_TILE_FLAG, absX, absY, this.getHeight());
-        }
-
-        if (this.getHeight() == 20 && (Boundary.isIn(this, Boundary.TOURNY_COMBAT_AREA))) {
-            if (Misc.distanceToPoint(this.getX() + Misc.directionDeltaX[dir], this.getY() + Misc.directionDeltaY[dir], Tournament.TOURNAMENT_ARENA_X,
-                    Tournament.TOURNAMENT_ARENA_Y) > Tournament.MAXIMUM_ROAM_DISTANCE) {
-                sendMessage("You cannot walk too far.");
-                resetWalkingQueue();
-                return -1;
-            }
-            if (this.getY() >= 4760 && this.getY() + Misc.directionDeltaY[dir] < 4760) {
-                sendMessage("You cannot walk to the safe zone.");
-                resetWalkingQueue();
-                return -1;
-            }
-            if (this.getY() < 4760 && this.getY() + Misc.directionDeltaY[dir] >= 4760) {
-                sendMessage("You cannot walk to the arena.");
-                resetWalkingQueue();
-                return -1;
-            }
         }
 
         updateController();

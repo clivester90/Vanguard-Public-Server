@@ -26,7 +26,6 @@ import io.runescape.content.minigames.raids.Raids;
 
 import io.runescape.content.pkertab.Feedlist;
 import io.runescape.content.pkertab.Toplist;
-import io.runescape.content.world_event.Tournament;
 import io.runescape.model.Items;
 import io.runescape.model.collisionmap.doors.Location;
 import io.runescape.model.entity.Entity;
@@ -312,13 +311,6 @@ public class PlayerDeath {
 
         if (Boundary.isIn(c, Boundary.LMS_ARENA)) {
             LastManStanding.leaveArena(c);
-            return;
-        }
-
-        if (c.getHeight() == 20 && (Boundary.isIn(c, Boundary.TOURNY_COMBAT_AREA))) {//Tournaments
-            Entity killer = c.getKiller();
-            Player playerKiller = killer != null && killer.isPlayer() ? killer.asPlayer() : null;
-            Tournament.playerDied(playerKiller, c);
             return;
         }
 

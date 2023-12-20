@@ -9,7 +9,6 @@ import io.runescape.content.TriviaBot;
 import io.runescape.content.instances.InstanceHeight;
 import io.runescape.content.minigames.pk_arena.Highpkarena;
 import io.runescape.content.minigames.pk_arena.Lowpkarena;
-import io.runescape.content.world_event.Tournament;
 import io.runescape.model.cycleevent.CycleEventHandler;
 import io.runescape.model.entity.npc.NPCHandler;
 import io.runescape.model.entity.player.PlayerHandler;
@@ -46,7 +45,6 @@ public class GameThread extends Thread {
         tickables.add(i -> CycleEventHandler.getSingleton().process());
         tickables.add(i -> Server.getEventHandler().process());
         tickables.add(i -> Server.tickCount++);
-        tickables.add(i -> Tournament.tournamenTick());//Tournaments
 
 
     }

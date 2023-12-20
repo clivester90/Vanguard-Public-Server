@@ -1,29 +1,26 @@
 package io.runescape.model.entity.player.packets;
 
-import java.util.Objects;
-import java.util.Optional;
-
 import io.runescape.Configuration;
 import io.runescape.Server;
 import io.runescape.content.combat.magic.SanguinestiStaff;
 import io.runescape.content.items.ItemCombinations;
 import io.runescape.content.miniquests.magearenaii.MageArenaII;
-import io.runescape.content.world_event.Tournament;
 import io.runescape.model.Items;
 import io.runescape.model.definitions.ItemDef;
 import io.runescape.model.entity.npc.pets.PetHandler;
 import io.runescape.model.entity.player.*;
 import io.runescape.model.entity.player.mode.group.GroupIronmanRepository;
 import io.runescape.model.items.GameItem;
-import io.runescape.model.items.ItemAssistant;
 import io.runescape.model.items.ItemCombination;
 import io.runescape.model.multiplayersession.MultiplayerSessionFinalizeType;
 import io.runescape.model.multiplayersession.MultiplayerSessionStage;
 import io.runescape.model.multiplayersession.MultiplayerSessionType;
 import io.runescape.model.multiplayersession.duel.DuelSession;
 import io.runescape.model.shops.ShopAssistant;
-import io.runescape.util.Misc;
 import io.runescape.util.logging.player.ItemDroppedLog;
+
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Drop Item Class
@@ -113,23 +110,6 @@ public class DropItem implements PacketType {
 			return;
 		}
 
-		if (c.getHeight() == 20) {//For the tournaments
-			if (Misc.arrayHasNumber(Tournament.ITEMS_CANNOT_DROP, itemId)) {
-				boolean skip = false;
-				// Incase the player has 2 rune legs and tries to drop 1, it will let him drop.
-				if (ItemAssistant.getItemAmount(c, itemId) > 1) {
-					skip = true;
-				}
-
-				if (!skip) {
-					c.sendMessage("@red@You cannot drop this item to prevent mage-only abuse!");
-					return;
-				}
-			}
-		}
-
-
-
 		if (itemDef.isCheckBeforeDrop()) {
 			c.destroyingItemId = itemId;
 			c.getDH().sendDialogues(858, 7456);
@@ -139,8 +119,6 @@ public class DropItem implements PacketType {
 			c.getBankPin().open(2);
 			return;
 		}
-			for (int item : Configuration.TOURNAMENT_ITEMS_DROPPABLE) {
-			}
 			if (c.itemId == 5509 || c.itemId == 5510 || c.itemId == 5512 || c.itemId == 5514 || c.itemId == 6819 ||
 					c.itemId == 13199 || c.itemId == 12931 || c.itemId == 13197) {
 					c.getDH().sendDialogues(858, 7456);

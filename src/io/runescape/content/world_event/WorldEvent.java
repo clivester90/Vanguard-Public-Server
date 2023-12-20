@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class WorldEvent {
 
-	public static ArrayList<String> debug = new ArrayList<String>();
+	public static ArrayList<String> debug = new ArrayList<>();
 
 
 	/**
@@ -131,36 +131,36 @@ public class WorldEvent {
 				int currentNpcsAdded = 0;
 				int maximumCancels = wildTypes.length - amountOfNpcsToKill;
 				int currentCancels = 0;
-				String npcsToKill = "";
-				for (int index = 0; index < wildTypes.length; index++) {
-					if (currentNpcsAdded == amountOfNpcsToKill) {
-						break;
-					}
-					if (currentCancels == maximumCancels) {
-						if (npcsToKill.isEmpty()) {
-							npcsToKill = wildTypes[index];
-						} else {
-							npcsToKill = npcsToKill + ", " + wildTypes[index];
-						}
-						currentNpcsAdded++;
-						continue;
-					}
-					double chance = (double) wildTypes.length / (double) amountOfNpcsToKill;
-					chance *= 10;
-					if (Misc.random(1, (int) chance) > 10) {
-						currentCancels++;
-						continue;
-					}
-					if (npcsToKill.isEmpty()) {
-						npcsToKill = wildTypes[index];
+				StringBuilder npcsToKill = new StringBuilder();
+			for (String wildType : wildTypes) {
+				if (currentNpcsAdded == amountOfNpcsToKill) {
+					break;
+				}
+				if (currentCancels == maximumCancels) {
+					if (npcsToKill.length() == 0) {
+						npcsToKill = new StringBuilder(wildType);
 					} else {
-						npcsToKill = npcsToKill + ", " + wildTypes[index];
+						npcsToKill.append(", ").append(wildType);
 					}
 					currentNpcsAdded++;
+					continue;
 				}
+				double chance = (double) wildTypes.length / (double) amountOfNpcsToKill;
+				chance *= 10;
+				if (Misc.random(1, (int) chance) > 10) {
+					currentCancels++;
+					continue;
+				}
+				if (npcsToKill.length() == 0) {
+					npcsToKill = new StringBuilder(wildType);
+				} else {
+					npcsToKill.append(", ").append(wildType);
+				}
+				currentNpcsAdded++;
+			}
 				//nextEvent = "Kill " + npcsToKill + " for 3x rare drop chance!";
 			    nextEvent = "All wild mobs will x2 their drops & send half of them to your bank.";
-				setCurrentEvent(npcsToKill);
+				setCurrentEvent(npcsToKill.toString());
 			}
 		}
 

@@ -20,7 +20,6 @@ public class Points extends Command {
         VotePanelManager.addVote(player.getLoginName());
         VotePanelManager.getUser(player).setBluePoints(points);
         VotePanelManager.getUser(player).setRedPoints(points);
-        player.tournamentPoints = points;
         player.exchangePoints = points;
         player.pkp = points;
         player.amDonated = points;

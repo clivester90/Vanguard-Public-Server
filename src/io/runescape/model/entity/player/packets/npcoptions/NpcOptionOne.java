@@ -185,10 +185,6 @@ public class NpcOptionOne {
 		case 8208:
 			PetCollector.petCollectorDialogue(player);
 			break;
-		case 2662:
-			player.getShops().openShop(131);
-			player.sendMessage("You currently have @red@" + player.tournamentPoints + " @bla@Tournament Points!");
-			break;
 
 		case 1013:
 			player.getShops().openShop(130);

@@ -28,7 +28,6 @@ import io.runescape.content.minigames.bounty_hunter.BountyHunterEmblem;
 import io.runescape.content.skills.agility.AgilityHandler;
 import io.runescape.content.skills.crafting.SpinMaterial;
 import io.runescape.content.upgrade_table.UpgradeTable;
-import io.runescape.content.world_event.Tournament;
 import io.runescape.model.entity.player.Boundary;
 import io.runescape.model.entity.player.Player;
 import io.runescape.model.entity.player.PlayerAssistant;
@@ -74,11 +73,6 @@ public class TwoOptions {
 					c.getPA().closeAllWindows();
 					return;
 				}
-				break;
-
-			case 8906://Tournament enter option
-				Tournament.talkToCowKiller(c);
-				//c.getPA().closeAllWindows();
 				break;
 
 			case 19130://Nex exit

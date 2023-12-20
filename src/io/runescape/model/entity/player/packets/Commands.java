@@ -14,7 +14,6 @@ import io.runescape.Configuration;
 import io.runescape.Server;
 import io.runescape.achievements.AchievementHandler;
 import io.runescape.achievements.AchievementList;
-import io.runescape.achievements.InterfaceHandler;
 import io.runescape.content.*;
 import io.runescape.content.achievement.AchievementType;
 import io.runescape.content.achievement.Achievements;
@@ -34,7 +33,6 @@ import io.runescape.content.skills.farming.Plants;
 import io.runescape.content.tutorial.TutorialDialogue;
 import io.runescape.content.wogw.Wogw;
 import io.runescape.content.world_boss_events.EventBossHandler;
-import io.runescape.content.world_event.Tournament;
 import io.runescape.content.world_event_galvek.GalvekEventBossHandler;
 import io.runescape.content.world_event_solak.SolakEventBossHandler;
 import io.runescape.model.Items;
@@ -125,22 +123,6 @@ public class Commands implements PacketType {
                     case "pricecheck":
                         PriceChecker.open(c);
                         return;
-
-                    case "credit":
-                        InterfaceHandler.writeText(new CreditTab(c));
-                        c.getPA().sendString("</col>Donation Points: @gre@" + Misc.format(c.donatorPoints), 44504);
-                        c.getPA().showInterface(44500);
-                        return;
-
-
-                    case "starttournament"://Command to start a new tournament
-                        Tournament.loadNewTournament(playerCommand);
-                        return;
-
-                    case "tournykick"://Command to start a new tournament
-                        Tournament.tournyKick(c, playerCommand);
-                        return;
-
 
                     case "withdrawmp":
                         int amount = 1;

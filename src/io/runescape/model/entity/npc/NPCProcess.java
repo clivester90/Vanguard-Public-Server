@@ -17,7 +17,6 @@ import io.runescape.content.minigames.inferno.InfernoWaveData;
 import io.runescape.content.minigames.rfd.DisposeTypes;
 import io.runescape.content.revenant_event.RevenantEventBossHandler;
 import io.runescape.content.world_boss_events.EventBossHandler;
-import io.runescape.content.world_event.Tournament;
 import io.runescape.content.world_event_galvek.GalvekEventBossHandler;
 import io.runescape.content.world_event_solak.SolakEventBossHandler;
 import io.runescape.model.Animation;
@@ -188,12 +187,6 @@ public class NPCProcess {
                 npc.forceChat("Speak to me if you wish to learn more about this land!");
             }
         }
-
-       if (npc.getNpcId() == 4420) {// Tournament
-           if (Misc.hasOneOutOf(10)) {
-               npc.forceChat("Talk to me to join the "+ Tournament.eventType + " tournament!");
-           }
-       }
 
 
         if (npc.getHealth().getCurrentHealth() > 0 && !npc.isDead()) {

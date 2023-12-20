@@ -3,6 +3,7 @@ package io.runescape.content.prestige;
 import io.runescape.Configuration;
 import io.runescape.content.skills.Skill;
 import io.runescape.model.entity.player.Player;
+import io.runescape.util.Misc;
 
 public class PrestigeSkills {
 
@@ -18,7 +19,7 @@ public class PrestigeSkills {
 	
 	public void openPrestige() { // Refreshes all text lines before showing the interface - Looks better
 		for (int j = 0; j < 22; j++) {
-			player.getPA().sendFrame126(""+player.prestigeLevel[j]+"", 37400 + j); // Update Current Prestige on interface
+			player.getPA().sendFrame126(String.valueOf(player.prestigeLevel[j]), 37400 + j); // Update Current Prestige on interface
 		}
 		registerClick(0);
 		player.getPA().showInterface(37300);
@@ -33,7 +34,7 @@ public class PrestigeSkills {
 		player.prestigeNumber = i;
 		player.currentPrestigeLevel = player.prestigeLevel[player.prestigeNumber];
 		player.canPrestige = player.getPA().getLevelForXP(player.playerXP[player.prestigeNumber]) == 99; //Update global canPrestige boolean
-		String canPrestige = ((player.canPrestige == true) ? "@gre@Yes" : "@red@No"); // String version for interface Yes or No
+		String canPrestige = ((player.canPrestige) ? "@gre@Yes" : "@red@No"); // String version for interface Yes or No
 		player.getPA().sendFrame126(Skill.forId(player.prestigeNumber).toString(), 37307); // Update Skill Name
 		player.getPA().sendFrame126("Current Prestige: @whi@"+player.currentPrestigeLevel, 37308); // Update Current Prestige in box
 		player.getPA().sendFrame126("Reward: @whi@"+(points + ((player.currentPrestigeLevel + 1)))+" Points", 37309); // Update Reward
@@ -70,12 +71,13 @@ public class PrestigeSkills {
 			}
 			if (player.prestigeNumber <= 6) {
 				player.combatLevel = player.calculateCombatLevel();
-				player.getPA().sendFrame126("Combat Level: " + player.combatLevel + "", 3983);
+				player.getPA().sendFrame126("Combat Level: " + player.combatLevel, 3983);
 			}
 			player.prestigePoints+= points + ((player.currentPrestigeLevel + 1));
 			player.prestigeLevel[player.prestigeNumber] += 1;
 			registerClick(player.prestigeNumber);
-			player.getPA().sendFrame126(""+player.prestigeLevel[player.prestigeNumber]+"", 37400 + player.prestigeNumber); // Update Current Prestige on interface
+			player.sendMessage("You are now prestige level <col=ff0000>" + player.prestigeLevel[player.prestigeNumber] + "</col> in <col=ff0000>" + Misc.formatEnum(Skill.forId(player.prestigeNumber).name()) + "</col>.");
+			player.getPA().sendFrame126(String.valueOf(player.prestigeLevel[player.prestigeNumber]), 37400 + player.prestigeNumber); // Update Current Prestige on interface
 		} else {
 			player.sendMessage("You cannot prestige "+ Configuration.SKILL_NAME[player.prestigeNumber]+" you need to gain "+ (99 -  player.getPA().getLevelForXP(player.playerXP[player.prestigeNumber])) +" more "+ Configuration.SKILL_NAME[player.prestigeNumber]+" levels.");
 		}

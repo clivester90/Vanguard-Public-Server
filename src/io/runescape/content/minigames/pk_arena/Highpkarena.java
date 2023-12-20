@@ -38,7 +38,7 @@ public class Highpkarena {
     /**
      * @note Stores player and State
      */
-    private static final Map<Player, String> playerMap = Collections.synchronizedMap(new HashMap<Player, String>());
+    private static final Map<Player, String> playerMap = Collections.synchronizedMap(new HashMap<>());
     
     /**
      * @note Where to spawn when pits game starts
@@ -133,7 +133,7 @@ public class Highpkarena {
     public static int getListCount(String state) {
     	int count = 0;
     	for (String s : playerMap.values()) {
-   		 if(state == s) {
+   		 if(state.equals(s)) {
    			count++; 
    		 }
     	}
@@ -146,7 +146,7 @@ public class Highpkarena {
     private static void update() {
     	for (Player c : playerMap.keySet()) {
     		String status = playerMap.get(c);
-    		boolean updated = status == WAITING ? updateWaitingRoom(c) : updateGame(c);
+    		boolean updated = status.equals(WAITING) ? updateWaitingRoom(c) : updateGame(c);
     	}
     }
 

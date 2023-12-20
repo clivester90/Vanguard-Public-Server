@@ -10,16 +10,6 @@
   },
 
   {
-    "id": 2662,
-    "position": {
-      "x": 3098,
-      "y": 3489,
-      "height": 0
-    },
-    "walkingType": "FACE_EAST"
-  },
-
-  {
     "id": 1017,
     "position": {
       "x": 3098,

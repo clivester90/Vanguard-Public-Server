@@ -25,7 +25,6 @@ import io.runescape.content.preset.PresetManager;
 import io.runescape.content.revenant_event.RevenantEventBossHandler;
 import io.runescape.content.shooting_star.ShootingStar;
 import io.runescape.content.world_boss_events.EventBossHandler;
-import io.runescape.content.world_event.Tournament;
 import io.runescape.content.world_event.WorldEvent;
 import io.runescape.content.world_event_galvek.GalvekEventBossHandler;
 import io.runescape.content.world_event_solak.SolakEventBossHandler;
@@ -231,20 +230,6 @@ public class QuestTab {
             player.getPA().sendFrame126("<col=CC8400>- Daily Task: @gre@" +player.currentDailyTask, lines.get(index++));
         } else {
             player.getPA().sendFrame126("<col=CC8400>- Daily Task: @red@ No task active", lines.get(index++));
-        }
-
-        player.getPA().sendFrame126("", lines.get(index++));
-
-        player.getPA().sendFrame126("<img=29>@or1@ Tournament Information", lines.get(index++));
-        points(player.tournamentPoints, "Tournament points: @gr3@", lines.get(index++));
-        points(player.tournamentWins, "Tournament wins", lines.get(index++));
-        points(player.tournyKills, "Tournament kills: @gr3@", lines.get(index++));
-        points(player.tournyDeaths, "Tournament deaths: @gr3@", lines.get(index++));
-        points(player.tournamentTotalGames, "Total played: @gr3@", lines.get(index++));
-        if (Tournament.isTournamentActive()) {
-            player.getPA().sendFrame126("<col=CC8400>- Tourny: @gre@" +Tournament.eventType, lines.get(index++));
-        } else {
-            player.getPA().sendFrame126("<col=CC8400>- Tourny: @red@ Not active", lines.get(index++));
         }
 
         player.getPA().sendFrame126("", lines.get(index++));

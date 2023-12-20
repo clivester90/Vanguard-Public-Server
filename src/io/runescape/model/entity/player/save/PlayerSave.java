@@ -594,10 +594,6 @@ public class PlayerSave {
                                     p.bossPoints = Integer.parseInt(token2);
                                 } else if (token.equals("bossPointsRefund")) {
                                     p.bossPointsRefund = Boolean.parseBoolean(token2);
-                                } else if (token.equals("tWin")) {
-                                    p.tournamentWins = Integer.parseInt(token2);
-                                } else if (token.equals("tPoint")) {
-                                    p.tournamentPoints = Integer.parseInt(token2);
                                 } else if (token.equals("streak")) {
                                     p.streak = Integer.parseInt(token2);
                                 } else if (token.equals("outlastKills")) {
@@ -1820,13 +1816,6 @@ public class PlayerSave {
                 characterfile.newLine();
                 characterfile.write("bossPointsRefund = ");
                 characterfile.write(Boolean.toString(p.bossPointsRefund));
-                characterfile.newLine();
-
-
-                characterfile.write("tWin = " + p.tournamentWins);
-                characterfile.newLine();
-
-                characterfile.write("tPoint = " + p.tournamentPoints);
                 characterfile.newLine();
 
                 characterfile.write("streak = " + p.streak);

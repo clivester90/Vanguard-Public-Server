@@ -9,7 +9,6 @@ import io.runescape.content.achievement_diary.impl.LumbridgeDraynorDiaryEntry;
 import io.runescape.content.shatteredshards.ShatteredShardPrice;
 import io.runescape.content.lootbag.LootingBag;
 import io.runescape.content.questing.hftd.HftdQuest;
-import io.runescape.content.world_event.Tournament;
 import io.runescape.model.Items;
 import io.runescape.model.definitions.ItemDef;
 import io.runescape.model.definitions.ShopDef;
@@ -55,10 +54,6 @@ public class ShopAssistant {
 		if (Server.getMultiplayerSessionListener().inAnySession(c)) {
 			return;
 		}
-		//if (Boundary.isIn(c, Boundary.TOURNAMENT_LOBBIES_AND_AREAS) && ShopID != 147) {
-		//	c.sendMessage("You cannot do this right now.");
-		//	return;
-		//}
 
 		if (!c.getMode().isShopAccessible(ShopID)) {
 			if (Server.isDebug()) {
@@ -95,7 +90,7 @@ public class ShopAssistant {
 	public void updatePlayerShop() {
 		for (int i = 1; i < Configuration.MAX_PLAYERS; i++) {
 			if (PlayerHandler.players[i] != null) {
-				if (PlayerHandler.players[i].isShopping == true && PlayerHandler.players[i].myShopId == c.myShopId && i != c.getIndex()) {
+				if (PlayerHandler.players[i].isShopping && PlayerHandler.players[i].myShopId == c.myShopId && i != c.getIndex()) {
 					PlayerHandler.players[i].updateShop = true;
 				}
 			}
@@ -259,12 +254,6 @@ public class ShopAssistant {
 			return;
 		}
 
-		if (c.myShopId == 210 || c.myShopId == 211 || c.myShopId == 212 || c.myShopId == 213 || c.myShopId == 214
-				|| c.myShopId == 215 || c.myShopId == 216 || c.myShopId == 217 || c.myShopId == 218 || c.myShopId == 219) {//all tournament supply stores
-			c.sendMessage(itemName + ": currently costs [ @pur@" + Misc.insertCommas(getSpecialItemValue(removeId)) + " @bla@] nothing.");
-			return;
-		}
-
 		if (c.myShopId == 197) {//lms
 			c.sendMessage(itemName + ": currently costs [ @pur@" + Misc.insertCommas(getSpecialItemValue(removeId)) + " @bla@] Lms Points.");
 			return;
@@ -279,10 +268,6 @@ public class ShopAssistant {
 		}
 		if (c.myShopId == 172 || c.myShopId == 173) {
 			c.sendMessage(itemName + ": currently exchanges for  [ @pur@" + getSpecialItemValue(removeId) + " @bla@] shards.");
-			return;
-		}
-		if (c.myShopId == 131) {
-			c.sendMessage(itemName + ": currently costs [ @pur@" + getSpecialItemValue(removeId) + " @bla@] Tournament Points.");
 			return;
 		}
 		if (c.myShopId == 119) {
@@ -492,21 +477,6 @@ public class ShopAssistant {
 			case 189: // trivia store
 			case 201: // new tokkul store
 			case 121: // Boss points shop
-
-			case 210://tournaments supplies
-			case 211://tournaments supplies
-			case 212://tournaments supplies
-			case 213://tournaments supplies
-			case 214://tournaments supplies
-			case 215://tournaments supplies
-			case 216://tournaments supplies
-			case 217://tournaments supplies
-			case 218://tournaments supplies
-			case 219://tournaments supplies
-				return shopDef.getPrice(id);
-
-
-
 			case 171: //shards
 				return ShatteredShards.getExchangeShopPrice(id);
 			case 172: //Exchange shop showcase
@@ -653,50 +623,7 @@ public class ShopAssistant {
 
 				}
 				break;
-			case 131: //tournament Shop
-				switch (id) {
-					case 22114:
-						return 20;
-					case 23351:
-						return 50;
-					case 10724:
-					case 10725:
-					case 10726:
-					case 10727:
-					case 10728:
-						return 15;
-					case 23389:
-						return 5;
-					case 23206:
-						return 10;
-					case 23101:
-						return 5;
-					case 23099:
-						return 3;
-					case 23097:
-					case 23095:
-						return 10;
-					case 23093:
-						return 4;
-					case 23091:
-						return 5;
-					case 8132:
-					case 10591:
-						return 125;
-					case 21298:
-						return 15;
-					case 21301:
-					case 21304:
-						return 20;
-					case Items.TEN_DOLLAR_SCROLL:
-						return 100;
-					case Items.IMBUE_DUST:
-						return 50;
-					case Items.BONUS_XP_SCROLL:
-						return 10;
 
-				}
-				break;
 			case 119: //Blood Money Shop
 				switch(id) {
 					case 13307:
@@ -1693,7 +1620,7 @@ public class ShopAssistant {
 		} else {
 			IsIn = true;
 		}
-		if (IsIn == false) {
+		if (!IsIn) {
 			c.sendMessage("You can't sell that item to this store.");
 		} else {
 			//int ShopValue = 0;
@@ -1764,10 +1691,6 @@ public class ShopAssistant {
 			c.sendMessage("Selling to shops is disabled atm.");
 			return false;
 		}
-	//	if (Boundary.isIn(c, Boundary.TOURNAMENT_LOBBIES_AND_AREAS)) {
-	//		c.sendMessage("You cannot do this right now.");
-	//		return false;
-	//	}
 		if (Server.getMultiplayerSessionListener().inAnySession(c)) {
 			return false;
 		}
@@ -1828,17 +1751,6 @@ public class ShopAssistant {
 			case 117:
 			case 201://triva store
 			case 205://daily task store
-
-			case 210://tournaments supplies
-			case 211://tournaments supplies
-			case 212://tournaments supplies
-			case 213://tournaments supplies
-			case 214://tournaments supplies
-			case 215://tournaments supplies
-			case 216://tournaments supplies
-			case 217://tournaments supplies
-			case 218://tournaments supplies
-			case 219://tournaments supplies
 			case 18:
 				c.sendMessage("You cannot sell items to this shop.");
 				return false;
@@ -1859,7 +1771,7 @@ public class ShopAssistant {
 						break;
 					}
 				}
-				if (IsIn == false) {
+				if (!IsIn) {
 					c.sendMessage("You can't sell that item to this store.");
 					return false;
 				}
@@ -2002,7 +1914,7 @@ public class ShopAssistant {
 				Added = true;
 			}
 		}
-		if (Added == false) {
+		if (!Added) {
 			for (int i = 0; i < ShopHandler.ShopItems.length; i++) {
 				if (ShopHandler.ShopItems[c.myShopId][i] == 0) {
 					ShopHandler.ShopItems[c.myShopId][i] = (itemID + 1);
@@ -2039,14 +1951,7 @@ public class ShopAssistant {
 				c.sendMessage("");
 			return false;
 		}
-	//	if (!Boundary.isIn(c, Boundary.TOURNAMENT_LOBBIES_AND_AREAS) && c.myShopId == 147) {
-		//	c.sendMessage("You cannot do this right now.");
-		//	return false;
-		//}
-	//	if (Boundary.isIn(c, Boundary.TOURNAMENT_LOBBIES_AND_AREAS) && c.myShopId != 147) {
-	//		c.sendMessage("You cannot do this right now.");
-	//		return false;
-	//	}
+
 		if (!c.getMode().isItemPurchasable(c.myShopId, itemID)) {
 			c.sendMessage("Your game mode does not allow you to buy this item.");
 			return false;
@@ -2342,18 +2247,6 @@ public class ShopAssistant {
 				case 199: // afk store
 				case 201: // new tokul store
 				case 205://daily task store
-
-				case 210://tournaments supplies
-				case 211://tournaments supplies
-				case 212://tournaments supplies
-				case 213://tournaments supplies
-				case 214://tournaments supplies
-				case 215://tournaments supplies
-				case 216://tournaments supplies
-				case 217://tournaments supplies
-				case 218://tournaments supplies
-				case 219://tournaments supplies
-
 				case 120:
 					handleOtherShop(itemID, amount);
 					return false;
@@ -2682,27 +2575,8 @@ public class ShopAssistant {
 			c.getItems().sendInventoryInterface(3823);
 			logShop("bought", itemID, amount);
 			return;
+
 		}
-
-		if (c.myShopId == 210 || c.myShopId == 211 || c.myShopId == 212 || c.myShopId == 213 || c.myShopId == 214
-				|| c.myShopId == 215 || c.myShopId == 216 || c.myShopId == 217 || c.myShopId == 218 || c.myShopId == 219) {//all tournament supply stores
-
-			int tournamentBrewAmount = canPurchaseMoreBrews(c, itemID);
-			if (tournamentBrewAmount >= 0) {
-				amount = tournamentBrewAmount;
-				if (amount == 0) {
-					//return 0;
-					return;
-				}
-			}
-			c.getItems().addItem(itemID, amount);
-			c.getItems().sendInventoryInterface(3823);
-			logShop("bought", itemID, amount);
-			return;
-		}
-
-
-
 
 		if (c.myShopId == 197) {//lms store
 			if (c.getItems().freeSlots() < 1) {
@@ -2986,25 +2860,8 @@ public class ShopAssistant {
 			} else {
 				c.sendMessage("This item is only a showcase.");
 			}
-		} else if (c.myShopId == 131) {
-			if (c.tournamentPoints >= getSpecialItemValue(itemID) * amount) {
-				if (c.getItems().freeSlots() > 0) {
-					c.tournamentPoints -= getSpecialItemValue(itemID) * amount;
-					c.getQuestTab().updateInformationTab();
-					c.getItems().addItem(itemID, amount);
-					if (itemID == 8132 && c.getItems().getItemCount(8132, false) == 0) {
-						c.getCollectionLog().handleDrop(c, 5, 8132, 1);
-					}
-					if (itemID == 10591 && c.getItems().getItemCount(10591, false) == 0) {
-						c.getCollectionLog().handleDrop(c, 5, 10591, 1);
-					}
-					c.getItems().sendInventoryInterface(3823);
-					logShop("bought", itemID, amount);
-				}
-			} else {
-				c.sendMessage("You do not have enough Tournament Points to buy this item.");
-			}
-		} else if (c.myShopId == 119) {
+		}
+		else if (c.myShopId == 119) {
 			if (c.bloodPoints >= getSpecialItemValue(itemID) * amount) {
 				if (c.getItems().freeSlots() > 0) {
 					c.bloodPoints -= getSpecialItemValue(itemID) * amount;
@@ -3135,30 +2992,5 @@ public class ShopAssistant {
 		}
 		c.getItems().sendInventoryInterface(3823);
 	}
-
-
-
-	private static int canPurchaseMoreBrews(Player player, int itemId) {//For the tournaments
-		for (int index = 0; index < Tournament.eventShopIds.length; index++) {
-			if (player.myShopId == Tournament.eventShopIds[index]) {
-				if (ItemDef.forId(itemId).getName().startsWith("Saradomin brew")) {
-					Tournament.hasExcessBrews(player, 100);
-					int doses = Integer.parseInt(ItemDef.forId(itemId).getName().replace("Saradomin brew(", "").replace(")", "")) - 2;
-					if (doses < 0) {
-						doses = 0;
-					}
-					int maximumBrews = (player.myShopId == 216 ? 4 : player.myShopId == 215 ? 3 : 2);
-					if (player.brewCount + doses > maximumBrews * 2) {
-						player.sendMessage("@red@No more brews you cheater!");
-						return 0; // Cannot buy any brews.
-					}
-					return 1; // Can buy 1 brew
-				}
-			}
-		}
-		return -1; // Item being purchased not a brew.
-	}
-
-
 
 }

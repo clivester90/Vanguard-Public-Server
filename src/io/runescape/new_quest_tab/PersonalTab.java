@@ -1,11 +1,9 @@
 package io.runescape.new_quest_tab;
 
 
-import io.runescape.content.world_event.Tournament;
 import io.runescape.model.entity.npc.drops.DropManager;
 import io.runescape.model.entity.player.Player;
 import io.runescape.util.Misc;
-
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -88,20 +86,6 @@ public class PersonalTab {
         }
 
         player.getPA().sendFrame126("", lines.get(index++));
-
-        player.getPA().sendFrame126("<img=22>@or1@ Tournament Information", lines.get(index++));
-        points(player, player.tournamentPoints, "Tournament points: @gr3@", lines.get(index++));
-        points(player, player.tournamentWins, "Tournament wins", lines.get(index++));
-        points(player, player.tournyKills, "Tournament kills: @gr3@", lines.get(index++));
-        points(player, player.tournyDeaths, "Tournament deaths: @gr3@", lines.get(index++));
-        points(player, player.tournamentTotalGames, "Total played: @gr3@", lines.get(index++));
-        if (Tournament.isTournamentActive()) {
-            player.getPA().sendFrame126("<col=CC8400>- Tourny: @gre@" +Tournament.eventType, lines.get(index++));
-        } else {
-            player.getPA().sendFrame126("<col=CC8400>- Tourny: @red@ Not active", lines.get(index++));
-        }
-
-        //player.getPA().sendString("", lines.get(index++));
 
         while (index < lines.size()) {
             player.getPA().sendString("", lines.get(index++));

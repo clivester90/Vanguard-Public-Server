@@ -1,12 +1,7 @@
 package io.runescape.content.combat.melee;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-
 import io.runescape.Server;
 import io.runescape.content.itemskeptondeath.ItemsKeptOnDeathInterface;
-import io.runescape.content.world_event.Tournament;
 import io.runescape.model.Bonus;
 import io.runescape.model.entity.player.Boundary;
 import io.runescape.model.entity.player.Player;
@@ -15,6 +10,10 @@ import io.runescape.model.multiplayersession.MultiplayerSessionStage;
 import io.runescape.model.multiplayersession.MultiplayerSessionType;
 import io.runescape.model.multiplayersession.duel.DuelSession;
 import io.runescape.model.multiplayersession.duel.DuelSessionRules;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Handles prayers drain and switching
@@ -190,7 +189,7 @@ public class CombatPrayer {
 
 	public static boolean isOverheadPrayer(int id) {
 		List<Integer> overheads = Arrays.asList(16, 17, 18, 21, 22, 23);
-		return overheads.stream().anyMatch(i -> id == i.intValue());
+		return overheads.stream().anyMatch(i -> id == i);
 	}
 	
 	public static int[] getTurnOff(int id) {
@@ -358,16 +357,6 @@ public class CombatPrayer {
 
 		}
 
-
-		if (i == RETRIBUTION && c.getHeight() == 20 && Boundary.isIn(c, Boundary.TOURNY_COMBAT_AREA) || c.getHeight() == 20 && Boundary.isIn(c, Boundary.TOURNY_COMBAT_AREA) && i >= 16 && i <= 18 && !Tournament.eventType // TOURNAMENTS
-				.equals("Pure tribrid")
-				&& !Tournament.eventType.equals("Main Nh")) {
-			c.sendMessage("You cannot use these prayers in this tournament.");
-			c.getPA().sendFrame36(PRAYER_GLOW[i], 0);
-			return;
-		}
-
-
 		if (i == 25) {
 			if (c.playerLevel[1] < 65) {
 				c.getPA().sendFrame36(PRAYER_GLOW[i], 0);
@@ -481,11 +470,11 @@ public class CombatPrayer {
 				case 0:
 				case 5:
 				case 13:
-					if (c.prayerActive[i] == false) {
-						for (int j = 0; j < defPray.length; j++) {
-							if (defPray[j] != i) {
-								c.prayerActive[defPray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[defPray[j]], 0);
+					if (!c.prayerActive[i]) {
+						for (int k : defPray) {
+							if (k != i) {
+								c.prayerActive[k] = false;
+								c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
 							}
 						}
 					}
@@ -493,30 +482,24 @@ public class CombatPrayer {
 				case 1:
 				case 6:
 				case 14:
-					if (c.prayerActive[i] == false) {
-						for (int j = 0; j < atkPray.length; j++) {
-							if (atkPray[j] != i) {
-								c.prayerActive[atkPray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[atkPray[j]], 0);
+					if (!c.prayerActive[i]) {
+						for (int k : atkPray) {
+							c.prayerActive[k] = false;
+							c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
+						}
+						for (int k : strPray) {
+							if (k != i) {
+								c.prayerActive[k] = false;
+								c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
 							}
 						}
-						for (int j = 0; j < strPray.length; j++) {
-							if (strPray[j] != i) {
-								c.prayerActive[strPray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[strPray[j]], 0);
-							}
+						for (int k : rangePray) {
+							c.prayerActive[k] = false;
+							c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
 						}
-						for (int j = 0; j < rangePray.length; j++) {
-							if (rangePray[j] != i) {
-								c.prayerActive[rangePray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[rangePray[j]], 0);
-							}
-						}
-						for (int j = 0; j < magePray.length; j++) {
-							if (magePray[j] != i) {
-								c.prayerActive[magePray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[magePray[j]], 0);
-							}
+						for (int k : magePray) {
+							c.prayerActive[k] = false;
+							c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
 						}
 					}
 					break;
@@ -524,24 +507,20 @@ public class CombatPrayer {
 				case 2:
 				case 7:
 				case 15:
-					if (c.prayerActive[i] == false) {
-						for (int j = 0; j < atkPray.length; j++) {
-							if (atkPray[j] != i) {
-								c.prayerActive[atkPray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[atkPray[j]], 0);
+					if (!c.prayerActive[i]) {
+						for (int k : atkPray) {
+							if (k != i) {
+								c.prayerActive[k] = false;
+								c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
 							}
 						}
-						for (int j = 0; j < rangePray.length; j++) {
-							if (rangePray[j] != i) {
-								c.prayerActive[rangePray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[rangePray[j]], 0);
-							}
+						for (int k : rangePray) {
+							c.prayerActive[k] = false;
+							c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
 						}
-						for (int j = 0; j < magePray.length; j++) {
-							if (magePray[j] != i) {
-								c.prayerActive[magePray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[magePray[j]], 0);
-							}
+						for (int k : magePray) {
+							c.prayerActive[k] = false;
+							c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
 						}
 					}
 					break;
@@ -549,59 +528,47 @@ public class CombatPrayer {
 				case 3:// range prays
 				case 11:
 				case 19:
-					if (c.prayerActive[i] == false) {
-						for (int j = 0; j < atkPray.length; j++) {
-							if (atkPray[j] != i) {
-								c.prayerActive[atkPray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[atkPray[j]], 0);
+					if (!c.prayerActive[i]) {
+						for (int k : atkPray) {
+							c.prayerActive[k] = false;
+							c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
+						}
+						for (int k : strPray) {
+							c.prayerActive[k] = false;
+							c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
+						}
+						for (int k : rangePray) {
+							if (k != i) {
+								c.prayerActive[k] = false;
+								c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
 							}
 						}
-						for (int j = 0; j < strPray.length; j++) {
-							if (strPray[j] != i) {
-								c.prayerActive[strPray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[strPray[j]], 0);
-							}
-						}
-						for (int j = 0; j < rangePray.length; j++) {
-							if (rangePray[j] != i) {
-								c.prayerActive[rangePray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[rangePray[j]], 0);
-							}
-						}
-						for (int j = 0; j < magePray.length; j++) {
-							if (magePray[j] != i) {
-								c.prayerActive[magePray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[magePray[j]], 0);
-							}
+						for (int k : magePray) {
+							c.prayerActive[k] = false;
+							c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
 						}
 					}
 					break;
 				case 4:
 				case 12:
 				case 20:
-					if (c.prayerActive[i] == false) {
-						for (int j = 0; j < atkPray.length; j++) {
-							if (atkPray[j] != i) {
-								c.prayerActive[atkPray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[atkPray[j]], 0);
-							}
+					if (!c.prayerActive[i]) {
+						for (int k : atkPray) {
+							c.prayerActive[k] = false;
+							c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
 						}
-						for (int j = 0; j < strPray.length; j++) {
-							if (strPray[j] != i) {
-								c.prayerActive[strPray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[strPray[j]], 0);
-							}
+						for (int item : strPray) {
+							c.prayerActive[item] = false;
+							c.getPA().sendFrame36(PRAYER_GLOW[item], 0);
 						}
-						for (int j = 0; j < rangePray.length; j++) {
-							if (rangePray[j] != i) {
-								c.prayerActive[rangePray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[rangePray[j]], 0);
-							}
+						for (int value : rangePray) {
+							c.prayerActive[value] = false;
+							c.getPA().sendFrame36(PRAYER_GLOW[value], 0);
 						}
-						for (int j = 0; j < magePray.length; j++) {
-							if (magePray[j] != i) {
-								c.prayerActive[magePray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[magePray[j]], 0);
+						for (int k : magePray) {
+							if (k != i) {
+								c.prayerActive[k] = false;
+								c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
 							}
 						}
 					}
@@ -625,8 +592,7 @@ public class CombatPrayer {
 						c.protMageDelay = System.currentTimeMillis();
 					else if (i == 17)
 						c.protRangeDelay = System.currentTimeMillis();
-					else if (i == 18)
-						c.protMeleeDelay = System.currentTimeMillis();
+					else c.protMeleeDelay = System.currentTimeMillis();
 				case 21:
 				case 22:
 				case 23:
@@ -642,42 +608,42 @@ public class CombatPrayer {
 				case 26:
 				case 27:
 				case 28:
-					if (c.prayerActive[i] == false) {
-						for (int j = 0; j < atkPray.length; j++) {
-							if (atkPray[j] != i) {
-								c.prayerActive[atkPray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[atkPray[j]], 0);
+					if (!c.prayerActive[i]) {
+						for (int i1 : atkPray) {
+							if (i1 != i) {
+								c.prayerActive[i1] = false;
+								c.getPA().sendFrame36(PRAYER_GLOW[i1], 0);
 							}
 						}
-						for (int j = 0; j < strPray.length; j++) {
-							if (strPray[j] != i) {
-								c.prayerActive[strPray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[strPray[j]], 0);
+						for (int element : strPray) {
+							if (element != i) {
+								c.prayerActive[element] = false;
+								c.getPA().sendFrame36(PRAYER_GLOW[element], 0);
 							}
 						}
-						for (int j = 0; j < rangePray.length; j++) {
-							if (rangePray[j] != i) {
-								c.prayerActive[rangePray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[rangePray[j]], 0);
+						for (int item : rangePray) {
+							if (item != i) {
+								c.prayerActive[item] = false;
+								c.getPA().sendFrame36(PRAYER_GLOW[item], 0);
 							}
 						}
-						for (int j = 0; j < magePray.length; j++) {
-							if (magePray[j] != i) {
-								c.prayerActive[magePray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[magePray[j]], 0);
+						for (int value : magePray) {
+							if (value != i) {
+								c.prayerActive[value] = false;
+								c.getPA().sendFrame36(PRAYER_GLOW[value], 0);
 							}
 						}
-						for (int j = 0; j < defPray.length; j++) {
-							if (defPray[j] != i) {
-								c.prayerActive[defPray[j]] = false;
-								c.getPA().sendFrame36(PRAYER_GLOW[defPray[j]], 0);
+						for (int k : defPray) {
+							if (k != i) {
+								c.prayerActive[k] = false;
+								c.getPA().sendFrame36(PRAYER_GLOW[k], 0);
 							}
 						}
 					}
 					break;
 				}
 				if (!headIcon) {
-					if (c.prayerActive[i] == false) {
+					if (!c.prayerActive[i]) {
 						c.prayerActive[i] = true;
 						c.getPA().sendFrame36(PRAYER_GLOW[i], 1);
 					} else {
@@ -685,7 +651,7 @@ public class CombatPrayer {
 						c.getPA().sendFrame36(PRAYER_GLOW[i], 0);
 					}
 				} else {
-					if (c.prayerActive[i] == false) {
+					if (!c.prayerActive[i]) {
 						c.prayerActive[i] = true;
 						c.getPA().sendFrame36(PRAYER_GLOW[i], 1);
 						c.headIcon = PRAYER_HEAD_ICONS[i];
