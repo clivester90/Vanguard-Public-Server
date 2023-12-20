@@ -244,7 +244,6 @@ public class Player extends Entity {
     public long biggestFlowerPokerPotLost;
 
 
-
     public void saveItemsForMinigame() {
         /**
          * Clones items
@@ -355,8 +354,8 @@ public class Player extends Entity {
     public StringInput stringInputHandler;
     public AmountInput amountInputHandler;
     private long aggressionTimer = System.currentTimeMillis();
-   // private boolean printAttackStats = Server.isTest();
-   private boolean printAttackStats = Configuration.DEBUG_MODE;
+    // private boolean printAttackStats = Server.isTest();
+    private boolean printAttackStats = Configuration.DEBUG_MODE;
     private boolean printDefenceStats = Configuration.DEBUG_MODE;
     private boolean helpCcMuted = false;
     private boolean gambleBanned = false;
@@ -375,7 +374,9 @@ public class Player extends Entity {
      */
     private final CombatConfig combatConfigs = new CombatConfig(this);
 
-    public CombatConfig getCombatConfigs() { return this.combatConfigs; }
+    public CombatConfig getCombatConfigs() {
+        return this.combatConfigs;
+    }
 
     public void resetAggressionTimer() {
         aggressionTimer = System.currentTimeMillis();
@@ -1113,7 +1114,7 @@ public class Player extends Entity {
      * Others
      */
     public ArrayList<String> lastConnectedFrom = new ArrayList<>();
-    public ArrayList<Integer> attackedPlayers = new ArrayList<Integer>();
+    public ArrayList<Integer> attackedPlayers = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -1303,6 +1304,7 @@ public class Player extends Entity {
 
     /**
      * Check if the player has hit the database access rate limit. If not it will set the database access time.
+     *
      * @return true if server should refuse access, false and set access time if they aren't at limit.
      */
     public boolean hitDatabaseRateLimit(boolean message) {
@@ -1390,7 +1392,6 @@ public class Player extends Entity {
     }
 
 
-
     private BankPin pin;
     private boolean requiresPinUnlock;
 
@@ -1404,7 +1405,7 @@ public class Player extends Entity {
     }
 
 
-   // public Player tournamentTarget;
+    // public Player tournamentTarget;
 
     public long tournamentTargetCooldown;
 
@@ -1514,7 +1515,6 @@ public class Player extends Entity {
     }
 
 
-
     public int getTeleportToX() {
         return teleportToX;
     }
@@ -1621,7 +1621,6 @@ public class Player extends Entity {
             sendMessage("@red@If you force logout you may lose your items.");
             return;
         }
-
 
 
         if (this.getPosition().inClanWars() || this.getPosition().inClanWarsSafe()) {
@@ -1767,12 +1766,12 @@ public class Player extends Entity {
             PestControl.removeFromLobby(this);
         }
 
-       if (Boundary.isIn(this, LastManStanding.LOBBY_BOUNDARY)) {
-           LastManStandingLobby.lmsLobby.remove(this);
+        if (Boundary.isIn(this, LastManStanding.LOBBY_BOUNDARY)) {
+            LastManStandingLobby.lmsLobby.remove(this);
         }
         if (Boundary.isIn(this, LastManStanding.GAME_BOUNDARY)) {
-           LastManStanding.leaveArena(this);
-       }
+            LastManStanding.leaveArena(this);
+        }
 
 
         Server.getMultiplayerSessionListener().removeOldRequests(this);
@@ -1835,7 +1834,7 @@ public class Player extends Entity {
         // Old equipment correction?
         for (int i = 0; i < playerEquipment.length; i++) {
             if (playerEquipment[i] == 0) {
-               playerEquipment[i] = -1;
+                playerEquipment[i] = -1;
                 playerEquipmentN[i] = 0;
             }
         }
@@ -2030,9 +2029,9 @@ public class Player extends Entity {
          * Welcome messages
          */
         getQuestTab().updateInformationTab();
-        getPA().sendFrame126("Combat Level: " + combatLevel + "", 3983);
+        getPA().sendFrame126("Combat Level: " + combatLevel, 3983);
         getPA().sendFrame126("Total level:", 19209);
-        getPA().sendFrame126(totalLevel + "", 3984);
+        getPA().sendFrame126(String.valueOf(totalLevel), 3984);
         getPA().resetFollow();
         getPA().clearClanChat();
         getPA().resetFollow();
@@ -2144,7 +2143,7 @@ public class Player extends Entity {
         }
     }
 
-    public void debug(String message, Object...args) {
+    public void debug(String message, Object... args) {
         debug(Misc.replaceBracketsWithArguments(message, args));
     }
 
@@ -2364,9 +2363,6 @@ public class Player extends Entity {
         }
     }
 
-    public int tournamentFogDuration;
-    public int tournamentDamageFromFog;
-
     public boolean wasInRaids = false;
 
     public void raidsClipFix() {
@@ -2451,8 +2447,7 @@ public class Player extends Entity {
         }
 
 
-
-        if (this.playTime1 == 6000 && loyaltyClaimDate != getTodayDate() && !isIdle){
+        if (this.playTime1 == 6000 && loyaltyClaimDate != getTodayDate() && !isIdle) {
             if (getHourlyBoxToggle()) {
                 sendMessage("@pur@You have played for one hour today and the @red@loyalty chest is unlocked.");
                 loyaltyChestClaimable = true;
@@ -2750,13 +2745,13 @@ public class Player extends Entity {
         } else if (Boundary.isInBarrowsChestArea(this)) {
             getPA().walkableInterface(22045);
 
-        } else if (Boundary.isIn(this, Boundary.EDGE)
+        } /*else if (Boundary.isIn(this, Boundary.EDGE)
                 || Boundary.isIn(this, Boundary.VARROCK)
                 || Boundary.isIn(this, Boundary.NEX_BOSS_ROOM)
                 || Boundary.isIn(this, Boundary.NEX_REAVER_ROOM)) {
             getPA().showOption(1, 0, "View profile");
 
-        } else if (Boundary.isIn(this, Boundary.RAIDROOMS)) {
+        }*/ else if (Boundary.isIn(this, Boundary.RAIDROOMS)) {
             if (Boundary.isIn(this, Boundary.RAIDS_LOBBY_ENTRANCE)) {
                 getPA().walkableInterface(-1);
                 getPA().removeAllWindows();
@@ -2798,7 +2793,7 @@ public class Player extends Entity {
 
         } else if (this.tournamentTarget >= 0) {
             this.getPA().walkableInterface(-1);
-          //  this.getPA().showOption(3, 0, "Attack", 1);
+            //  this.getPA().showOption(3, 0, "Attack", 1);
             getPA().showOption(3, 0, "Attack");
         } else if (this.getHeight() == 20 && this.tournamentTarget == -1 && Boundary.isIn(this, Boundary.TOURNY_COMBAT_AREA)) {
             this.getPA().sendFrame126("Lobby: " + Tournament.playerListLobby.size(), 25982);
@@ -3486,7 +3481,6 @@ public class Player extends Entity {
     }
 
 
-
     public boolean Raiments_of_the_Eye_Set() {
         return getItems().isWearingItem(26850) && getItems().isWearingItem(26852) && getItems().isWearingItem(26854) && getItems().isWearingItem(26856);
     }
@@ -3510,6 +3504,7 @@ public class Player extends Entity {
     public boolean fullCorrupted() {
         return getItems().isWearingItem(23842) && getItems().isWearingItem(23845) && getItems().isWearingItem(23848);
     }
+
     public boolean fullCrystalArmourC() {
         return getItems().isWearingItem(23842) && getItems().isWearingItem(23845) && getItems().isWearingItem(23848) && getItems().isWearingItem(25867);
     }
@@ -3528,8 +3523,6 @@ public class Player extends Entity {
     public boolean fullEliteVoidMage() {
         return getItems().isWearingItem(11663) && getItems().isWearingItem(13073) && getItems().isWearingItem(13072) && getItems().isWearingItem(8842);
     }
-
-
 
 
     public boolean fullVoidMage() {
@@ -4514,7 +4507,7 @@ public class Player extends Entity {
         forceMovementActive = true;
         getPA().requestUpdates();
         setAppearanceUpdateRequired(true);
-        Server.getEventHandler().submit(new Event<Player>("force_movement", this, 2) {
+        Server.getEventHandler().submit(new Event<>("force_movement", this, 2) {
             @Override
             public void execute() {
                 if (attachment == null || attachment.isDisconnected()) {
@@ -4535,7 +4528,7 @@ public class Player extends Entity {
         });
         int ticks = Math.abs(xOffsetWalk) + Math.abs(yOffsetWalk);
         if (ticks <= 0) ticks = 1;
-        Server.getEventHandler().submit(new Event<Player>("force_movement", this, ticks) {
+        Server.getEventHandler().submit(new Event<>("force_movement", this, ticks) {
             @Override
             public void execute() {
                 if (attachment == null || attachment.isDisconnected()) {
@@ -5629,6 +5622,7 @@ public class Player extends Entity {
 
     /**
      * Gets the combo timer associated with combo eating
+     *
      * @return The {@link TickTimer} associated with Combo eating
      */
     public TickTimer getComboTimer() {
@@ -5721,6 +5715,7 @@ public class Player extends Entity {
     public String getDisplayName() {
         return displayName;
     }
+
     public String getDisplayNameLower() {
         return displayName.toLowerCase();
     }
@@ -5851,6 +5846,7 @@ public class Player extends Entity {
     public boolean upgradingInProgress;
 
     public boolean isBusy;
+
     public void setBusy(boolean isBusy) {
         this.isBusy = isBusy;
     }
@@ -5866,6 +5862,7 @@ public class Player extends Entity {
     }
 
     private WildyCrate wildyCrate = new WildyCrate(this);
+
     public WildyCrate getWildyCrate() {
         return wildyCrate;
     }
@@ -5889,11 +5886,8 @@ public class Player extends Entity {
     }
 
     public UpgradeType upgradeType;
-
+    @Getter
     private UpgradeHandler upgradeHandler = new UpgradeHandler(this);
-    public UpgradeHandler getUpgradeHandler() {
-        return upgradeHandler;
-    }
 
     public String wogwOption = "";
     public long wogwDonationAmount;
@@ -5904,26 +5898,26 @@ public class Player extends Entity {
          * Well of goodwill
          */
         if (Wogw.EXPERIENCE_TIMER == 0 && Wogw.PC_POINTS_TIMER == 0 && Wogw.DOUBLE_DROPS_TIMER == 0) {
-            sendMessage("<col=6666FF>The wogw is currently NOT active. Donate GP to activate it!");
+            sendMessage("<col=6666FF>The WOGW is currently NOT active. Donate GP to activate it!");
         }
         if (Wogw.EXPERIENCE_TIMER > 0) {
-            sendMessage("<col=6666FF>The wogw is granting +20% bonus experience for another " + TimeUnit.MILLISECONDS.toMinutes(Wogw.EXPERIENCE_TIMER * 600) + " minutes.");
+            sendMessage("<col=6666FF>The WOGW is granting +20% bonus experience for another " + TimeUnit.MILLISECONDS.toMinutes(Wogw.EXPERIENCE_TIMER * 600) + " minutes.");
         }
         if (Wogw.PC_POINTS_TIMER > 0) {
-            sendMessage("<col=6666FF>The wogw is granting +5 bonus pc points for another " + TimeUnit.MILLISECONDS.toMinutes(Wogw.PC_POINTS_TIMER * 600) + " minutes.");
+            sendMessage("<col=6666FF>The WOGW is granting +5 bonus pc points for another " + TimeUnit.MILLISECONDS.toMinutes(Wogw.PC_POINTS_TIMER * 600) + " minutes.");
         }
         if (Wogw.DOUBLE_DROPS_TIMER > 0) {
-            sendMessage("<col=6666FF>The wogw is granting double drop rates for another " + TimeUnit.MILLISECONDS.toMinutes(Wogw.DOUBLE_DROPS_TIMER * 600) + " minutes.");
+            sendMessage("<col=6666FF>The WOGW is granting double drop rates for another " + TimeUnit.MILLISECONDS.toMinutes(Wogw.DOUBLE_DROPS_TIMER * 600) + " minutes.");
         }
         if (Wogw.BARROWS_BONUS_TIMER > 0) {
-            sendMessage("<col=6666FF>The wogw is granting double barrows drop rates for another " + TimeUnit.MILLISECONDS.toMinutes(Wogw.DOUBLE_DROPS_TIMER * 600) + " minutes.");
+            sendMessage("<col=6666FF>The WOGW is granting double barrows drop rates for another " + TimeUnit.MILLISECONDS.toMinutes(Wogw.DOUBLE_DROPS_TIMER * 600) + " minutes.");
         }
     }
 
     public int triviaPoints;
     public int getTriviaPoints;
 
-    public int getTriviaPoints(){
+    public int getTriviaPoints() {
         return triviaPoints;
     }
 
@@ -5945,6 +5939,7 @@ public class Player extends Entity {
     private LastManStanding lastmanstandingInstance;
 
     public int lastManPoints;
+
     public int getLastManPoints() {
         return lastManPoints;
     }
@@ -5954,6 +5949,7 @@ public class Player extends Entity {
     }
 
     public int lastManWins;
+
     public int getLastManWins() {
         return lastManWins;
     }
@@ -5974,6 +5970,7 @@ public class Player extends Entity {
 
 
     private int barrowsRunCompleted;
+
     public int getBarrowsRunCompleted() {
         return barrowsRunCompleted;
     }
@@ -6052,35 +6049,21 @@ public class Player extends Entity {
         return (month * 100 + day);
     }
 
-
-    /////Money pouch
-    private long moneyInPouch;
-    public void setMoneyInPouch(long moneyInPouch) {
-        this.moneyInPouch = moneyInPouch;
-    }
-
-    public long getMoneyInPouch() {
-        return moneyInPouch;
-    }
-
-    public int getMoneyInPouchAsInt() {
-        return moneyInPouch > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) moneyInPouch;
-    }
-
-
     public int animationRequest = -1;
 
     public void turnPlayerTo(int pointX, int pointY) {
         FocusPointX = 2 * pointX + 1;
         FocusPointY = 2 * pointY + 1;
-       // updateRequired = true;
+        // updateRequired = true;
         setUpdateRequired(true);
     }
 
     private Vorkath vorkath = new Vorkath(this);
+
     public Vorkath getVorkath() {
         return vorkath;
     }
+
     public void setVorkath(Vorkath vorkath) {
         this.vorkath = vorkath;
     }
@@ -6117,39 +6100,37 @@ public class Player extends Entity {
     }
 
 
-
     public boolean isWithinDistance(Location other, int dist) {
         int deltaX = other.getX() - getX(), deltaY = other.getY() - getY();
         return deltaX <= dist && deltaX >= -dist && deltaY <= dist && deltaY >= -dist;
     }
 
-
+    @Getter
     private Nex nex = new Nex();
-    public Nex getNex() {
-        return nex;
-    }
 
 
     /**
      * The player's local players list.
      */
-    private final List<Player> localPlayers = new LinkedList<Player>();
+    private final List<Player> localPlayers = new LinkedList<>();
+
     public List<Player> getLocalPlayers() {
         return localPlayers;
     }
 
-   // public Nex nexInstance;
+    // public Nex nexInstance;
 
     public int nexKills;
     public int nexDeaths;
 
-    public int[][] nexRareReward ={{0,0}};
-    public int[][] nexVeryRareReward ={{0,0}};
-    public int[][] nexCommonReward1 ={{0,0}};
-    public int[][] nexCommonReward2 ={{0,0}};
-    public int[][] nexCommonReward3 ={{0,0}};
+    public int[][] nexRareReward = {{0, 0}};
+    public int[][] nexVeryRareReward = {{0, 0}};
+    public int[][] nexCommonReward1 = {{0, 0}};
+    public int[][] nexCommonReward2 = {{0, 0}};
+    public int[][] nexCommonReward3 = {{0, 0}};
 
     private String amountInterface = "";
+
     public String getAmountInterface() {
         return amountInterface;
     }
@@ -6178,35 +6159,44 @@ public class Player extends Entity {
     public int getLotteryWins() {
         return lotteryWins;
     }
+
     public void setLotteryWins(int lotteryWins) {
         this.lotteryWins = lotteryWins;
     }
+
     public int getLotteryTickets() {
         return lotteryTickets;
     }
+
     public void setLotteryTickets(int lotteryTickets) {
         this.lotteryTickets = lotteryTickets;
     }
+
     public int getLotteryMbox() {
         return lotteryMbox;
     }
+
     public void setLotteryMbox(int lotteryMbox) {
         this.lotteryMbox = lotteryMbox;
     }
 
 
     public int donationWell;
+
     public int getDonationWell() {
         return donationWell;
     }
+
     public void setDonationWell(int donationWell) {
         this.donationWell = donationWell;
     }
 
     public int donationSeed;
+
     public int getDonationSeed() {
         return donationSeed;
     }
+
     public void setDonationSeed(int donationSeed) {
         this.donationSeed = donationSeed;
     }
@@ -6238,10 +6228,10 @@ public class Player extends Entity {
                 return false;
             }
             setMoneyPouch(getMoneyPouch() - amount);
-            getPA().sendString(getMoneyPouch() + "", 8135);
+            getPA().sendString(String.valueOf(getMoneyPouch()), 8135);
             return true;
         } else {
-           // if (!getInventory().hasItemAmount(995, amount)) {
+            // if (!getInventory().hasItemAmount(995, amount)) {
             if (!getItems().playerHasItem(995, amount)) {
                 sendMessage("You do not have enough coins to do this!");
                 return false;
@@ -6251,10 +6241,8 @@ public class Player extends Entity {
         }
     }
 
+    @Getter
     private MoneyPouch pouch = new MoneyPouch(this);
-    public MoneyPouch getPouch() {
-        return pouch;
-    }
 
     public boolean moneyPouchNew = false;
     public boolean moneyPouchTickets = false;
@@ -6263,6 +6251,7 @@ public class Player extends Entity {
     public byte duelForceChatCount = 4;
 
     private int duelCount;
+
     public int getDuelCount() {
         return duelCount;
     }
@@ -6272,6 +6261,7 @@ public class Player extends Entity {
     }
 
     private int playerId = -1;
+
     public int getPlayerId() {
         return playerId;
     }
@@ -6292,6 +6282,7 @@ public class Player extends Entity {
                 put(achievement, 0);
             }
         }
+
         private static final long serialVersionUID = -4629357800141530574L;
     };
 
@@ -6301,20 +6292,24 @@ public class Player extends Entity {
     }
 
     private int achievementsPoints;
+
     public int getAchievementsPoints() {
         return achievementsPoints;
     }
+
     public void addAchievementPoints(int points) {
         achievementsPoints = points;
     }
 
     private io.runescape.achievements.AchievementHandler.AchievementDifficulty achievementPage;
+
     public io.runescape.achievements.AchievementHandler.AchievementDifficulty getAchievement() {
         return achievementPage;
     }
+
     public void setAchievement(io.runescape.achievements.AchievementHandler.AchievementDifficulty achievementPage) {
-       this.achievementPage = achievementPage;
-   }
+        this.achievementPage = achievementPage;
+    }
 
     public boolean completedAllAchievements() {
         return getPA().achievementCompleted() >= AchievementList.getTotal() - 1;
@@ -6322,43 +6317,6 @@ public class Player extends Entity {
 
     public long lastVoteNew = System.currentTimeMillis();
 
-
-    //New profile system
-    private int likes, dislikes, profileViews;
-    private boolean profilePrivacy;
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-    public int getDislikes() {
-        return dislikes;
-    }
-
-    public void setDislikes(int dislikes) {
-        this.dislikes = dislikes;
-    }
-
-    public int getProfileViews() {
-        return profileViews;
-    }
-
-    public void setProfileViews(int profileViews) {
-        this.profileViews = profileViews;
-    }
-
-    public boolean getProfilePrivacy() {
-        return profilePrivacy;
-    }
-
-    public void setProfilePrivacy(boolean profilePrivacy) {
-        this.profilePrivacy = profilePrivacy;
-    }
-
-    public String viewing;
     public static Player getPlayerByName(String username) {
         if (username == null) {
             return null;
@@ -6375,83 +6333,9 @@ public class Player extends Entity {
         return null;
     }
 
-
-    public boolean playerProfile;
-    private long lastLike;
-    private byte likesGiven;
-    public void setLastLike(long lastLike) {
-        this.lastLike = lastLike;
-    }
-
-    public long getLastLike() {
-        return lastLike;
-    }
-
-    public void addLike() {
-        likesGiven++;
-    }
-
-    public void setLikesGiven(byte likesGiven) {
-        this.likesGiven = likesGiven;
-    }
-
-    public byte getLikesGiven() {
-        return likesGiven;
-    }
-
-    public boolean canLike() {
-        if (likesGiven < 3) {
-            return true;
-        }
-        return lastLike == 0 || TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis() - lastLike) == 24;
-    }
-
     public void setUsername(String loginname) {
         this.loginName = loginname;
     }
-
-
-    public boolean staffTab;
-    public boolean staffTab1;
-    public boolean staffTab2;
-    public boolean staffTab3;
-    public boolean staffTab4;
-    public boolean staffTab5;
-    public boolean staffTab6;
-    public boolean staffTab7;
-    public boolean staffTab8;
-    public boolean staffTab9;
-    public boolean staffTab10;
-    public boolean staffTab11;
-    public boolean staffTab12;
-    public boolean staffTab13;
-    public boolean staffTab14;
-    public boolean staffTab15;
-    public boolean staffTab16;
-    public boolean staffTab17;
-    public boolean staffTab18;
-    public boolean staffTab19;
-
-
-    private Set<CreditPurchase> unlockedCredits = new HashSet<>(CreditPurchase.values().length);
-    public void unlockCredit(CreditPurchase purchase) {
-        unlockedCredits.add(purchase);
-    }
-
-    public boolean isCreditUnlocked(CreditPurchase purchase) {
-        return unlockedCredits.contains(purchase);
-    }
-
-    public Set<CreditPurchase> getUnlockedCredits() {
-        return unlockedCredits;
-    }
-
-    public void setUnlockedCredits(Set<CreditPurchase> unlockedCredits) {
-        this.unlockedCredits = unlockedCredits;
-    }
-
-
-
 
     public long total;
     public boolean isChecking;
@@ -6459,22 +6343,16 @@ public class Player extends Entity {
     public int[] priceItemN = new int[28];
 
     public long getTotalExperience() {
-        return Arrays.stream(playerXP).mapToLong(e -> (long)e).sum();
+        return Arrays.stream(playerXP).mapToLong(e -> (long) e).sum();
     }
 
     /**
      * Gets total level
+     *
      * @return
      */
     public int getTotalLevel() {
         return Arrays.stream(playerXP).map(e -> getPA().getLevelForXP(e)).sum();
-    }
-
-
-
-    public void teleportNoHeight(Location position) {
-        setX(position.getX());
-        setY(position.getY());
     }
 
 
@@ -6483,6 +6361,7 @@ public class Player extends Entity {
     public int infoTabSelected = 0;
 
     public int diaryAmount = 0;
+
     public int amountOfDiariesComplete() {
         diaryAmount = 0;
         if (getDiaryManager().getVarrockDiary().hasDoneAll())
@@ -6507,25 +6386,24 @@ public class Player extends Entity {
             diaryAmount += 1;
         if (getDiaryManager().getWildernessDiary().hasDoneAll())
             diaryAmount += 1;
-      //  if (getDiaryManager().getK().hasDoneAll())
-       //     diaryAmount += 1;
 
         return diaryAmount;
     }
 
 
     public int seaSnakeKills;
-    public int[][] snakeUltraRareReward ={{0,0}};
-    public int[][] snakeSuperRareReward ={{0,0}};
-    public int[][] snakeRareReward ={{0,0}};
+    public int[][] snakeUltraRareReward = {{0, 0}};
+    public int[][] snakeSuperRareReward = {{0, 0}};
+    public int[][] snakeRareReward = {{0, 0}};
 
-    public int[][] galvekUltraRareReward ={{0,0}};
-    public int[][] galvekSuperRareReward ={{0,0}};
-    public int[][] galvekRareReward ={{0,0}};
+    public int[][] galvekUltraRareReward = {{0, 0}};
+    public int[][] galvekSuperRareReward = {{0, 0}};
+    public int[][] galvekRareReward = {{0, 0}};
 
 
     //For the new perk system
     public boolean dropRate10;
+
     public void setDropRateBonus(boolean dropRate10) {//Used for 10% droprate perk
         this.dropRate10 = dropRate10;
     }
@@ -6535,6 +6413,7 @@ public class Player extends Entity {
     }
 
     public boolean crystalKeyPerk;
+
     public void setCrystalKeyPerk(boolean crystalKeyPerk) {//Used for Crystal keys perk
         this.crystalKeyPerk = crystalKeyPerk;
     }
@@ -6544,6 +6423,7 @@ public class Player extends Entity {
     }
 
     public boolean rangeStrengthPerk;
+
     public void setRangeStrengthPerk(boolean rangeStrengthPerk) {//Used for Range strength perk
         this.rangeStrengthPerk = rangeStrengthPerk;
     }
@@ -6553,6 +6433,7 @@ public class Player extends Entity {
     }
 
     public boolean halfHitPerk;
+
     public void setHalfHitPerk(boolean halfHitPerk) {//Used for Range strength perk
         this.halfHitPerk = halfHitPerk;
     }
@@ -6562,6 +6443,7 @@ public class Player extends Entity {
     }
 
     public boolean dropRate20;
+
     public void setDropRateBonus20(boolean dropRate20) {//Used for 10% droprate perk
         this.dropRate20 = dropRate20;
     }
@@ -6571,6 +6453,7 @@ public class Player extends Entity {
     }
 
     public boolean damageTaken;
+
     public void setDamageTakenPerk(boolean damageTaken) {//Used for 10% droprate perk
         this.damageTaken = damageTaken;
     }
@@ -6580,6 +6463,7 @@ public class Player extends Entity {
     }
 
     public boolean coinBagPerk;
+
     public void setCoinBagPerk(boolean coinBagPerk) {//Used for 10% droprate perk
         this.coinBagPerk = coinBagPerk;
     }
@@ -6589,6 +6473,7 @@ public class Player extends Entity {
     }
 
     public boolean magicStrenghPerk;
+
     public void setMagicStrengthPerk(boolean magicStrenghPerk) {//Used for 10% droprate perk
         this.magicStrenghPerk = magicStrenghPerk;
     }
@@ -6598,6 +6483,7 @@ public class Player extends Entity {
     }
 
     public boolean resourceBoxPerk;
+
     public void setResourceBoxPerk(boolean resourceBoxPerk) {//Used for 10% droprate perk
         this.resourceBoxPerk = resourceBoxPerk;
     }
@@ -6607,6 +6493,7 @@ public class Player extends Entity {
     }
 
     public boolean meleeStrengthPerk;
+
     public void setMeleeStrengthPerk(boolean meleeStrengthPerk) {//Used for 10% droprate perk
         this.meleeStrengthPerk = meleeStrengthPerk;
     }
@@ -6616,6 +6503,7 @@ public class Player extends Entity {
     }
 
     public boolean clueScrollPerk;
+
     public void setClueScrollPerk(boolean clueScrollPerk) {//Used for 10% droprate perk
         this.clueScrollPerk = clueScrollPerk;
     }

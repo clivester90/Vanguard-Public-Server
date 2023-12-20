@@ -1,13 +1,13 @@
 package io.runescape.model.entity.player.packets;
 
-import java.util.Objects;
-
 import io.runescape.Configuration;
-import io.runescape.model.entity.player.*;
+import io.runescape.model.entity.player.Boundary;
+import io.runescape.model.entity.player.PacketType;
+import io.runescape.model.entity.player.Player;
+import io.runescape.model.entity.player.PlayerHandler;
 import io.runescape.model.multiplayersession.flowerpoker.FlowerPoker;
-import io.runescape.util.Misc;
 
-import static io.runescape.content.PlayerProfiler.*;
+import java.util.Objects;
 
 public class PlayerOptionsHandler implements PacketType {
 
@@ -18,9 +18,6 @@ public class PlayerOptionsHandler implements PacketType {
 			return;
 
 		if (player.isFping()) {
-			/**
-			 * Cannot do action while fping
-			 */
 			return;
 		}
 
@@ -60,14 +57,8 @@ public class PlayerOptionsHandler implements PacketType {
 
 		player.faceEntity(requested);
 
-
-		switch (opCode) {
-
-
-
-		case 128:
-
-			if (Boundary.isIn(player, Boundary.EDGE)
+		if (opCode == 128) {
+			/*if (Boundary.isIn(player, Boundary.EDGE)
 					|| Boundary.isIn(player, Boundary.VARROCK)
 					|| Boundary.isIn(player, Boundary.NEX_BOSS_ROOM)
 					|| Boundary.isIn(player, Boundary.NEX_REAVER_ROOM)) {
@@ -83,7 +74,7 @@ public class PlayerOptionsHandler implements PacketType {
 				}
 				displayProfile(player, requested);
 				return;
-			}
+			}*/
 
 
 			/**
@@ -117,7 +108,6 @@ public class PlayerOptionsHandler implements PacketType {
 					}
 				}
 			}
-			return;
 		}
 	}
 }

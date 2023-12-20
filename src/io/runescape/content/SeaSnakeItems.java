@@ -49,7 +49,7 @@ public class SeaSnakeItems implements Lootable {
                 new GameItem(11230, 1)));
 
 
-        items.put(LootRarity.RARE, Arrays.asList(
+        items.put(LootRarity.RARE, List.of(
                 new GameItem(2425, 1)));
     }
 

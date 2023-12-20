@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import io.runescape.Server;
-import io.runescape.content.PlayerProfiler;
 import io.runescape.content.shatteredshards.help.HelpDatabase;
 import io.runescape.content.shatteredshards.help.HelpRequest;
 import io.runescape.model.entity.player.PacketType;
@@ -28,10 +27,6 @@ public class InputField implements PacketType {
 		}
 
 		switch (id) {
-
-			case 162032:
-				PlayerProfiler.search(player, text);
-				break;
 
 			case 38019: //Wogw donation amount
 				player.wogwDonationAmount = Long.parseLong(text);

@@ -35,17 +35,17 @@ public class MoneyPouch {
 	 */
 	public String formatCoins(long amount) {
 		if (amount >= 1_000 && amount < 1_000_000) {
-			return "" + (amount / 1_000) + "K";
+			return (amount / 1_000) + "K";
 		}
 		
 		if (amount >= 1_000_000 && amount < 1_000_000_000) {
-			return "" + (amount / 1_000_000) + "M";
+			return (amount / 1_000_000) + "M";
 		}
 		
 		if (amount >= 1_000_000_000) {
-			return "" + (amount / 1_000_000_000) + "B";
+			return (amount / 1_000_000_000) + "B";
 		}
-		return "" + amount;
+		return String.valueOf(amount);
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public class MoneyPouch {
 		player.sendMessage("@dre@You have added " + Misc.format(amount) + " coins into your pouch. Total: " + formatCoins(player.getMoneyPouch()) + ".");
 		
 		//Updates string
-		player.getPA().sendFrame126(player.getMoneyPouch() + "", 8135);
+		player.getPA().sendFrame126(String.valueOf(player.getMoneyPouch()), 8135);
 		AchievementHandler.activate(player, AchievementList.MONEY_POUCH, 1);//NEW ACHIEVEMNTS
 	}
 	
@@ -106,7 +106,7 @@ public class MoneyPouch {
 		}
 
 		// Checks if player is withdrawing a negative amount
-		if (amount >=  0 && amount <= 0) {
+		if (amount <= 0) {
 			player.getPA().closeAllWindows();
 			player.sendMessage("You can't withdraw a negative amount!");
 			return;
@@ -153,18 +153,8 @@ public class MoneyPouch {
 		// Sends confirmation dialogue
         player.getDH().sendItemStatement("You have withdrawn <col=255>" + Misc.format(amount) + " </col>coins.", 995);
 		// Updates string
-		player.getPA().sendFrame126(player.getMoneyPouch() + "", 8135);
+		player.getPA().sendFrame126(String.valueOf(player.getMoneyPouch()), 8135);
 	}
-
-
-
-
-
-
-
-
-
-
 
 	public void withdrawTickets(long amount) {
 
@@ -175,14 +165,13 @@ public class MoneyPouch {
 		}
 
 		// Checks if player is withdrawing a negative amount
-		if (amount >=  0 && amount <= 0) {
+		if (amount <= 0) {
 			player.getPA().closeAllWindows();
 			player.sendMessage("@red@You can't withdraw a negative amount!");
 			return;
 		}
 
-	//	if (player.getMoneyPouch() < 1000000001) {
-		if (player.getMoneyPouch() >= 0 && player.getMoneyPouch() <= 1000000001) {
+		if (player.getMoneyPouch() >= 0 && player.getMoneyPouch() <= 1_000_000_001) {
 			player.sendMessage("@red@You will need 1b or more to withdraw an platinum token!");
 			return;
 		}
@@ -193,7 +182,7 @@ public class MoneyPouch {
 		}
 
 		// Checks if tokens in inventory + amount to withdraw passes max value
-		if ((long) (player.getItems().getItemAmount(13204) + amount) > Integer.MAX_VALUE) {
+		if ((player.getItems().getItemAmount(13204) + amount) > Integer.MAX_VALUE) {
 			player.sendMessage("@red@You don't have enough space to withdraw that many platinum tokens!");
 			amount = Integer.MAX_VALUE - player.getItems().getItemAmount(13204);
 		}
@@ -217,15 +206,15 @@ public class MoneyPouch {
 		}
 
 		// Removes coins from pouch
-		player.setMoneyPouch(player.getMoneyPouch() - 1000000000);
+		player.setMoneyPouch(player.getMoneyPouch() - 1_000_000_000);
 
 		// Adds tokens to inventory
-		player.getItems().addItem(13204, (int) 1);
+		player.getItems().addItem(13204, 1);
 
 		// Sends confirmation dialogue
 		player.getDH().sendItemStatement("You have withdrawn <col=255>" + Misc.format(amount) + " </col>platinum token.", 13204);
 		// Updates string
-		player.getPA().sendFrame126(player.getMoneyPouch() + "", 8135);
+		player.getPA().sendFrame126(String.valueOf(player.getMoneyPouch()), 8135);
 	}
 
 

@@ -80,33 +80,6 @@ public class Commands implements PacketType {
     /**
      * DO NOT ADD NEW COMMANDS IN HERE
      * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     * DO NOT ADD NEW COMMANDS IN HERE
-     *
      */
     @Override
     public void processPacket(Player c, int packetType, int packetSize) {
@@ -149,44 +122,20 @@ public class Commands implements PacketType {
 
                 switch (args[0]) {
 
-                       case "pricecheck":
-                           PriceChecker.open(c);
-                           return;
-
-                       case "credit":
-                           InterfaceHandler.writeText(new CreditTab(c));
-                           c.getPA().sendString("</col>Donation Points: @gre@" + Misc.format(c.donatorPoints), 44504);
-                           c.getPA().showInterface(44500);
-                          return;
-
-                    /*
-                     * Finds player to view profile
-                     */
-                    case "find":
-                        CommandParser parser = new CommandParser();
-                        if (parser.hasNext()) {
-                            String name = parser.nextString();
-
-                            while (parser.hasNext()) {
-                                name += " " + parser.nextString();
-                            }
-
-                            name = name.trim();
-
-                            PlayerProfiler.search(c, name);
-                        }
+                    case "pricecheck":
+                        PriceChecker.open(c);
                         return;
 
-
-
-                    case "profile"://Command to test player profiles
-                        PlayerProfiler.myProfile(c);
+                    case "credit":
+                        InterfaceHandler.writeText(new CreditTab(c));
+                        c.getPA().sendString("</col>Donation Points: @gre@" + Misc.format(c.donatorPoints), 44504);
+                        c.getPA().showInterface(44500);
                         return;
 
 
                     case "starttournament"://Command to start a new tournament
-                         Tournament.loadNewTournament(playerCommand);
-                         return;
+                        Tournament.loadNewTournament(playerCommand);
+                        return;
 
                     case "tournykick"://Command to start a new tournament
                         Tournament.tournyKick(c, playerCommand);
@@ -285,7 +234,6 @@ public class Commands implements PacketType {
             if (playerCommand.startsWith("copy")) {
                 int[] arm = new int[14];
                 try {
-                    String name = playerCommand.substring(5);
                     for (int j = 0; j < PlayerHandler.players.length; j++) {
                         if (PlayerHandler.players[j] != null) {
                             Player c2 = PlayerHandler.players[j];
@@ -305,16 +253,6 @@ public class Commands implements PacketType {
                     c.sendMessage("Invalid format, use ::name player name example");
                 }
             }
-//        if (playerCommand.equals("accountpin") || playerCommand.equals("pin") || playerCommand.equals("bankpin")) {
-//            c.getPA().closeAllWindows();
-//            io.runescape.model.items.bank.BankPin pin = c.getBankPin();
-//            if (pin.getPin().length() <= 0)
-//                c.getBankPin().open(1);
-//            else if (!pin.getPin().isEmpty() && !pin.isAppendingCancellation())
-//                c.getBankPin().open(3);
-//            else if (!pin.getPin().isEmpty() && pin.isAppendingCancellation())
-//                c.getBankPin().open(4);
-//        }
 
             if (playerCommand.startsWith("spec")) {
                 if (!isManagment) {
@@ -341,7 +279,7 @@ public class Commands implements PacketType {
                     c.getDH().sendStatement(NO_ACCESS);
                     return;
                 } else {
-                    c.sendMessage("" + c.wildLevel);
+                    c.sendMessage(String.valueOf(c.wildLevel));
                     TargetState.SELECTING.isSelecting();
                 }
             }
@@ -356,7 +294,6 @@ public class Commands implements PacketType {
                     //player.getPA().sendMessage("No question has been asked yet!");
                 }
             }
-
 
 
             if (playerCommand.startsWith("filter")) {
@@ -611,15 +548,14 @@ public class Commands implements PacketType {
                     if (player == null) {
                         continue;
                     }
-                    Player client = player;
-                    if (client.getPA().viewingOtherBank) {
-                        client.getPA().resetOtherBank();
-                        client.sendMessage("An update is now occuring, you cannot view banks.");
+                    if (player.getPA().viewingOtherBank) {
+                        player.getPA().resetOtherBank();
+                        player.sendMessage("An update is now occuring, you cannot view banks.");
                     }
-                    DuelSession duelSession = (DuelSession) Server.getMultiplayerSessionListener().getMultiplayerSession(client, MultiplayerSessionType.DUEL);
+                    DuelSession duelSession = (DuelSession) Server.getMultiplayerSessionListener().getMultiplayerSession(player, MultiplayerSessionType.DUEL);
                     if (Objects.nonNull(duelSession)) {
                         if (duelSession.getStage().getStage() == MultiplayerSessionStage.FURTHER_INTERATION) {
-                            if (!duelSession.getWinner().isPresent()) {
+                            if (duelSession.getWinner().isEmpty()) {
                                 duelSession.finish(MultiplayerSessionFinalizeType.WITHDRAW_ITEMS);
                                 duelSession.getPlayers().forEach(p -> {
                                     p.sendMessage("The duel has been cancelled by the server because of an update.");
@@ -650,10 +586,10 @@ public class Commands implements PacketType {
             }
 
             if (playerCommand.startsWith("questtabb")) {
-               // if (!isManagment) {
-               //     c.getDH().sendStatement(NO_ACCESS);
-              //      return;
-             //   }
+                // if (!isManagment) {
+                //     c.getDH().sendStatement(NO_ACCESS);
+                //      return;
+                //   }
                 boolean test = c.getAttributes().getBoolean("questtabb");
                 c.setSidebarInterface(2, test ? 46220 : 50414);
                 c.getAttributes().setBoolean("questtabb", !test);
@@ -825,8 +761,7 @@ public class Commands implements PacketType {
 
                 com.everythingrs.vote.Vote.service.execute(() -> {
                     try {
-                        c.getLoginName();
-                        Vote[] reward = Vote.reward(""+Configuration.EVERYTHINGRS_KEY+"",
+                        Vote[] reward = Vote.reward(Configuration.EVERYTHINGRS_KEY,
                                 playerName, id, amount);
                         if (reward[0].message != null) {
                             c.sendMessage(reward[0].message);
@@ -853,8 +788,6 @@ public class Commands implements PacketType {
             }
 
 
-
-
             if (playerCommand.startsWith("donated")) {
                 new java.lang.Thread() {
                     public void run() {
@@ -871,10 +804,9 @@ public class Commands implements PacketType {
                             }
                             for (com.everythingrs.donate.Donation donate : donations) {
                                 c.getItems().addItem(donate.product_id, donate.product_amount);
-                                long spent = (long) (donate.product_price * donate.product_amount);
                             }
                             c.sendMessage("Thank you for donating!");
-                            PlayerHandler.executeGlobalMessage("<shad>@cr23@@cya@"+c.getLoginName()+" has just donated!");
+                            PlayerHandler.executeGlobalMessage("<shad>@cr23@@cya@" + c.getLoginName() + " has just donated!");
                         } catch (Exception e) {
                             c.sendMessage("Api Services are currently offline. Please check back shortly");
                             e.printStackTrace();
@@ -887,9 +819,6 @@ public class Commands implements PacketType {
                     c.sendMessage(NO_ACCESS);
                     return;
                 }
-                /*new ProjectileBaseBuilder().setProjectileId(1435).setSpeed(100).setScale(0).setCurve(16).setSendDelay(1).createProjectileBase()
-                        .createTargetedProjectile(c, c.getPosition()).send(c.getInstance());*/
-                //int angle = Integer.parseInt(args[1]);
                 int scale = Integer.parseInt(args[1]);
                 c.getPA().createProjectile(c.absX, c.absY, 1, 1, 41, 400, scale,
                         130, 1435, 200, 0, 0, 50);
@@ -930,7 +859,6 @@ public class Commands implements PacketType {
                 }
 
             }
-
 
 
             if (playerCommand.startsWith("testweapondata")) {
@@ -1053,27 +981,21 @@ public class Commands implements PacketType {
             }
 
 
-
             if (playerCommand.startsWith("glod")) {//Event glod
                 if (Boundary.isInAny(c, Boundary.LMS_AREAS)) {
                     c.sendMessage("@red@You cant use this in the lms.");
                     return;
                 }
 
-                if(EventBossHandler.getCurrentLocation() != null) {
+                if (EventBossHandler.getCurrentLocation() != null) {
                     c.getPA().startTeleport(3334, 3890, 0, "MODERN", false);
                     return;
-               }
+                }
                 c.sendMessage("@red@There is no glod event currently active.");
             }
 
-          //  if (playerCommand.startsWith("rules")) {//RULES
-              //  RulesInterface.displayRulesInterface(c);
 
-          //  }
-
-
-             if (playerCommand.equalsIgnoreCase("tournament")) {//tournament event
+            if (playerCommand.equalsIgnoreCase("tournament")) {//tournament event
                 if (Boundary.isInAny(c, Boundary.LMS_AREAS)) {
                     c.sendMessage("@red@You cant use this in the lms.");
                     return;
@@ -1086,10 +1008,10 @@ public class Commands implements PacketType {
                     c.sendMessage("@red@You cant use this while in side an tournament.");
                     return;
                 }
-                 if (c.wildLevel > 0) {
-                     c.sendMessage("@red@Please use this command out of the wilderness.");
-                     return;
-                 }
+                if (c.wildLevel > 0) {
+                    c.sendMessage("@red@Please use this command out of the wilderness.");
+                    return;
+                }
                 c.getPA().startTeleport(3087, 3500, 0, "MODERN", false);
             }
 
@@ -1111,16 +1033,15 @@ public class Commands implements PacketType {
                     c.sendMessage("@red@You cant use this.");
                     return;
                 }
-                if(SolakEventBossHandler.getCurrentLocation() != null) {
+                if (SolakEventBossHandler.getCurrentLocation() != null) {
                     //c.setTeleportToX(1704);
-                   // c.setTeleportToY(3881);
-                   // c.heightLevel = 0;
+                    // c.setTeleportToY(3881);
+                    // c.heightLevel = 0;
                     c.getPA().startTeleport(1704, 3881, 0, "MODERN", false);
                     return;
                 }
                 c.sendMessage("@red@There is no solak event currently active.");
             }
-
 
 
             if (playerCommand.startsWith("galvek")) {
@@ -1140,10 +1061,7 @@ public class Commands implements PacketType {
                     c.sendMessage("@red@You cant use this.");
                     return;
                 }
-                if(GalvekEventBossHandler.getCurrentLocation() != null) {
-                   // c.setTeleportToX(2981);
-                   // c.setTeleportToY(3946);
-                  //  c.heightLevel = 0;
+                if (GalvekEventBossHandler.getCurrentLocation() != null) {
                     c.getPA().startTeleport(2981, 3946, 0, "MODERN", false);
                     return;
                 }
@@ -1320,9 +1238,6 @@ public class Commands implements PacketType {
             }
 
 
-
-
-
             if (playerCommand.startsWith("item")) {
                 if (!isManagment) {
                     c.sendMessage(NO_ACCESS);
@@ -1391,7 +1306,6 @@ public class Commands implements PacketType {
                 c.getItems().addItem(9244, 2000);
                 c.getItems().addItem(385, 15);
             }
-
 
 
             if (playerCommand.startsWith("/")) {

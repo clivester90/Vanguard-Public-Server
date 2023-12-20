@@ -13,21 +13,21 @@ public class LootValue {
 		case "setvalue":
 			player.lootValue = value;
 			if (player.lootValue > 0)
-			player.sendMessage("You've set the lootvalue to: @blu@"+ Misc.getValueWithoutRepresentation(player.lootValue));
+			player.sendMessage("You will now be notified of drops with the value of at least: @blu@"+ Misc.getValueWithoutRepresentation(player.lootValue));
 			else
-			player.sendMessage("You have not set your lootvalue.");
+			player.sendMessage("You have not set a minimum loot value to be notified for.");
 			break;
 
 		case "checkvalue":
 			if (player.lootValue > 0)
-				player.sendMessage("You've set the lootvalue to: @blu@"+ Misc.getValueWithoutRepresentation(player.lootValue));
+				player.sendMessage("You will be notified of drops with the value of at least: @blu@"+ Misc.getValueWithoutRepresentation(player.lootValue));
 			else
-			player.sendMessage("You have not set your lootvalue.");
+			player.sendMessage("You have not set a minimum loot value to be notified for.");
 			break;
 
 		case "resetvalue":
 			player.lootValue = 0;
-			player.sendMessage("You've reset your lootvalue.");
+			player.sendMessage("You have reset your loot value and will be notified of any drops.");
 			break;
 		}
 	}

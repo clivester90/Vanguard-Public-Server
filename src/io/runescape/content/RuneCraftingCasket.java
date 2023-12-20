@@ -2,6 +2,7 @@ package io.runescape.content;
 
 import io.runescape.chance.Chance;
 import io.runescape.chance.WeightedChance;
+import io.runescape.chance.WeightedObject;
 import io.runescape.model.entity.player.Player;
 import io.runescape.model.items.GameItem;
 import io.runescape.util.Misc;
@@ -23,7 +24,7 @@ public class RuneCraftingCasket {
 	/**
 	 * All possible loot from the fishing casket
 	 */
-	public static Chance<GameItem> RUNECRAFTINGCASKET = new Chance<>(Arrays.asList(
+	public static Chance<GameItem> RUNECRAFTINGCASKET = new Chance<>(Arrays.<WeightedObject<GameItem>>asList(
 
 			new WeightedChance<>(WeightedChance.COMMON, new GameItem(995, 25000)),//coins
 			new WeightedChance<>(WeightedChance.UNCOMMON, new GameItem(995, 50000)),//coins
@@ -78,7 +79,7 @@ public class RuneCraftingCasket {
 			new WeightedChance<>(WeightedChance.RARE, new GameItem(26852, 1)), //robe top of the eye
 			new WeightedChance<>(WeightedChance.RARE, new GameItem(26854, 1)), //robe bottoms of the eye
 			new WeightedChance<>(WeightedChance.RARE, new GameItem(26856, 1)),//boots of the eye
-            new WeightedChance<>(WeightedChance.VERY_RARE, new GameItem(20665, 1))//Rift guardian
+			new WeightedChance<>(WeightedChance.VERY_RARE, new GameItem(20665, 1))//Rift guardian
 
 
 	));
@@ -100,7 +101,7 @@ public class RuneCraftingCasket {
 			player.getItems().addItemUnderAnyCircumstance(6199, 1);//Mystery box
 			player.sendMessage("@red@Congratulations you have received an mystery box.");
 			Announcement.announce("@red@"+player.getLoginName()+" @blu@has received an @red@Mystery Box @blu@from an @red@Runecrafting Casket.");
-			Discord.writeDropsSyncMessage(""+player.getLoginName()+" has received an Mystery box from an Runecrating Casket.");
+			Discord.writeDropsSyncMessage(player.getLoginName()+" has received an Mystery box from an Runecrating Casket.");
 		}
 
 		if (Misc.hasOneOutOf(50)) {//Colossal pouch
@@ -109,7 +110,7 @@ public class RuneCraftingCasket {
 				player.getItems().addItemUnderAnyCircumstance(26784, 1);
 				player.sendMessage("@red@You get lucky and receive an Colossal Pouch.");
 				Announcement.announce("@red@"+player.getLoginName()+" @blu@has received an @red@Colossal Pouch @blu@from an @red@Runecrafting Casket.");
-				Discord.writeDropsSyncMessage(""+player.getLoginName()+" has received an Colossal Pouch from an Runecrating Casket.");
+				Discord.writeDropsSyncMessage(player.getLoginName()+" has received an Colossal Pouch from an Runecrating Casket.");
 			}
 		}
 
@@ -117,7 +118,7 @@ public class RuneCraftingCasket {
 				player.getItems().addItemUnderAnyCircumstance(26901, 1);
 				player.sendMessage("@red@You get lucky and receive the Abyssal protector pet.");
 				Announcement.announce("@red@"+player.getLoginName()+" @org@has received the @red@Abyssal Protector @org@from an @red@Runecrafting Casket.");
-				Discord.writeDropsSyncMessage(""+player.getLoginName()+" has received the Abyssal Protector from an Runecrating Casket.");
+				Discord.writeDropsSyncMessage(player.getLoginName()+" has received the Abyssal Protector from an Runecrating Casket.");
 		}
 	}
 
