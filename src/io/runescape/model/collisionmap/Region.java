@@ -2,6 +2,7 @@ package io.runescape.model.collisionmap;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -560,8 +561,8 @@ public class Region {
      * Check for duplicates in custom maps
      */
     private static void verifyCustomMaps() throws IOException {
-        List<File> files = Files.walk(Paths.get(CUSTOM_MAPS_DIR)).filter(Files::isRegularFile).map(it -> it.toFile()).collect(Collectors.toList());
-        List<String> fileNames = files.stream().map(it -> it.getName()).collect(Collectors.toList());
+        List<File> files = Files.walk(Paths.get(CUSTOM_MAPS_DIR)).filter(Files::isRegularFile).map(Path::toFile).collect(Collectors.toList());
+        List<String> fileNames = files.stream().map(File::getName).collect(Collectors.toList());
         for (int i = 0; i < fileNames.size(); i++) {
             for (int k = 0; k < fileNames.size(); k++) {
                 if (i == k) continue;

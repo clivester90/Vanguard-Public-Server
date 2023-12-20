@@ -714,7 +714,7 @@ public class Nex {
 	public static void giveReward() {
 		PlayerHandler.nonNullStream().filter(p -> Boundary.isIn(p, Boundary.NEX_BOSS_ROOM))
 				.forEach(p -> {
-					p.sendMessage(""+p.getLoginName()+" You managed to defeat nex take these rewards.");
+					p.sendMessage(p.getLoginName()+" You managed to defeat nex take these rewards.");
 					p.nexKills+=1;
 					AchievementHandler.activate(p, AchievementList.NEX_I, 1);//NEW ACHIEVEMNTS
 					AchievementHandler.activate(p, AchievementList.NEX_II, 1);//NEW ACHIEVEMNTS
@@ -793,7 +793,7 @@ public class Nex {
 		}
 		int index = npc - 11283;
 		if (!magesAttackable[index] && !magesKilled[index]) {
-			p.sendMessage("" + NpcDef.forId(npc).getName() + " is currently being protected by Nex!");
+			p.sendMessage(NpcDef.forId(npc).getName() + " is currently being protected by Nex!");
 			return false;
 		}
 		return true;

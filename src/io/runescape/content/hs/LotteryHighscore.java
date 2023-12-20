@@ -4,10 +4,7 @@ import io.runescape.model.entity.player.Player;
 import io.runescape.model.entity.player.PlayerHandler;
 import io.runescape.util.Misc;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -22,23 +19,8 @@ public class LotteryHighscore implements Highscore {
 
     @Override
     public void process() {
-        playerList = (ArrayList<Player>) Arrays.asList(PlayerHandler.players).stream().filter(p -> p != null).collect(Collectors.toList());
-
-        Collections.sort(playerList, new Comparator<Player>() {
-            @Override
-            public int compare(Player player1, Player player2) {
-                Player client1 = (Player) player1;
-                Player client2 = (Player) player2;
-
-                if (client1.lotteryWins == client2.lotteryWins) {
-                    return 0;
-                } else if (client2.lotteryWins > client1.lotteryWins) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            }
-        });
+        playerList = (ArrayList<Player>) Arrays.asList(PlayerHandler.players).stream().filter(Objects::nonNull).collect(Collectors.toList());
+        playerList.sort((player1, player2) -> Integer.compare(player2.lotteryWins, player1.lotteryWins));
     }
 
     @Override
@@ -51,7 +33,7 @@ public class LotteryHighscore implements Highscore {
         resetList(client);
         if (playerList.size() > 10) {
             for (int i = 0; i < 10; i++) {
-        	Player rankedClient = (Player) playerList.get(i);
+        	Player rankedClient = playerList.get(i);
         	client.getPA().sendFrame126("Wins:", 46509);
         	client.getPA().sendFrame126("Tickets:", 46510);
         	client.getPA().sendFrame126("M box:", 46511);
@@ -64,7 +46,7 @@ public class LotteryHighscore implements Highscore {
             }
         } else {
         	 for (int i = 0; i < playerList.size(); i++) {
-                 Player rankedClient = (Player) playerList.get(i);
+                 Player rankedClient = playerList.get(i);
                  client.getPA().sendFrame126("Wins:", 46509);
                  client.getPA().sendFrame126("Tickets:", 46510);
                  client.getPA().sendFrame126("M box:", 46511);

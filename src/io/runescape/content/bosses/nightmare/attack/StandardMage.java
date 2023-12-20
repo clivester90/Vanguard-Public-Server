@@ -20,17 +20,14 @@ public class StandardMage implements Function<Nightmare, NPCAutoAttack> {
     // In the video I saw random projectiles
     // he had other players hidden
     public static Consumer<NPCCombatAttack> getProjectileThrow(ProjectileBase projectileBase) {
-        return new Consumer<NPCCombatAttack>() {
-            @Override
-            public void accept(NPCCombatAttack npcCombatAttack) {
-                int it = 0;
-                for (Position border : npcCombatAttack.getNpc().getBorder()) {
-                    if (++it % 2 == 0) {
-                        Position delta = border.delta(npcCombatAttack.getNpc().getCenterPosition());
-                        projectileBase.createTargetedProjectile(npcCombatAttack.getNpc(),
-                                border.translate(-delta.getX() + Misc.trueRand(3), -delta.getY() + Misc.trueRand(3)))
-                                .send(npcCombatAttack.getNpc().getInstance());
-                    }
+        return npcCombatAttack -> {
+            int it = 0;
+            for (Position border : npcCombatAttack.getNpc().getBorder()) {
+                if (++it % 2 == 0) {
+                    Position delta = border.delta(npcCombatAttack.getNpc().getCenterPosition());
+                    projectileBase.createTargetedProjectile(npcCombatAttack.getNpc(),
+                            border.translate(-delta.getX() + Misc.trueRand(3), -delta.getY() + Misc.trueRand(3)))
+                            .send(npcCombatAttack.getNpc().getInstance());
                 }
             }
         };
@@ -50,12 +47,7 @@ public class StandardMage implements Function<Nightmare, NPCAutoAttack> {
         return new NPCAutoAttackBuilder()
                 .setSelectPlayersForMultiAttack(NPCAutoAttack.getDefaultSelectPlayersForAttack())
                 .setProjectile(projectile())
-                .setPrayerProtectionPercentage(new Function<NPCCombatAttack, Double>() {
-                    @Override
-                    public Double apply(NPCCombatAttack npcCombatAttack) {
-                        return 0.3;
-                    }
-                })
+                .setPrayerProtectionPercentage(npcCombatAttack -> 0.3)
                 //.setOnAttack(getProjectileThrow(projectile()))
                 .setEndGraphic(new Graphic(1765, Graphic.GraphicHeight.HIGH))
                 .setAnimation(new Animation(8595))

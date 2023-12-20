@@ -225,7 +225,8 @@ public class GroupIronmanRepository  {
         for (File file : files) {
             if (file.getName().endsWith(".json")) {
                 try {
-                    GroupIronmanGroupSave save = JsonUtil.fromJacksonJson(file, new TypeReference<GroupIronmanGroupSave>() {});
+                    GroupIronmanGroupSave save = JsonUtil.fromJacksonJson(file, new TypeReference<>() {
+                    });
                     addToGroupLists(save.toGroup());
                 } catch (Exception e) {
                     System.err.println("Error loading: " + file);

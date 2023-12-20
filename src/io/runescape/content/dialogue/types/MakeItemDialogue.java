@@ -6,7 +6,6 @@ import com.google.common.base.Preconditions;
 import io.runescape.content.dialogue.DialogueAction;
 import io.runescape.content.dialogue.DialogueBuilder;
 import io.runescape.content.dialogue.DialogueObject;
-import io.runescape.model.AmountInput;
 import io.runescape.model.definitions.ItemDef;
 import io.runescape.model.entity.player.Player;
 
@@ -195,12 +194,7 @@ public class MakeItemDialogue extends DialogueObject {
     private void handleMakeItem(Player player, int slot, int amount) {
         if (amount == -1) {
             player.getPA().sendEnterAmount(makeItems[0].getItemId());
-            player.amountInputHandler = new AmountInput() {
-                @Override
-                public void handle(Player player, int amount) {
-                    consumer.accept(new PlayerMakeItem(player, makeItems[slot].getItemId(), amount));
-                }
-            };
+            player.amountInputHandler = (player1, amount1) -> consumer.accept(new PlayerMakeItem(player1, makeItems[slot].getItemId(), amount1));
         } else {
             consumer.accept(new PlayerMakeItem(player, makeItems[slot].getItemId(), amount));
         }

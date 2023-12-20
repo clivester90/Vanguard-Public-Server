@@ -174,7 +174,7 @@ public class GlodChest  {
 			Right primary = c.getRights().getPrimary();
 			int rights = c.getRights().getPrimary().getValue() - 1;
 			if (random > 94) {
-				Discord.writeDropsSyncMessage(""+ c.getLoginName() + "  has received: "+item.getAmount()+"x "+ ItemAssistant.getItemName(item.getId()) + " from the glod chest!");
+				Discord.writeDropsSyncMessage(c.getLoginName() + "  has received: "+item.getAmount()+"x "+ ItemAssistant.getItemName(item.getId()) + " from the glod chest!");
 			}
 		} else {
 			c.sendMessage("@dre@I think I need an glod key to open this chest...");

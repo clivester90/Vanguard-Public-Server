@@ -1,11 +1,9 @@
 package io.runescape.content.minigames.barrows;
 
-import java.util.Arrays;
-import java.util.Collections;
+import io.runescape.model.entity.player.Coordinate;
+
 import java.util.List;
 import java.util.Random;
-
-import io.runescape.model.entity.player.Coordinate;
 
 /**
  * Locations in the Barrows maze which players can teleport to when going into the hidden tunnel.
@@ -25,7 +23,7 @@ public enum RoomLocation {
 		this.y = y;
 	}
 
-	private static final List<RoomLocation> SPAWN_LOCATIONS = Collections.unmodifiableList(Arrays.asList(NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST));
+	private static final List<RoomLocation> SPAWN_LOCATIONS = List.of(NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST);
 
 	/**
 	 * Get a random location entry from the enum.

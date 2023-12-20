@@ -9,9 +9,7 @@ import io.runescape.model.entity.player.Player;
  */
 public enum KeyboardAction implements KeyboardStrategy {
 
-    RELOAD_LAST_PRESET(1, player -> {
-            PresetManager.getSingleton().loadLastPreset(player);
-    }),
+    RELOAD_LAST_PRESET(1, player -> PresetManager.getSingleton().loadLastPreset(player)),
     LAST_TELEPORT(2, player -> {
         if (!player.isBusy()) {
             player.getTeleportInterface().repeatLastTeleport();

@@ -86,7 +86,7 @@ public abstract class AchievementDiary<T extends Enum<T>> {
 	}
 	
 	public void forEach(Consumer<T> action) {
-		achievements.forEach(entry -> action.accept(entry));
+		achievements.forEach(action::accept);
 	}
 
 	public Optional<T> get(T entry) {

@@ -19,19 +19,16 @@ public class NPCAutoAttack {
      * Default select players for multi attack
      */
     public static Function<NPCCombatAttack, List<Player>> getDefaultSelectPlayersForAttack() {
-        return new Function<NPCCombatAttack, List<Player>>() {
-            @Override
-            public List<Player> apply(NPCCombatAttack npcCombatAttack) {
-                NPC npc = npcCombatAttack.getNpc();
-                List<Player> players = Lists.newArrayList();
-                for (Player player : PlayerHandler.getPlayers()) {
-                    if (player != null && player.getInstance() == npc.getInstance()
-                            && npc.getDistance(player.getX(), player.getY()) <= 16) {
-                        players.add(player);
-                    }
+        return npcCombatAttack -> {
+            NPC npc = npcCombatAttack.getNpc();
+            List<Player> players = Lists.newArrayList();
+            for (Player player : PlayerHandler.getPlayers()) {
+                if (player != null && player.getInstance() == npc.getInstance()
+                        && npc.getDistance(player.getX(), player.getY()) <= 16) {
+                    players.add(player);
                 }
-                return players;
             }
+            return players;
         };
     }
 

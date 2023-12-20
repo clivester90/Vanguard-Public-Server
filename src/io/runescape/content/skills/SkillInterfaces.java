@@ -5,6 +5,7 @@ import io.runescape.model.entity.player.Player;
 import io.runescape.model.items.GameItem;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
@@ -196,7 +197,7 @@ public class SkillInterfaces {
 			menuLine(level, type + " Battleaxe", 1363, 9);
 			menuLine(level, type + " Two-Handed Sword", 1309, 10);
 			menuLine(level, type + " Halberd", 3192, 11);
-			optionTab("Attack", type + "", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
+			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
 		} else if (screen == 3) {
 			clearMenu();
 			String level = "5";
@@ -1168,7 +1169,7 @@ public class SkillInterfaces {
 
 			List<FinishedPotions> potions = Arrays.stream(FinishedPotions.values())
 					.filter(it -> Arrays.stream(ignore).noneMatch(ignoring -> ignoring == it))
-					.sorted((it1, it2) -> Integer.compare(it1.getLevel(), it2.getLevel())).collect(Collectors.toList());
+					.sorted(Comparator.comparingInt(FinishedPotions::getLevel)).collect(Collectors.toList());
 
 
 			int lineCounter = 0;
@@ -1201,7 +1202,7 @@ public class SkillInterfaces {
 				}
 
 				builder.add(ing.toString());
-				menuLine(potion.getLevel() + "", builder.toString(), potion.getResult().getId(), lineCounter++);
+				menuLine(String.valueOf(potion.getLevel()), builder.toString(), potion.getResult().getId(), lineCounter++);
 			}
 
 //			menuLine("3", "Attack Potion \\n Guam potion (unf), Eye of newt", 121, 0);

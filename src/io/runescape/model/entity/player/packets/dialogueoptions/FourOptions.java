@@ -302,7 +302,7 @@ public class FourOptions {
 			c.getItems().addItem(1079, 1);
 			c.sendMessage("<img=10>An appropriate starter package has been given to you.");
 			c.getPA().removeAllWindows();
-			c.getPA().sendFrame126("Combat Level: " + c.combatLevel + "", 3983);
+			c.getPA().sendFrame126("Combat Level: " + c.combatLevel, 3983);
 			c.dialogueAction = 0;
 		}
 		if (c.dialogueAction == 14400) {
@@ -517,7 +517,7 @@ public class FourOptions {
 			c.getItems().addItem(7458, 1);
 			c.getItems().addItem(2550, 1);
 			c.sendMessage("<img=10>An appropriate starter package has been given to you.");
-			c.getPA().sendFrame126("Combat Level: " + c.combatLevel + "", 3983);
+			c.getPA().sendFrame126("Combat Level: " + c.combatLevel, 3983);
 			c.getPA().removeAllWindows();
 			c.dialogueAction = 0;
 		}

@@ -36,7 +36,7 @@ public final class Inventory {
 		 * When in {@link #STACK_STACKABLE_ITEMS} mode, an {@link Inventory} will stack items depending on their
 		 * settings.
 		 */
-		STACK_STACKABLE_ITEMS;
+		STACK_STACKABLE_ITEMS
 
 	}
 

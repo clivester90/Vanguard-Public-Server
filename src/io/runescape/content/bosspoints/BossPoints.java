@@ -45,7 +45,8 @@ public class BossPoints {
     @Init
     public static void init() throws IOException {
         ENTRIES.clear();
-        List<BossPointEntry> list = JsonUtil.fromYaml(Server.getDataDirectory() + "/cfg/npc/boss_points.yaml", new TypeReference<List<BossPointEntry>>() {});
+        List<BossPointEntry> list = JsonUtil.fromYaml(Server.getDataDirectory() + "/cfg/npc/boss_points.yaml", new TypeReference<>() {
+        });
         ENTRIES.addAll(list);
     }
 

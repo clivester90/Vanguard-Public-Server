@@ -35,7 +35,7 @@ public class SetFirstBankPinReward implements PlayerSaveEntry {
 
     @Override
     public String encode(Player player, String key) {
-        return player.getAttributes().getBoolean(ATTR) + "";
+        return String.valueOf(player.getAttributes().getBoolean(ATTR));
     }
 
     @Override

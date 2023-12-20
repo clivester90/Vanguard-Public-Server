@@ -1484,11 +1484,9 @@ public class PlayerAssistant {
 				.nonNullStream()
 				.filter(p -> p.distanceToPoint(x, y) <= 25)
 				.filter(p -> p.getHeight() == c.getHeight())
-				.filter(p -> c.sameInstance(p))
-				.forEach(p -> {
-					p.getPA().createProjectile(x, y, offX, offY, angle, speed, gfxMoving, startHeight,
-							endHeight, lockon, time);
-				});
+				.filter(c::sameInstance)
+				.forEach(p -> p.getPA().createProjectile(x, y, offX, offY, angle, speed, gfxMoving, startHeight,
+						endHeight, lockon, time));
 
 	}
 
@@ -1501,10 +1499,8 @@ public class PlayerAssistant {
 				.filter(p -> p.distanceToPoint(x, y) <= 25)
 				.filter(p -> p.getHeight() == c.getHeight())
 				.filter(c::sameInstance)
-				.forEach(p -> {
-					p.getPA().createProjectile2(x, y, offX, offY, angle, speed, gfxMoving, startHeight, endHeight,
-							lockon, time, slope);
-				});
+				.forEach(p -> p.getPA().createProjectile2(x, y, offX, offY, angle, speed, gfxMoving, startHeight, endHeight,
+						lockon, time, slope));
 	}
 
 	/**
@@ -2908,7 +2904,7 @@ public class PlayerAssistant {
 				+ getLevelForXP(c.playerXP[15]) + getLevelForXP(c.playerXP[16]) + getLevelForXP(c.playerXP[17])
 				+ getLevelForXP(c.playerXP[18]) + getLevelForXP(c.playerXP[19]) + getLevelForXP(c.playerXP[20])
 				+ getLevelForXP(c.playerXP[21]));
-		sendFrame126("" + totalLevel, 3984);
+		sendFrame126(String.valueOf(totalLevel), 3984);
 		switch (skill) {
 			case 0:
 				sendFrame126("Congratulations, you just advanced an attack level!", 6248);

@@ -183,8 +183,8 @@ public enum CollectionRewards {
 
     public static boolean handleButton(Player player, int ID) {
         if (ID == 23236) {
-            if (player.getCollectionLog().getCollections().containsKey(player.getCollectionLogNPC()+ "")) {
-                ArrayList<GameItem> itemsObtained = player.getCollectionLog().getCollections().get(player.getCollectionLogNPC()+ "");
+            if (player.getCollectionLog().getCollections().containsKey(String.valueOf(player.getCollectionLogNPC()))) {
+                ArrayList<GameItem> itemsObtained = player.getCollectionLog().getCollections().get(String.valueOf(player.getCollectionLogNPC()));
                 if (itemsObtained != null) {
                     List<GameItem> drops = Server.getDropManager().getNPCdrops(player.getCollectionLogNPC());
                     if (player.getCollectionLogNPC() == 8028) {

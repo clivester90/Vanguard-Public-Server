@@ -82,7 +82,7 @@ public enum BountyHunterEmblem {
 	/**
 	 * Compares the two emblems and determiens which of the two are 'better' based on the item identification value.
 	 */
-	static final Comparator<BountyHunterEmblem> BEST_EMBLEM_COMPARATOR = (first, second) -> Integer.compare(first.itemId, second.itemId);
+	static final Comparator<BountyHunterEmblem> BEST_EMBLEM_COMPARATOR = Comparator.comparingInt(bountyHunterEmblem -> bountyHunterEmblem.itemId);
 
 	/**
 	 * Attempts to retrieve the best emblem the player has. The exclude parameter although may look out of place, allows us to determine if the TIER_10 element should be excluded

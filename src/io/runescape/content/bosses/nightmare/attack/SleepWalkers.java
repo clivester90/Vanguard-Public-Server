@@ -71,9 +71,7 @@ public class SleepWalkers extends NightmareAttack {
                 nightmare.getInstance().getPlayers().forEach(plr -> plr.startGraphic(new Graphic(1782)));
                 break;
             case 22:
-                nightmare.getInstance().getPlayers().forEach(plr -> {
-                    plr.appendDamage(nightmare, 4 + (getAbsorbs(nightmare) * 5), Hitmark.HIT);
-                });
+                nightmare.getInstance().getPlayers().forEach(plr -> plr.appendDamage(nightmare, 4 + (getAbsorbs(nightmare) * 5), Hitmark.HIT));
                 break;
             case 28:
                 nightmare.transformToStandard();

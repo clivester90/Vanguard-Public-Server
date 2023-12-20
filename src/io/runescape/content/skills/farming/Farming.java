@@ -455,19 +455,19 @@ public class Farming {
 					line = line.trim();
 				}
 				if(line.startsWith("patch"))
-					patch = Integer.valueOf(line.substring(line.indexOf(":")+2));
+					patch = Integer.parseInt(line.substring(line.indexOf(":")+2));
 				else if(line.startsWith("stage"))
-					stage = Integer.valueOf(line.substring(line.indexOf(":")+2));
+					stage = Integer.parseInt(line.substring(line.indexOf(":")+2));
 				else if(line.startsWith("plant"))
-					plant = Integer.valueOf(line.substring(line.indexOf(":")+2));
+					plant = Integer.parseInt(line.substring(line.indexOf(":")+2));
 				else if(line.startsWith("watered"))
-					watered = Integer.valueOf(line.substring(line.indexOf(":")+2));
+					watered = Integer.parseInt(line.substring(line.indexOf(":")+2));
 				else if(line.startsWith("harvested"))
-					harvested = Integer.valueOf(line.substring(line.indexOf(":")+2));
+					harvested = Integer.parseInt(line.substring(line.indexOf(":")+2));
 				else if(line.startsWith("magicCan"))
-					magicCan = Boolean.valueOf(line.substring(line.indexOf(":")+2));
+					magicCan = Boolean.parseBoolean(line.substring(line.indexOf(":")+2));
 				else if(line.startsWith("time"))
-					time = Long.valueOf(line.substring(line.indexOf(":")+2));
+					time = Long.parseLong(line.substring(line.indexOf(":")+2));
 				else if(line.equals("END PATCH") && patch >= 0) {
 					patches[patch].stage = (byte)stage;
 					patches[patch].time = time;

@@ -14,7 +14,7 @@ public class DonationItemList extends ArrayList<DonationItem> {
      * Gets a list of {@link DonationItem} that have already been previously claimed.
      */
     public DonationItemList oldDonations() {
-        return new DonationItemList(stream().filter(it -> it.isClaimed()).collect(Collectors.toList()));
+        return new DonationItemList(stream().filter(DonationItem::isClaimed).collect(Collectors.toList()));
     }
 
     /**

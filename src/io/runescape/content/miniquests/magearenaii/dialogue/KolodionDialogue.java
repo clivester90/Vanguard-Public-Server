@@ -56,13 +56,11 @@ public class KolodionDialogue extends DialogueBuilder {
         }
 
 
-        setNpcId(NPC_ID).npc("Bring me the remains of ALL THREE magical beings. Do", "this and I will imbue their combined power into a single", "god cape of your choice.").exit(player1 -> {
-            player.start(option(
-                    new DialogueOption("Where can I find these beings?", p -> firstOption(3)),
-                    new DialogueOption("Any advice on fighting the beings?", p -> secondOption(3)),
-                    new DialogueOption("Tell me more about these beings.", p -> thirdOption(3)),
-                    new DialogueOption("Thanks, bye.", p -> fourthOption(3))));
-        });
+        setNpcId(NPC_ID).npc("Bring me the remains of ALL THREE magical beings. Do", "this and I will imbue their combined power into a single", "god cape of your choice.").exit(player1 -> player.start(option(
+                new DialogueOption("Where can I find these beings?", p -> firstOption(3)),
+                new DialogueOption("Any advice on fighting the beings?", p -> secondOption(3)),
+                new DialogueOption("Tell me more about these beings.", p -> thirdOption(3)),
+                new DialogueOption("Thanks, bye.", p -> fourthOption(3)))));
         return;
     }
 

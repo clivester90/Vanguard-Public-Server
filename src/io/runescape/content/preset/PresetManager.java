@@ -245,7 +245,7 @@ public class PresetManager {
 					player.sendMessage("Please use the -New Preset- preset to make a new preset first!");
 					return;
 				} else {
-					ArrayList<PresetItem> copy = new ArrayList<PresetItem>(presets.get(index).getInventory());
+					ArrayList<PresetItem> copy = new ArrayList<>(presets.get(index).getInventory());
 					PresetEquipment equipment = new PresetEquipment(presets.get(index).getEquipment().getWeapon(),
 							presets.get(index).getEquipment().getHelmet(),
 							presets.get(index).getEquipment().getShield(),
@@ -685,9 +685,7 @@ public class PresetManager {
 				player.getItems().equipItem(preset.getEquipment().getRing(), 1, Player.playerRing);
 				   player.getItems().addSpecialBar(player.playerEquipment[3]);
 
-				preset.getInventory().forEach(i -> {
-					player.getItems().addItem(i.getItemId(), i.getAmount());
-				});
+				preset.getInventory().forEach(i -> player.getItems().addItem(i.getItemId(), i.getAmount()));
 
 				switch(preset.getSpellBook()) {
 				case 2:

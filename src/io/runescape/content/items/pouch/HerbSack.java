@@ -106,7 +106,7 @@ public class HerbSack extends Pouch {
 				}
 				totalAmount += amt;
 				player.getPA().sendFrame126("@red@Total Amount: "+totalAmount+"/700", 8147);
-				player.getPA().sendFrame126("@blu@x" + amt + " " + ItemAssistant.getItemName(id) + "", frame);
+				player.getPA().sendFrame126("@blu@x" + amt + " " + ItemAssistant.getItemName(id), frame);
 				frame++;
 			}
 			player.getPA().openQuestInterface();

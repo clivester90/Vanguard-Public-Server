@@ -19,14 +19,12 @@ public class ItemDefEditor {
         JsonUtil.toYaml(defs.values(), "./temp/item_definitions.yaml");
     }
 
-    private static void lowerPrices(Map<Integer, ItemDef> defs) throws Exception {
-        Map<Integer, ItemDef> defsClone = new HashMap<Integer, ItemDef>();
-        defsClone.putAll(defs);
+    private static void lowerPrices(Map<Integer, ItemDef> defs) {
+        Map<Integer, ItemDef> defsClone = new HashMap<>(defs);
         Preconditions.checkState(defsClone.equals(defs));
 
-        defs.entrySet().forEach(item -> {
-            int id = item.getKey();
-            ItemDef def = item.getValue();
+        defs.forEach((key, def) -> {
+            int id = key;
 
             if (def.getRawShopValue() > 10_000_000) {
                 int value = 10_000_000 + ((def.getRawShopValue() - 10_000_000) / 25);
@@ -44,14 +42,14 @@ public class ItemDefEditor {
                 .sorted(Comparator.comparingInt(i -> -i.getRawShopValue()))
                 .collect(Collectors.toList());
 
-        List<Integer> beforeIds = before.stream().map(it -> it.getId()).collect(Collectors.toList());
-        List<Integer> afterIds = after.stream().map(it -> it.getId()).collect(Collectors.toList());
+        List<Integer> beforeIds = before.stream().map(ItemDef::getId).collect(Collectors.toList());
+        List<Integer> afterIds = after.stream().map(ItemDef::getId).collect(Collectors.toList());
         Preconditions.checkState(beforeIds.equals(afterIds), "Item position by price has changed.");
 
         // Print and compare
         for (ItemDef itemList : after) {
             if (itemList.getRawShopValue() > 50_000) {
-                System.out.println("" + itemList.getId() + " \t| " + itemList.getName() + " \t| " + Misc.insertCommas(itemList.getRawShopValue() + ""));
+                System.out.println(itemList.getId() + " \t| " + itemList.getName() + " \t| " + Misc.insertCommas(String.valueOf(itemList.getRawShopValue())));
             }
         }
     }

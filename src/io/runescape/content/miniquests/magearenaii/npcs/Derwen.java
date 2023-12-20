@@ -75,9 +75,7 @@ public class Derwen extends NPC {
                         .setAnimation(new Animation(7849))
                         .setCombatType(CombatType.MAGE)
                         .setDistanceRequiredForAttack(10)
-                        .setOnAttack(attack -> {
-                            createHealingEffect(attack.getVictim().asPlayer(), this);
-                        })
+                        .setOnAttack(attack -> createHealingEffect(attack.getVictim().asPlayer(), this))
                         .setHitDelay(2)
                         .setMaxHit(43)
                         .setAttackDelay(6)

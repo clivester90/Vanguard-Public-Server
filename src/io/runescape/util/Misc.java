@@ -83,7 +83,7 @@ public class Misc {
 	}
 
 	public static String getPriceFormat(int price) {
-		Double amount = new Double(price);
+		Double amount = (double) price;
 		boolean useFormat = true;
 		String format = "";
 		String synx = "";
@@ -260,7 +260,7 @@ public class Misc {
 	public static <T> List<T> jsonArrayToList(Path path, Class<T[]> clazz) {
 		try {
 			T[] collection = new Gson().fromJson(Files.newBufferedReader(path), clazz);
-			return new ArrayList<T>(Arrays.asList(collection));
+			return new ArrayList<>(Arrays.asList(collection));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -591,7 +591,7 @@ public class Misc {
 
 	public static String fixName(String s) {
 		if (s.length() > 0) {
-			char ac[] = s.toCharArray();
+			char[] ac = s.toCharArray();
 			for (int j = 0; j < ac.length; j++)
 				if (ac[j] == '_') {
 					ac[j] = ' ';
@@ -873,7 +873,7 @@ public class Misc {
 	public static <T> Queue<T> reverse(Queue<T> queue) {
 		List<T> collect = new ArrayList<>(queue);
 		Collections.reverse(collect);
-		return new LinkedList<T>(collect);
+		return new LinkedList<>(collect);
 	}
 
 	public static List<String> toNumberedText(List<String> list) {

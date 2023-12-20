@@ -39,18 +39,11 @@ public class SarachnisRanged implements Function<SarachnisNpc, NPCAutoAttack> {
                 }
             }
         };
-        Consumer<NPCCombatAttack> onAttack = t -> {
-                nightmare.attackCounter++;
-        };
+        Consumer<NPCCombatAttack> onAttack = t -> nightmare.attackCounter++;
         List<Player> players = NPCAutoAttack.getPlayers(nightmare);
         return new NPCAutoAttackBuilder()
-                .setSelectPlayersForMultiAttack(new Function<>() {
-                    @Override
-                    public List<Player> apply(NPCCombatAttack npcCombatAttack) {
-                        return players.stream().filter(plr -> Boundary.isIn(plr, Boundary.SARACHNIS_LAIR))
-                                .collect(Collectors.toList());
-                    }
-                })
+                .setSelectPlayersForMultiAttack(npcCombatAttack -> players.stream().filter(plr -> Boundary.isIn(plr, Boundary.SARACHNIS_LAIR))
+                        .collect(Collectors.toList()))
                 .setIgnoreProjectileClipping(false)
                 .setSelectAutoAttack(attack -> attack.getNpc().distance(attack.getVictim().getPosition()) > 1)
                 .setAnimation(new Animation(4410))
@@ -62,12 +55,7 @@ public class SarachnisRanged implements Function<SarachnisNpc, NPCAutoAttack> {
                 .setMultiAttack(false)
                 .setOnHit(onHit)
                 .setOnAttack(onAttack)
-                .setPrayerProtectionPercentage(new Function<NPCCombatAttack, Double>() {
-                    @Override
-                    public Double apply(NPCCombatAttack npcCombatAttack) {
-                        return 0.3;
-                    }
-                })
+                .setPrayerProtectionPercentage(npcCombatAttack -> 0.3)
                 .setProjectile(projectile())
                 .createNPCAutoAttack();
     }

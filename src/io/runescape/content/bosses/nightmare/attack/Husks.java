@@ -1,13 +1,11 @@
 package io.runescape.content.bosses.nightmare.attack;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 import com.google.common.collect.Lists;
 import io.runescape.content.bosses.nightmare.Nightmare;
 import io.runescape.content.bosses.nightmare.NightmareAttack;
 import io.runescape.content.combat.npc.NPCAutoAttackBuilder;
-import io.runescape.content.combat.npc.NPCCombatAttack;
 import io.runescape.model.Animation;
 import io.runescape.model.CombatType;
 import io.runescape.model.ProjectileBase;
@@ -95,12 +93,7 @@ public class Husks extends NightmareAttack {
                             .setMaxHit(7)
                             .setHitDelay(1)
                             .setCombatType(CombatType.MELEE)
-                            .setOnAttack(new Consumer<NPCCombatAttack>() {
-                                @Override
-                                public void accept(NPCCombatAttack npcCombatAttack) {
-                                    npcCombatAttack.getVictim().asPlayer().freezeTimer = 4;
-                                }
-                            })
+                            .setOnAttack(npcCombatAttack -> npcCombatAttack.getVictim().asPlayer().freezeTimer = 4)
                             .createNPCAutoAttack()
             ));
         }

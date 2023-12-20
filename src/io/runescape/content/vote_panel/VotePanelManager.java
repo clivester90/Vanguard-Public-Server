@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.lang.reflect.Type;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -169,8 +168,8 @@ public class VotePanelManager {
      */
     protected static List<String> generateTopThree() {
         List<Map.Entry<String, VoteUser>> entries = new ArrayList<>(wrapper.getVotes().entrySet());
-        Collections.sort(entries, Comparator.comparingLong(a -> a.getValue().getFirstVoteTimestamp()));
-        Collections.sort(entries, (a, b) -> Integer.compare(b.getValue().getVoteCount(), a.getValue().getVoteCount()));
+        entries.sort(Comparator.comparingLong(a -> a.getValue().getFirstVoteTimestamp()));
+        entries.sort((a, b) -> Integer.compare(b.getValue().getVoteCount(), a.getValue().getVoteCount()));
         List<String> topVoters = new ArrayList<>();
         for (Map.Entry<String, VoteUser> e : entries.subList(0, entries.size() >= 3 ? 3 : entries.size())) {
             topVoters.add(e.getKey() + " [" + e.getValue().getVoteCount() + "]");

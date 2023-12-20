@@ -14,10 +14,10 @@ public class ExpLock {
 		for (int j = 0; j < 7; j++) {
 			if (player.skillLock[j]) {
 				player.getPA().sendFrame126("@red@Locked", 37536 + j); //Locked skill update text
-				player.getPA().sendFrame126("@red@"+player.getPA().getLevelForXP(player.playerXP[j])+"", 37544 + j); // Update skill level text
+				player.getPA().sendFrame126("@red@"+player.getPA().getLevelForXP(player.playerXP[j]), 37544 + j); // Update skill level text
 			} else {
 				player.getPA().sendFrame126("@gre@Unlocked", 37536 + j); //Locked skill update text
-				player.getPA().sendFrame126("@gre@"+player.getPA().getLevelForXP(player.playerXP[j])+"", 37544 + j); // Update skill level text
+				player.getPA().sendFrame126("@gre@"+player.getPA().getLevelForXP(player.playerXP[j]), 37544 + j); // Update skill level text
 			}
 		}
 		
@@ -28,11 +28,11 @@ public class ExpLock {
 		if (!player.skillLock[i]) {
 			player.skillLock[i] = true;
 			player.getPA().sendFrame126("@red@Locked", 37536 + i); //Locked skill update text
-			player.getPA().sendFrame126("@red@"+player.getPA().getLevelForXP(player.playerXP[i])+"", 37544 + i); // Update skill level text
+			player.getPA().sendFrame126("@red@"+player.getPA().getLevelForXP(player.playerXP[i]), 37544 + i); // Update skill level text
 		} else {
 			player.skillLock[i] = false;
 			player.getPA().sendFrame126("@gre@Unlocked", 37536 + i); //Locked skill update text
-			player.getPA().sendFrame126("@gre@"+player.getPA().getLevelForXP(player.playerXP[i])+"", 37544 + i); // Update skill level text
+			player.getPA().sendFrame126("@gre@"+player.getPA().getLevelForXP(player.playerXP[i]), 37544 + i); // Update skill level text
 		}
 	}
 	

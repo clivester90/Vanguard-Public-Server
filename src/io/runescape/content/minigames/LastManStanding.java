@@ -195,9 +195,9 @@ public class LastManStanding {
 		 }
 	        if (lastManPlayers.size() == 1) {
 	            Player winner = lastManPlayers.removeFirst();
-				new Broadcast("" + winner.getLoginName() + " has won the last man standing event!").copyMessageToChatbox().submit();
+				new Broadcast(winner.getLoginName() + " has won the last man standing event!").copyMessageToChatbox().submit();
 	            winner.sendMessage("<col=3f3fff>You have won the last man standing event and receive an lms point!");
-				Discord.writeDropsSyncMessage(""+ winner.getLoginName() + " has won the last man standing event!");
+				Discord.writeDropsSyncMessage(winner.getLoginName() + " has won the last man standing event!");
 	    		winner.asPlayer().setLastManPoints(winner.asPlayer().getLastManPoints() + 1);
 	    		winner.asPlayer().setLastManWins(winner.asPlayer().getLastManWins() + 1);
 	            winner.getPA().movePlayer(3116, 3492, 0 );

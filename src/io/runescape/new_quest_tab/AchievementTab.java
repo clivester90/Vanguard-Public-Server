@@ -31,7 +31,7 @@ public class AchievementTab {
 
         player.getPA().sendFrame126(player.getDiaryManager().getVarrockDiary().hasDoneAll() ? "@gre@Varrock" : "<col=CC8400>Varrock", lines.get(index++));
 
-        player.getPA().sendFrame126(player.getDiaryManager().getArdougneDiary().hasDoneAll() ? "@gre@Ardougne" : "<col=CC8400>Ardougne", lines.get(index++));;
+        player.getPA().sendFrame126(player.getDiaryManager().getArdougneDiary().hasDoneAll() ? "@gre@Ardougne" : "<col=CC8400>Ardougne", lines.get(index++));
 
         player.getPA().sendFrame126(player.getDiaryManager().getDesertDiary().hasDoneAll() ? "@gre@Desert" : "<col=CC8400>Desert", lines.get(index++));
 
@@ -55,11 +55,11 @@ public class AchievementTab {
 
         player.getPA().sendFrame126("@or1@<img=24> Quests:", lines.get(index++));
 
-        player.getPA().sendFrame126(""+getQuestLineColor(new LearningTheRopesQuest(player))+"Learning the ropes", lines.get(index++));
+        player.getPA().sendFrame126(getQuestLineColor(new LearningTheRopesQuest(player))+"Learning the ropes", lines.get(index++));
 
-        player.getPA().sendFrame126(""+getQuestLineColor(new HftdQuest(player))+"Horror from the deep", lines.get(index++));
+        player.getPA().sendFrame126(getQuestLineColor(new HftdQuest(player))+"Horror from the deep", lines.get(index++));
 
-        player.getPA().sendFrame126(""+getQuestLineColor(new MonkeyMadnessQuest(player))+"Monkey madness", lines.get(index++));
+        player.getPA().sendFrame126(getQuestLineColor(new MonkeyMadnessQuest(player))+"Monkey madness", lines.get(index++));
 
 
        // dataList.add(new PlayerAssistant.TextData(player.getDiaryManager().getKourendKebosDiary().hasDoneAll() ? "@gre@Kourend" : "<col=CC8400>Kourend & Kebos", index)); //to be released

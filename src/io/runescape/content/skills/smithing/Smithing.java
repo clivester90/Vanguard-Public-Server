@@ -1136,93 +1136,93 @@ public class Smithing {
 		}
 		c.getPA().stopSkilling();
 		c.playerSkilling[Player.playerSmithing] = true;
-		Server.getEventHandler().submit(new Event<Player>("skilling", c, 3) {
-			@Override
-			public void execute() {
-				if (!c.playerSkilling[Player.playerSmithing]) {
-					stop();
-					return;
-				}
-				if (!c.getItems().playerHasItem(toremove, toremove2)) {
-					c.sendMessage("You have ran out of supplies");
-					stop();
-					return;
-				}
-				if (!c.getItems().playerHasItem(2347, 1)) {
-					c.sendMessage("You don't have a hammer with you!");
-					stop();
-					return;
-				}
-				if (c.smithingCounter == 0) {
-					stop();
-					return;
-				}
-				
-				/**
-				 * Chance of saving a bar while wearing herblore or max cape
-				 */
-				if (SkillcapePerks.SMITHING.isWearing(c) || SkillcapePerks.isWearingMaxCape(c)) {
-					if (Misc.random(4) == 2) {
-						c.sendMessage("You manage to save a bar.");
-					} else {
-						c.getItems().deleteItem2(toremove, toremove2);
-					}
-				} else {
-					c.getItems().deleteItem2(toremove, toremove2);
-				}
-				
-				if (ItemAssistant.getItemName(toadd).contains("bolt")) {
-					c.getItems().addItem(toadd, 10);
-				} else {
-					if (ItemAssistant.getItemName(toadd).contains("head")) {
-						c.getItems().addItem(toadd, 5);
-					} else {
-						if (ItemAssistant.getItemName(toadd).contains("arrow")) {
-							c.getItems().addItem(toadd, 15);
-						} else {
-							if (ItemAssistant.getItemName(toadd).contains("dart")) {
-								c.getItems().addItem(toadd, 10);
-							} else {
-								if (ItemAssistant.getItemName(toadd).contains("knife")) {
-									c.getItems().addItem(toadd, 5);
-								} else {
-									if (ItemAssistant.getItemName(toadd).contains("cannon")) {
-										c.getItems().addItem(toadd, 4);
-									} else {
-										c.getItems().addItem(toadd, 1);
-									}
-								}
-							}
-						}
-					}
-				}
-				if (toadd == 868) {
-					if (Boundary.isIn(c, Boundary.VARROCK_BOUNDARY)) {
-						c.getDiaryManager().getVarrockDiary().progress(VarrockDiaryEntry.SMITH_RUNE_KNIFES);
-					}
-				}
-				if (toadd == 1115) {
-					DailyTasks.increase(c, DailyTasks.PossibleTasks.IRON_PLATEBODYS);//Daily tasks
-				}
-				c.getPA().addSkillXP((int) xp, 13, true);
-				c.getPA().refreshSkill(13);
-				Achievements.increase(c, AchievementType.SMITH, 1);
-				c.sendMessage("You make a " + ItemAssistant.getItemName(toadd) + ".");
-				if (c.smithingCounter != 1) {
-					c.startAnimation(898);
-				}
-				c.smithingCounter--;
-			}
+		Server.getEventHandler().submit(new Event<>("skilling", c, 3) {
+            @Override
+            public void execute() {
+                if (!c.playerSkilling[Player.playerSmithing]) {
+                    stop();
+                    return;
+                }
+                if (!c.getItems().playerHasItem(toremove, toremove2)) {
+                    c.sendMessage("You have ran out of supplies");
+                    stop();
+                    return;
+                }
+                if (!c.getItems().playerHasItem(2347, 1)) {
+                    c.sendMessage("You don't have a hammer with you!");
+                    stop();
+                    return;
+                }
+                if (c.smithingCounter == 0) {
+                    stop();
+                    return;
+                }
 
-			@Override
-			public void stop() {
-				super.stop();
-				if (!c.isDisconnected() &&c.getSession()!=null) {
-					c.playerSkilling[Player.playerSmithing] = false;
-					c.smithingCounter = 0;
-				}
-			}
-		});
+                /**
+                 * Chance of saving a bar while wearing herblore or max cape
+                 */
+                if (SkillcapePerks.SMITHING.isWearing(c) || SkillcapePerks.isWearingMaxCape(c)) {
+                    if (Misc.random(4) == 2) {
+                        c.sendMessage("You manage to save a bar.");
+                    } else {
+                        c.getItems().deleteItem2(toremove, toremove2);
+                    }
+                } else {
+                    c.getItems().deleteItem2(toremove, toremove2);
+                }
+
+                if (ItemAssistant.getItemName(toadd).contains("bolt")) {
+                    c.getItems().addItem(toadd, 10);
+                } else {
+                    if (ItemAssistant.getItemName(toadd).contains("head")) {
+                        c.getItems().addItem(toadd, 5);
+                    } else {
+                        if (ItemAssistant.getItemName(toadd).contains("arrow")) {
+                            c.getItems().addItem(toadd, 15);
+                        } else {
+                            if (ItemAssistant.getItemName(toadd).contains("dart")) {
+                                c.getItems().addItem(toadd, 10);
+                            } else {
+                                if (ItemAssistant.getItemName(toadd).contains("knife")) {
+                                    c.getItems().addItem(toadd, 5);
+                                } else {
+                                    if (ItemAssistant.getItemName(toadd).contains("cannon")) {
+                                        c.getItems().addItem(toadd, 4);
+                                    } else {
+                                        c.getItems().addItem(toadd, 1);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (toadd == 868) {
+                    if (Boundary.isIn(c, Boundary.VARROCK_BOUNDARY)) {
+                        c.getDiaryManager().getVarrockDiary().progress(VarrockDiaryEntry.SMITH_RUNE_KNIFES);
+                    }
+                }
+                if (toadd == 1115) {
+                    DailyTasks.increase(c, DailyTasks.PossibleTasks.IRON_PLATEBODYS);//Daily tasks
+                }
+                c.getPA().addSkillXP((int) xp, 13, true);
+                c.getPA().refreshSkill(13);
+                Achievements.increase(c, AchievementType.SMITH, 1);
+                c.sendMessage("You make a " + ItemAssistant.getItemName(toadd) + ".");
+                if (c.smithingCounter != 1) {
+                    c.startAnimation(898);
+                }
+                c.smithingCounter--;
+            }
+
+            @Override
+            public void stop() {
+                super.stop();
+                if (!c.isDisconnected() && c.getSession() != null) {
+                    c.playerSkilling[Player.playerSmithing] = false;
+                    c.smithingCounter = 0;
+                }
+            }
+        });
 	}
 
 	public int getExp(final int barType) {

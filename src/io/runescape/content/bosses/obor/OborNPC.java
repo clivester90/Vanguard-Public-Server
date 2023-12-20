@@ -31,9 +31,7 @@ public class OborNPC extends NPC {
                         .setAnimation(new Animation(7183))
                         .setMaxHit(0)
                         .setAttackDelay(2)
-                        .setOnAttack(attack -> {
-                           createGroundEffect(attack.getVictim().asPlayer(), this);
-                        })
+                        .setOnAttack(attack -> createGroundEffect(attack.getVictim().asPlayer(), this))
                         .createNPCAutoAttack(),
 
                 new NPCAutoAttackBuilder()

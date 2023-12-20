@@ -25,7 +25,7 @@ public class AttackStyleSaveEntry implements PlayerSaveEntry {
 
     @Override
     public String encode(Player player, String key) {
-        return "" + player.getCombatConfigs().getAttackStyle();
+        return String.valueOf(player.getCombatConfigs().getAttackStyle());
     }
 
     @Override

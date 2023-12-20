@@ -10,7 +10,6 @@ public enum ModeType {
 	ROGUE_IRONMAN,
 	GROUP_IRONMAN,
 	EVENT_MAN;
-	;
 
 	public String getFormattedName() {
 		switch (this) {

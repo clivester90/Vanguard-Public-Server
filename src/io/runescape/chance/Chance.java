@@ -52,7 +52,7 @@ public class Chance<T> {
 	 *            - The represented object to add.
 	 */
 	public final void add(double weight, T t) {
-		objects.add(new WeightedChance<T>(weight, t));
+		objects.add(new WeightedChance<>(weight, t));
 		sum += weight;
 	}
 

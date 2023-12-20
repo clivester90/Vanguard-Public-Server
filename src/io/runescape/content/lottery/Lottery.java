@@ -118,7 +118,7 @@ public class Lottery {
 	public static void showAmountInterface(Player player, String action, String text) {
 		player.setAmountInterface(action);
 		player.getOutStream().createFrame(28);
-		player.sendMessage("" + text);
+		player.sendMessage(text);
 	}
 
 
@@ -184,9 +184,9 @@ public class Lottery {
 	public static void saveLotteryFiles() {
 		FileUtility.deleteAllLines(TOTAL_TICKETS_FILE);
 		FileUtility.deleteAllLines(LOTTERY_ENTRIES_FILE);
-		FileUtility.addLineOnTxt(TOTAL_TICKETS_FILE, totalTicketsPurchased + "");
+		FileUtility.addLineOnTxt(TOTAL_TICKETS_FILE, String.valueOf(totalTicketsPurchased));
 
-		ArrayList<String> line = new ArrayList<String>();
+		ArrayList<String> line = new ArrayList<>();
 		for (int index = 0; index < LotteryDatabase.lotteryDatabase.size(); index++) {
 			LotteryDatabase data = LotteryDatabase.lotteryDatabase.get(index);
 			line.add(data.getPlayerName() + Configuration.TEXT_SEPERATOR + data.getTicketsPurchased());
@@ -215,7 +215,7 @@ public class Lottery {
 
 		ArrayList<String> data = FileUtility.readFile(LOTTERY_ENTRIES_FILE);
 		for (int index = 0; index < data.size(); index++) {
-			String parse[] = data.get(index).split(Configuration.TEXT_SEPERATOR);
+			String[] parse = data.get(index).split(Configuration.TEXT_SEPERATOR);
 			String name = parse[0];
 			int ticketsPurchased = Integer.parseInt(parse[1]);
 			LotteryDatabase.lotteryDatabase.add(new LotteryDatabase(name, ticketsPurchased));
@@ -283,7 +283,7 @@ public class Lottery {
 	public final static double ULTRA_M_BOX_CHANCE = 125;
 
 	public static void announceWinner() {
-		ArrayList<String> data = new ArrayList<String>();
+		ArrayList<String> data = new ArrayList<>();
 
 		for (int index = 0; index < LotteryDatabase.lotteryDatabase.size(); index++) {
 			LotteryDatabase lotteryData = LotteryDatabase.lotteryDatabase.get(index);

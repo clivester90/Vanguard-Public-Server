@@ -147,11 +147,8 @@ public class DiceHandler {
 
 			PlayerHandler.nonNullStream()
 					.filter(player -> Boundary.isIn(player, Boundary.FLOWER_POKER_AREA) && player.heightLevel == 0)
-					.forEach(player -> {
-						player.sendMessage("[@red@DICE@bla@] @blu@" + Misc.capitalizeJustFirst(c.getDisplayName())
-						+ " @bla@rolled @red@" + roll + "@bla@ on the percentile dice.");
-						
-						}
+					.forEach(player -> player.sendMessage("[@red@DICE@bla@] @blu@" + Misc.capitalizeJustFirst(c.getDisplayName())
+                    + " @bla@rolled @red@" + roll + "@bla@ on the percentile dice.")
 					);
 			c.diceDelay = System.currentTimeMillis();
 		} else {

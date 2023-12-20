@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.everythingrs.donate.Donation;
 import com.everythingrs.vote.Vote;
 import com.google.common.collect.Lists;
 import io.runescape.Configuration;
@@ -771,30 +772,28 @@ public class Commands implements PacketType {
 
 
             if (playerCommand.startsWith("donated")) {
-                new java.lang.Thread() {
-                    public void run() {
-                        try {
-                            com.everythingrs.donate.Donation[] donations = com.everythingrs.donate.Donation.donations("YglTT3Ab0TvHkc7ifW0bDemvAYouBquLpmUiLIhFs0ycB388WNrjlLcZhZvj72nq6V87Fehs",
-                                    c.getLoginName());
-                            if (donations.length == 0) {
-                                c.sendMessage("You currently don't have any items waiting. You must donate first!");
-                                return;
-                            }
-                            if (donations[0].message != null) {
-                                c.sendMessage(donations[0].message);
-                                return;
-                            }
-                            for (com.everythingrs.donate.Donation donate : donations) {
-                                c.getItems().addItem(donate.product_id, donate.product_amount);
-                            }
-                            c.sendMessage("Thank you for donating!");
-                            PlayerHandler.executeGlobalMessage("<shad>@cr23@@cya@" + c.getLoginName() + " has just donated!");
-                        } catch (Exception e) {
-                            c.sendMessage("Api Services are currently offline. Please check back shortly");
-                            e.printStackTrace();
+                new Thread(() -> {
+                    try {
+                        Donation[] donations = Donation.donations("YglTT3Ab0TvHkc7ifW0bDemvAYouBquLpmUiLIhFs0ycB388WNrjlLcZhZvj72nq6V87Fehs",
+                                c.getLoginName());
+                        if (donations.length == 0) {
+                            c.sendMessage("You currently don't have any items waiting. You must donate first!");
+                            return;
                         }
+                        if (donations[0].message != null) {
+                            c.sendMessage(donations[0].message);
+                            return;
+                        }
+                        for (Donation donate : donations) {
+                            c.getItems().addItem(donate.product_id, donate.product_amount);
+                        }
+                        c.sendMessage("Thank you for donating!");
+                        PlayerHandler.executeGlobalMessage("<shad>@cr23@@cya@" + c.getLoginName() + " has just donated!");
+                    } catch (Exception e) {
+                        c.sendMessage("Api Services are currently offline. Please check back shortly");
+                        e.printStackTrace();
                     }
-                }.start();
+                }).start();
             }
             if (playerCommand.startsWith("proj")) {
                 if (!isManagment) {

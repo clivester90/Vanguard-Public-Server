@@ -32,12 +32,7 @@ public class DuskRanged implements Function<GrotesqueGuardianNpc, NPCAutoAttack>
                 .setAttackDelay(6)
                 .setDistanceRequiredForAttack(24)
                 .setMultiAttack(false)
-                .setPrayerProtectionPercentage(new Function<NPCCombatAttack, Double>() {
-                    @Override
-                    public Double apply(NPCCombatAttack npcCombatAttack) {
-                        return 0.3;
-                    }
-                })
+                .setPrayerProtectionPercentage(npcCombatAttack -> 0.3)
                 .setProjectile(new ProjectileBaseBuilder()
                         .setSendDelay(3)
                         .setSpeed(30)
@@ -59,12 +54,7 @@ public class DuskRanged implements Function<GrotesqueGuardianNpc, NPCAutoAttack>
                 .setDistanceRequiredForAttack(24)
                 .setMultiAttack(false)
                 .setOnAttack(onAttack)
-                .setPrayerProtectionPercentage(new Function<NPCCombatAttack, Double>() {
-                    @Override
-                    public Double apply(NPCCombatAttack npcCombatAttack) {
-                        return 0.3;
-                    }
-                })
+                .setPrayerProtectionPercentage(npcCombatAttack -> 0.3)
                 .setProjectile(projectile())
                 .createNPCAutoAttack();
     }

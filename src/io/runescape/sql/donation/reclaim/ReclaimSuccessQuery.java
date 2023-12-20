@@ -25,7 +25,7 @@ public class ReclaimSuccessQuery implements SqlQuery<Boolean> {
     public Boolean execute(DatabaseManager context, Connection connection) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("INSERT INTO reclaimed_donations VALUES(?, ?, ?, ?)");
         statement.setString(1, claimedUsername.toLowerCase());
-        statement.setString(2, claimedByUsername.toLowerCase());;
+        statement.setString(2, claimedByUsername.toLowerCase());
         statement.setInt(3, claimedAmount);
         statement.setDate(4, Date.valueOf(LocalDate.now()));
         return statement.executeUpdate() == 1;

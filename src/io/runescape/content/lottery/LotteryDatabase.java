@@ -38,7 +38,7 @@ public class LotteryDatabase {
 	/**
 	 * Store the Lottery object into this list to be able to loop through and extract variables from the Lottery object.
 	 */
-	public static List<LotteryDatabase> lotteryDatabase = new ArrayList<LotteryDatabase>();
+	public static List<LotteryDatabase> lotteryDatabase = new ArrayList<>();
 
 	/**
 	 * The object that stores everyones names along with how many tickest they purchased.

@@ -32,7 +32,7 @@ class GetDonationsQueryTest {
     void test_get() throws Exception {
         DonationItemList donationItems = exec(new GetDonationsQuery(player.getLoginName()));
         assertTrue(donationItems.size() > 0);
-        assertTrue(donationItems.stream().allMatch(it -> it.isClaimed()));
+        assertTrue(donationItems.stream().allMatch(DonationItem::isClaimed));
     }
 
     @Test

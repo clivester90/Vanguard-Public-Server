@@ -227,10 +227,9 @@ public class NPCDeath {
                         .forEach(p -> {
                             p.getItems().addItemToBankOrDrop(6792, 1);
                             PlayerHandler.executeGlobalMessage("@red@" + Misc.capitalize(p.getLoginName()) + "@blu@ has received the @red@Seren key @blu@from @red@Seren.");
-                            Discord.writeDropsSyncMessage("" + p.getLoginName() + " has received the seren key.");
+                            Discord.writeDropsSyncMessage(p.getLoginName() + " has received the seren key.");
                         });
             }
-            ;
 
         }
 
@@ -350,11 +349,9 @@ public class NPCDeath {
     }
 
     public static void announceKc(Player player, GameItem item, int kc) {
-        PlayerHandler.executeGlobalMessage("@pur@" + player.getDisplayNameFormatted() + " received a drop: " +
-                "" + ItemDef.forId(item.getId()).getName() + " x " + item.getAmount() + " at <col=E9362B>" + kc  + "</col>@pur@ kills.");
+        PlayerHandler.executeGlobalMessage("@pur@" + player.getDisplayNameFormatted() + " received a drop: " + ItemDef.forId(item.getId()).getName() + " x " + item.getAmount() + " at <col=E9362B>" + kc  + "</col>@pur@ kills.");
 
-        Discord.writeDropsSyncMessage(""+ player.getLoginName() + " received a drop: " +
-                "" + ItemDef.forId(item.getId()).getName() + " x " + item.getAmount() + " at " + kc  + " kills.");
+        Discord.writeDropsSyncMessage(player.getLoginName() + " received a drop: " + ItemDef.forId(item.getId()).getName() + " x " + item.getAmount() + " at " + kc  + " kills.");
     }
 
     public static boolean isDoubleDrops() {

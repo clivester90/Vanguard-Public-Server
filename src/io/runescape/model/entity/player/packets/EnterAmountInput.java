@@ -297,7 +297,7 @@ public class EnterAmountInput implements PacketType {
 				c.playerLevel[skill] = c.getPA().getLevelForXP(c.playerXP[skill]);
 				c.getPA().refreshSkill(skill);
 				c.combatLevel = c.calculateCombatLevel();
-				c.getPA().sendFrame126("Combat Level: " + c.combatLevel + "", 3983);
+				c.getPA().sendFrame126("Combat Level: " + c.combatLevel, 3983);
 				c.getPA().requestUpdates();
 				c.attackSkill = false;
 			} catch (Exception e) {
@@ -329,7 +329,7 @@ public class EnterAmountInput implements PacketType {
 				c.getPA().refreshSkill(skill);
 				c.combatLevel = c.calculateCombatLevel();
 				CombatPrayer.resetPrayers(c);
-				c.getPA().sendFrame126("Combat Level: " + c.combatLevel + "", 3983);
+				c.getPA().sendFrame126("Combat Level: " + c.combatLevel, 3983);
 				c.getPA().requestUpdates();
 				c.defenceSkill = false;
 			} catch (Exception e) {
@@ -360,7 +360,7 @@ public class EnterAmountInput implements PacketType {
 				c.playerLevel[skill] = c.getPA().getLevelForXP(c.playerXP[skill]);
 				c.getPA().refreshSkill(skill);
 				c.combatLevel = c.calculateCombatLevel();
-				c.getPA().sendFrame126("Combat Level: " + c.combatLevel + "", 3983);
+				c.getPA().sendFrame126("Combat Level: " + c.combatLevel, 3983);
 				c.getPA().requestUpdates();
 				c.strengthSkill = false;
 			} catch (Exception e) {
@@ -391,7 +391,7 @@ public class EnterAmountInput implements PacketType {
 				c.playerLevel[skill] = c.getPA().getLevelForXP(c.playerXP[skill]);
 				c.getPA().refreshSkill(skill);
 				c.combatLevel = c.calculateCombatLevel();
-				c.getPA().sendFrame126("Combat Level: " + c.combatLevel + "", 3983);
+				c.getPA().sendFrame126("Combat Level: " + c.combatLevel, 3983);
 				c.getPA().requestUpdates();
 				c.healthSkill = false;
 			} catch (Exception e) {
@@ -422,7 +422,7 @@ public class EnterAmountInput implements PacketType {
 				c.playerLevel[skill] = c.getPA().getLevelForXP(c.playerXP[skill]);
 				c.getPA().refreshSkill(skill);
 				c.combatLevel = c.calculateCombatLevel();
-				c.getPA().sendFrame126("Combat Level: " + c.combatLevel + "", 3983);
+				c.getPA().sendFrame126("Combat Level: " + c.combatLevel, 3983);
 				c.getPA().requestUpdates();
 				c.rangeSkill = false;
 			} catch (Exception e) {
@@ -454,7 +454,7 @@ public class EnterAmountInput implements PacketType {
 				c.playerLevel[skill] = c.getPA().getLevelForXP(c.playerXP[skill]);
 				c.getPA().refreshSkill(skill);
 				c.combatLevel = c.calculateCombatLevel();
-				c.getPA().sendFrame126("Combat Level: " + c.combatLevel + "", 3983);
+				c.getPA().sendFrame126("Combat Level: " + c.combatLevel, 3983);
 				c.getPA().requestUpdates();
 				c.prayerSkill = false;
 			} catch (Exception e) {
@@ -486,7 +486,7 @@ public class EnterAmountInput implements PacketType {
 				c.playerLevel[skill] = c.getPA().getLevelForXP(c.playerXP[skill]);
 				c.getPA().refreshSkill(skill);
 				c.combatLevel = c.calculateCombatLevel();
-				c.getPA().sendFrame126("Combat Level: " + c.combatLevel + "", 3983);
+				c.getPA().sendFrame126("Combat Level: " + c.combatLevel, 3983);
 				c.getPA().requestUpdates();
 				c.mageSkill = false;
 			} catch (Exception e) {

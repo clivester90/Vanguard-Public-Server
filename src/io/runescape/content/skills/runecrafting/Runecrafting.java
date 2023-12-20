@@ -181,7 +181,7 @@ public class Runecrafting extends SkillHandler {
 					player.getItems().addItemUnderAnyCircumstance(25590, 1);//Runecrating casket
 					player.sendMessage("@red@You have managed to receive an runecrating casket.");
 					Announcement.announce("@red@"+player.getLoginName()+" @pur@has received an @red@Runecrafting Casket @pur@from @red@grinding Runecrafting.");
-					Discord.writeDropsSyncMessage(""+player.getLoginName()+" has received an Runecrafting Casket from grinding Runecrafting.");
+					Discord.writeDropsSyncMessage(player.getLoginName()+" has received an Runecrafting Casket from grinding Runecrafting.");
 				}
 			}
 		}

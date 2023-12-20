@@ -157,7 +157,7 @@ public class Food {
             return replace;
         }
 
-        public static HashMap<Integer, FoodToEat> food = new HashMap<Integer, FoodToEat>();
+        public static HashMap<Integer, FoodToEat> food = new HashMap<>();
 
         /**
          * Determines if food is a Combo food

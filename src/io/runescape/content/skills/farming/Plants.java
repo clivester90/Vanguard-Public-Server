@@ -69,7 +69,7 @@ public enum Plants {
 	public final double harvestExperience;
 	public final SeedType type;
 
-	private static final Map<Integer, Plants> plantsBySeed = new HashMap<Integer, Plants>();
+	private static final Map<Integer, Plants> plantsBySeed = new HashMap<>();
 	
 	static {
 		for (Plants plant : Plants.values()) {

@@ -64,8 +64,7 @@ public class DailyTasks {
 		GEM_ROCK(TaskTypes.SKILLING, 25, "Mine gem rocks"),
 		NATURE_RUNES(TaskTypes.SKILLING, 25, "Craft nature runes"),
 		;
-		;
-		
+
 		public final TaskTypes type;
 		public final int amount;
 		final String message;

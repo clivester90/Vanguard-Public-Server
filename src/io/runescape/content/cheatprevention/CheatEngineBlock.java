@@ -9,10 +9,10 @@ public class CheatEngineBlock {
 	
 	public static boolean tradingPostAlert(Player c) {
 		if ((!Boundary.isIn(c, Boundary.EDGE_TRADING_AREA) && !Boundary.isIn(c, Boundary.SKILLING_ISLAND_BANK))) {
-			Misc.println("" + c.getDisplayName() + " is trying to use a cheatengine to open the Trading post.");
-			Misc.println("" + c.getDisplayName() + " is trying to use a cheatengine to open the Trading post.");
-			Misc.println("" + c.getDisplayName() + " is trying to use a cheatengine to open the Trading post.");
-			Misc.println("" + c.getDisplayName() + " is trying to use a cheatengine to open the Trading post.");
+			Misc.println(c.getDisplayName() + " is trying to use a cheatengine to open the Trading post.");
+			Misc.println(c.getDisplayName() + " is trying to use a cheatengine to open the Trading post.");
+			Misc.println(c.getDisplayName() + " is trying to use a cheatengine to open the Trading post.");
+			Misc.println(c.getDisplayName() + " is trying to use a cheatengine to open the Trading post.");
 			Discord.writeServerSyncMessage("[CHEAT ENGINE] " + c.getDisplayName() + " is using a cheat engine for the @red@trading post!");
 			Discord.writeCheatEngineMessage("[CHEAT ENGINE] " + c.getDisplayName() + " is using a cheat engine for the @red@trading post!");
 
@@ -34,10 +34,10 @@ public class CheatEngineBlock {
 
 		public static boolean BankAlert(Player c) {
 			if ((!Boundary.isIn(c, Boundary.EDGE_TRADING_AREA) && !Boundary.isIn(c, Boundary.SKILLING_ISLAND_BANK))) {
-				Misc.println("" + c.getDisplayName() + " is trying to use a cheatengine to open the Bank.");
-				Misc.println("" + c.getDisplayName() + " is trying to use a cheatengine to open the Bank.");
-				Misc.println("" + c.getDisplayName() + " is trying to use a cheatengine to open the Bank.");
-				Misc.println("" + c.getDisplayName() + " is trying to use a cheatengine to open the Bank.");
+				Misc.println(c.getDisplayName() + " is trying to use a cheatengine to open the Bank.");
+				Misc.println(c.getDisplayName() + " is trying to use a cheatengine to open the Bank.");
+				Misc.println(c.getDisplayName() + " is trying to use a cheatengine to open the Bank.");
+				Misc.println(c.getDisplayName() + " is trying to use a cheatengine to open the Bank.");
 				Discord.writeServerSyncMessage("[CHEAT ENGINE] " + c.getDisplayName() + " is using a cheat engine for the @red@Bank!");
 				Discord.writeCheatEngineMessage("[CHEAT ENGINE] " + c.getDisplayName() + " is using a cheat engine for the @red@Bank!");
 				c.setTeleportToX(2086);
@@ -58,10 +58,10 @@ public class CheatEngineBlock {
 		
 		public static boolean PresetAlert(Player c) {
 			if ((!Boundary.isIn(c, Boundary.EDGE_TRADING_AREA) && !Boundary.isIn(c, Boundary.SKILLING_ISLAND_BANK)) ) {
-				Misc.println("" + c.getDisplayName() + " is trying to use a cheatengine to open the Presets.");
-				Misc.println("" + c.getDisplayName() + " is trying to use a cheatengine to open the Presets.");
-				Misc.println("" + c.getDisplayName() + " is trying to use a cheatengine to open the Presets.");
-				Misc.println("" + c.getDisplayName() + " is trying to use a cheatengine to open the Presets.");
+				Misc.println(c.getDisplayName() + " is trying to use a cheatengine to open the Presets.");
+				Misc.println(c.getDisplayName() + " is trying to use a cheatengine to open the Presets.");
+				Misc.println(c.getDisplayName() + " is trying to use a cheatengine to open the Presets.");
+				Misc.println(c.getDisplayName() + " is trying to use a cheatengine to open the Presets.");
 				Discord.writeServerSyncMessage("[CHEAT ENGINE] " + c.getDisplayName() + " @blu@is using a cheat engine for the @red@Presets!");
 				Discord.writeCheatEngineMessage("[CHEAT ENGINE] " + c.getDisplayName() + " @blu@is using a cheat engine for the @red@Presets!");
 //				TourneyManager.getSingleton().leaveLobby(c, false);
@@ -80,10 +80,10 @@ public class CheatEngineBlock {
 			}
 		}
 		public static boolean DonatorBoxAlert(Player c) {
-			Misc.println(""+ c.getDisplayName() +" is trying to use a cheatengine to open the donator boxes.");
-			Misc.println(""+ c.getDisplayName() +" is trying to use a cheatengine to open the donator boxes.");
-			Misc.println(""+ c.getDisplayName() +" is trying to use a cheatengine to open the donator boxes.");
-			Misc.println(""+ c.getDisplayName() +" is trying to use a cheatengine to open the donator boxes.");
+			Misc.println(c.getDisplayName() +" is trying to use a cheatengine to open the donator boxes.");
+			Misc.println(c.getDisplayName() +" is trying to use a cheatengine to open the donator boxes.");
+			Misc.println(c.getDisplayName() +" is trying to use a cheatengine to open the donator boxes.");
+			Misc.println(c.getDisplayName() +" is trying to use a cheatengine to open the donator boxes.");
 			Discord.writeServerSyncMessage("[CHEAT ENGINE] "+ c.getDisplayName() +" is using a cheat engine for the @red@donator boxes!");
 			Discord.writeCheatEngineMessage("[CHEAT ENGINE] " + c.getDisplayName() + " is using a cheat engine for the @red@donator boxes!");
 			c.setTeleportToX(2086);
@@ -96,10 +96,10 @@ public class CheatEngineBlock {
 			return true;
 		}
 		public static boolean ExperienceAbuseAlert(Player c) {
-			Misc.println(""+ c.getDisplayName() +" is trying to use a cheatengine to open the lamps.");
-			Misc.println(""+ c.getDisplayName() +" is trying to use a cheatengine to open the lamps.");
-			Misc.println(""+ c.getDisplayName() +" is trying to use a cheatengine to open the lamps.");
-			Misc.println(""+ c.getDisplayName() +" is trying to use a cheatengine to open the lamps.");
+			Misc.println(c.getDisplayName() +" is trying to use a cheatengine to open the lamps.");
+			Misc.println(c.getDisplayName() +" is trying to use a cheatengine to open the lamps.");
+			Misc.println(c.getDisplayName() +" is trying to use a cheatengine to open the lamps.");
+			Misc.println(c.getDisplayName() +" is trying to use a cheatengine to open the lamps.");
 			Discord.writeServerSyncMessage("[CHEAT ENGINE] "+ c.getDisplayName() +" is using a cheat engine for the lamps!");
 			Discord.writeCheatEngineMessage("[CHEAT ENGINE] " + c.getDisplayName() + " is using a cheat engine for the lamps!");
 			c.setTeleportToX(2086);

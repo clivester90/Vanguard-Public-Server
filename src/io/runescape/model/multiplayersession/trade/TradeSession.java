@@ -222,7 +222,7 @@ public class TradeSession extends MultiplayerSession {
 
 	@Override
 	public void give() {
-		if (players.stream().anyMatch(client -> Objects.isNull(client))) {
+		if (players.stream().anyMatch(Objects::isNull)) {
 			finish(MultiplayerSessionFinalizeType.WITHDRAW_ITEMS);
 			return;
 		}

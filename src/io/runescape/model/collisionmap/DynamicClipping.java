@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DynamicClipping {
 
-    public static List<DynamicClipping> dynamicClipping = new ArrayList<DynamicClipping>();
+    public static List<DynamicClipping> dynamicClipping = new ArrayList<>();
 
     public int x;
 

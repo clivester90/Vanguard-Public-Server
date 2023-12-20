@@ -9,7 +9,7 @@ import io.runescape.model.entity.player.save.PlayerSaveEntry;
 public class QuestingPlayerSaveEntry implements PlayerSaveEntry {
     @Override
     public List<String> getKeys(Player player) {
-        return player.getQuesting().getQuestList().stream().map(quest -> quest.getName()).collect(Collectors.toList());
+        return player.getQuesting().getQuestList().stream().map(Quest::getName).collect(Collectors.toList());
     }
 
     @Override
@@ -22,7 +22,7 @@ public class QuestingPlayerSaveEntry implements PlayerSaveEntry {
     public String encode(Player player, String key) {
         for (Quest quest : player.getQuesting().getQuestList()) {
             if (quest.getName().equalsIgnoreCase(key)) {
-                return quest.getStage() + "";
+                return String.valueOf(quest.getStage());
             }
         }
         System.err.println("Can't determine encoding for quest: " + key);

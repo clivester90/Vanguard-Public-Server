@@ -45,17 +45,17 @@ public class Clan {
 	/**
 	 * The banned members.
 	 */
-	public ArrayList<String> bannedMembers = new ArrayList<String>();
+	public ArrayList<String> bannedMembers = new ArrayList<>();
 
 	/**
 	 * The ranked clan members.
 	 */
-	public ArrayList<String> rankedMembers = new ArrayList<String>();
+	public ArrayList<String> rankedMembers = new ArrayList<>();
 
 	/**
 	 * The clan member ranks.
 	 */
-	public ArrayList<Integer> ranks = new ArrayList<Integer>();
+	public ArrayList<Integer> ranks = new ArrayList<>();
 
 	/**
 	 * Needs to be updated for players.
@@ -487,7 +487,7 @@ public class Clan {
 	 * @param player
 	 */
 	public Clan(Player player) {
-		setTitle(player.getLoginName() + "");
+		setTitle(player.getLoginName());
 		setFounder(player.getLoginName().toLowerCase());
 	}
 

@@ -28,9 +28,7 @@ public class KratosMelee implements Function<KratosNpc, NPCAutoAttack> {
                 }
             }
         };
-        Consumer<NPCCombatAttack> onAttack = t -> {
-            nightmare.attackCounter++;
-        };
+        Consumer<NPCCombatAttack> onAttack = t -> nightmare.attackCounter++;
         return new NPCAutoAttackBuilder()
                 .setAnimation(new Animation(7018))
                 .setCombatType(CombatType.MELEE)
@@ -41,18 +39,8 @@ public class KratosMelee implements Function<KratosNpc, NPCAutoAttack> {
                 .setDistanceRequiredForAttack(1)
                 .setOnHit(onDamage)
                 .setOnAttack(onAttack)
-                .setSelectAutoAttack(new Function<NPCCombatAttack, Boolean>() {
-                    @Override
-                    public Boolean apply(NPCCombatAttack npcCombatAttack) {
-                        return npcCombatAttack.getNpc().distance(npcCombatAttack.getVictim().getPosition()) <= 1;
-                    }
-                })
-                .setPrayerProtectionPercentage(new Function<NPCCombatAttack, Double>() {
-                    @Override
-                    public Double apply(NPCCombatAttack npcCombatAttack) {
-                        return 0.2d;
-                    }
-                })
+                .setSelectAutoAttack(npcCombatAttack -> npcCombatAttack.getNpc().distance(npcCombatAttack.getVictim().getPosition()) <= 1)
+                .setPrayerProtectionPercentage(npcCombatAttack -> 0.2d)
                 .createNPCAutoAttack();
     }
 }

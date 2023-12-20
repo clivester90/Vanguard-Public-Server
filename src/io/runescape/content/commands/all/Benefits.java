@@ -17,7 +17,7 @@ public class Benefits extends Command {
 	public void execute(Player c, String commandName, String input) {
 		  c.getPA()
           .sendFrame126(
-                  ""+ Configuration.DONATOR_BENEFITS_LINK+"", 12000);
+                  Configuration.DONATOR_BENEFITS_LINK, 12000);
 }
 
 	@Override

@@ -118,40 +118,40 @@ public class Prayer {
 		player.startAnimation(3705);
 		lastAction.reset();
 		lastAction.start();
-		Server.getEventHandler().submit(new Event<Player>("skilling", player, 3) {
-			int remaining = amount - 1;
+		Server.getEventHandler().submit(new Event<>("skilling", player, 3) {
+            int remaining = amount - 1;
 
-			@Override
-			public void execute() {
-				int chance = Misc.random(2) + 1;
-				if (player == null || player.isDisconnected() || player.getSession() == null) {
-					super.stop();
-					return;
-				}
-				if (!player.getItems().playerHasItem(bone.getItemId())) {
-					super.stop();
-					player.sendMessage("You have run out of " + (definition == null ? "bones" : definition.getName()) + ".");
-					return;
-				}
-				if (remaining <= 0) {
-					super.stop();
-					return;
-				}
-				remaining--;
-				player.facePosition(player.objectX, player.objectY);
-				player.getPA().stillGfx(624, objectX, objectY, player.heightLevel, 1);
-				player.getPA().addSkillXP(bone.getExperience() * 3 + xpAdd, Skill.PRAYER.getId(), true);
-				if (player.getPosition().inWild() && chance == 1) {
-					player.getItems().addItem(bone.getItemId(), 1);
-					player.sendMessage("@red@The god of chaos smiles on you and returns your sacrifice.");
-				}
-				player.getItems().deleteItem2(bone.getItemId(), 1);
-				player.startAnimation(3705);
-				lastAction.reset();
-				lastAction.start();
-			}
+            @Override
+            public void execute() {
+                int chance = Misc.random(2) + 1;
+                if (player == null || player.isDisconnected() || player.getSession() == null) {
+                    super.stop();
+                    return;
+                }
+                if (!player.getItems().playerHasItem(bone.getItemId())) {
+                    super.stop();
+                    player.sendMessage("You have run out of " + (definition == null ? "bones" : definition.getName()) + ".");
+                    return;
+                }
+                if (remaining <= 0) {
+                    super.stop();
+                    return;
+                }
+                remaining--;
+                player.facePosition(player.objectX, player.objectY);
+                player.getPA().stillGfx(624, objectX, objectY, player.heightLevel, 1);
+                player.getPA().addSkillXP(bone.getExperience() * 3 + xpAdd, Skill.PRAYER.getId(), true);
+                if (player.getPosition().inWild() && chance == 1) {
+                    player.getItems().addItem(bone.getItemId(), 1);
+                    player.sendMessage("@red@The god of chaos smiles on you and returns your sacrifice.");
+                }
+                player.getItems().deleteItem2(bone.getItemId(), 1);
+                player.startAnimation(3705);
+                lastAction.reset();
+                lastAction.start();
+            }
 
-		});
+        });
 	}
 
 	public void onBonesBuriedOrCrushed(Bone bone, boolean crushed) {

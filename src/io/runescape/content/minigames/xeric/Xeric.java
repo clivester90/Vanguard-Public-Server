@@ -31,7 +31,7 @@ public class Xeric {
 	private int index;
 
 	
-	private List <Player> xericTeam = new ArrayList<Player>();
+	private List <Player> xericTeam = new ArrayList<>();
 	private final List<NPC> spawns = new ArrayList<>();
 	
 	public void spawn() {

@@ -30,7 +30,7 @@ public abstract class Log {
 	 * A convenience function used to reference the {@link Log#execute()} function that has been overridden in all subclasses.
 	 */
 	public static void executeAll() {
-		logs.forEach(log -> log.execute());
+		logs.forEach(Log::execute);
 	}
 
 }

@@ -59,7 +59,7 @@ public class EventTab {
             player.getPA().sendFrame126("<col=CC8400>- Maledictus:@gre@ Rev Caves@red@(41)", lines.get(index++));
 
         } else {
-            player.getPA().sendFrame126("<col=CC8400>- Maledictus:<col=00c0ff> "+time+"", lines.get(index++));
+            player.getPA().sendFrame126("<col=CC8400>- Maledictus:<col=00c0ff> "+time, lines.get(index++));
         }
 
 
@@ -71,7 +71,7 @@ public class EventTab {
             player.getPA().sendFrame126("<col=CC8400>- Solak:@gre@ has spawned ::Solak", lines.get(index++));
 
         } else {
-            player.getPA().sendFrame126("<col=CC8400>- Solak:<col=00c0ff> "+time3+"", lines.get(index++));
+            player.getPA().sendFrame126("<col=CC8400>- Solak:<col=00c0ff> "+time3, lines.get(index++));
         }
 
 
@@ -83,7 +83,7 @@ public class EventTab {
             player.getPA().sendFrame126("<col=CC8400>- Nightmare:@gre@ Rogue's Castle@red@(52)", lines.get(index++));
 
         } else {
-            player.getPA().sendFrame126("<col=CC8400>- Nightmare:<col=00c0ff> "+time4+"", lines.get(index++));
+            player.getPA().sendFrame126("<col=CC8400>- Nightmare:<col=00c0ff> "+time4, lines.get(index++));
         }
 
         long milliseconds5 = Configuration.GLOD_EVENT_TIMER * 600;
@@ -94,7 +94,7 @@ public class EventTab {
             player.getPA().sendFrame126("<col=CC8400>- Glod:@gre@ has spawned ::Glod", lines.get(index++));
 
         } else {
-            player.getPA().sendFrame126("<col=CC8400>- Glod:<col=00c0ff> "+time5+"", lines.get(index++));
+            player.getPA().sendFrame126("<col=CC8400>- Glod:<col=00c0ff> "+time5, lines.get(index++));
         }
 
         long milliseconds6 = Configuration.GALVEK_EVENT_TIMER * 600;
@@ -105,7 +105,7 @@ public class EventTab {
             player.getPA().sendFrame126("<col=CC8400>- Galvek:@gre@ has spawned ::Galvek", lines.get(index++));
 
         } else {
-            player.getPA().sendFrame126("<col=CC8400>- Galvek:<col=00c0ff> "+time6+"", lines.get(index++));
+            player.getPA().sendFrame126("<col=CC8400>- Galvek:<col=00c0ff> "+time6, lines.get(index++));
         }
 
         long milliseconds7 = Configuration.STAR_EVENT_TIMER * 600;
@@ -115,7 +115,7 @@ public class EventTab {
         if (ShootingStar.getCurrentLocation() != null) {
             player.getPA().sendFrame126("@whi@- Star: @gre@" + ShootingStar.getCurrentLocation().getLocationName(), lines.get(index++));
         } else {
-            player.getPA().sendFrame126("@whi@- Star:<col=00c0ff> "+time7+"", lines.get(index++));
+            player.getPA().sendFrame126("@whi@- Star:<col=00c0ff> "+time7, lines.get(index++));
         }
 
         long milliseconds8 = Configuration.TREE_EVENT_TIMER * 600;
@@ -125,7 +125,7 @@ public class EventTab {
         if (EvilTree.getCurrentLocation() != null) {
             player.getPA().sendFrame126("<col=CC8400>- Crystal Tree: @gre@" + EvilTree.getCurrentLocation().getLocationName(), lines.get(index++));
         } else {
-            player.getPA().sendFrame126("<col=CC8400>- Crystal Tree:<col=00c0ff> "+time8+"", lines.get(index++));
+            player.getPA().sendFrame126("<col=CC8400>- Crystal Tree:<col=00c0ff> "+time8, lines.get(index++));
         }
 
         long milliseconds2 = Configuration.BONUS_SKILL_TIMER * 600;
@@ -148,7 +148,7 @@ public class EventTab {
             player.getPA().sendFrame126("<col=CC8400>- Wild Event:@gre@ x2 drops", lines.get(index++));
             player.getPA().sendFrame126("@gre@" + minutesLeft + " minutes remaining.", lines.get(index++));
         } else {
-            player.getPA().sendFrame126("<col=CC8400>- Wild Event:<col=00c0ff> "+time9+"", lines.get(index++));
+            player.getPA().sendFrame126("<col=CC8400>- Wild Event:<col=00c0ff> "+time9, lines.get(index++));
         }
 
         while (index < lines.size()) {

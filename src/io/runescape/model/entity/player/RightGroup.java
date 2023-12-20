@@ -89,7 +89,7 @@ public class RightGroup {
 			return;
 		}
 		Right prevPrimary = primary;
-		Set<Right> remove = rights.stream().filter(r -> toAdd.isOrInherits(r)).collect(Collectors.toSet());
+		Set<Right> remove = rights.stream().filter(toAdd::isOrInherits).collect(Collectors.toSet());
 		remove.forEach(this::remove);
 		if (prevPrimary != primary) {
 			updatePrimary();

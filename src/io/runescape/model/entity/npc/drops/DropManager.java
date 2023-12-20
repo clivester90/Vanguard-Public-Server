@@ -555,7 +555,7 @@ public class DropManager {
             if (Misc.random(1000) == 1) {
                 //PlayerHandler.executeGlobalMessage("<col=FF0000>[Lootations] @cr19@ </col><col=255>"+ Misc.capitalize(player.playerName) + "</col> received a <col=255>Darklight!</col>.");
                 Server.itemHandler.createGroundItem(player, 6746, location.getX(), location.getY(), location.getZ(), 1, player.getIndex());
-                Discord.writeDropsSyncMessage(""+ player.getLoginName() + " has received the dark light.");
+                Discord.writeDropsSyncMessage(player.getLoginName() + " has received the dark light.");
             }
         }
 

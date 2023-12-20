@@ -52,7 +52,7 @@ public class ObjectOptionTwo {
 		}
 
 		if (c.getRights().isOrInherits(Right.OWNER) && c.debugMessage)
-			c.sendMessage("Clicked Object Option 2:  "+objectType+"");
+			c.sendMessage("Clicked Object Option 2:  "+objectType);
 
 
 

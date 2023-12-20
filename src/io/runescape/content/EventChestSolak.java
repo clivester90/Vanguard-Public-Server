@@ -240,7 +240,7 @@ public class EventChestSolak  {
 			int rights = c.getRights().getPrimary().getValue() - 1;
 			if (random > 98) {
 				PlayerHandler.executeGlobalMessage("@blu@"+c.getLoginName() + " has received: @red@"+item.getAmount()+"x "+ ItemAssistant.getItemName(item.getId()) + " @blu@from the solak chest!");
-				Discord.writeDropsSyncMessage(""+c.getLoginName() + " has received:" +item.getAmount()+"x "+ ItemAssistant.getItemName(item.getId()) + " from the solak chest!");
+				Discord.writeDropsSyncMessage(c.getLoginName() + " has received:" +item.getAmount()+"x "+ ItemAssistant.getItemName(item.getId()) + " from the solak chest!");
 			}
 		} else {
 			c.sendMessage("@dre@I think i need an solak key to open this chest...");

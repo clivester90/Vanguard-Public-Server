@@ -79,95 +79,92 @@ public class Herblore {
 
 	public void mix(int primary) {
 		Optional<PotionData.FinishedPotions> potion = FINISHED.stream().filter(p -> p.getPrimary().getId() == primary && containsSecondaries(p)).findFirst();
-		potion.ifPresent(p -> {
-			
-			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
-				@Override
-				public void execute(CycleEventContainer container) {
-					if (player == null || player.isDisconnected() || player.getSession() == null) {
-						onStopped();
-						return;
-					}
-					if (player.getItems().playerHasItem(p.getPrimary().getId(), p.getPrimary().getAmount()) && containsSecondaries(p)) {
-					player.getPA().stopSkilling();
-						ItemDef definition = ItemDef.forId(p.getResult().getId());
-					String name = definition != null && definition.getName() != null ? definition.getName() : "unknown";
-					if (player.playerLevel[Skill.HERBLORE.getId()] < p.getLevel()) {
-						player.sendMessage("You need a herblore level of " + p.getLevel() + " to make " + (definition != null ? definition.getName() : "potion") + ".");
-						container.stop();
-						return;
-					}
-					player.startAnimation(363);
-					Arrays.asList(p.getIngredients()).stream().forEach(ing -> player.getItems().deleteItem2(ing.getId(), ing.getAmount()));
-					
-					/**
-					 * Chance of saving a herb while wearing herblore or max cape
-					 */
-					if (SkillcapePerks.HERBLORE.isWearing(player) || SkillcapePerks.isWearingMaxCape(player)) {
-						if (Misc.random(4) == 2) {
-							player.sendMessage("You manage to save an ingredient.");
-						} else {
-							player.getItems().deleteItem2(p.getPrimary().getId(), p.getPrimary().getAmount());
-						}
-					} else {
-						player.getItems().deleteItem2(p.getPrimary().getId(), p.getPrimary().getAmount());
-					}
-					
-					player.getItems().addItem(p.getResult().getId(), p.getResult().getAmount());
-					player.getPA().addSkillXP(p.getExperience(), Skill.HERBLORE.getId(), true);
-					player.sendMessage("You combine all of the ingredients and make a " + name + ".");
-					Achievements.increase(player, AchievementType.HERB, 1);
-					switch (p) {
-					case SUPER_DEFENCE:
-						if (Boundary.isIn(player, Boundary.RELLEKKA_BOUNDARY)) {
-							player.getDiaryManager().getFremennikDiary().progress(FremennikDiaryEntry.MIX_SUPER_DEFENCE);
-						}
-						break;
+		potion.ifPresent(p -> CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+            @Override
+            public void execute(CycleEventContainer container) {
+                if (player == null || player.isDisconnected() || player.getSession() == null) {
+                    onStopped();
+                    return;
+                }
+                if (player.getItems().playerHasItem(p.getPrimary().getId(), p.getPrimary().getAmount()) && containsSecondaries(p)) {
+                player.getPA().stopSkilling();
+                    ItemDef definition = ItemDef.forId(p.getResult().getId());
+                String name = definition != null && definition.getName() != null ? definition.getName() : "unknown";
+                if (player.playerLevel[Skill.HERBLORE.getId()] < p.getLevel()) {
+                    player.sendMessage("You need a herblore level of " + p.getLevel() + " to make " + (definition != null ? definition.getName() : "potion") + ".");
+                    container.stop();
+                    return;
+                }
+                player.startAnimation(363);
+                Arrays.asList(p.getIngredients()).stream().forEach(ing -> player.getItems().deleteItem2(ing.getId(), ing.getAmount()));
 
-					case PRAYER:
-						DailyTasks.increase(player, DailyTasks.PossibleTasks.PRAYER_POTIONS);//Daily tasks
-						break;
+                /**
+                 * Chance of saving a herb while wearing herblore or max cape
+                 */
+                if (SkillcapePerks.HERBLORE.isWearing(player) || SkillcapePerks.isWearingMaxCape(player)) {
+                    if (Misc.random(4) == 2) {
+                        player.sendMessage("You manage to save an ingredient.");
+                    } else {
+                        player.getItems().deleteItem2(p.getPrimary().getId(), p.getPrimary().getAmount());
+                    }
+                } else {
+                    player.getItems().deleteItem2(p.getPrimary().getId(), p.getPrimary().getAmount());
+                }
+
+                player.getItems().addItem(p.getResult().getId(), p.getResult().getAmount());
+                player.getPA().addSkillXP(p.getExperience(), Skill.HERBLORE.getId(), true);
+                player.sendMessage("You combine all of the ingredients and make a " + name + ".");
+                Achievements.increase(player, AchievementType.HERB, 1);
+                switch (p) {
+                case SUPER_DEFENCE:
+                    if (Boundary.isIn(player, Boundary.RELLEKKA_BOUNDARY)) {
+                        player.getDiaryManager().getFremennikDiary().progress(FremennikDiaryEntry.MIX_SUPER_DEFENCE);
+                    }
+                    break;
+
+                case PRAYER:
+                    DailyTasks.increase(player, DailyTasks.PossibleTasks.PRAYER_POTIONS);//Daily tasks
+                    break;
 
 
-					case SUPER_COMBAT_4:
-						if (Boundary.isIn(player, Boundary.ARDOUGNE_ZOO_BRIDGE_BOUNDARY)) {
-							player.getDiaryManager().getArdougneDiary().progress(ArdougneDiaryEntry.SUPER_COMBAT_ARD);
-						}
-						if (Boundary.isIn(player, Boundary.VARROCK_BOUNDARY)) {
-							player.getDiaryManager().getVarrockDiary().progress(VarrockDiaryEntry.SUPER_COMBAT);
-						}
-						break;
-					case ANTI_VENOM_4:
-					case ANTI_VENOM_3:
-					case ANTI_VENOM_2:
-					case ANTI_VENOM_1:
-						if (Boundary.isIn(player, Boundary.BRIMHAVEN_BOUNDARY)) {
-							player.getDiaryManager().getKaramjaDiary().progress(KaramjaDiaryEntry.ANTI_VENOM);
-						}
-						break;
-					case WEAPON_POISON_PLUS_PLUS:
-						if (Boundary.isIn(player, Boundary.CATHERBY_BOUNDARY)) {
-							player.getDiaryManager().getKandarinDiary().progress(KandarinDiaryEntry.WEAPON_POISON_PLUS_PLUS);
-						}
-						break;
-					case COMBAT:
-						if (Boundary.isIn(player, Boundary.DESERT_BOUNDARY)) {
-							player.getDiaryManager().getDesertDiary().progress(DesertDiaryEntry.COMBAT_POTION);
-						}
-						break;
-					default:
-						break;
-					}
-					} else {
-						player.sendMessage("You have run out of supplies to do this.");
-						container.stop();
-					}
-				}
-				@Override
-				public void onStopped() {
-				}
-			}, 2);
-		});
+                case SUPER_COMBAT_4:
+                    if (Boundary.isIn(player, Boundary.ARDOUGNE_ZOO_BRIDGE_BOUNDARY)) {
+                        player.getDiaryManager().getArdougneDiary().progress(ArdougneDiaryEntry.SUPER_COMBAT_ARD);
+                    }
+                    if (Boundary.isIn(player, Boundary.VARROCK_BOUNDARY)) {
+                        player.getDiaryManager().getVarrockDiary().progress(VarrockDiaryEntry.SUPER_COMBAT);
+                    }
+                    break;
+                case ANTI_VENOM_4:
+                case ANTI_VENOM_3:
+                case ANTI_VENOM_2:
+                case ANTI_VENOM_1:
+                    if (Boundary.isIn(player, Boundary.BRIMHAVEN_BOUNDARY)) {
+                        player.getDiaryManager().getKaramjaDiary().progress(KaramjaDiaryEntry.ANTI_VENOM);
+                    }
+                    break;
+                case WEAPON_POISON_PLUS_PLUS:
+                    if (Boundary.isIn(player, Boundary.CATHERBY_BOUNDARY)) {
+                        player.getDiaryManager().getKandarinDiary().progress(KandarinDiaryEntry.WEAPON_POISON_PLUS_PLUS);
+                    }
+                    break;
+                case COMBAT:
+                    if (Boundary.isIn(player, Boundary.DESERT_BOUNDARY)) {
+                        player.getDiaryManager().getDesertDiary().progress(DesertDiaryEntry.COMBAT_POTION);
+                    }
+                    break;
+                default:
+                    break;
+                }
+                } else {
+                    player.sendMessage("You have run out of supplies to do this.");
+                    container.stop();
+                }
+            }
+            @Override
+            public void onStopped() {
+            }
+        }, 2));
 	}
 	
 	public boolean makeUnfinishedPotion(final Player player, final GameItem itemUsed) {

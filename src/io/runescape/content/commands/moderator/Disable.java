@@ -84,25 +84,17 @@ public class Disable extends Command {
 					plr -> Configuration.DISABLE_LOGIN_THROTTLE = !Configuration.DISABLE_LOGIN_THROTTLE
 			),
 			new Disabling("ccmessage", "Disable cc messages.", () -> Configuration.DISABLE_CC_MESSAGE,
-					plr -> {
-						Configuration.DISABLE_CC_MESSAGE = !Configuration.DISABLE_CC_MESSAGE;
-					}
+					plr -> Configuration.DISABLE_CC_MESSAGE = !Configuration.DISABLE_CC_MESSAGE
 			),
 			new Disabling("freshlogin", "Disable fresh logins.", () -> Configuration.DISABLE_FRESH_LOGIN,
-					plr -> {
-						Configuration.DISABLE_FRESH_LOGIN = !Configuration.DISABLE_FRESH_LOGIN;
-					}
+					plr -> Configuration.DISABLE_FRESH_LOGIN = !Configuration.DISABLE_FRESH_LOGIN
 			),
 			new Disabling("newmac", "Disable new macs.", () -> Configuration.DISABLE_NEW_MAC,
-					plr -> {
-						Configuration.DISABLE_NEW_MAC = !Configuration.DISABLE_NEW_MAC;
-					}
+					plr -> Configuration.DISABLE_NEW_MAC = !Configuration.DISABLE_NEW_MAC
 			),
 
 			new Disabling("packet log", "Disable all packets being logged.", () -> Configuration.DISABLE_PACKET_LOG,
-					plr -> {
-						Configuration.DISABLE_PACKET_LOG = !Configuration.DISABLE_PACKET_LOG;
-					}
+					plr -> Configuration.DISABLE_PACKET_LOG = !Configuration.DISABLE_PACKET_LOG
 			),
 	};
 

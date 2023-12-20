@@ -87,9 +87,7 @@ public class CyclicEvent {
 	}
 
 	public void destroy() {
-		Callable<CyclicEventResult> destroyEvent = () -> {
-			return CyclicEventResult.END_NO_FINISH;
-		};
+		Callable<CyclicEventResult> destroyEvent = () -> CyclicEventResult.END_NO_FINISH;
 		onCycle = Optional.of(destroyEvent);
 	}
 	

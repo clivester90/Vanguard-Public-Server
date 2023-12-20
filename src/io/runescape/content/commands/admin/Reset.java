@@ -52,7 +52,7 @@ public class Reset extends Command {
 				c.getPA().itemOnInterface(player.playerItems[i], player.playerItemsN[i], 36083, i);
 			}
 			for (int i = 0; i < player.playerLevel.length; i++) {
-				c.getPA().sendFrame126("" + player.playerLevel[i], 36049 + i);
+				c.getPA().sendFrame126(String.valueOf(player.playerLevel[i]), 36049 + i);
 			}
 			break;
 		}

@@ -510,7 +510,7 @@ public class PetHandler {
             player.getCollectionLog().handleDrop(player, 5, p.itemId, 1);
             PlayerHandler.executeGlobalMessage("@red@" + player.getDisplayNameFormatted()
                     + " has received a pet drop from " + p.parent + ".");
-            Discord.writeDropsSyncMessage(""+ player.getLoginName() + " has received a pet drop from " + p.parent + ".");
+            Discord.writeDropsSyncMessage(player.getLoginName() + " has received a pet drop from " + p.parent + ".");
         }
     }
 

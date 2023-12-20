@@ -18,41 +18,32 @@ public class As extends Command {
 	
 	public void addSpawn(Player player, String animal) {
 		String filePath = Server.getDataDirectory() + "/" + player.getLoginName() + " Lava Dragon.txt";
-		BufferedWriter bw = null;
 
-		try {
-			bw = new BufferedWriter(new FileWriter(filePath, true));
-			switch (animal.toUpperCase()) {
-			
-			case "B":
-				bw.write("spawn =	6593	" + player.absX + "	" + player.absY + "	" + player.heightLevel + "	1	23	240	150	Lava Dragon");
-				NPCSpawning.spawnNpc(player, 6593, player.absX, player.absY, 0, 1, 0, false, false);
-				break;
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
+            switch (animal.toUpperCase()) {
 
-			case "W":
-				bw.write("spawn =	955	" + player.absX + "	" + player.absY + "	" + player.heightLevel + "	1	3	20	20	Kalphite Worker");
-				NPCSpawning.spawnNpc(player, 955, player.absX, player.absY, 0, 1, 0, false, false);
-				break;
+                case "B":
+                    bw.write("spawn =	6593	" + player.absX + "	" + player.absY + "	" + player.heightLevel + "	1	23	240	150	Lava Dragon");
+                    NPCSpawning.spawnNpc(player, 6593, player.absX, player.absY, 0, 1, 0, false, false);
+                    break;
 
-			case "G":
-				bw.write("spawn =	959	" + player.absX + "	" + player.absY + "	" + player.heightLevel + "	1	12	110	110	Kalphite Guardian");
-				NPCSpawning.spawnNpc(player, 959, player.absX, player.absY, 0, 1, 0, false, false);
-				break;
-				
-			}
-			player.sendMessage("@red@You set spawn at: X: " + player.absX + ", Y: " + player.absY);
-			bw.newLine();
-			bw.flush();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		} finally {
-			if (bw != null) {
-				try {
-					bw.close();
-				} catch (IOException ignored) {
-				}
-			}
-		}
+                case "W":
+                    bw.write("spawn =	955	" + player.absX + "	" + player.absY + "	" + player.heightLevel + "	1	3	20	20	Kalphite Worker");
+                    NPCSpawning.spawnNpc(player, 955, player.absX, player.absY, 0, 1, 0, false, false);
+                    break;
+
+                case "G":
+                    bw.write("spawn =	959	" + player.absX + "	" + player.absY + "	" + player.heightLevel + "	1	12	110	110	Kalphite Guardian");
+                    NPCSpawning.spawnNpc(player, 959, player.absX, player.absY, 0, 1, 0, false, false);
+                    break;
+
+            }
+            player.sendMessage("@red@You set spawn at: X: " + player.absX + ", Y: " + player.absY);
+            bw.newLine();
+            bw.flush();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
 	}
 
 }

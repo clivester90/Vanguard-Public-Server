@@ -15,9 +15,7 @@ public class LobbyManager {
                 Lobby lobby = lobbyType.getLobbyClass().newInstance();
                 lobby.startTimer();
                 lobbies.add(lobby);
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         });

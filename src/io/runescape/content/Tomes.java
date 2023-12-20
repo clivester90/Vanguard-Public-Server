@@ -31,7 +31,7 @@ public enum Tomes {
 		return skillId;
 	}
 	
-	private static HashMap<Integer, Tomes> tomes = new HashMap<Integer, Tomes>();
+	private static HashMap<Integer, Tomes> tomes = new HashMap<>();
 
 	static {
 		for (final Tomes tomes : Tomes.values()) {

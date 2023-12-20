@@ -269,7 +269,7 @@ public class KoranianChest implements Lootable {
 				c.sendMessage("@blu@You stick your hand in the chest and pull an item out of the chest.");
 				PlayerHandler.executeGlobalMessage("@blu@"+c.getLoginName() + " has received: @red@"+ ItemAssistant.getItemName(item.getId()) + " @blu@from the nightmare chest!");
 				if (random > 94) {
-					Discord.writeDropsSyncMessage(""+ c.getLoginName() + "  has received: "+ ItemAssistant.getItemName(item.getId()) + " from the nightmare chest!");
+					Discord.writeDropsSyncMessage(c.getLoginName() + "  has received: "+ ItemAssistant.getItemName(item.getId()) + " from the nightmare chest!");
 				}
 			} else {
 				c.getDH().sendStatement("You will need a nightmare key",

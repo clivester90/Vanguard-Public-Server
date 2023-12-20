@@ -182,7 +182,7 @@ public class LootingBagContainer {
         if (amount <= 1) {
             return "";
         }
-        String amountToString = "" + amount;
+        String amountToString = String.valueOf(amount);
         if (amount > 1000000000) {
             amountToString = "@gre@" + (amount / 1000000000) + "B";
         } else if (amount > 1000000) {

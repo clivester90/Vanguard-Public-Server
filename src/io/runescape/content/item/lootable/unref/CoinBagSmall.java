@@ -35,19 +35,19 @@ public class CoinBagSmall extends CycleEvent {
 	 * Stores an array of items into each map with the corresponding rarity to the list
 	 */
 	static {
-		items.put(Rarity.COMMON, 
-			Arrays.asList(
-					new GameItem(995, 9000))
+		items.put(Rarity.COMMON,
+                List.of(
+                        new GameItem(995, 9000))
 	);
 			
 		items.put(Rarity.UNCOMMON,
-				Arrays.asList(
-						new GameItem(995, 21000))
+                List.of(
+                        new GameItem(995, 21000))
 	);
 			
 			items.put(Rarity.RARE,
-					Arrays.asList(
-							new GameItem(995, 33000))
+                    List.of(
+                            new GameItem(995, 33000))
 	);
 							
 							

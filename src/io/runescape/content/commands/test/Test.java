@@ -89,9 +89,7 @@ public class Test extends Command {
 			case "printuntradeables":
 				ItemDef.getDefinitions().values().stream().filter(it -> !it.isTradable()
 						&& !new AlwaysKeptDeathItem().getItemIds().contains(it.getId())
-				).sorted((a, b) -> GameItem.comparePrice(new GameItem(a.getId()), new GameItem(b.getId()))).forEach(it -> {
-					System.out.println(it.getId() + ", " + it.getName() + ", value=" + Misc.insertCommas(it.getShopValue()));
-				});
+				).sorted((a, b) -> GameItem.comparePrice(new GameItem(a.getId()), new GameItem(b.getId()))).forEach(it -> System.out.println(it.getId() + ", " + it.getName() + ", value=" + Misc.insertCommas(it.getShopValue())));
 				break;
 			case "maxcapes":
 				Arrays.stream(MaxCapeCombinations.values()).forEach(it -> {
@@ -253,9 +251,7 @@ public class Test extends Command {
 			
 		case "pkkills":
 			player.sendMessage("Kills of players online:");
-			PlayerHandler.nonNullStream().filter(Objects::nonNull).forEach(a -> {
-					player.sendMessage(a.getDisplayName() + " -> " + a.killcount +" kills.");
-			});
+			PlayerHandler.nonNullStream().filter(Objects::nonNull).forEach(a -> player.sendMessage(a.getDisplayName() + " -> " + a.killcount +" kills."));
 			break;
 			
 		case "ks":

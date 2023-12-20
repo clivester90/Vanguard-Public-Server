@@ -75,19 +75,9 @@ public class KratosWeb implements Function<KratosNpc, NPCAutoAttack> {
         };
         List<Player> players = NPCAutoAttack.getPlayers(nightmare);
         return new NPCAutoAttackBuilder()
-                .setSelectPlayersForMultiAttack(new Function<>() {
-                    @Override
-                    public List<Player> apply(NPCCombatAttack npcCombatAttack) {
-                        return players.stream().filter(plr -> Boundary.isIn(plr, Boundary.KRATOS_AREA))
-                                .collect(Collectors.toList());
-                    }
-                })
-                .setSelectAutoAttack(new Function<NPCCombatAttack, Boolean>() {
-                    @Override
-                    public Boolean apply(NPCCombatAttack npcCombatAttack) {
-                        return nightmare.attackCounter >= 4;
-                    }
-                })
+                .setSelectPlayersForMultiAttack(npcCombatAttack -> players.stream().filter(plr -> Boundary.isIn(plr, Boundary.KRATOS_AREA))
+                        .collect(Collectors.toList()))
+                .setSelectAutoAttack(npcCombatAttack -> nightmare.attackCounter >= 4)
                 .setAnimation(new Animation(7021))
                 .setCombatType(CombatType.SPECIAL)
                 .setAttackDelay(4)

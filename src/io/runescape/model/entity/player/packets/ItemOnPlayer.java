@@ -221,19 +221,19 @@ public class ItemOnPlayer implements PacketType {
 			case 1:
 			case 2:
 				c.sendMessage("How unlucky, this present was empty.");
-				other.sendMessage(""+ c.getDisplayName() +" used a present on you and it was empty!");
+				other.sendMessage(c.getDisplayName() +" used a present on you and it was empty!");
 				break;
 				
 			case 3:
 				other.getItems().addItem(13343, 1);
 				c.sendMessage("How unlucky, "+ other.getDisplayName() +" got the Black Santa Hat!");
-				other.sendMessage(""+ c.getDisplayName() +" used a present on you and you got a Black Santa Hat!");
+				other.sendMessage(c.getDisplayName() +" used a present on you and you got a Black Santa Hat!");
 				break;
 				
 			case 4:
 				c.getItems().addItem(13343, 1);
 				c.sendMessage("You were lucky enough to find a Black Santa Hat in the present!");
-				other.sendMessage(""+ c.getDisplayName() +" used a present on you and got a Black Santa Hat!");
+				other.sendMessage(c.getDisplayName() +" used a present on you and got a Black Santa Hat!");
 				break;
 		}
 			break;

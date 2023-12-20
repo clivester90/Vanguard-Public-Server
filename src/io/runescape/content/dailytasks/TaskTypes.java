@@ -12,6 +12,6 @@ public enum TaskTypes {
 
 	PVM,
 	
-	SKILLING;
-	
+	SKILLING
+
 }

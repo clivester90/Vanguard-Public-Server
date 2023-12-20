@@ -21,7 +21,7 @@ public class StyleWarningPlayerSaveEntry implements PlayerSaveEntry {
 
     @Override
     public String encode(Player player, String key) {
-        return "" + player.getAttributes().getBoolean(StyleWarning.STYLE_WARNING_TOGGLE_KEY);
+        return String.valueOf(player.getAttributes().getBoolean(StyleWarning.STYLE_WARNING_TOGGLE_KEY));
     }
 
     @Override

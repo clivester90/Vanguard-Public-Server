@@ -38,7 +38,7 @@ public class Lowpkarena {
     /**
      * @note Stores player and State
      */
-    private static final Map<Player, String> playerMap = Collections.synchronizedMap(new HashMap<Player, String>());
+    private static final Map<Player, String> playerMap = Collections.synchronizedMap(new HashMap<>());
     
     /**
      * @note Where to spawn when pits game starts

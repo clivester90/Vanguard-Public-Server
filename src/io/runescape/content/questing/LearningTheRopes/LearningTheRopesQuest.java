@@ -112,32 +112,20 @@ public class LearningTheRopesQuest extends Quest {
 
                     player.start(getXerosGuide()
                             .npc("Hello, how can I help you?")
-                            .option(new DialogueOption("How do I teleport?", p -> {
-                                        player.start(getXerosGuide()
-                                                .npc("You can use any highlighted teleport in the spellbook.")
-                                                .exit(plr -> {
-                                                            plr.getPA().closeAllWindows();
-                                        }
-                                                ));
-                                    }
+                            .option(new DialogueOption("How do I teleport?", p -> player.start(getXerosGuide()
+                                    .npc("You can use any highlighted teleport in the spellbook.")
+                                    .exit(plr -> plr.getPA().closeAllWindows()
+                                    ))
                                     ),
-                                    new DialogueOption("How do I vote?",  p -> {
-                                        player.start(getXerosGuide()
-                                                .npc("Use ::vote to open our vote page, and ::claim to claim.")
-                                                .exit(plr -> {
-                                                            plr.getPA().closeAllWindows();
-                                                        }
-                                                ));
-                                    }
+                                    new DialogueOption("How do I vote?",  p -> player.start(getXerosGuide()
+                                            .npc("Use ::vote to open our vote page, and ::claim to claim.")
+                                            .exit(plr -> plr.getPA().closeAllWindows()
+                                            ))
                                     ),
-                                    new DialogueOption("How do I open the drop table?",  p -> {
-                                        player.start(getXerosGuide()
-                                                .npc("Go to the quest tab and then the coin tab to find the drop table.")
-                                                .exit(plr -> {
-                                                            plr.getPA().closeAllWindows();
-                                                        }
-                                                ));
-                                    }
+                                    new DialogueOption("How do I open the drop table?",  p -> player.start(getXerosGuide()
+                                            .npc("Go to the quest tab and then the coin tab to find the drop table.")
+                                            .exit(plr -> plr.getPA().closeAllWindows()
+                                            ))
                                     ),
                                     new DialogueOption("Do you know of any quest?",  p -> {
                                         int totalReq = (player.getMode().is5x() ? 100 : 500);
@@ -156,9 +144,7 @@ public class LearningTheRopesQuest extends Quest {
                                                             }),
                                                             new DialogueOption("No, I hate quests.", e -> e.getPA().closeAllWindows())
                                                     )
-                                                    .exit(plr -> {
-                                                                plr.getPA().closeAllWindows();
-                                                            }
+                                                    .exit(plr -> plr.getPA().closeAllWindows()
                                                     ));
                                         }else {
                                             player.sendMessage("@red@ You need a total level of 500 to start this quest!");
@@ -196,9 +182,7 @@ public class LearningTheRopesQuest extends Quest {
                             .player("Where can I find the hobgoblin?")
                             .npc(DialogueExpression.CALM_TALK, "Use any teleport in your spellbook to open ", "the teleport menu. Then go to 'Skilling Island'.")
                             .npc(DialogueExpression.CALM_TALK, "Once you kill the hobgoblin and get my sword", "come back and show me it.")
-                            .exit(plr -> {
-                                plr.getPA().closeAllWindows();
-                            }));
+                            .exit(plr -> plr.getPA().closeAllWindows()));
                 }  else if (getStage() == 8) {
                     player.start(getXerosGuide()
                             .player(DialogueExpression.HAPPY,"I defeated the hobgoblin and found your sword!")
@@ -223,9 +207,7 @@ public class LearningTheRopesQuest extends Quest {
                             .npc(DialogueExpression.CALM, "These points can be used to buy pets with amazing perks,", "and other items!")
                             .player("Interesting.")
                             .npc(DialogueExpression.CALM_TALK, "Visit the fire by heading west of the slayer masters.", "Once there burn my sword and report back to me.")
-                            .exit(plr -> {
-                                plr.getPA().closeAllWindows();
-                            }));
+                            .exit(plr -> plr.getPA().closeAllWindows()));
                 }  else if (getStage() == 10) {
                     player.start(getXerosGuide()
                             .player(DialogueExpression.HAPPY,"Your sword is now burned!")
@@ -239,41 +221,25 @@ public class LearningTheRopesQuest extends Quest {
 
                     player.start(getXerosGuide()
                             .npc("Hello, how can I help you?")
-                            .option(new DialogueOption("How do I teleport?", p -> {
-                                        player.start(getXerosGuide()
-                                                .npc("You can use any highlighted teleport in the spellbook.")
-                                                .exit(plr -> {
-                                                            plr.getPA().closeAllWindows();
-                                                        }
-                                                ));
-                                    }
+                            .option(new DialogueOption("How do I teleport?", p -> player.start(getXerosGuide()
+                                    .npc("You can use any highlighted teleport in the spellbook.")
+                                    .exit(plr -> plr.getPA().closeAllWindows()
+                                    ))
                                     ),
-                                    new DialogueOption("How do I vote?",  p -> {
-                                        player.start(getXerosGuide()
-                                                .npc("Use ::vote to open our vote page, and ::reward 1 all to claim.")
-                                                .exit(plr -> {
-                                                            plr.getPA().closeAllWindows();
-                                                        }
-                                                ));
-                                    }
+                                    new DialogueOption("How do I vote?",  p -> player.start(getXerosGuide()
+                                            .npc("Use ::vote to open our vote page, and ::reward 1 all to claim.")
+                                            .exit(plr -> plr.getPA().closeAllWindows()
+                                            ))
                                     ),
-                                    new DialogueOption("How do I open the drop table?",  p -> {
-                                        player.start(getXerosGuide()
-                                                .npc("Go to the quest tab and then the coin tab to find the drop table.")
-                                                .exit(plr -> {
-                                                            plr.getPA().closeAllWindows();
-                                                        }
-                                                ));
-                                    }
+                                    new DialogueOption("How do I open the drop table?",  p -> player.start(getXerosGuide()
+                                            .npc("Go to the quest tab and then the coin tab to find the drop table.")
+                                            .exit(plr -> plr.getPA().closeAllWindows()
+                                            ))
                                     ),
-                                    new DialogueOption("Do you know of any quest?",  p -> {
-                                        player.start(getXerosGuide()
-                                                .npc(DialogueExpression.HAPPY,"No, but come back another time.")
-                                                .exit(plr -> {
-                                                            plr.getPA().closeAllWindows();
-                                                        }
-                                                ));
-                                    }
+                                    new DialogueOption("Do you know of any quest?",  p -> player.start(getXerosGuide()
+                                            .npc(DialogueExpression.HAPPY,"No, but come back another time.")
+                                            .exit(plr -> plr.getPA().closeAllWindows()
+                                            ))
                                     ),
                                     new DialogueOption("No, I'm fine.", p -> p.getPA().closeAllWindows())
                             ));

@@ -7,6 +7,6 @@ import io.runescape.net.ChannelHandler;
 public class Connections extends Command {
     @Override
     public void execute(Player player, String commandName, String input) {
-       player.sendMessage("There are currently {} active connections.", "" + ChannelHandler.getActiveConnections());
+       player.sendMessage("There are currently {} active connections.", String.valueOf(ChannelHandler.getActiveConnections()));
     }
 }

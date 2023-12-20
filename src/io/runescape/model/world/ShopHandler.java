@@ -41,9 +41,7 @@ public class ShopHandler {
 	}
 
 	public static void load() {
-		ShopDef.getDefinitions().values().forEach(shop -> {
-			addShop(shop.getId(), shop.getName(), shop.getItems());
-		});
+		ShopDef.getDefinitions().values().forEach(shop -> addShop(shop.getId(), shop.getName(), shop.getItems()));
 	}
 
 	public static int addShopAnywhere(String name, List<ShopItem> items) {

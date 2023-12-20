@@ -19,7 +19,7 @@ class RaidsTest {
     public void testScaling() {
         for (int i = 0; i < 100; i++) {
             int[] stats = getScaledStats(OLM_HP, OLM_ATTACK, OLM_DEFENCE, i);
-            System.out.println(String.format("Olm stats, groupSize=%d, HP=%d, attack=%d, defence=%d", i, stats[2], stats[0], stats[1]));
+            System.out.printf("Olm stats, groupSize=%d, HP=%d, attack=%d, defence=%d%n", i, stats[2], stats[0], stats[1]);
         }
     }
 
@@ -27,7 +27,7 @@ class RaidsTest {
     public void testRanking() {
         List<RaidsRank> players = Lists.newArrayList();
         for (int i = 1; i <= 100; i++) {
-            players.add(new RaidsRank(TestPlayer.named(i + ""), 100 - i));
+            players.add(new RaidsRank(TestPlayer.named(String.valueOf(i)), 100 - i));
         }
 
         List<RaidsRank> ranks = buildRankList(players);

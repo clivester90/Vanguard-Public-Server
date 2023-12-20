@@ -4,10 +4,7 @@ import io.runescape.model.entity.player.Player;
 import io.runescape.model.entity.player.PlayerHandler;
 import io.runescape.util.Misc;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -22,23 +19,9 @@ public class NexHighscore implements Highscore {
 
     @Override
     public void process() {
-        playerList = (ArrayList<Player>) Arrays.asList(PlayerHandler.players).stream().filter(p -> p != null).collect(Collectors.toList());
+        playerList = (ArrayList<Player>) Arrays.asList(PlayerHandler.players).stream().filter(Objects::nonNull).collect(Collectors.toList());
 
-        Collections.sort(playerList, new Comparator<Player>() {
-            @Override
-            public int compare(Player player1, Player player2) {
-                Player client1 = (Player) player1;
-                Player client2 = (Player) player2;
-
-                if (client1.nexKills == client2.nexKills) {
-                    return 0;
-                } else if (client2.nexKills > client1.nexKills) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            }
-        });
+        playerList.sort((player1, player2) -> Integer.compare(player2.nexKills, player1.nexKills));
     }
 
     @Override

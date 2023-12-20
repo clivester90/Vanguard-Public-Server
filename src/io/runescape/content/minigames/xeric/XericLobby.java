@@ -15,7 +15,7 @@ import io.runescape.util.Misc;
  */
 public class XericLobby {
 
-	private static final List <Player> xericLobby = new CopyOnWriteArrayList<Player>();//gets players in lobby
+	private static final List <Player> xericLobby = new CopyOnWriteArrayList<>();//gets players in lobby
 	
 	public static int xericLobbyTimer = 60;// how many seconds til timer starts
 

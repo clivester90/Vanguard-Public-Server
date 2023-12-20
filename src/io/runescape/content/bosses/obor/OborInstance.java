@@ -99,8 +99,6 @@ public class OborInstance extends InstancedArea {
 
     @Override
     public void onDispose() {
-        getPlayers().stream().forEach(plr -> {
-            remove(plr);
-        });
+        getPlayers().stream().forEach(this::remove);
     }
 }

@@ -147,7 +147,7 @@ public class NpcWikiDumper {
 
                         String parsedAttackSpeed = attackSpeedElement.attr("alt").replaceAll("Monster attack speed ",
                                 "").replaceAll(".png", "");
-                        int attackSpeed = Integer.valueOf(parsedAttackSpeed);
+                        int attackSpeed = Integer.parseInt(parsedAttackSpeed);
                         stats.setAttackSpeed(attackSpeed);
                     }
                 }
@@ -183,12 +183,12 @@ public class NpcWikiDumper {
 
                 if (statsBoxes.size() == 17) {
                     // COMBAT LEVELS
-                    int hitpointsLevel = Integer.valueOf(statsBoxes.get(0).text().replace(",", ""));
-                    int attackLevel = Integer.valueOf(statsBoxes.get(1).text());
-                    int strengthLevel = Integer.valueOf(statsBoxes.get(2).text());
-                    int defenceLevel = Integer.valueOf(statsBoxes.get(3).text());
-                    int magicLevel = Integer.valueOf(statsBoxes.get(4).text());
-                    int rangeLevel = Integer.valueOf(statsBoxes.get(5).text());
+                    int hitpointsLevel = Integer.parseInt(statsBoxes.get(0).text().replace(",", ""));
+                    int attackLevel = Integer.parseInt(statsBoxes.get(1).text());
+                    int strengthLevel = Integer.parseInt(statsBoxes.get(2).text());
+                    int defenceLevel = Integer.parseInt(statsBoxes.get(3).text());
+                    int magicLevel = Integer.parseInt(statsBoxes.get(4).text());
+                    int rangeLevel = Integer.parseInt(statsBoxes.get(5).text());
 
                     stats.setLevel(NpcCombatSkill.HITPOINTS, hitpointsLevel);
                     stats.setLevel(NpcCombatSkill.ATTACK, attackLevel);
@@ -198,12 +198,12 @@ public class NpcWikiDumper {
                     stats.setLevel(NpcCombatSkill.RANGE, rangeLevel);
 
                     // ATTACK BONUSES
-                    int attackBonus = Integer.valueOf(statsBoxes.get(6).text().replace("+", ""));
-                    int strengthBonus = Integer.valueOf(statsBoxes.get(7).text().replace("+", ""));
-                    int magicBonus = Integer.valueOf(statsBoxes.get(8).text().replace("+", ""));
-                    int magicStrengthBonus = Integer.valueOf(statsBoxes.get(9).text().replace("+", ""));
-                    int rangeBonus = Integer.valueOf(statsBoxes.get(10).text().replace("+", ""));
-                    int rangeStengthBonus = Integer.valueOf(statsBoxes.get(11).text().replace("+", ""));
+                    int attackBonus = Integer.parseInt(statsBoxes.get(6).text().replace("+", ""));
+                    int strengthBonus = Integer.parseInt(statsBoxes.get(7).text().replace("+", ""));
+                    int magicBonus = Integer.parseInt(statsBoxes.get(8).text().replace("+", ""));
+                    int magicStrengthBonus = Integer.parseInt(statsBoxes.get(9).text().replace("+", ""));
+                    int rangeBonus = Integer.parseInt(statsBoxes.get(10).text().replace("+", ""));
+                    int rangeStengthBonus = Integer.parseInt(statsBoxes.get(11).text().replace("+", ""));
 
                     stats.setAttackBonus(NpcBonus.ATTACK_BONUS, attackBonus);
                     stats.setAttackBonus(NpcBonus.STRENGTH_BONUS, strengthBonus);
@@ -213,11 +213,11 @@ public class NpcWikiDumper {
                     stats.setAttackBonus(NpcBonus.RANGE_STRENGTH_BONUS, rangeStengthBonus);
 
                     // DEFENCE BONUSES
-                    int stabDefenceBonus = Integer.valueOf(statsBoxes.get(12).text());
-                    int slashDefenceBonus = Integer.valueOf(statsBoxes.get(13).text());
-                    int crushDefenceBonus = Integer.valueOf(statsBoxes.get(14).text());
-                    int magicDefenceBonus = Integer.valueOf(statsBoxes.get(15).text());
-                    int rangeDefenceBonus = Integer.valueOf(statsBoxes.get(16).text());
+                    int stabDefenceBonus = Integer.parseInt(statsBoxes.get(12).text());
+                    int slashDefenceBonus = Integer.parseInt(statsBoxes.get(13).text());
+                    int crushDefenceBonus = Integer.parseInt(statsBoxes.get(14).text());
+                    int magicDefenceBonus = Integer.parseInt(statsBoxes.get(15).text());
+                    int rangeDefenceBonus = Integer.parseInt(statsBoxes.get(16).text());
 
                     stats.setDefenceBonus(NpcBonus.STAB_BONUS, stabDefenceBonus);
                     stats.setDefenceBonus(NpcBonus.SLASH_BONUS, slashDefenceBonus);

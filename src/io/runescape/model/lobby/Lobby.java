@@ -196,9 +196,7 @@ public abstract class Lobby {
     public void startTimer() {
         if (timer != null) timer.destroy();
         timer = new CyclicEvent();
-        timer.onStart(() -> {
-            timeLeft = waitTime();
-        }).onCycle(() -> {
+        timer.onStart(() -> timeLeft = waitTime()).onCycle(() -> {
             filterList();
             if (shouldResetTimer()) timeLeft = waitTime();
             timeLeft -= 600;

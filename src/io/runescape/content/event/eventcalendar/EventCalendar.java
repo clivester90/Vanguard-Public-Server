@@ -265,13 +265,9 @@ public class EventCalendar {
         final ChallengeParticipant participant = new ChallengeParticipant(player, dateProvider);
         return Server.getDatabaseManager().exec((context, connection) -> {
             if (new HasPlayerAlreadyParticipatedQuery(participant).execute(context, connection)) {
-                player.addQueuedAction(player -> {
-                    player.sendMessage(MESSAGE_COLOUR + "You've already participated in the " + EVENT_NAME + " today.");
-                });
+                player.addQueuedAction(player -> player.sendMessage(MESSAGE_COLOUR + "You've already participated in the " + EVENT_NAME + " today."));
             } else if (new CheckForBlacklistQuery(participant).execute(context, connection)) {
-                player.addQueuedAction(player -> {
-                    player.sendMessage(MESSAGE_COLOUR + "You've been blacklisted and can no longer compete in the event.");
-                });
+                player.addQueuedAction(player -> player.sendMessage(MESSAGE_COLOUR + "You've been blacklisted and can no longer compete in the event."));
             } else {
                 new AddParticipantQuery(participant, voted ? 2 : 1).execute(context, connection);
                 player.addQueuedAction(player1 -> {

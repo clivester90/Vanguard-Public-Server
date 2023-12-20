@@ -22,8 +22,7 @@ public class WeaponMode {
 
     @Override
     public String toString() {
-        return "{" +
-                "" + index +
+        return "{" + index +
                 ", " + attackStyle +
                 ", " + combatStyle +
                 '}';

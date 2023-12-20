@@ -63,7 +63,7 @@ public abstract class ItemCombination {
 			return;
 		}
 		if (player.getItems().freeSlots() < revertedItems.get().size()) {
-			player.getDH().sendStatement("You need at least " + revertedItems.get().size() + "" + " inventory slots to do this.");
+			player.getDH().sendStatement("You need at least " + revertedItems.get().size() + " inventory slots to do this.");
 			player.nextChat = -1;
 			return;
 		}

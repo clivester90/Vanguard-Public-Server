@@ -60,9 +60,9 @@ public class RangeData {
 
 	public static final int[] JAVELINS = { 825, 826, 827, 828, 829, 830, 21318, 19484 };
 
-	private static final List<DamageBoostingEffect> BOLT_EFFECTS = Collections
-			.unmodifiableList(Arrays.asList(new DragonBoltSpecial(), new OpalBoltSpecial(), new JadeBoltSpecial(), new PearlBoltSpecial(), new TopazBoltSpecial(),
-					new EmeraldBoltSpecial(), new SapphireBoltSpecial(), new RubyBoltSpecial(), new DiamondBoltSpecial(), new OnyxBoltSpecial()));
+	private static final List<DamageBoostingEffect> BOLT_EFFECTS =
+			List.of(new DragonBoltSpecial(), new OpalBoltSpecial(), new JadeBoltSpecial(), new PearlBoltSpecial(), new TopazBoltSpecial(), new EmeraldBoltSpecial(),
+					new SapphireBoltSpecial(), new RubyBoltSpecial(), new DiamondBoltSpecial(), new OnyxBoltSpecial());
 
 	public static void fireProjectileNpc(Player player, NPC npc, int angle, int speed, int projectile, int startHeight, int endHeight, int time, int slope) {
 		int playerX = player.getX();

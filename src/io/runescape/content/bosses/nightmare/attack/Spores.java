@@ -165,9 +165,7 @@ public class Spores extends NightmareAttack {
                         } else {
                             player.forcedChat("*cough*");
                             player.getInstance().getPlayers().stream().filter(p -> p != player && p.distance(player.getPosition()) <= 1.5
-                                    && !p.getAttributes().getBoolean(INFECTED_KEY)).forEach(player1 -> {
-                                infect(player1);
-                            });
+                                    && !p.getAttributes().getBoolean(INFECTED_KEY)).forEach(player1 -> infect(player1));
                         }
                     }
 

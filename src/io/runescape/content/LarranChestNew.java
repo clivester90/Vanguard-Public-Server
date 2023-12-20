@@ -221,7 +221,7 @@ public class LarranChestNew {
 					|| item.getId() == Items.ZURIELS_ROBE_BOTTOM || item.getId() == Items.ZURIELS_ROBE_TOP || item.getId() == Items.ZURIELS_STAFF
 					|| item.getId() == Items.MORRIGANS_COIF || item.getId() == Items.MORRIGANS_LEATHER_BODY || item.getId() == Items.MORRIGANS_LEATHER_CHAPS){
 				PlayerHandler.executeGlobalMessage("@pur@"+c.getLoginName() + " @pur@has received an rare: @red@"+item.getAmount()+"x @red@"+ ItemAssistant.getItemName(item.getId()) + " @pur@from the @pur@Larran's Chest!");
-				Discord.writeDropsSyncMessage(""+ c.getLoginName() + "  has received an rare: "+item.getAmount()+"x "+ ItemAssistant.getItemName(item.getId()) + " from the Larran's Chest!");
+				Discord.writeDropsSyncMessage(c.getLoginName() + "  has received an rare: "+item.getAmount()+"x "+ ItemAssistant.getItemName(item.getId()) + " from the Larran's Chest!");
 			}
 			}
 			c.sendMessage("@pur@You manage to unlock the chest with your larran's key and pull some loot from it...");

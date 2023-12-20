@@ -439,7 +439,7 @@ public abstract class Entity {
         if (damageTaken.containsKey(entity)) {
             damageTaken.get(entity).add(new Damage(damage));
         } else {
-            damageTaken.put(entity, new ArrayList<>(Arrays.asList(combatDamage)));
+            damageTaken.put(entity, new ArrayList<>(List.of(combatDamage)));
         }
     }
 

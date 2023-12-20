@@ -102,7 +102,7 @@ public class AchievementInterface extends InterfaceHandler {
 			}
 
 
-			text[shift++] = ""+getColor(player.getPlayerAchievements().get(achievement),achievement.getCompleteAmount())+"" + achievement.getName();
+			text[shift++] = getColor(player.getPlayerAchievements().get(achievement),achievement.getCompleteAmount())+ achievement.getName();
 		}
 	}
 

@@ -36,7 +36,7 @@ public class DonationRewardsPlayerSaveEntry implements PlayerSaveEntry {
     public String encode(Player player, String key) {
         switch (key) {
             case AMOUNT:
-                return "" + player.getDonationRewards().getAmountDonatedThisWeek();
+                return String.valueOf(player.getDonationRewards().getAmountDonatedThisWeek());
             case RESET:
                 return Misc.convertLocalDateTimeToString(player.getDonationRewards().getSundayReset().getReset());
         }

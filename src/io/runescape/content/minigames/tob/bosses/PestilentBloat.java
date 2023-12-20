@@ -190,14 +190,12 @@ public class PestilentBloat extends TobBoss {
 
     private void damagePlayersInLos() {
         List<Position> positions = movementState.movementLos.positions.stream().map(it -> it.withHeight(getInstance().getHeight())).collect(Collectors.toList());
-        getInstance().getPlayers().forEach(plr -> {
-            positions.stream().filter(pos -> plr.getPosition().equals(pos)).findFirst().ifPresent(pos -> {
-                if (plr.getAttributes().containsBoolean(TobInstance.TOB_DEAD_ATTR_KEY))
-                    return;
-                plr.startGraphic(FLIES_GFX);
-                plr.appendDamage(9 + Misc.random(11), Hitmark.HIT);
-            });
-        });
+        getInstance().getPlayers().forEach(plr -> positions.stream().filter(pos -> plr.getPosition().equals(pos)).findFirst().ifPresent(pos -> {
+            if (plr.getAttributes().containsBoolean(TobInstance.TOB_DEAD_ATTR_KEY))
+                return;
+            plr.startGraphic(FLIES_GFX);
+            plr.appendDamage(9 + Misc.random(11), Hitmark.HIT);
+        }));
     }
 
     private void stompPlayers() {
@@ -237,17 +235,15 @@ public class PestilentBloat extends TobBoss {
                 }
                 if (cycle == 0) {
                     for (Location loc : locs) {
-                        getInstance().getPlayers().forEach(plr -> {
-                                plr.asPlayer().getPA().createPlayersStillGfx(Misc.random(MIN_FLESH, MAX_FLESH), loc.getX(), loc.getY(), 0, 0);
-                            });
-                        };
+                        getInstance().getPlayers().forEach(plr -> plr.asPlayer().getPA().createPlayersStillGfx(Misc.random(MIN_FLESH, MAX_FLESH), loc.getX(), loc.getY(), 0, 0));
+                        }
                 } else if (cycle == 4) {
                     getInstance().getPlayers().forEach(plr -> {
                         for (Location loc : locs) {
                             if (plr.getLocation().equalsIgnoreHeight(loc)) {
                                 plr.appendDamage(Misc.random(20, 30), Hitmark.HIT);
                             }
-                        };
+                        }
                     });
                 } else if (cycle >= 8) {
                     flesh = false;

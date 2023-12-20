@@ -80,7 +80,7 @@ public class InputField implements PacketType {
 			if (HelpDatabase.getDatabase().requestable(player)) {
 				HelpDatabase.getDatabase().add(new HelpRequest(player.getDisplayName(), player.connectedFrom, text));
 				if (staff.size() > 0) {
-					PlayerHandler.sendMessage("[HelpDB] " + player.getDisplayName() + "" + " is requesting help, type ::helpdb to view their request.", staff);
+					PlayerHandler.sendMessage("[HelpDB] " + player.getDisplayName() + " is requesting help, type ::helpdb to view their request.", staff);
 					player.sendMessage("You request has been sent, please wait as a staff member gets back to you.");
 				} else {
 					player.sendMessage("There are no staff online to help you at this time, please be patient.");

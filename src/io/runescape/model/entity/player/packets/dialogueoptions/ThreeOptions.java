@@ -9,7 +9,6 @@ import io.runescape.content.achievement_diary.impl.FaladorDiaryEntry;
 import io.runescape.content.achievement_diary.impl.VarrockDiaryEntry;
 import io.runescape.content.hs.PKHighscore;
 import io.runescape.content.hs.PVMHighscore;
-import io.runescape.content.hs.TournamentHighscore;
 import io.runescape.content.items.TomeOfFire;
 import io.runescape.model.entity.npc.NPCHandler;
 import io.runescape.model.entity.npc.pets.PetHandler;
@@ -82,12 +81,6 @@ public class ThreeOptions {
 			case 9800:// main monster zone option for combat skills
 				c.getPA().startTeleport(3063, 3474, 0, "modern", false);
 				c.getPA().closeAllWindows();
-				break;
-
-			case 3192://Tournament hiscores
-				c.setHighscore(new TournamentHighscore());
-				c.getHighscore().process();
-				c.getHighscore().generateList(c);
 				break;
 
 		case 265:

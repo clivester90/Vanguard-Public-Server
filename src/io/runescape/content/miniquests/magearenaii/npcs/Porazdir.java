@@ -75,9 +75,7 @@ public class Porazdir extends NPC {
                         .setAnimation(new Animation(7838))
                         .setCombatType(CombatType.MAGE)
                         .setDistanceRequiredForAttack(15)
-                        .setOnAttack(attack -> {
-                            createFireBall(attack.getVictim().asPlayer(), this);
-                        })
+                        .setOnAttack(attack -> createFireBall(attack.getVictim().asPlayer(), this))
                         .setOnHit(attack -> {
                             if (attack.getCombatHit().missed())
                                 return;

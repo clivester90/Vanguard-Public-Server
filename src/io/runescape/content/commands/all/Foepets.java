@@ -17,7 +17,7 @@ public class Foepets extends Command {
 	public void execute(Player c, String commandName, String input) {
 		  c.getPA()
           .sendFrame126(
-				  ""+ Configuration.DISCORD_INVITE+"", 12000);
+                  Configuration.DISCORD_INVITE, 12000);
 }
 
 	@Override

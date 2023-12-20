@@ -76,7 +76,7 @@ public enum AchievementList {
 	RECHARGE_GLORYIII("Glorified III", "Recharge 500 amulet of glory's", 500, AchievementHandler.AchievementDifficulty.HARD, new GameItem (995, 20000000)),//20M GP
 	PET_SHARK("Pet shark", "Obtain the pet shark from the fishing caskets", 1, AchievementHandler.AchievementDifficulty.HARD, new GameItem (6199, 1)),//Mbox x1
 
-	MAX("Maxed", "Achieve level 99 in all skills on "+ Configuration.SERVER_NAME+"", 1, AchievementHandler.AchievementDifficulty.HARD, new GameItem(13346, 1)),
+	MAX("Maxed", "Achieve level 99 in all skills on "+ Configuration.SERVER_NAME, 1, AchievementHandler.AchievementDifficulty.HARD, new GameItem(13346, 1)),
 
     //Pvp
     PVP_I("PVP I", "Kill 100 players in the wilderness.",100, AchievementHandler.AchievementDifficulty.EASY, new GameItem (BANDOS_GODSWORD, 1)),//BANDOS GODSWORD X1

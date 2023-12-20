@@ -16,27 +16,25 @@ import java.util.List;
 public class FileUtility {
 
 	public static void editCharacterFile(String name, String variable, String result) {
-		new Thread(new Runnable() {
-			public void run() {
-				try {
-					BufferedReader file = new BufferedReader(new FileReader(Server.getSaveDirectory() + name + ".txt"));
-					String line;
-					String input = "";
-					while ((line = file.readLine()) != null) {
-						if (line.startsWith(variable + " =")) {
-							line = variable + " = " + result;
-						}
-						input += line + '\n';
-					}
-					FileOutputStream File = new FileOutputStream(Server.getSaveDirectory() + name + ".txt");
-					File.write(input.getBytes());
-					file.close();
-					File.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
+		new Thread(() -> {
+            try {
+                BufferedReader file = new BufferedReader(new FileReader(Server.getSaveDirectory() + name + ".txt"));
+                String line;
+                String input = "";
+                while ((line = file.readLine()) != null) {
+                    if (line.startsWith(variable + " =")) {
+                        line = variable + " = " + result;
+                    }
+                    input += line + '\n';
+                }
+                FileOutputStream File = new FileOutputStream(Server.getSaveDirectory() + name + ".txt");
+                File.write(input.getBytes());
+                file.close();
+                File.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
 	}
 
 	public static void deleteInactiveFilesInDirectory(boolean deleteEmptyFolders, String directory, int daysInactive, String specificFileExtensions) {
@@ -44,7 +42,7 @@ public class FileUtility {
 			return;
 		}
 		directory = directory.replace("/", "\\");
-		List<File> tasks = new ArrayList<File>();
+		List<File> tasks = new ArrayList<>();
 		tasks = getFilesList(directory);
 		
 		for (int index = 0; index < tasks.size(); index++) {
@@ -67,7 +65,7 @@ public class FileUtility {
 	public static List<File> getFilesList(String directoryName) {
 		File directory = new File(directoryName);
 
-		List<File> resultList = new ArrayList<File>();
+		List<File> resultList = new ArrayList<>();
 
 		// get all the files from a directory
 		File[] fList = directory.listFiles();
@@ -81,7 +79,7 @@ public class FileUtility {
 		return resultList;
 	}
 	public static ArrayList<String> readFile(String location) {
-		ArrayList<String> arraylist = new ArrayList<String>();
+		ArrayList<String> arraylist = new ArrayList<>();
 		if (!new File(location).exists()) {
 			return arraylist;
 		}
@@ -100,7 +98,7 @@ public class FileUtility {
 	}
 
 	public static ArrayList<Integer> readFileInteger(String location) {
-		ArrayList<Integer> arraylist = new ArrayList<Integer>();
+		ArrayList<Integer> arraylist = new ArrayList<>();
 		if (!new File(location).exists()) {
 			return arraylist;
 		}
@@ -119,7 +117,7 @@ public class FileUtility {
 	}
 
 	public static ArrayList<String> readFileAndSaveEmptyLine(String location) {
-		ArrayList<String> arraylist = new ArrayList<String>();
+		ArrayList<String> arraylist = new ArrayList<>();
 		if (!new File(location).exists()) {
 			return arraylist;
 		}
@@ -207,7 +205,7 @@ public class FileUtility {
 			bw = new BufferedWriter(new FileWriter(location, true));
 
 			for (int index = 0; index < arraylist.size(); index++) {
-				bw.write("" + arraylist.get(index));
+				bw.write(String.valueOf(arraylist.get(index)));
 				bw.newLine();
 			}
 
@@ -225,7 +223,7 @@ public class FileUtility {
 			bw = new BufferedWriter(new FileWriter(location, true));
 
 			for (int index = 0; index < arraylist.size(); index++) {
-				bw.write("" + arraylist.get(index));
+				bw.write(String.valueOf(arraylist.get(index)));
 				bw.newLine();
 				wrote = true;
 			}

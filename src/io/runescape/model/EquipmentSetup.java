@@ -68,12 +68,8 @@ public class EquipmentSetup {
         Map<Integer, ImmutableItem> equipment = Maps.newHashMap();
         Map<Integer, Integer> levels = Maps.newHashMap();
         SpellBook spellBook = player.getSpellBook();
-        player.getItems().getInventoryItems().forEach(item -> {
-            inventory.put(item.getSlot(), new ImmutableItem(item.getId(), item.getAmount()));
-        });
-        player.getItems().getEquipmentItems().forEach(item -> {
-            equipment.put(item.getSlot(), new ImmutableItem(item.getId(), item.getAmount()));
-        });
+        player.getItems().getInventoryItems().forEach(item -> inventory.put(item.getSlot(), new ImmutableItem(item.getId(), item.getAmount())));
+        player.getItems().getEquipmentItems().forEach(item -> equipment.put(item.getSlot(), new ImmutableItem(item.getId(), item.getAmount())));
         for (int id = 0; id < player.playerLevel.length; id++) {
             levels.put(id, player.playerLevel[id]);
         }

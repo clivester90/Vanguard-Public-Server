@@ -2559,7 +2559,7 @@ public class NPCHandler {
 
     public static void despawn(int npcType, int height) {
         List<NPC> npcs = Arrays.stream(NPCHandler.npcs).filter(Objects::nonNull).filter(n -> n.getNpcId() == npcType && n.heightLevel == height).collect(Collectors.toList());
-        npcs.forEach(npc -> npc.unregister());
+        npcs.forEach(NPC::unregister);
     }
 
     public static void kill(int npcType, int height) {

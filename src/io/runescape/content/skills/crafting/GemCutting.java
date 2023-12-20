@@ -21,43 +21,43 @@ public class GemCutting {
 				return;
 			}
 			c.startAnimation(886);
-			Server.getEventHandler().submit(new Event<Player>("skilling", c, 2) {
+			Server.getEventHandler().submit(new Event<>("skilling", c, 2) {
 
-				@Override
-				public void execute() {
-					if (attachment == null || attachment.isDisconnected() || attachment.getSession() == null) {
-						stop();
-						return;
-					}
-					if (Misc.random(300) == 0 && attachment.getInterfaceEvent().isExecutable()) {
-						attachment.getInterfaceEvent().execute();
-						super.stop();
-						return;
-					}
-					if (attachment.getItems().playerHasItem(g.getUncut())) {
-						attachment.getItems().deleteItem2(g.getUncut(), 1);
-						attachment.getItems().addItem(g.getCut(), 1);
-						if (g.getCut() == 1615)
-							DailyTasks.increase(attachment, DailyTasks.PossibleTasks.DRAGONSTONES);//May not work so double check cam
-						attachment.getPA().addSkillXP(g.getExperience(), Skill.CRAFTING.getId(), true);
-						attachment.startAnimation(886);
-					}
-					if (!attachment.getItems().playerHasItem(g.getUncut())) {
-						stop();
-						return;
-					}
-				}
+                @Override
+                public void execute() {
+                    if (attachment == null || attachment.isDisconnected() || attachment.getSession() == null) {
+                        stop();
+                        return;
+                    }
+                    if (Misc.random(300) == 0 && attachment.getInterfaceEvent().isExecutable()) {
+                        attachment.getInterfaceEvent().execute();
+                        super.stop();
+                        return;
+                    }
+                    if (attachment.getItems().playerHasItem(g.getUncut())) {
+                        attachment.getItems().deleteItem2(g.getUncut(), 1);
+                        attachment.getItems().addItem(g.getCut(), 1);
+                        if (g.getCut() == 1615)
+                            DailyTasks.increase(attachment, DailyTasks.PossibleTasks.DRAGONSTONES);//May not work so double check cam
+                        attachment.getPA().addSkillXP(g.getExperience(), Skill.CRAFTING.getId(), true);
+                        attachment.startAnimation(886);
+                    }
+                    if (!attachment.getItems().playerHasItem(g.getUncut())) {
+                        stop();
+                        return;
+                    }
+                }
 
-				@Override
-				public void stop() {
-					super.stop();
-					if (attachment == null || attachment.isDisconnected() || attachment.getSession() == null) {
-						return;
-					}
-					attachment.stopAnimation();
-				}
+                @Override
+                public void stop() {
+                    super.stop();
+                    if (attachment == null || attachment.isDisconnected() || attachment.getSession() == null) {
+                        return;
+                    }
+                    attachment.stopAnimation();
+                }
 
-			});
+            });
 		});
 	}
 

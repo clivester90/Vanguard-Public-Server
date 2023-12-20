@@ -229,9 +229,7 @@ public class GlobalObjects {
         List<Player> players = PlayerHandler.nonNullStream().filter(Objects::nonNull)
                 .filter(player -> player.distanceToPoint(object.getX(), object.getY()) <= 60 && player.heightLevel == object.getHeight() && object.getInstance() == player.getInstance()
                 ).collect(Collectors.toList());
-        players.forEach(player -> {
-            player.getPA().object(objectId, object.getX(), object.getY(), object.getFace(), object.getType(), true);
-        });
+        players.forEach(player -> player.getPA().object(objectId, object.getX(), object.getY(), object.getFace(), object.getType(), true));
     }
 
     /**

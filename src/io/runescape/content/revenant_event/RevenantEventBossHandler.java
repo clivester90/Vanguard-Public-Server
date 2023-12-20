@@ -122,7 +122,7 @@ public class RevenantEventBossHandler {
 	private static boolean didSend;
 
 
-	public static List <Player> participants = new ArrayList<Player>();//all players participating in event | added into list by attacking npc
+	public static List <Player> participants = new ArrayList<>();//all players participating in event | added into list by attacking npc
 
 
 	public static boolean isAttackable;

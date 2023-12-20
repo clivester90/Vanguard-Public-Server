@@ -19,23 +19,8 @@ public class PVMHighscore implements Highscore {
 
     @Override
     public void process() {
-        playerList = (ArrayList<Player>) Arrays.asList(PlayerHandler.players).stream().filter(p -> p != null).collect(Collectors.toList());
-
-        Collections.sort(playerList, new Comparator<Player>() {
-            @Override
-            public int compare(Player player1, Player player2) {
-                Player client1 = (Player) player1;
-                Player client2 = (Player) player2;
-
-                if (client1.getNpcDeathTracker().getTotal() == client2.getNpcDeathTracker().getTotal()) {
-                    return 0;
-                } else if (client2.getNpcDeathTracker().getTotal() > client1.getNpcDeathTracker().getTotal()) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            }
-        });
+        playerList = (ArrayList<Player>) Arrays.asList(PlayerHandler.players).stream().filter(Objects::nonNull).collect(Collectors.toList());
+        playerList.sort((player1, player2) -> Long.compare(player2.getNpcDeathTracker().getTotal(), player1.getNpcDeathTracker().getTotal()));
     }
 
     @Override
@@ -48,7 +33,7 @@ public class PVMHighscore implements Highscore {
         resetList(client);
         if (playerList.size() > 10) {
             for (int i = 0; i < 10; i++) {
-        	Player rankedClient = (Player) playerList.get(i);
+        	Player rankedClient = playerList.get(i);
         	client.getPA().sendFrame126("PvM Kills:", 46509);
         	client.getPA().sendFrame126("CoX Done:", 46510);
         	client.getPA().sendFrame126("Boss points:", 46511);
@@ -61,7 +46,7 @@ public class PVMHighscore implements Highscore {
             }
         } else {
         	 for (int i = 0; i < playerList.size(); i++) {
-                 Player rankedClient = (Player) playerList.get(i);
+                 Player rankedClient = playerList.get(i);
                  client.getPA().sendFrame126("PvM Kills:", 46509);
                  client.getPA().sendFrame126("CoX Done:", 46510);
                  client.getPA().sendFrame126("Boss points:", 46511);

@@ -3,6 +3,7 @@ package io.runescape.content.bosses;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import io.runescape.Server;
 import io.runescape.content.instances.impl.LegacySoloPlayerInstance;
@@ -37,7 +38,7 @@ public class Skotizo extends LegacySoloPlayerInstance {
 	private static final String[] ALTAR_MAP_DIRECTION = {"NORTH", "SOUTH", "WEST", "EAST"};
 
 	public boolean northAltar, southAltar, eastAltar, westAltar, ankouSpawned, demonsSpawned;
-    public Map<Integer, String> altarMap = Collections.synchronizedMap(new HashMap<Integer, String>());
+    public Map<Integer, String> altarMap = Collections.synchronizedMap(new HashMap<>());
     public int altarCount;
 	public boolean firstHit = true;
 	public Skotizo(Player player) {
@@ -72,7 +73,7 @@ public class Skotizo extends LegacySoloPlayerInstance {
 			boolean unique = false;
 
 			while (!unique) {
-				if ((altarMap.get(1) == "NORTH") && (altarMap.get(2)== "SOUTH") && (altarMap.get(3) == "WEST") && (altarMap.get(4) == "EAST")) {
+				if ((Objects.equals(altarMap.get(1), "NORTH")) && (Objects.equals(altarMap.get(2), "SOUTH")) && (Objects.equals(altarMap.get(3), "WEST")) && (Objects.equals(altarMap.get(4), "EAST"))) {
 					player.sendMessage("@or2@Your hits do not effect Skotizo... Maybe I should kill some of the altars...");
 					break;
 				}
@@ -80,38 +81,51 @@ public class Skotizo extends LegacySoloPlayerInstance {
 				if(altar == null) {
 					altarMap.put(altarNumber, ALTAR_MAP_DIRECTION[altarNumber-1]);
 					unique = true;
-					if (ALTAR_MAP_DIRECTION[altarNumber-1] == "NORTH") {
-						player.sendMessage("@or2@The north altar has just awakened!");
-						player.getPA().sendChangeSprite(29232, (byte) 1);
-						Server.getGlobalObjects().remove(28924, 1694, 9904, getHeight(), this); // Remove North - Empty Altar
-						Server.getGlobalObjects().add(new GlobalObject(28923, 1694, 9904, getHeight(), 2, 10, -1, -1).setInstance(this)); // North - Awakened Altar
-						add(NPCSpawning.spawnNpcOld(player, AWAKENED_ALTAR_NORTH, 1694, 9904, getHeight(), 0, 100, 10, 200, 200, false, false));
-						altarCount++;
-						northAltar = true;
-					} else if (ALTAR_MAP_DIRECTION[altarNumber-1] == "SOUTH") {
-						player.sendMessage("@or2@The south altar has just awakened!");
-						player.getPA().sendChangeSprite(29233, (byte) 1);
-						Server.getGlobalObjects().remove(28924, 1696, 9871, getHeight(), this); // Remove South - Empty Altar
-						Server.getGlobalObjects().add(new GlobalObject(28923, 1696, 9871, getHeight(), 0, 10, -1, -1).setInstance(this)); // South - Awakened Altar
-						add(NPCSpawning.spawnNpcOld(player, AWAKENED_ALTAR_SOUTH, 1696, 9871, getHeight(), 0, 100, 10, 200, 200, false, false));
-						altarCount++;
-						southAltar = true;
-					} else if (ALTAR_MAP_DIRECTION[altarNumber-1] == "WEST") {
-						player.sendMessage("@or2@The west altar has just awakened!");
-						player.getPA().sendChangeSprite(29234, (byte) 1);
-						Server.getGlobalObjects().remove(28924, 1678, 9888, getHeight(), this); // Remove West - Empty Altar
-						Server.getGlobalObjects().add(new GlobalObject(28923, 1678, 9888, getHeight(), 1, 10, -1, -1).setInstance(this)); // West - Awakened Altar
-						add(NPCSpawning.spawnNpcOld(player, AWAKENED_ALTAR_WEST, 1678, 9888, getHeight(), 0, 100, 10, 200, 200, false, false));
-						altarCount++;
-						westAltar = true;
-					} else if (ALTAR_MAP_DIRECTION[altarNumber-1] == "EAST") {
-						player.sendMessage("@or2@The east altar has just awakened!");
-						player.getPA().sendChangeSprite(29235, (byte) 1);
-						Server.getGlobalObjects().remove(28924, 1714, 9888, getHeight(), this); // Remove East - Empty Altar
-						Server.getGlobalObjects().add(new GlobalObject(28923, 1714, 9888, getHeight(), 3, 10, -1, -1).setInstance(this)); // East - Awakened Altar
-						add(NPCSpawning.spawnNpcOld(player, AWAKENED_ALTAR_EAST, 1714, 9888, getHeight(), 0, 100, 10, 200, 200, false, false));
-						altarCount++;
-						eastAltar = true;
+					switch (ALTAR_MAP_DIRECTION[altarNumber - 1]) {
+						case "NORTH":
+							player.sendMessage("@or2@The north altar has just awakened!");
+							player.getPA().sendChangeSprite(29232, (byte) 1);
+							Server.getGlobalObjects().remove(28924, 1694, 9904, getHeight(), this); // Remove North - Empty Altar
+
+							Server.getGlobalObjects().add(new GlobalObject(28923, 1694, 9904, getHeight(), 2, 10, -1, -1).setInstance(this)); // North - Awakened Altar
+
+							add(NPCSpawning.spawnNpcOld(player, AWAKENED_ALTAR_NORTH, 1694, 9904, getHeight(), 0, 100, 10, 200, 200, false, false));
+							altarCount++;
+							northAltar = true;
+							break;
+						case "SOUTH":
+							player.sendMessage("@or2@The south altar has just awakened!");
+							player.getPA().sendChangeSprite(29233, (byte) 1);
+							Server.getGlobalObjects().remove(28924, 1696, 9871, getHeight(), this); // Remove South - Empty Altar
+
+							Server.getGlobalObjects().add(new GlobalObject(28923, 1696, 9871, getHeight(), 0, 10, -1, -1).setInstance(this)); // South - Awakened Altar
+
+							add(NPCSpawning.spawnNpcOld(player, AWAKENED_ALTAR_SOUTH, 1696, 9871, getHeight(), 0, 100, 10, 200, 200, false, false));
+							altarCount++;
+							southAltar = true;
+							break;
+						case "WEST":
+							player.sendMessage("@or2@The west altar has just awakened!");
+							player.getPA().sendChangeSprite(29234, (byte) 1);
+							Server.getGlobalObjects().remove(28924, 1678, 9888, getHeight(), this); // Remove West - Empty Altar
+
+							Server.getGlobalObjects().add(new GlobalObject(28923, 1678, 9888, getHeight(), 1, 10, -1, -1).setInstance(this)); // West - Awakened Altar
+
+							add(NPCSpawning.spawnNpcOld(player, AWAKENED_ALTAR_WEST, 1678, 9888, getHeight(), 0, 100, 10, 200, 200, false, false));
+							altarCount++;
+							westAltar = true;
+							break;
+						case "EAST":
+							player.sendMessage("@or2@The east altar has just awakened!");
+							player.getPA().sendChangeSprite(29235, (byte) 1);
+							Server.getGlobalObjects().remove(28924, 1714, 9888, getHeight(), this); // Remove East - Empty Altar
+
+							Server.getGlobalObjects().add(new GlobalObject(28923, 1714, 9888, getHeight(), 3, 10, -1, -1).setInstance(this)); // East - Awakened Altar
+
+							add(NPCSpawning.spawnNpcOld(player, AWAKENED_ALTAR_EAST, 1714, 9888, getHeight(), 0, 100, 10, 200, 200, false, false));
+							altarCount++;
+							eastAltar = true;
+							break;
 					}
 				} else {
 					altarNumber = getAltar();

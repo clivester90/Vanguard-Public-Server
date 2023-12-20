@@ -74,7 +74,7 @@ public class ItemAssistant {
 	}
 
 
-	private final Queue<ContainerUpdate> containerUpdates = new ArrayDeque<ContainerUpdate>();
+	private final Queue<ContainerUpdate> containerUpdates = new ArrayDeque<>();
 
 	public void addContainerUpdate(ContainerUpdate containerUpdate) {
 		if (!containerUpdates.contains(containerUpdate)) {
@@ -931,7 +931,7 @@ public class ItemAssistant {
 		if (percent.startsWith("0") && percent.equals("00")) {
 			percent = percent.replace("00", "0");
 		}
-		player.getPA().sendSpecialAttack(Integer.valueOf(percent), player.usingSpecial ? 1 : 0);
+		player.getPA().sendSpecialAttack(Integer.parseInt(percent), player.usingSpecial ? 1 : 0);
 		player.getPA().sendFrame126(player.usingSpecial ? "@yel@Special Attack (" + percent + "%)" : "@bla@Special Attack (" + percent + "%)", player.specBarId);
 	}
 

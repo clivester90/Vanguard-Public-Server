@@ -34,7 +34,7 @@ public class Censor {
                 Discord.writeServerSyncMessage("Player [" + player.getDisplayName() + "] was muted for 5 minutes for saying: " + censor);
                 player.sendMessage("@red@[WARNING]@bla@ You are not allowed to say " + censor +", you have been muted for 5 minutes.");
                 player.sendMessage("@red@[WARNING]@bla@ Staff have been notified, please do not use this language again.");
-                PlayerHandler.executeGlobalStaffMessage("[@red@Staff Message@bla@] <col=255>" + player.getDisplayName() + " has been muted for saying "+ censor +"");
+                PlayerHandler.executeGlobalStaffMessage("[@red@Staff Message@bla@] <col=255>" + player.getDisplayName() + " has been muted for saying "+ censor);
 
                 player.muteEnd = System.currentTimeMillis() + (60_000 * 5);
                 return true;

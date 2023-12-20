@@ -21,10 +21,9 @@ public class ReferralCode {
 
     public static void load() throws IOException {
         ItemConstants itemConstants = new ItemConstants().load();
-        List<ReferralCode> list = new ObjectMapper(new YAMLFactory()).readValue(new File(Server.getDataDirectory() + "/cfg/referral_codes.yaml"), new TypeReference<List<ReferralCode>>() {});
-        list.forEach(it -> {
-            it.rewardsList = it.rewards.stream().map(item -> item.toGameItem(itemConstants)).collect(Collectors.toList());
+        List<ReferralCode> list = new ObjectMapper(new YAMLFactory()).readValue(new File(Server.getDataDirectory() + "/cfg/referral_codes.yaml"), new TypeReference<>() {
         });
+        list.forEach(it -> it.rewardsList = it.rewards.stream().map(item -> item.toGameItem(itemConstants)).collect(Collectors.toList()));
         REFERRAL_CODES.clear();
         REFERRAL_CODES.addAll(list);
     }

@@ -45,7 +45,7 @@ public class DidYouKnowEvent extends Event<Object> {
 		messages.set(0, "<col=f4ed2e>News:<col=3f3fff>" + messages.get(0));
 		PlayerHandler.nonNullStream().forEach(player -> {
 			if (player.didYouKnow && PlayerHandler.getPlayerCount() > 5)
-				messages.forEach(m -> player.sendMessage(m));
+				messages.forEach(player::sendMessage);
 		});
 	}
 

@@ -102,7 +102,7 @@ public class TwoOptions {
 				c.getPA().closeAllWindows();
 				c.gfx0(1992);
 				c.appendDamage(c, c.getHealth().getMaximumHealth(), Hitmark.HIT);
-				c.sendMessage("You have been killed "+c.getLoginName()+"");
+				c.sendMessage("You have been killed "+c.getLoginName());
 				c.sendMessage("@red@you will have 3 minutes before your items will be visible for everyone.");
 				break;
 
@@ -302,7 +302,7 @@ public class TwoOptions {
 			break;
 		case 983:
 			c.sendMessage("You have total of @red@"+c.tournamentWins +" Tournament Wins");
-			c.sendMessage("Your current winstreak is @red@"+c.streak+"");
+			c.sendMessage("Your current winstreak is @red@"+c.streak);
             c.getPA().closeAllWindows();
 			break;
 		case 859:
@@ -418,7 +418,7 @@ public class TwoOptions {
 				return;
 			}
 			if (c.getItems().playerHasItem(6769, 1)) {
-				Discord.writeServerSyncMessage(""+ c.getDisplayName() +" gave " + other.getDisplayName() + " a $5 scroll.");
+				Discord.writeServerSyncMessage(c.getDisplayName() +" gave " + other.getDisplayName() + " a $5 scroll.");
 				c.getItems().deleteItem(6769, 1);
 				other.getItems().addItem(6769, 1);
 				c.gfx100(263);
@@ -441,7 +441,7 @@ public class TwoOptions {
 				return;
 			}
 			if (c.getItems().playerHasItem(2403, 1)) {
-				Discord.writeServerSyncMessage(""+ c.getDisplayName() +" gave " + other.getDisplayName() + " a $10 scroll.");
+				Discord.writeServerSyncMessage(c.getDisplayName() +" gave " + other.getDisplayName() + " a $10 scroll.");
 				c.getItems().deleteItem(2403, 1);
 				other.getItems().addItem(2403, 1);
 				c.gfx100(263);
@@ -464,7 +464,7 @@ public class TwoOptions {
 				return;
 			}
 			if (c.getItems().playerHasItem(2396, 1)) {
-				Discord.writeServerSyncMessage(""+ c.getDisplayName() +" gave " + other.getDisplayName() + " a $25 scroll.");
+				Discord.writeServerSyncMessage(c.getDisplayName() +" gave " + other.getDisplayName() + " a $25 scroll.");
 				c.getItems().deleteItem(2396, 1);
 				other.getItems().addItem(2396, 1);
 				c.gfx100(263);
@@ -487,7 +487,7 @@ public class TwoOptions {
 				return;
 			}
 			if (c.getItems().playerHasItem(786, 1)) {
-				Discord.writeServerSyncMessage(""+ c.getDisplayName() +" gave " + other.getDisplayName() + " a $50 scroll.");
+				Discord.writeServerSyncMessage(c.getDisplayName() +" gave " + other.getDisplayName() + " a $50 scroll.");
 				c.getItems().deleteItem(786, 1);
 				other.getItems().addItem(786, 1);
 				c.gfx100(263);
@@ -510,7 +510,7 @@ public class TwoOptions {
 				return;
 			}
 			if (c.getItems().playerHasItem(761, 1)) {
-				Discord.writeServerSyncMessage(""+ c.getDisplayName() +" gave " + other.getDisplayName()  + " a $100 scroll.");
+				Discord.writeServerSyncMessage(c.getDisplayName() +" gave " + other.getDisplayName()  + " a $100 scroll.");
 				c.getItems().deleteItem(761, 1);
 				other.getItems().addItem(761, 1);
 				c.gfx100(263);
@@ -534,7 +534,7 @@ public class TwoOptions {
 				return;
 			}
 			if (c.getItems().playerHasItem(607, 1)) {
-				Discord.writeServerSyncMessage(""+ c.getDisplayName() +" gave " + other.getDisplayName() + " a $250 scroll.");
+				Discord.writeServerSyncMessage(c.getDisplayName() +" gave " + other.getDisplayName() + " a $250 scroll.");
 				c.getItems().deleteItem(607, 1);
 				other.getItems().addItem(607, 1);
 				c.gfx100(263);
@@ -557,7 +557,7 @@ public class TwoOptions {
 				return;
 			}
 			if (c.getItems().playerHasItem(608, 1)) {
-				Discord.writeServerSyncMessage(""+ c.getDisplayName() +" gave " + other.getDisplayName() + " a $500 scroll.");
+				Discord.writeServerSyncMessage(c.getDisplayName() +" gave " + other.getDisplayName() + " a $500 scroll.");
 				c.getItems().deleteItem(608, 1);
 				other.getItems().addItem(608, 1);
 				c.gfx100(263);
@@ -1594,9 +1594,9 @@ public class TwoOptions {
 			c.getPA().resetQuestInterface();
 			int[] frames = { 8149, 8150, 8151, 8152, 8153, 8154, 8155, 8156, 8157, 8158, 8159, 8160, 8161, 8162, 8163,
 					8164, 8165, 8166, 8167, 8168, 8169, 8170, 8171, 8172, 8173, 8174, 8175 };
-			c.getPA().sendFrame126("@dre@Kill Tracker for @blu@" + c.getDisplayName() + "", 8144);
+			c.getPA().sendFrame126("@dre@Kill Tracker for @blu@" + c.getDisplayName(), 8144);
 			c.getPA().sendFrame126("", 8145);
-			c.getPA().sendFrame126("@blu@Total kills@bla@ - " + c.getNpcDeathTracker().getTotal() + "", 8147);
+			c.getPA().sendFrame126("@blu@Total kills@bla@ - " + c.getNpcDeathTracker().getTotal(), 8147);
 			c.getPA().sendFrame126("", 8148);
 			int index = 0;
 			for (Entry<String, Integer> entry : c.getNpcDeathTracker().getTracker().entrySet()) {

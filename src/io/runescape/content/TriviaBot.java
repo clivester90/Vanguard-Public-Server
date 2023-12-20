@@ -27,7 +27,7 @@ public class TriviaBot {
     public static String secondPlace;
     public static String thirdPlace;
 
-    private static List<String> winners = new ArrayList<String>(3);
+    private static List<String> winners = new ArrayList<>(3);
 
     public static void sequence() {
 

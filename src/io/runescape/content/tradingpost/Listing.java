@@ -49,7 +49,7 @@ public class Listing {
 	private static final int CACHE_SIZE = 100;
 
 	// recently read sales kept in memory for faster access
-	private static final LinkedList<Sale> cache = new LinkedList<Sale>();
+	private static final LinkedList<Sale> cache = new LinkedList<>();
 
 	/**
 	 * Loads the total sales on load of server
@@ -100,7 +100,7 @@ public class Listing {
 
 	public static List<Sale> getSales(String playerName) {
 		String line = "";
-		LinkedList<Sale> sales = new LinkedList<Sale>();
+		LinkedList<Sale> sales = new LinkedList<>();
 		// read text file at /players/playerName.txt
 		try {
 			String loc = PLAYERS_DIRECTORY + playerName + ".txt";
@@ -122,7 +122,7 @@ public class Listing {
 			return sales;
 		} catch(Exception e) {
 			e.printStackTrace();
-			return new LinkedList<Sale>();
+			return new LinkedList<>();
 		}
 	}
 
@@ -134,7 +134,7 @@ public class Listing {
 
 	public static List<Sale> getSales(int itemId) {
 		String line = "";
-		LinkedList<Sale> sales = new LinkedList<Sale>();
+		LinkedList<Sale> sales = new LinkedList<>();
 		// read text file at /players/playerName.txt
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(ITEMS_DIRECTORY+itemId+".txt"));
@@ -150,7 +150,7 @@ public class Listing {
 			return sales;
 		} catch(Exception e) {
 			e.printStackTrace();
-			return new LinkedList<Sale>();
+			return new LinkedList<>();
 		}
 	}
 
@@ -233,7 +233,7 @@ public class Listing {
 			id++;
 			c.getPA().sendFrame126(formatItemName(sale.getId()), start);
 			start++;
-			c.getPA().sendFrame126("" + Misc.formatCoins(sale.getPrice()), start);
+			c.getPA().sendFrame126(Misc.formatCoins(sale.getPrice()), start);
 			start++;
 			c.getPA().sendFrame126(sale.getTotalSold() + " / " + sale.getQuantity() , start);
 			start += 2;
@@ -255,10 +255,10 @@ public class Listing {
 
 	public static void loadHistory(Player c) {
 		for(int i = 0, start1 = 48636, start2 = 48637; i < c.saleItems.size(); i++) {
-			if(c.saleItems.get(i).intValue() > 0 && c.saleAmount.get(i).intValue() > 0 && c.salePrice.get(i).intValue() > 0) {
-				String each = c.saleAmount.get(i).intValue() > 1 ? "each" : "coins";
-				c.getPA().sendFrame126(c.saleAmount.get(i).intValue() + " x " + ItemDef.forId(c.saleItems.get(i).intValue()).getName(), start1);
-				c.getPA().sendFrame126("sold for "+zerosintomills(c.salePrice.get(i).intValue())+" " + each, start2);
+			if(c.saleItems.get(i) > 0 && c.saleAmount.get(i) > 0 && c.salePrice.get(i) > 0) {
+				String each = c.saleAmount.get(i) > 1 ? "each" : "coins";
+				c.getPA().sendFrame126(c.saleAmount.get(i) + " x " + ItemDef.forId(c.saleItems.get(i)).getName(), start1);
+				c.getPA().sendFrame126("sold for "+zerosintomills(c.salePrice.get(i))+" " + each, start2);
 				start1 += 2;
 				start2 += 2;
 			}
@@ -325,7 +325,7 @@ public class Listing {
 		c.getPA().showInterface(48598);
 		c.getPA().sendTradingPost(48962, itemId, 0, amount);
 		c.getPA().sendFrame126(formatItemName(itemId), 48963); //item name
-		c.getPA().sendFrame126("Price (each): "+Misc.format(c.price)+"", 48964); //price each
+		c.getPA().sendFrame126("Price (each): "+Misc.format(c.price), 48964); //price each
 		c.getPA().sendFrame126("Quantity: " + amount, 48965); //quantity
 		//c.getPA().sendFrame(s, 48966); //guide
 		//c.getPA().sendFrame(s, 48967); //listings
@@ -379,10 +379,10 @@ public class Listing {
 			sale_id.write(c.getLoginName() + "\t" + c.item + "\t" + c.quantity + "\t0\t" + c.price + "\t0\t" + "false");
 			sale_id.newLine();
 
-			item_id.write("" + NEXT_SALE_ID);
+			item_id.write(String.valueOf(NEXT_SALE_ID));
 			item_id.newLine();
 
-			name.write("" + NEXT_SALE_ID);
+			name.write(String.valueOf(NEXT_SALE_ID));
 			name.newLine();
 
 			//try {
@@ -541,8 +541,8 @@ public class Listing {
 
 	public static void displayResults(List<Sale> sales, Player c, Boolean loadRecent) {
 		c.sendMessage(":resetpost:");
-		List<GameItem> result = new ArrayList<GameItem>();
-		List<Integer> idk = new ArrayList<Integer>();
+		List<GameItem> result = new ArrayList<>();
+		List<Integer> idk = new ArrayList<>();
 		int total = 0, skipped = 0, start = 26023;
 		/** Sort highest price **/
 		if (!loadRecent) {
@@ -590,7 +590,7 @@ public class Listing {
 		c.searchId = 3;
 		c.getPA().sendFrame126("Trading Post - Recent listings", 48019);
 		c.getPA().showInterface(48000);
-		List<Sale> sales = new LinkedList<Sale>();
+		List<Sale> sales = new LinkedList<>();
 		int total = 0;
 
 		for(int i = NEXT_SALE_ID - 1; i > 0; i--) {
@@ -645,8 +645,8 @@ public class Listing {
 		}
 		if (totalStock < 1) {
 			c.sendMessage("Seems to be no more stock, try again.");
-			c.sendMessage("Total Stock = "+totalStock+"");
-			c.sendMessage("Purchase Amount = "+amount+"");
+			c.sendMessage("Total Stock = "+totalStock);
+			c.sendMessage("Purchase Amount = "+amount);
 			return;
 		}
 
@@ -735,7 +735,7 @@ public class Listing {
 		c.getPA().showInterface(48000);
 		c.getPA().sendFrame126("Trading Post - Searching for player: " + playerName, 48019);
 
-		List<Sale> sales = new LinkedList<Sale>();
+		List<Sale> sales = new LinkedList<>();
 
 		for(String s : new File(PLAYERS_DIRECTORY).list()) {
 			s = s.substring(0, s.indexOf(".")).toLowerCase();
@@ -763,8 +763,8 @@ public class Listing {
 		c.getPA().showInterface(48000);
 		c.getPA().sendFrame126("Trading Post - Searching for item: " + itemName, 48019);
 
-		List<Integer> items = new LinkedList<Integer>();
-		List<Sale> sales = new LinkedList<Sale>();
+		List<Integer> items = new LinkedList<>();
+		List<Sale> sales = new LinkedList<>();
 
 		for(String s : new File(ITEMS_DIRECTORY).list())
 			items.add(Integer.parseInt(s.substring(0, s.indexOf("."))));

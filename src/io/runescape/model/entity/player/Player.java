@@ -2253,7 +2253,7 @@ public class Player extends Entity {
         getPA().requestUpdates();
         tradeResetNeeded = true;
         MeleeData.setWeaponAnimations(this);
-        Arrays.stream(ClientGameTimer.values()).filter(timer -> timer.isResetOnDeath()).forEach(timer -> getPA().sendGameTimer(timer, TimeUnit.SECONDS, 0));
+        Arrays.stream(ClientGameTimer.values()).filter(ClientGameTimer::isResetOnDeath).forEach(timer -> getPA().sendGameTimer(timer, TimeUnit.SECONDS, 0));
     }
 
     /**
@@ -3120,9 +3120,7 @@ public class Player extends Entity {
         if (Boundary.isIn(new Position(teleportToX, teleportToY, heightLevel), Boundary.VORKATH)) {
             moveTo(new Position(2272, 4051, 0));
         }
-        if (Arrays.stream(Boundary.CERBERUS_BOSSROOMS).anyMatch(cerb -> {
-            return Boundary.isIn(new Position(teleportToX, teleportToY, heightLevel), cerb);
-        })) {
+        if (Arrays.stream(Boundary.CERBERUS_BOSSROOMS).anyMatch(cerb -> Boundary.isIn(new Position(teleportToX, teleportToY, heightLevel), cerb))) {
             moveTo(Cerberus.EXIT);
         }
         if (Boundary.isIn(new Position(teleportToX, teleportToY, heightLevel), Boundary.DAGANNOTH_MOTHER_HFTD)) {
@@ -5756,9 +5754,7 @@ public class Player extends Entity {
                     this.getPA().closeAllWindows();
                     this.getItems().deleteItem(itemId, 1);
                 }),
-                new DialogueOption("No", player -> {
-                    this.getPA().closeAllWindows();
-                })
+                new DialogueOption("No", player -> this.getPA().closeAllWindows())
         ).send());
         return;
     }

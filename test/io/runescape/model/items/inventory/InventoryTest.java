@@ -16,7 +16,7 @@ class InventoryTest {
 
     @BeforeEach
     void beforeEach() {
-        inventory = new Inventory(28, Inventory.StackMode.STACK_STACKABLE_ITEMS);;
+        inventory = new Inventory(28, Inventory.StackMode.STACK_STACKABLE_ITEMS);
     }
 
     @Test

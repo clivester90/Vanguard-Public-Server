@@ -27,7 +27,7 @@ public class CombatSpellData {
 		List<Integer> runes = Lists.newArrayList();
 		for (int i = 8; i < 13; i+= 2)
 			runes.add(MAGIC_SPELLS[spell][i]);
-		return runes.stream().anyMatch(x -> x.intValue() == 561);
+		return runes.stream().anyMatch(x -> x == 561);
 	}
 
 	public static boolean isBoltSpell(int spell) {

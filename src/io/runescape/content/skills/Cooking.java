@@ -234,7 +234,7 @@ public class Cooking extends SkillHandler {
 	private static void viewCookInterface(Player c, int item) {
 		c.getPA().sendChatboxInterface(1743);
 		c.getPA().sendFrame246(13716, 190, item);
-		c.getPA().sendFrame126("\\n\\n\\n\\n\\n" + ItemAssistant.getItemName(item) + "", 13717);
+		c.getPA().sendFrame126("\\n\\n\\n\\n\\n" + ItemAssistant.getItemName(item), 13717);
 	}
 
 	/**
@@ -268,78 +268,78 @@ public class Cooking extends SkillHandler {
 			c.startAnimation(c.playerSkillProp[7][5] == 5249 || c.playerSkillProp[7][5] == 26185 ? 897 : 896);
 		}
 		c.getPA().stopSkilling();
-		Server.getEventHandler().submit(new Event<Player>("skilling", c, 2) {
-			@Override
-			public void execute() {
-				if (attachment == null || attachment.isDisconnected()) {
-					this.stop();
-					return;
-				}
-				if (!attachment.getItems().playerHasItem(attachment.playerSkillProp[7][0])) {
-					this.stop();
-					return;
-				}
-				attachment.getItems().deleteItem(attachment.playerSkillProp[7][0], attachment.getItems().getInventoryItemSlot(attachment.playerSkillProp[7][0]), 1);
-				if (attachment.playerSkillProp[7][6] >= fishStopsBurning(attachment.playerSkillProp[7][0]) || cookFish(c)) {
-					attachment.sendMessage("You successfully cook the " + ItemAssistant.getItemName(attachment.playerSkillProp[7][0]).toLowerCase() + ".");
-					
-					switch (c.playerSkillProp[7][0]) {
-					case 7944:
-						c.getDiaryManager().getWesternDiary().progress(WesternDiaryEntry.COOK_MONK);
-						break;
-					case 377:
-						if (c.playerSkillProp[7][5] == 7183)
-							c.getDiaryManager().getVarrockDiary().progress(VarrockDiaryEntry.COOK_LOBSTER);
-						DailyTasks.increase(c, DailyTasks.PossibleTasks.LOBSTERS);//Daily tasks
-						break;
-					case 317:
-						if (Boundary.isIn(c, Boundary.LUMRIDGE_BOUNDARY)) {
-							c.getDiaryManager().getLumbridgeDraynorDiary().progress(LumbridgeDraynorDiaryEntry.COOK_SHRIMP);
-						}
-						break;
-					case 11934:
-						if (Boundary.isIn(c, Boundary.RESOURCE_AREA_BOUNDARY)) {
-							c.getDiaryManager().getWildernessDiary().progress(WildernessDiaryEntry.DARK_CRAB);
-						}
-						break;
-					}
-					
-					attachment.getPA().addSkillXP(attachment.playerSkillProp[7][1], Player.playerCooking, true);
-					attachment.getItems().addItem(attachment.playerSkillProp[7][4], 1);
-					Achievements.increase(c, AchievementType.COOK, 1);
-					attachment.getPA().sendSound(2577);
-				} else {
-					attachment.sendMessage("Oops! You accidentally burnt the " + ItemAssistant.getItemName(attachment.playerSkillProp[7][0]).toLowerCase() + "!");
-					attachment.getItems().addItem(attachment.playerSkillProp[7][3], 1);
-				}
-				deleteTime(c);
-				if (!attachment.getItems().playerHasItem(attachment.playerSkillProp[7][0], 1) || attachment.amountToCook <= 0) {
-					this.stop();
-					return;
-				}
-				if (!attachment.stopPlayerSkill) {
-					this.stop();
-					return;
-				}
-			}
+		Server.getEventHandler().submit(new Event<>("skilling", c, 2) {
+            @Override
+            public void execute() {
+                if (attachment == null || attachment.isDisconnected()) {
+                    this.stop();
+                    return;
+                }
+                if (!attachment.getItems().playerHasItem(attachment.playerSkillProp[7][0])) {
+                    this.stop();
+                    return;
+                }
+                attachment.getItems().deleteItem(attachment.playerSkillProp[7][0], attachment.getItems().getInventoryItemSlot(attachment.playerSkillProp[7][0]), 1);
+                if (attachment.playerSkillProp[7][6] >= fishStopsBurning(attachment.playerSkillProp[7][0]) || cookFish(c)) {
+                    attachment.sendMessage("You successfully cook the " + ItemAssistant.getItemName(attachment.playerSkillProp[7][0]).toLowerCase() + ".");
 
-			@Override
-			public void update() {
-				if (attachment == null || attachment.isDisconnected()) {
-					return;
-				}
-				if (super.getElapsedTicks() % 4 == 0) {
-					c.startAnimation(c.playerSkillProp[7][5] == 2732 ? 897 : 896);
-				}
-			}
+                    switch (c.playerSkillProp[7][0]) {
+                        case 7944:
+                            c.getDiaryManager().getWesternDiary().progress(WesternDiaryEntry.COOK_MONK);
+                            break;
+                        case 377:
+                            if (c.playerSkillProp[7][5] == 7183)
+                                c.getDiaryManager().getVarrockDiary().progress(VarrockDiaryEntry.COOK_LOBSTER);
+                            DailyTasks.increase(c, DailyTasks.PossibleTasks.LOBSTERS);//Daily tasks
+                            break;
+                        case 317:
+                            if (Boundary.isIn(c, Boundary.LUMRIDGE_BOUNDARY)) {
+                                c.getDiaryManager().getLumbridgeDraynorDiary().progress(LumbridgeDraynorDiaryEntry.COOK_SHRIMP);
+                            }
+                            break;
+                        case 11934:
+                            if (Boundary.isIn(c, Boundary.RESOURCE_AREA_BOUNDARY)) {
+                                c.getDiaryManager().getWildernessDiary().progress(WildernessDiaryEntry.DARK_CRAB);
+                            }
+                            break;
+                    }
 
-			@Override
-			public void stop() {
-				super.stop();
-				if (attachment != null && !attachment.isDisconnected()) {
-					resetCooking(c);
-				}
-			}
-		});
+                    attachment.getPA().addSkillXP(attachment.playerSkillProp[7][1], Player.playerCooking, true);
+                    attachment.getItems().addItem(attachment.playerSkillProp[7][4], 1);
+                    Achievements.increase(c, AchievementType.COOK, 1);
+                    attachment.getPA().sendSound(2577);
+                } else {
+                    attachment.sendMessage("Oops! You accidentally burnt the " + ItemAssistant.getItemName(attachment.playerSkillProp[7][0]).toLowerCase() + "!");
+                    attachment.getItems().addItem(attachment.playerSkillProp[7][3], 1);
+                }
+                deleteTime(c);
+                if (!attachment.getItems().playerHasItem(attachment.playerSkillProp[7][0], 1) || attachment.amountToCook <= 0) {
+                    this.stop();
+                    return;
+                }
+                if (!attachment.stopPlayerSkill) {
+                    this.stop();
+                    return;
+                }
+            }
+
+            @Override
+            public void update() {
+                if (attachment == null || attachment.isDisconnected()) {
+                    return;
+                }
+                if (super.getElapsedTicks() % 4 == 0) {
+                    c.startAnimation(c.playerSkillProp[7][5] == 2732 ? 897 : 896);
+                }
+            }
+
+            @Override
+            public void stop() {
+                super.stop();
+                if (attachment != null && !attachment.isDisconnected()) {
+                    resetCooking(c);
+                }
+            }
+        });
 	}
 }

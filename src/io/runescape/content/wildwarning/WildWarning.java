@@ -116,7 +116,7 @@ public class WildWarning {
 
         @Override
         public String encode(Player player, String key) {
-            return getWildWarnings(player) + "";
+            return String.valueOf(getWildWarnings(player));
         }
 
         @Override

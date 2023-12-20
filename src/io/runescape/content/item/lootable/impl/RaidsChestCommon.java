@@ -42,19 +42,19 @@ public class RaidsChestCommon implements Lootable {
         if (Misc.hasOneOutOf(TWISTED_HORNS_CHANCE)) {
             c.getItems().addItem(TWISTED_HORNS, 1);
             PlayerHandler.executeGlobalMessage("@pur@"+ Misc.capitalize(c.getLoginName()) + " has received some @red@twisted horns @pur@ from the chambers of xeric.");
-            Discord.writeDropsSyncMessage(""+ c.getLoginName() + " has received: Twisted Horns from the Chambers of Xeric.");
+            Discord.writeDropsSyncMessage(c.getLoginName() + " has received: Twisted Horns from the Chambers of Xeric.");
         }
 
         if (Misc.hasOneOutOf(KRONOS_SEED_CHANCE)) {
             c.getItems().addItem(SEED, 1);
             PlayerHandler.executeGlobalMessage("@pur@"+ Misc.capitalize(c.getLoginName()) + " has received an @red@kronos seed @pur@ from the chambers of xeric.");
-            Discord.writeDropsSyncMessage(""+ c.getLoginName() + " has received: Kronos Seed from the Chambers of Xeric.");
+            Discord.writeDropsSyncMessage(c.getLoginName() + " has received: Kronos Seed from the Chambers of Xeric.");
         }
 
         if (Misc.hasOneOutOf(RARE_KEY_CHANCE)) {
             c.getItems().addItem(Raids.RARE_KEY, 1);
             PlayerHandler.executeGlobalMessage("@pur@"+ Misc.capitalize(c.getLoginName()) + " has received an @red@rare key @pur@ from the chambers of xeric.");
-            Discord.writeDropsSyncMessage(""+ c.getLoginName() + " has received: Rare Key from the Chambers of Xeric.");
+            Discord.writeDropsSyncMessage(c.getLoginName() + " has received: Rare Key from the Chambers of Xeric.");
             c.rarekeysCollected+=1;
         }
 

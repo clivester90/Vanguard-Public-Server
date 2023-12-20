@@ -30,8 +30,8 @@ public class TabletCreation {
 			if (!player.getItems().playerHasItem(557, TABLET_DATA[i][2] * amount) || !player.getItems().playerHasItem(555, TABLET_DATA[i][3] * amount)
 					|| !player.getItems().playerHasItem(561, TABLET_DATA[i][4] * amount)) {
 				player.sendMessage("You do not have the required runes to create this tab.");
-				player.sendMessage("You need: " + "x" + TABLET_DATA[i][2] * amount + " " + ItemAssistant.getItemName(557).toLowerCase() + ", " + "" + "x" + TABLET_DATA[i][3]
-						* amount + " " + ItemAssistant.getItemName(555).toLowerCase() + ", " + "" + "x" + TABLET_DATA[i][4] * amount + " "
+				player.sendMessage("You need: " + "x" + TABLET_DATA[i][2] * amount + " " + ItemAssistant.getItemName(557).toLowerCase() + ", " + "x" + TABLET_DATA[i][3]
+						* amount + " " + ItemAssistant.getItemName(555).toLowerCase() + ", " + "x" + TABLET_DATA[i][4] * amount + " "
 						+ ItemAssistant.getItemName(561).toLowerCase() + " to do this.");
 				player.getPA().closeAllWindows();
 				return;

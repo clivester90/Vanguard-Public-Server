@@ -15,7 +15,7 @@ public class Ginfo extends Command {
 		Integer[] Values = {1, 2, 3, 4, 5, 6, 7, 8};
 		for (int i = 0, typeId = 50643, valueId = 50666; i <  Types.length; i += 1, typeId += 2, valueId += 2) {
 			c.getPA().sendFrame126(Types[i], typeId);
-			c.getPA().sendFrame126("" + Values[i], valueId);
+			c.getPA().sendFrame126(String.valueOf(Values[i]), valueId);
 		}
 	}
 

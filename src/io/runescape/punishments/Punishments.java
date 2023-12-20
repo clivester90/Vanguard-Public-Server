@@ -183,13 +183,13 @@ public class Punishments {
 			return false;
 		}
 
-		List<Punishment> matches = punishments.stream().filter(p -> Arrays.stream(p.getData()).anyMatch(s -> punishment.contains(s))).collect(Collectors.toList());
+		List<Punishment> matches = punishments.stream().filter(p -> Arrays.stream(p.getData()).anyMatch(punishment::contains)).collect(Collectors.toList());
 
 		if (matches.isEmpty()) {
 			return false;
 		}
 
-		matches.forEach(toRemove::add);
+		toRemove.addAll(matches);
 		return true;
 	}
 

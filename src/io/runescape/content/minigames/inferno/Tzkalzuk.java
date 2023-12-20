@@ -313,7 +313,7 @@ public abstract class Tzkalzuk extends LegacySoloPlayerInstance {
             @Override
             public void execute(CycleEventContainer container) {
                 if (tzkal.isDead() || player.isDead() || !Boundary.isIn(player, Boundary.INFERNO)
-                        || !healers.isEmpty() && healers.stream().allMatch(healer -> healer.isDead())) {
+                        || !healers.isEmpty() && healers.stream().allMatch(NPC::isDead)) {
                     container.stop();
                     return;
                 }

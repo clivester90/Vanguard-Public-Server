@@ -1,14 +1,15 @@
 package io.runescape.model.definitions;
 
-import java.io.File;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import io.runescape.Server;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import io.runescape.Server;
+import java.util.Objects;
 
 public class NpcDef {
 
@@ -17,12 +18,10 @@ public class NpcDef {
     private static final NpcDef DEFAULT = builder().build();
 
     public static void load() throws IOException {
-        try (FileReader fr = new FileReader(new File(Server.getDataDirectory() + "/cfg/npc/npc_definitions.json"))) {
+        try (FileReader fr = new FileReader(Server.getDataDirectory() + "/cfg/npc/npc_definitions.json")) {
             Map<Integer, NpcDef> map = new Gson().fromJson(fr, new TypeToken<Map<Integer, NpcDef>>() {
             }.getType());
-            map.entrySet().forEach(entry -> {
-                definitions.put(entry.getKey(), entry.getValue());
-            });
+            definitions.putAll(map);
         }
         log.info("Loaded " + definitions.size() + " npc definitions.");
     }
@@ -127,8 +126,7 @@ public class NpcDef {
         if (this.isRunnable() != other.isRunnable()) return false;
         final Object this$name = this.getName();
         final Object other$name = other.getName();
-        if (this$name == null ? other$name != null : !this$name.equals(other$name)) return false;
-        return true;
+        return Objects.equals(this$name, other$name);
     }
 
     protected boolean canEqual(final Object other) {

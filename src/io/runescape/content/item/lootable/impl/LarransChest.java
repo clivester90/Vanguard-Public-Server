@@ -83,8 +83,7 @@ public class LarransChest implements Lootable {
 			if (random == 0) {
 				if (!c.getDisplayName().equalsIgnoreCase("thimble") && !c.getDisplayName().equalsIgnoreCase("top hat")) {
 
-					PlayerHandler.executeGlobalMessage("@pur@" + c.getDisplayNameFormatted() + " received a drop: @red@" +
-							"" + ItemDef.forId(reward.getId()).getName() + " @red@x " + reward.getAmount() + " @pur@from Larran's chest.");
+					PlayerHandler.executeGlobalMessage("@pur@" + c.getDisplayNameFormatted() + " received a drop: @red@" + ItemDef.forId(reward.getId()).getName() + " @red@x " + reward.getAmount() + " @pur@from Larran's chest.");
 				}
 			}
 			if (!c.getItems().addItem(reward.getId(), reward.getAmount())) {

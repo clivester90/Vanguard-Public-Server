@@ -150,150 +150,150 @@ public class Fishing extends SkillHandler {
 
 				//getTimer(player, npcId) + 5 + playerFishingLevel(player)
 
-				Server.getEventHandler().submit(new Event<Player>("skilling", player, getTimer(player, npcId) + 5 + playerFishingLevel(player)) {
-					@Override
-					public void execute() {
-						if (player.getItems().freeSlots() == 0) {
-							player. sendMessage("Your inventory is full.");
-							player.fishing = false;
-		                        return;
-		                    }
-						if (player.playerSkillProp[10][5] > 0) {
-							if (player.playerLevel[Player.playerFishing] >= player.playerSkillProp[10][6]) {
-								player.playerSkillProp[10][1] = player.playerSkillProp[10][Misc.random(1) == 0 ? 7 : 5];
-							}
-						}
-						if (Misc.random(250) == 0 && player.getInterfaceEvent().isExecutable()) {
-							player.getInterfaceEvent().execute();
-							stop();
-							resetFishing(player);
-							return;
-						}
-						if ((SkillcapePerks.FISHING.isWearing(player) || SkillcapePerks.isWearingMaxCape(player)) && player.getItems().freeSlots() < 2) {
-							stop();
-							player. sendMessage("Your inventory is full.");
-							player.fishing = false;
-							return;
-						}
+				Server.getEventHandler().submit(new Event<>("skilling", player, getTimer(player, npcId) + 5 + playerFishingLevel(player)) {
+                    @Override
+                    public void execute() {
+                        if (player.getItems().freeSlots() == 0) {
+                            player.sendMessage("Your inventory is full.");
+                            player.fishing = false;
+                            return;
+                        }
+                        if (player.playerSkillProp[10][5] > 0) {
+                            if (player.playerLevel[Player.playerFishing] >= player.playerSkillProp[10][6]) {
+                                player.playerSkillProp[10][1] = player.playerSkillProp[10][Misc.random(1) == 0 ? 7 : 5];
+                            }
+                        }
+                        if (Misc.random(250) == 0 && player.getInterfaceEvent().isExecutable()) {
+                            player.getInterfaceEvent().execute();
+                            stop();
+                            resetFishing(player);
+                            return;
+                        }
+                        if ((SkillcapePerks.FISHING.isWearing(player) || SkillcapePerks.isWearingMaxCape(player)) && player.getItems().freeSlots() < 2) {
+                            stop();
+                            player.sendMessage("Your inventory is full.");
+                            player.fishing = false;
+                            return;
+                        }
 
-						if (player.playerSkillProp[10][1] > 0) {
-							//player.sendMessage("You catch a " + ItemAssistant.getItemName(player.playerSkillProp[10][1]) + ".");
-							Achievements.increase(player, AchievementType.FISH, 1);
-							player.getItems().addItem(player.playerSkillProp[10][1], SkillcapePerks.FISHING.isWearing(player) || SkillcapePerks.isWearingMaxCape(player) ? 2 : 1);
-							player.startAnimation(player.playerSkillProp[10][0]);
-							clueBottles(player, player.playerSkillProp[10][10]);
-							ssArtefact(player, player.playerSkillProp[10][10]);
+                        if (player.playerSkillProp[10][1] > 0) {
+                            //player.sendMessage("You catch a " + ItemAssistant.getItemName(player.playerSkillProp[10][1]) + ".");
+                            Achievements.increase(player, AchievementType.FISH, 1);
+                            player.getItems().addItem(player.playerSkillProp[10][1], SkillcapePerks.FISHING.isWearing(player) || SkillcapePerks.isWearingMaxCape(player) ? 2 : 1);
+                            player.startAnimation(player.playerSkillProp[10][0]);
+                            clueBottles(player, player.playerSkillProp[10][10]);
+                            ssArtefact(player, player.playerSkillProp[10][10]);
 
-							if (Misc.random(player.playerSkillProp[10][10] / 6 ) == 1) {
-								player.getItems().addItemUnderAnyCircumstance(anglerOuftit[Misc.random(anglerOuftit.length - 1)], 1);
-								player.sendMessage("You notice a angler piece floating in the water and pick it up.");
-							}
+                            if (Misc.random(player.playerSkillProp[10][10] / 6) == 1) {
+                                player.getItems().addItemUnderAnyCircumstance(anglerOuftit[Misc.random(anglerOuftit.length - 1)], 1);
+                                player.sendMessage("You notice a angler piece floating in the water and pick it up.");
+                            }
 
-							if (Misc.hasOneOutOf(25)) {//Fishing caskets
-								player.getItems().addItemUnderAnyCircumstance(7956, 1);
-								player.sendMessage("@red@You notice a fishing casket floating in the water and manage to fish it out.");
-							}
+                            if (Misc.hasOneOutOf(25)) {//Fishing caskets
+                                player.getItems().addItemUnderAnyCircumstance(7956, 1);
+                                player.sendMessage("@red@You notice a fishing casket floating in the water and manage to fish it out.");
+                            }
 
-							if (Misc.hasOneOutOf(35)) {//Fishing tomes
-								player.getItems().addItemUnderAnyCircumstance(7779, 1);
-								player.sendMessage("@red@You spot a fishing tome in the water and try to pull it out.");
-							}
+                            if (Misc.hasOneOutOf(35)) {//Fishing tomes
+                                player.getItems().addItemUnderAnyCircumstance(7779, 1);
+                                player.sendMessage("@red@You spot a fishing tome in the water and try to pull it out.");
+                            }
 
-							int petRate = attachment.skillingPetRateScroll ? (int) (player.playerSkillProp[10][10] * .75) : player.playerSkillProp[10][10];
-							if (Misc.random(petRate) == 2 && player.getItems().getItemCount(13320, true) == 0 && player.petSummonId != 13320) {
-								 PlayerHandler.executeGlobalMessage("[<col=CC0000>News</col>] <col=255>" + player.getDisplayName() + "</col> caught a fish and a <col=CC0000>Heron</col> pet!");
-								 player.getItems().addItemUnderAnyCircumstance(13320, 1);
-								 player.getCollectionLog().handleDrop(player, 5, 13320, 1);
-							 }
-						}
-						switch (player.playerSkillProp[10][1]) {
+                            int petRate = attachment.skillingPetRateScroll ? (int) (player.playerSkillProp[10][10] * .75) : player.playerSkillProp[10][10];
+                            if (Misc.random(petRate) == 2 && player.getItems().getItemCount(13320, true) == 0 && player.petSummonId != 13320) {
+                                PlayerHandler.executeGlobalMessage("[<col=CC0000>News</col>] <col=255>" + player.getDisplayName() + "</col> caught a fish and a <col=CC0000>Heron</col> pet!");
+                                player.getItems().addItemUnderAnyCircumstance(13320, 1);
+                                player.getCollectionLog().handleDrop(player, 5, 13320, 1);
+                            }
+                        }
+                        switch (player.playerSkillProp[10][1]) {
 
-						case 383:
-							DailyTasks.increase(player, DailyTasks.PossibleTasks.SHARKS);//Daily tasks
-							break;
+                            case 383:
+                                DailyTasks.increase(player, DailyTasks.PossibleTasks.SHARKS);//Daily tasks
+                                break;
 
-						case 389:
-							if (Boundary.isIn(player, Boundary.FALADOR_BOUNDARY)) {
-								player.getDiaryManager().getFaladorDiary().progress(FaladorDiaryEntry.FISH_MANTA);
-							}
-							break;
-						case 371:
-							if (Boundary.isIn(player, Boundary.CATHERBY_BOUNDARY)) {
-								player.getDiaryManager().getKandarinDiary().progress(KandarinDiaryEntry.FISH_SWORD);
-							}
-							break;
-							
-						case 377:
-							if (Boundary.isIn(player, Boundary.KARAMJA_BOUNDARY)) {
-								player.getDiaryManager().getKaramjaDiary().progress(KaramjaDiaryEntry.FISH_LOBSTER_KAR);
-							}
-							break;
-							
-						case 3142:
-							if (Boundary.isIn(player, Boundary.RESOURCE_AREA_BOUNDARY)) {
-								player.getDiaryManager().getWildernessDiary().progress(WildernessDiaryEntry.KARAMBWAN);
-							}
-							break;
-						}
-						switch (player.playerSkillProp[10][7]) {
-						case 389:
-							if (Boundary.isIn(player, Boundary.FALADOR_BOUNDARY)) {
-								player.getDiaryManager().getFaladorDiary().progress(FaladorDiaryEntry.FISH_MANTA);
-							}
-							break;
-						}
-						
-						switch (player.playerSkillProp[10][4]) {
-						case 389:
-							if (Boundary.isIn(player, Boundary.FALADOR_BOUNDARY)) {
-								player.getDiaryManager().getFaladorDiary().progress(FaladorDiaryEntry.FISH_MANTA);
-							}
-							break;
-							
-						case 377:
-							if (Boundary.isIn(player, Boundary.KARAMJA_BOUNDARY)) {
-								player.getDiaryManager().getKaramjaDiary().progress(KaramjaDiaryEntry.FISH_LOBSTER_KAR);
-							}
-							break;
-							
-						case 3142:
-							if (Boundary.isIn(player, Boundary.RESOURCE_AREA_BOUNDARY)) {
-								player.getDiaryManager().getWildernessDiary().progress(WildernessDiaryEntry.KARAMBWAN);
-							}
-							break;
-						}
-						
-						if (experience > 0) {
-							player.getPA().addSkillXP((int)(experience), Player.playerFishing, true);
-						}
-						if (player.playerSkillProp[10][3] > 0) {
-							player.getItems().deleteItem(player.playerSkillProp[10][3], player.getItems().getInventoryItemSlot(player.playerSkillProp[10][3]), 1);
+                            case 389:
+                                if (Boundary.isIn(player, Boundary.FALADOR_BOUNDARY)) {
+                                    player.getDiaryManager().getFaladorDiary().progress(FaladorDiaryEntry.FISH_MANTA);
+                                }
+                                break;
+                            case 371:
+                                if (Boundary.isIn(player, Boundary.CATHERBY_BOUNDARY)) {
+                                    player.getDiaryManager().getKandarinDiary().progress(KandarinDiaryEntry.FISH_SWORD);
+                                }
+                                break;
 
-							if (!player.getItems().playerHasItem(player.playerSkillProp[10][3])) {
-								player.sendMessage("You haven't got any " + ItemAssistant.getItemName(player.playerSkillProp[10][3]) + " left!");
-								player.sendMessage("You need " + ItemAssistant.getItemName(player.playerSkillProp[10][3]) + " to fish here.");
-								stop();
-								resetFishing(player);
-							}
-						}
-						if (!hasFishingEquipment(player, player.playerSkillProp[10][4])) {
-							stop();
-							resetFishing(player);
-						}
-						if (!noInventorySpace(player, "fishing")) {
-							stop();
-							resetFishing(player);
-						}
-						if (!player.stopPlayerSkill) {
-							stop();
-							resetFishing(player);
-						}
-						if (!player.playerSkilling[10]) {
-							stop();
-							resetFishing(player);
-						}
-					}
-				});
+                            case 377:
+                                if (Boundary.isIn(player, Boundary.KARAMJA_BOUNDARY)) {
+                                    player.getDiaryManager().getKaramjaDiary().progress(KaramjaDiaryEntry.FISH_LOBSTER_KAR);
+                                }
+                                break;
+
+                            case 3142:
+                                if (Boundary.isIn(player, Boundary.RESOURCE_AREA_BOUNDARY)) {
+                                    player.getDiaryManager().getWildernessDiary().progress(WildernessDiaryEntry.KARAMBWAN);
+                                }
+                                break;
+                        }
+                        switch (player.playerSkillProp[10][7]) {
+                            case 389:
+                                if (Boundary.isIn(player, Boundary.FALADOR_BOUNDARY)) {
+                                    player.getDiaryManager().getFaladorDiary().progress(FaladorDiaryEntry.FISH_MANTA);
+                                }
+                                break;
+                        }
+
+                        switch (player.playerSkillProp[10][4]) {
+                            case 389:
+                                if (Boundary.isIn(player, Boundary.FALADOR_BOUNDARY)) {
+                                    player.getDiaryManager().getFaladorDiary().progress(FaladorDiaryEntry.FISH_MANTA);
+                                }
+                                break;
+
+                            case 377:
+                                if (Boundary.isIn(player, Boundary.KARAMJA_BOUNDARY)) {
+                                    player.getDiaryManager().getKaramjaDiary().progress(KaramjaDiaryEntry.FISH_LOBSTER_KAR);
+                                }
+                                break;
+
+                            case 3142:
+                                if (Boundary.isIn(player, Boundary.RESOURCE_AREA_BOUNDARY)) {
+                                    player.getDiaryManager().getWildernessDiary().progress(WildernessDiaryEntry.KARAMBWAN);
+                                }
+                                break;
+                        }
+
+                        if (experience > 0) {
+                            player.getPA().addSkillXP((int) (experience), Player.playerFishing, true);
+                        }
+                        if (player.playerSkillProp[10][3] > 0) {
+                            player.getItems().deleteItem(player.playerSkillProp[10][3], player.getItems().getInventoryItemSlot(player.playerSkillProp[10][3]), 1);
+
+                            if (!player.getItems().playerHasItem(player.playerSkillProp[10][3])) {
+                                player.sendMessage("You haven't got any " + ItemAssistant.getItemName(player.playerSkillProp[10][3]) + " left!");
+                                player.sendMessage("You need " + ItemAssistant.getItemName(player.playerSkillProp[10][3]) + " to fish here.");
+                                stop();
+                                resetFishing(player);
+                            }
+                        }
+                        if (!hasFishingEquipment(player, player.playerSkillProp[10][4])) {
+                            stop();
+                            resetFishing(player);
+                        }
+                        if (!noInventorySpace(player, "fishing")) {
+                            stop();
+                            resetFishing(player);
+                        }
+                        if (!player.stopPlayerSkill) {
+                            stop();
+                            resetFishing(player);
+                        }
+                        if (!player.playerSkilling[10]) {
+                            stop();
+                            resetFishing(player);
+                        }
+                    }
+                });
 			}
 		}
 	}

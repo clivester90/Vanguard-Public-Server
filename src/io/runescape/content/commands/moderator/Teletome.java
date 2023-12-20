@@ -30,7 +30,7 @@ public class Teletome extends Command {
 			c2.heightLevel = c.heightLevel;
 			c2.isStuck = false;
 			c.sendMessage("You have teleported " + c2.getDisplayName() + " to you.");
-			c2.sendMessage("You have been teleported to " + c.getDisplayName() + "");
+			c2.sendMessage("You have been teleported to " + c.getDisplayName());
 		} else {
 			c.sendMessage(input + " is offline. You can only teleport online players.");
 		}

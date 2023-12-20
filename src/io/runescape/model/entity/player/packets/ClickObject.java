@@ -272,9 +272,7 @@ public class ClickObject implements PacketType {
                                             player.getPA().closeAllWindows();
 
                                         }),
-                                        new DialogueOption("I don't think I'm quite ready yet.", plr -> {
-                                            plr.getPA().closeAllWindows();
-                                        })));
+                                        new DialogueOption("I don't think I'm quite ready yet.", plr -> plr.getPA().closeAllWindows())));
                         return;
                     }
 
@@ -328,9 +326,7 @@ public class ClickObject implements PacketType {
 											player.getPA().closeAllWindows();
 
 										}),
-										new DialogueOption("No.", plr -> {
-											plr.getPA().closeAllWindows();
-										})));
+										new DialogueOption("No.", plr -> plr.getPA().closeAllWindows())));
 						return;
 					}
 

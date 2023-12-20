@@ -61,7 +61,7 @@ public class AchievementHandler {
 
 			if(player.completedAllAchievements()) {
 				activate(player, AchievementList.COMPLETIONIST, 1);
-				new Broadcast(""+player.getLoginName()+" has completed the completionist achievement and was rewarded an 50$ donation scroll.").copyMessageToChatbox().submit();
+				new Broadcast(player.getLoginName()+" has completed the completionist achievement and was rewarded an 50$ donation scroll.").copyMessageToChatbox().submit();
 			}
 
 			AchievementInterface.sendCompleteInterface(player, achievement);

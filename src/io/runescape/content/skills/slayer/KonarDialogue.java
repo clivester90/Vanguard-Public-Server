@@ -14,7 +14,7 @@ public class KonarDialogue extends DialogueBuilder {
         KonarSlayer.assignKonarSlayer(player, task);
         setNpcId(Npcs.KONAR_QUO_MATEN);
         npc("Your are to bring balance to ", player.getSlayer().getTaskAmount() + " " + task.getFormattedName() + " in the " + player.getKonarSlayerLocation() + ".")
-                .exit(plr -> { plr.getPA().closeAllWindows(); }
+                .exit(plr -> plr.getPA().closeAllWindows()
                 );
     }
 

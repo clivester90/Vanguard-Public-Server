@@ -218,7 +218,7 @@ public class KratosChest {
 			//Remember to add any rares you add to the chest here to be announced
 			if(item.getId() == 22622 || item.getId() == 22610 || item.getId() == 22613 || item.getId() == 12468 || item.getId() == 30022 || item.getId() == 30122 || item.getId() == 12877){
 				PlayerHandler.executeGlobalMessage("@red@"+c.getLoginName() + " @blu@has received: @red@"+item.getAmount()+"x @red@"+ ItemAssistant.getItemName(item.getId()) + " @blu@from the @red@Kratos Chest!");
-				Discord.writeDropsSyncMessage(""+ c.getLoginName() + "  has received: "+item.getAmount()+"x "+ ItemAssistant.getItemName(item.getId()) + " from the Kratos Chest!");
+				Discord.writeDropsSyncMessage(c.getLoginName() + "  has received: "+item.getAmount()+"x "+ ItemAssistant.getItemName(item.getId()) + " from the Kratos Chest!");
 			}
 			}
 			c.sendMessage("@pur@You manage to unlock the chest with your kratos key and pull some loot from it...");

@@ -21,7 +21,7 @@ public class Objectanim extends Command {
 			c.sendMessage(Integer.parseInt(args[0]) + " " + Integer.parseInt(args[1]));
 		} else if (args.length == 1) {
 			c.getPA().sendPlayerObjectAnimation(c.absX, c.absY, Integer.parseInt(args[0]), 10, 0);
-			c.sendMessage("" + Integer.parseInt(args[0]));
+			c.sendMessage(String.valueOf(Integer.parseInt(args[0])));
 		}
 	}
 }

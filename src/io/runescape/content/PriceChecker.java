@@ -16,7 +16,7 @@ import java.text.NumberFormat;
 
 public class PriceChecker {
 
-	private static int getFramesForSlot[][] = {
+	private static int[][] getFramesForSlot = {
 
 	    { 0, 45550 }, { 1, 45551 },	{ 2, 45552 }, { 3, 45553 }, { 4, 45554 }, { 5, 45555 }, { 6, 45556 }, { 7, 45557 },
 		{ 8, 45558 }, { 9, 45559 }, { 10, 45560 }, { 11, 45561 }, { 12, 45562 }, { 13, 45563 }, { 14, 45564 },
@@ -98,7 +98,7 @@ public class PriceChecker {
 		c.isChecking = true;
 		c.total = 0;
 		c.getPA().sendFrame126(
-				"" + NumberFormat.getInstance().format((c.total)) + "",
+                NumberFormat.getInstance().format((c.total)),
 				45513);
 		updateChecker(c);
 		resetFrames(c);
@@ -129,18 +129,15 @@ public class PriceChecker {
 			return;
 		}
 		if (player.getItems().isStackable(itemId)) {
-			player.getPA().sendFrame126("" + amount + " x", frameId);
+			player.getPA().sendFrame126(amount + " x", frameId);
 			player.getPA().sendFrame126(
-					""
-							+ NumberFormat.getInstance().format((price))
+					NumberFormat.getInstance().format((price))
 							+ "     = ", frameId + 1);
-			player.getPA().sendFrame126("" + total + "", frameId + 2);
+			player.getPA().sendFrame126(total, frameId + 2);
 		} else {
 			player.getPA()
 					.sendFrame126(
-							""
-									+ NumberFormat.getInstance().format((price))
-									+ "", frameId);
+                            NumberFormat.getInstance().format((price)), frameId);
 			player.getPA().sendFrame126("", frameId + 1);
 			player.getPA().sendFrame126("", frameId + 2);
 		}
@@ -163,8 +160,7 @@ public class PriceChecker {
 			}
 		}
 		c.getPA().sendFrame126(
-				""
-						+ NumberFormat.getInstance().format((c.total < 0 ? 0 : c.total)) + "",
+                NumberFormat.getInstance().format((c.total < 0 ? 0 : c.total)),
 				45513);
 	}
 

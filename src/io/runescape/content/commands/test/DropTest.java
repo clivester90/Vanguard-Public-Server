@@ -27,9 +27,7 @@ public class DropTest extends Command {
                 player.getItems().queueBankContainerUpdate();
                 player.getBank().deleteAllItems();
                 for (int k = 0; k < count; k++) {
-                    Server.getDropManager().getDropSample(player, npcId).forEach(item -> {
-                        player.getBank().getCurrentBankTab().add(new BankItem(item.getId() + 1, item.getAmount()));
-                    });
+                    Server.getDropManager().getDropSample(player, npcId).forEach(item -> player.getBank().getCurrentBankTab().add(new BankItem(item.getId() + 1, item.getAmount())));
                 }
 
                 player.getItems().updateBankContainer();

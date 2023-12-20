@@ -193,9 +193,7 @@ public class MonkeyMadnessQuest extends Quest {
                             .npc(DialogueExpression.ANGER_1, "Nothing in particular... Well actually, yes... there is.", "The 10th squad hasn't reported back from a recent mission.")
                             .player("Maybe I can find them.")
                             .npc(DialogueExpression.HAPPY, "That would be great! Please report", "back to me when you find out anything!", "You should talk to the pilot at the top of the tree.")
-                            .exit(plr -> {
-                                incrementStage();
-                            }));
+                            .exit(plr -> incrementStage()));
                 } else if (getStage() == 1 || getStage() == 2) {
                     player.start(getKingNarnodeDialogue()
                             .npc(DialogueExpression.ANGER_1, "Please, go find the 10th squad!", "Talk to the pilot at the top of the tree."));
@@ -205,9 +203,7 @@ public class MonkeyMadnessQuest extends Quest {
                             .npc(DialogueExpression.HAPPY, "I know. They told me already.")
                             .player("...")
                             .npc(DialogueExpression.ANNOYED, "Don't you have a demon to kill?")
-                            .exit(plr -> {
-                                plr.getPA().closeAllWindows();
-                            }));
+                            .exit(plr -> plr.getPA().closeAllWindows()));
                 } else if (getStage() == 4) {
                     player.start(getKingNarnodeDialogue()
                             .npc(DialogueExpression.ANNOYED, "How is the mission going?", "It has been quite some time since I", "you on your way.")
@@ -263,9 +259,7 @@ public class MonkeyMadnessQuest extends Quest {
             case 4035:
                 if (getStage() == 3 && !player.getPosition().inWild()) {
                     player.start(getGarkor()
-                            .option(new DialogueOption("Yes, teleport me. I am ready to fight.", p -> {
-                                        new MMDemonInstance(player, !isQuestCompleted()).init();
-                                    }
+                            .option(new DialogueOption("Yes, teleport me. I am ready to fight.", p -> new MMDemonInstance(player, !isQuestCompleted()).init()
                                     ),
                                     new DialogueOption("No, I am not ready to fight.", p -> p.getPA().closeAllWindows())
                             ));

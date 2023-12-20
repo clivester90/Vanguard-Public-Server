@@ -48,24 +48,20 @@ public class DuelSessionRules {
 		NO_FOOD(256, "Eating food to heal is not allowed."), 
 		NO_PRAYER(512, "Using the Prayer skill is not allowed."), 
 		OBSTACLES(1024, "Obstacles will exist in the arena."), 
-		WHIP_AND_DDS(4096, "Only dds and whip are permitted.", new RuleRequirement() {
-									@Override
-									public boolean meets(Player player) {
-										ItemAssistant items = player.getItems();
-										int[][] weapons = { { 4151, 12773, 12774 }, { 1215, 1231, 5680, 5698 } };
-										int weaponCount = 0;
-										for (int[] weaponGroup : weapons) {
-											for (int weapon : weaponGroup) {
-												if (items.playerHasItem(weapon) || items.isWearingItem(weapon)) {
-													weaponCount++;
-													break;
-												}
-											}
-										}
-										return weaponCount >= 2;
-									}
-
-								}), 
+		WHIP_AND_DDS(4096, "Only dds and whip are permitted.", player -> {
+			ItemAssistant items = player.getItems();
+			int[][] weapons = { { 4151, 12773, 12774 }, { 1215, 1231, 5680, 5698 } };
+			int weaponCount = 0;
+			for (int[] weaponGroup : weapons) {
+				for (int weapon : weaponGroup) {
+					if (items.playerHasItem(weapon) || items.isWearingItem(weapon)) {
+						weaponCount++;
+						break;
+					}
+				}
+			}
+			return weaponCount >= 2;
+		}),
 								NO_SPECIAL_ATTACK(8192, "Special attacks are disabled."), 
 								NO_HELM(16384, ""), 
 								NO_CAPE(32768, ""), 

@@ -115,7 +115,7 @@ public abstract class StatefulAchievementDiary<T extends Enum<T>> extends
 	}
 
 	public void forEachPartial(BiConsumer<T, Integer> action) {
-		partialAchievements.forEach((entry, stage) -> action.accept(entry, stage));
+		partialAchievements.forEach(action::accept);
 	}
 	
 	public Map<T, Integer> getPartialAchievements() {

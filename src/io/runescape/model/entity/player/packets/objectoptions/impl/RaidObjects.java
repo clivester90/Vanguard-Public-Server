@@ -24,7 +24,7 @@ public class RaidObjects {
 			}
 		}
 		
-		player.sendMessage("Clicked "+objectId+" at "+objX+", "+objY+"");
+		player.sendMessage("Clicked "+objectId+" at "+objX+", "+objY);
 		return false;
 	}
 }

@@ -31,7 +31,7 @@ public class Cannon {
 
     private static final Logger logger = LoggerFactory.getLogger(Cannon.class);
 
-    private static HashSet<Boundary> BLOCKED_BOUNDARIES = new HashSet<>(Arrays.asList(
+    private static HashSet<Boundary> BLOCKED_BOUNDARIES = new HashSet<>(List.of(
             Boundary.MAGE_ARENA
     ));
 
@@ -314,12 +314,10 @@ public class Cannon {
     }
 
     public List<NPC> getShootableNpcs(Player player) {
-        List<NPC> possibleTargets = Arrays.stream(NPCHandler.npcs).filter(npc -> {
-           return npc != null && !npc.isDead && npc.heightLevel == getPosition().getHeight()
-                   && npc.distance(getPosition()) <= 12
-                   && player.attacking.attackEntityCheck(npc, false)
-                   && PathChecker.raycast(player, npc, true);
-        }).collect(Collectors.toList());
+        List<NPC> possibleTargets = Arrays.stream(NPCHandler.npcs).filter(npc -> npc != null && !npc.isDead && npc.heightLevel == getPosition().getHeight()
+                && npc.distance(getPosition()) <= 12
+                && player.attacking.attackEntityCheck(npc, false)
+                && PathChecker.raycast(player, npc, true)).collect(Collectors.toList());
 
         int rotationStateIndex = (rotationState.ordinal() + 1) % CannonRotationState.values().length;
         List<NPC> targets = Lists.newArrayList();

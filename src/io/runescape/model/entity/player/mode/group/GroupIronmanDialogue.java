@@ -245,11 +245,11 @@ public class GroupIronmanDialogue extends DialogueBuilder {
 
             if (group.isFinalized()) {
                 db.npc("You've been invited to join the group '" + group.getName() + "'.",
-                        "Members: " + group.getOnline().stream().map(it -> it.getLoginName()).collect(Collectors.joining(", ")),
+                        "Members: " + group.getOnline().stream().map(Player::getLoginName).collect(Collectors.joining(", ")),
                         "@red@This group is formed already, when you accept you", "@red@won't be able to join any new groups!");
             } else {
                 db.npc("You've been invited to join the group '" + group.getName() + "'.",
-                        "Members: " + group.getOnline().stream().map(it -> it.getLoginName()).collect(Collectors.joining(", ")),
+                        "Members: " + group.getOnline().stream().map(Player::getLoginName).collect(Collectors.joining(", ")),
                         "Would you like to join the group?");
             }
 

@@ -57,7 +57,7 @@ public abstract class MultiplayerSession implements MultiplayerSessionItemDistri
 	public MultiplayerSession(List<Player> players, MultiplayerSessionType type) {
 		this.players = players;
 		this.type = type;
-		players.stream().forEach(player -> items.put(player, new ArrayList<GameItem>()));
+		players.stream().forEach(player -> items.put(player, new ArrayList<>()));
 	}
 
 	public abstract void accept(Player player, Player recipient, int stage);
@@ -363,13 +363,7 @@ public abstract class MultiplayerSession implements MultiplayerSessionItemDistri
 		}
 		stage.setStage(MultiplayerSessionStage.FINALIZE);
 		for (Player p : players) {
-			Iterator<GameItem> itemList = items.get(p).iterator();
-			while (itemList.hasNext()) {
-				GameItem item = itemList.next();
-				if (!presetListContains(p, item.getId(), item.getAmount()) || inventoryContainsIllegalItem(p, item)) {
-					itemList.remove();
-				}
-			}
+			items.get(p).removeIf(item -> !presetListContains(p, item.getId(), item.getAmount()) || inventoryContainsIllegalItem(p, item));
 		}
 		//logSession(type); //Logs
 		switch (type) {

@@ -17,7 +17,7 @@ import io.runescape.model.lobby.Lobby;
 public class LastManStandingLobby extends Lobby {
 
 
-	public static final List <Player> lmsLobby = new CopyOnWriteArrayList<Player>();//gets players in lobby
+	public static final List <Player> lmsLobby = new CopyOnWriteArrayList<>();//gets players in lobby
 
 	public static boolean disabled = false;
 	

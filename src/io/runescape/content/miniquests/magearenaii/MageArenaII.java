@@ -22,7 +22,7 @@ public class MageArenaII {
 
     public static boolean isUntradable(int itemId) {
         List<Integer> untradables = Arrays.asList(ENTS_ROOT, DEMONS_HEART, JUSTICIARS_HAND, SYMBOL_ID);
-        return untradables.stream().filter(Objects::nonNull).anyMatch(i -> i.intValue() == itemId);
+        return untradables.stream().filter(Objects::nonNull).anyMatch(i -> i == itemId);
     }
 
     public static boolean hasRequirements(Player player) {
@@ -274,9 +274,7 @@ public class MageArenaII {
                     player.getItems().deleteItem(cape.capeId, 1);
                     player.getItems().addItem(cape.imbueCapeId, 1);
                 }),
-                new DialogueOption("No", p -> {
-                    p.getPA().closeAllWindows();
-                })));
+                new DialogueOption("No", p -> p.getPA().closeAllWindows())));
     }
 
     public static Capes isValidCape(int itemId) {

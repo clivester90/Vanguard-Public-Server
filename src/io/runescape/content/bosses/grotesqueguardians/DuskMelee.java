@@ -2,7 +2,6 @@ package io.runescape.content.bosses.grotesqueguardians;
 
 import io.runescape.content.combat.npc.NPCAutoAttack;
 import io.runescape.content.combat.npc.NPCAutoAttackBuilder;
-import io.runescape.content.combat.npc.NPCCombatAttack;
 import io.runescape.model.Animation;
 import io.runescape.model.CombatType;
 
@@ -25,12 +24,7 @@ public class DuskMelee implements Function<GrotesqueGuardianNpc, NPCAutoAttack> 
                 .setHitDelay(2)
                 .setAttackDelay(6)
                 .setDistanceRequiredForAttack(1)
-                .setPrayerProtectionPercentage(new Function<NPCCombatAttack, Double>() {
-                    @Override
-                    public Double apply(NPCCombatAttack npcCombatAttack) {
-                        return 0.2d;
-                    }
-                })
+                .setPrayerProtectionPercentage(npcCombatAttack -> 0.2d)
                 .createNPCAutoAttack();
     }
 }

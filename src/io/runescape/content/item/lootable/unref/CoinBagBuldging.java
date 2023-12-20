@@ -36,18 +36,18 @@ public class CoinBagBuldging extends CycleEvent {
 	 */
 	static {
 		items.put(Rarity.COMMON,
-			Arrays.asList(
-					new GameItem(995, 30000))
+                List.of(
+                        new GameItem(995, 30000))
 	);
 
 		items.put(Rarity.UNCOMMON,
-				Arrays.asList(
-						new GameItem(995, 300000))
+                List.of(
+                        new GameItem(995, 300000))
 	);
 
 			items.put(Rarity.RARE,
-					Arrays.asList(
-							new GameItem(995, 900000))
+                    List.of(
+                            new GameItem(995, 900000))
 	);
 
 

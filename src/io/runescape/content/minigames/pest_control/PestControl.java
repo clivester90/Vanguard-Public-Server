@@ -121,9 +121,9 @@ public class PestControl {
 				player.getPA().sendString("Next Departure: " + minutes + ":" + seconds, 21120);
 			else
 				player.getPA().sendString("Next Departure: " + minutes + ":0" + seconds, 21120);
-				player.getPA().sendString("Players Ready: " + lobbyMembers.size() + "", 21121);
+				player.getPA().sendString("Players Ready: " + lobbyMembers.size(), 21121);
 				player.getPA().sendString("Players Required: " + PLAYERS_REQUIRED + "", 21122);
-				player.getPA().sendString("Commendation Points: " + player.pcPoints + "", 21123);
+				player.getPA().sendString("Commendation Points: " + player.pcPoints, 21123);
 			break;
 		case "game":
 			player.getPA().sendString("@or1@Members: " + gameMembers.size(), 21115);

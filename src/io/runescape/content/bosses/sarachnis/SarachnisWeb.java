@@ -71,19 +71,9 @@ public class SarachnisWeb implements Function<SarachnisNpc, NPCAutoAttack> {
         };
         List<Player> players = NPCAutoAttack.getPlayers(nightmare);
         return new NPCAutoAttackBuilder()
-                .setSelectPlayersForMultiAttack(new Function<>() {
-                    @Override
-                    public List<Player> apply(NPCCombatAttack npcCombatAttack) {
-                        return players.stream().filter(plr -> Boundary.isIn(plr, Boundary.SARACHNIS_LAIR))
-                                .collect(Collectors.toList());
-                    }
-                })
-                .setSelectAutoAttack(new Function<NPCCombatAttack, Boolean>() {
-                    @Override
-                    public Boolean apply(NPCCombatAttack npcCombatAttack) {
-                        return nightmare.attackCounter >= 4;
-                    }
-                })
+                .setSelectPlayersForMultiAttack(npcCombatAttack -> players.stream().filter(plr -> Boundary.isIn(plr, Boundary.SARACHNIS_LAIR))
+                        .collect(Collectors.toList()))
+                .setSelectAutoAttack(npcCombatAttack -> nightmare.attackCounter >= 4)
                 .setAnimation(new Animation(4410))
                 .setCombatType(CombatType.SPECIAL)
                 .setAttackDelay(4)

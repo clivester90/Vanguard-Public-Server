@@ -12,13 +12,11 @@ public class DeathItemModifiers {
 
     @Init
     public static void init() {
-        Reflection.getSubClassInstances(DeathItemModifier.class).forEach(modifier -> {
-            modifier.getItemIds().forEach(item -> {
-                if (modifiers.containsKey(item))
-                    throw new IllegalStateException("Modifier for lost item already exists for item " + item + ": " + modifiers.get(item));
-                modifiers.put(item, modifier);
-            });
-        });
+        Reflection.getSubClassInstances(DeathItemModifier.class).forEach(modifier -> modifier.getItemIds().forEach(item -> {
+            if (modifiers.containsKey(item))
+                throw new IllegalStateException("Modifier for lost item already exists for item " + item + ": " + modifiers.get(item));
+            modifiers.put(item, modifier);
+        }));
     }
 
     public static DeathItemModifier get(int itemId) {

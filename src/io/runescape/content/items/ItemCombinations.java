@@ -15,14 +15,14 @@ import io.runescape.model.items.ItemCombination;
 
 public enum ItemCombinations {
 	
-	SARADOMINS_BLESSED_SWORD(new SaradominsBlessedSword(new GameItem(12809), Optional.of(Arrays.asList(new GameItem(12804))), new GameItem[] { new GameItem(12804), new GameItem(11838) })),
+	SARADOMINS_BLESSED_SWORD(new SaradominsBlessedSword(new GameItem(12809), Optional.of(List.of(new GameItem(12804))), new GameItem[] { new GameItem(12804), new GameItem(11838) })),
 
 	BLESSED_SPIRIT_SHIELD(new BlessedSpiritShield(new GameItem(12831), Optional.empty(), new GameItem[] { new GameItem(12829), new GameItem(12833) })),
 	ARCANE_SPIRIT_SHIELD(new ArcaneSpiritShield(new GameItem(12825), Optional.empty(), new GameItem[] { new GameItem(12827), new GameItem(12831) })),
 	ELYSIAN_SPIRIT_SHIELD(new ElysianSpiritShield(new GameItem(12817), Optional.empty(), new GameItem[] { new GameItem(12819), new GameItem(12831) })),
 	SPECTRAL_SPIRIT_SHIELD(new SpectralSpiritShield(new GameItem(12821), Optional.empty(), new GameItem[] { new GameItem(12823), new GameItem(12831) })),
 
-	TENTACLE_WHIP(new TentacleWhip(new GameItem(12006), Optional.of(Arrays.asList(new GameItem(12004))), new GameItem[] { new GameItem(12004), new GameItem(4151), new GameItem(26484) })),
+	TENTACLE_WHIP(new TentacleWhip(new GameItem(12006), Optional.of(List.of(new GameItem(12004))), new GameItem[] { new GameItem(12004), new GameItem(4151), new GameItem(26484) })),
 
 	HOLY_BOOK(new HolyBook(new GameItem(3840), Optional.empty(),
 			new GameItem[] { new GameItem(3839), new GameItem(3827), new GameItem(3828), new GameItem(3829), new GameItem(3830) })),

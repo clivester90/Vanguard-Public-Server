@@ -27,9 +27,7 @@ public class CopyPlayer extends Command {
                 player.playerEquipmentN[i] = other.playerEquipmentN[i];
             }
 
-            other.getItems().getInventoryItems().forEach(item -> {
-                player.getItems().setInventoryItemSlot(item.getSlot(), item.getId(), item.getAmount());
-            });
+            other.getItems().getInventoryItems().forEach(item -> player.getItems().setInventoryItemSlot(item.getSlot(), item.getId(), item.getAmount()));
 
             for (int i = 0; i < other.playerLevel.length; i++) {
                 player.playerLevel[i] = other.playerLevel[i];

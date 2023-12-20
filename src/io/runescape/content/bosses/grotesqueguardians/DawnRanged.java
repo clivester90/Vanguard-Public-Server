@@ -2,7 +2,6 @@ package io.runescape.content.bosses.grotesqueguardians;
 
 import io.runescape.content.combat.npc.NPCAutoAttack;
 import io.runescape.content.combat.npc.NPCAutoAttackBuilder;
-import io.runescape.content.combat.npc.NPCCombatAttack;
 import io.runescape.model.Animation;
 import io.runescape.model.CombatType;
 import io.runescape.model.ProjectileBase;
@@ -31,12 +30,7 @@ public class DawnRanged implements Function<GrotesqueGuardianNpc, NPCAutoAttack>
                 .setAttackDelay(6)
                 .setDistanceRequiredForAttack(24)
                 .setMultiAttack(false)
-                .setPrayerProtectionPercentage(new Function<NPCCombatAttack, Double>() {
-                    @Override
-                    public Double apply(NPCCombatAttack npcCombatAttack) {
-                        return 0.3;
-                    }
-                })
+                .setPrayerProtectionPercentage(npcCombatAttack -> 0.3)
                 .setProjectile(projectile())
                 .createNPCAutoAttack();
     }

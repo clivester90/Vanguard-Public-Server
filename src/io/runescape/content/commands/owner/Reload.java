@@ -121,7 +121,7 @@ public class Reload extends Command {
 			
 		case "looting":
 			Configuration.BAG_AND_POUCH_PERMITTED = !Configuration.BAG_AND_POUCH_PERMITTED;
-			player.sendMessage(""+(Configuration.BAG_AND_POUCH_PERMITTED ? "Enabled" : "Disabled" +"") + " bag and pouch.");
+			player.sendMessage((Configuration.BAG_AND_POUCH_PERMITTED ? "Enabled" : "Disabled") + " bag and pouch.");
 			break;
 
 		}

@@ -5,7 +5,6 @@ import java.util.function.Function;
 import io.runescape.content.bosses.nightmare.Nightmare;
 import io.runescape.content.combat.npc.NPCAutoAttack;
 import io.runescape.content.combat.npc.NPCAutoAttackBuilder;
-import io.runescape.content.combat.npc.NPCCombatAttack;
 import io.runescape.model.Animation;
 import io.runescape.model.CombatType;
 import io.runescape.model.ProjectileBase;
@@ -34,12 +33,7 @@ public class StandardRanged implements Function<Nightmare, NPCAutoAttack> {
                 .setDistanceRequiredForAttack(16)
                 .setMultiAttack(true)
                 //.setOnAttack(StandardMage.getProjectileThrow(projectile()))
-                .setPrayerProtectionPercentage(new Function<NPCCombatAttack, Double>() {
-                    @Override
-                    public Double apply(NPCCombatAttack npcCombatAttack) {
-                        return 0.3;
-                    }
-                })
+                .setPrayerProtectionPercentage(npcCombatAttack -> 0.3)
                 .setProjectile(projectile())
                 .createNPCAutoAttack();
     }

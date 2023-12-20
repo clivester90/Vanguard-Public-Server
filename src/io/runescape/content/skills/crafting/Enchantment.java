@@ -87,7 +87,7 @@ public class Enchantment {
 			return reqEnchantmentLevel;
 		}
 
-		private static final Map<Integer, Enchant> enc = new HashMap<Integer, Enchant>();
+		private static final Map<Integer, Enchant> enc = new HashMap<>();
 
 		public static Enchant forId(int itemID) {
 			return enc.get(itemID);
@@ -121,7 +121,7 @@ public class Enchantment {
 			return spell;
 		}
 
-		public static final Map<Integer, EnchantSpell> ens = new HashMap<Integer, EnchantSpell>();
+		public static final Map<Integer, EnchantSpell> ens = new HashMap<>();
 
 		public static EnchantSpell forId(int id) {
 			return ens.get(id);

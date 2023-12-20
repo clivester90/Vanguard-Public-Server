@@ -66,7 +66,7 @@ public class FishingCasket {
 			player.getItems().addItemUnderAnyCircumstance(7993, 1);//pet shark
 			player.sendMessage("@red@Congratulations you have received the pet shark.");
 			Announcement.announce("@red@"+player.getLoginName()+" @org@has received the @red@Pet Shark @org@from an @red@Fishing Casket.");
-			Discord.writeDropsSyncMessage(""+player.getLoginName()+" has received the Pet Shark from an Fishing Casket.");
+			Discord.writeDropsSyncMessage(player.getLoginName()+" has received the Pet Shark from an Fishing Casket.");
 			AchievementHandler.activate(player, AchievementList.PET_SHARK, 1);
 		}
 

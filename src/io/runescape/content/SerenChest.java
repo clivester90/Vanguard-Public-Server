@@ -202,7 +202,7 @@ public class SerenChest implements Lootable {
 			ItemDef def = ItemDef.forId(chooseRandomItem.getId());
 			//if (!c.getDisplayName().equalsIgnoreCase("thimble") && !c.getDisplayName().equalsIgnoreCase("top hat")) {
 			PlayerHandler.executeGlobalMessage("@bla@[<col=7f0000>SEREN@bla@] <col=990000>" + c.getDisplayName() + "@bla@ has just received a <col=990000>" + def.getName() + ".");
-			Discord.writeDropsSyncMessage(""+ c.getLoginName() + " has received: a " + def.getName() +" from the Seren Chest!");
+			Discord.writeDropsSyncMessage(c.getLoginName() + " has received: a " + def.getName() +" from the Seren Chest!");
 			//}
 			return chooseRandomItem;
 		}

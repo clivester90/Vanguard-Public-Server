@@ -154,7 +154,7 @@ public class MeleeMaxHit {
 			case CRUSH:
 				return c.getItems().getBonus(Bonus.DEFENCE_CRUSH);
 			default:
-				throw new IllegalStateException(style + "");
+				throw new IllegalStateException(String.valueOf(style));
 		}
 	}
 
@@ -214,12 +214,12 @@ public class MeleeMaxHit {
 		}
 		if (c.npcAttackingIndex > 0 && c.getItems().isWearingItem(19675, Player.playerWeapon) && c.getArcLightCharge() > 0) {
 			if (c.debugMessage)
-					c.sendMessage("Accuracy on reg: "+ attackLevel +"");
+					c.sendMessage("Accuracy on reg: "+ attackLevel);
 			NPC npc = NPCHandler.npcs[c.npcAttackingIndex];
 			if (Misc.linearSearch(Configuration.DEMON_IDS, npc.getNpcId()) != -1) {
 				attackLevel += c.getLevelForXP(c.playerXP[Player.playerAttack]) * 0.70;
 				if (c.debugMessage)
-					c.sendMessage("Accuracy on demon: "+ attackLevel +"");
+					c.sendMessage("Accuracy on demon: "+ attackLevel);
 			}
 		}
 		if (c.npcAttackingIndex > 0 && c.getSlayer().getTask().isPresent()) {

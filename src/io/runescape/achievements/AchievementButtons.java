@@ -15,9 +15,9 @@ import java.util.HashMap;
  */
 public class AchievementButtons {
 
-	private static final HashMap<Integer, AchievementList> BUTTONS_1 = new HashMap<Integer, AchievementList>();
-	private static final HashMap<Integer, AchievementList> BUTTONS_2 = new HashMap<Integer, AchievementList>();
-	private static final HashMap<Integer, AchievementList> BUTTONS_3 = new HashMap<Integer, AchievementList>();
+	private static final HashMap<Integer, AchievementList> BUTTONS_1 = new HashMap<>();
+	private static final HashMap<Integer, AchievementList> BUTTONS_2 = new HashMap<>();
+	private static final HashMap<Integer, AchievementList> BUTTONS_3 = new HashMap<>();
 
 	static {
 		int button = 136215;

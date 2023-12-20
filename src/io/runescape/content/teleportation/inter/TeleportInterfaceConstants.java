@@ -211,9 +211,7 @@ public class TeleportInterfaceConstants {
 
             new TeleportButtonStandard("Lizardman Shaman", new Position(1558, 3696, 0)),
 
-            new TeleportButton("Nex", plr -> {
-                plr.getPA().startTeleport(2866, 5219, 0, "modern", false);
-            }),
+            new TeleportButton("Nex", plr -> plr.getPA().startTeleport(2866, 5219, 0, "modern", false)),
             //   new TeleportButtonStandard("Nex", new Position(2866, 5219, 0)),
 
             new TeleportButtonStandard("Obor", new Position(3097, 9833, 0)),

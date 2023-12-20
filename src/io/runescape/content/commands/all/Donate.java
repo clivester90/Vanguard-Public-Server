@@ -17,7 +17,7 @@ public class Donate extends Command {
 	public void execute(Player c, String commandName, String input) {
 		c.getPA()
 				.sendFrame126(
-						""+ Configuration.STORE_LINK+"", 12000);
+                        Configuration.STORE_LINK, 12000);
 	}
 	@Override
 	public Optional<String> getDescription() {

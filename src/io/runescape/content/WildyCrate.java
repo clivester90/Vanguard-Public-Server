@@ -239,7 +239,7 @@ import io.runescape.util.discord.Discord;
 		int rights = player.getRights().getPrimary().getValue() - 1;
 		if (random > 97) {
 			PlayerHandler.executeGlobalMessage(" "+player.getLoginName() + "just received: <col=006600>"+item.getAmount()+"x "+ ItemAssistant.getItemName(item.getId()) + "</col> from a Rogue Crate!");
-			Discord.writeDropsSyncMessage(""+ player.getLoginName() + " just received: "+item.getAmount()+"x "+ ItemAssistant.getItemName(item.getId()) + " from a Rogue Crate!");
+			Discord.writeDropsSyncMessage(player.getLoginName() + " just received: "+item.getAmount()+"x "+ ItemAssistant.getItemName(item.getId()) + " from a Rogue Crate!");
 		}
 		player.lastMysteryBox = System.currentTimeMillis();
 		player.getItems().addItemUnderAnyCircumstance(item.getId(), item.getAmount());

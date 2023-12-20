@@ -15,7 +15,7 @@ public class Impling {
 
 	public static boolean isImp(int id) {
 		List<Integer> imps = Arrays.asList(1635, 1636, 1637, 1638, 1639, 1640, 1641, 1642, 1643, 1654, 7302);
-		return imps.stream().anyMatch(i -> i.intValue() == id);
+		return imps.stream().anyMatch(i -> i == id);
 	}
 	
 	/**

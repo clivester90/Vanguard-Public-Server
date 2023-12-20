@@ -2,7 +2,6 @@ package io.runescape.content.bosses.mimic;
 
 import io.runescape.content.combat.npc.NPCAutoAttack;
 import io.runescape.content.combat.npc.NPCAutoAttackBuilder;
-import io.runescape.content.combat.npc.NPCCombatAttack;
 import io.runescape.model.Animation;
 import io.runescape.model.CombatType;
 
@@ -19,12 +18,7 @@ public class MimicMelee implements Function<MimicNpc, NPCAutoAttack> {
                 .setHitDelay(2)
                 .setAttackDelay(4)
                 .setDistanceRequiredForAttack(1)
-                .setPrayerProtectionPercentage(new Function<NPCCombatAttack, Double>() {
-                    @Override
-                    public Double apply(NPCCombatAttack npcCombatAttack) {
-                        return 0.2d;
-                    }
-                })
+                .setPrayerProtectionPercentage(npcCombatAttack -> 0.2d)
                 .createNPCAutoAttack();
     }
 }

@@ -11,12 +11,12 @@ import java.util.Arrays;
 public class ChanceTester {
 
 	public static void main(String[] args) {
-		Chance<String> chance = new Chance<String>(Arrays.asList(
-				new WeightedChance<String>(1, "Kiwi"),
-				new WeightedChance<String>(25, "Mango"),
-				new WeightedChance<String>(50, "Orange"),
-				new WeightedChance<String>(60, "Lemmon")
-		));
+		Chance<String> chance = new Chance<>(Arrays.asList(
+                new WeightedChance<>(1, "Kiwi"),
+                new WeightedChance<>(25, "Mango"),
+                new WeightedChance<>(50, "Orange"),
+                new WeightedChance<>(60, "Lemmon")
+        ));
 		
 //		Chance<String> chance = new Chance<String>(Arrays.asList(
 //				new WeightedChance<String>(1, "Lemmon"),
@@ -35,14 +35,19 @@ public class ChanceTester {
 		for (int i = 0; i < iterations; i++) {
 			String fruit = chance.nextObject().get();
 
-			if (fruit.equals("Lemmon")) {
-				lemmon++;
-			} else if (fruit.equals("Mango")) {
-				mango++;
-			} else if (fruit.equals("Kiwi")) {
-				kiwi++;
-			} else if (fruit.equals("Orange")) {
-				orange++;
+			switch (fruit) {
+				case "Lemmon":
+					lemmon++;
+					break;
+				case "Mango":
+					mango++;
+					break;
+				case "Kiwi":
+					kiwi++;
+					break;
+				case "Orange":
+					orange++;
+					break;
 			}
 
 //			System.out.println(fruit);

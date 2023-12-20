@@ -106,7 +106,7 @@ public class ClanManager {
 				localRandomAccessFile.writeShort(paramClan.rankedMembers.size());
 				for (int i = 0; i < paramClan.rankedMembers.size(); i++) {
 					localRandomAccessFile.writeUTF(paramClan.rankedMembers.get(i));
-					localRandomAccessFile.writeShort(paramClan.ranks.get(i).intValue());
+					localRandomAccessFile.writeShort(paramClan.ranks.get(i));
 				}
 			} else {
 				localRandomAccessFile.writeShort(0);
@@ -136,7 +136,7 @@ public class ClanManager {
 			if (i != 0) {
 				for (int j = 0; j < i; j++) {
 					localClan.rankedMembers.add(localRandomAccessFile.readUTF());
-					localClan.ranks.add(Integer.valueOf(localRandomAccessFile.readShort()));
+					localClan.ranks.add((int) localRandomAccessFile.readShort());
 				}
 			}
 			localRandomAccessFile.close();

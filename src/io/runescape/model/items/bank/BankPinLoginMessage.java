@@ -28,7 +28,7 @@ public class BankPinLoginMessage implements PlayerSaveEntry {
 
     @Override
     public String encode(Player player, String key) {
-        return player.getAttributes().getBoolean(ATTR, false) + "";
+        return String.valueOf(player.getAttributes().getBoolean(ATTR, false));
     }
 
     @Override

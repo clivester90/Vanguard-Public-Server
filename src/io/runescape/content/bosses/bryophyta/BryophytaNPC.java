@@ -35,9 +35,7 @@ public class BryophytaNPC extends NPC {
                         .setAnimation(new Animation(-1))
                         .setMaxHit(0)
                         .setAttackDelay(2)
-                        .setOnAttack(attack -> {
-                            createGrowthlingAttack(attack.getVictim().asPlayer(), this);
-                        })
+                        .setOnAttack(attack -> createGrowthlingAttack(attack.getVictim().asPlayer(), this))
                         .createNPCAutoAttack(),
 
                 /**

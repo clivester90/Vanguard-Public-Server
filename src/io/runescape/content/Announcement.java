@@ -56,7 +56,7 @@ public class Announcement {
 
 	private static int donateTypeValue = 0;
 
-	public static ArrayList<String> announcementPendingList = new ArrayList<String>();
+	public static ArrayList<String> announcementPendingList = new ArrayList<>();
 
 	public static void donateAnnouncementEvent() {
 		Object object = new Object();

@@ -13,7 +13,7 @@ public class ObjectOptionFour {
 		c.clickObjectType = 0;
 		
 		if (c.getRights().isOrInherits(Right.OWNER) && c.debugMessage)
-			c.sendMessage("Clicked Object Option 4:  "+objectType+"");
+			c.sendMessage("Clicked Object Option 4:  "+objectType);
 
 
 		switch (objectType) {

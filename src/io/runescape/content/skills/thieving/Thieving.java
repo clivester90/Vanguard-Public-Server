@@ -274,96 +274,96 @@ public class Thieving {
 
 	@SuppressWarnings("serial")
 	public enum Pickpocket {
-		MAN(1, 8, 20000, new HashMap<Rarity, List<GameItem>>() {
-			{
-				put(Rarity.ALWAYS, Arrays.asList(new GameItem(995, 100)));
-			}
-		}),
-		HAM_MEMBER(15, 22, 20000, new HashMap<Rarity, List<GameItem>>() {
-			{
-				put(Rarity.ALWAYS, Arrays.asList(new GameItem(995, 300)));
-				put(Rarity.UNCOMMON, Lists.newArrayList(new GameItem(2677, 1)));
-			}
-		}),
-		WARRIOR(25, 26, 20000, new HashMap<Rarity, List<GameItem>>() {
-			{
-				put(Rarity.ALWAYS, Arrays.asList(new GameItem(995, 500)));
-			}
-		}),
-		FARMER(38, 43, 20000, new HashMap<Rarity, List<GameItem>>() {
-			{
-				put(Rarity.COMMON, Lists.newArrayList(
-						new GameItem(Items.GUAM_SEED, 3), new GameItem(Items.MARRENTILL_SEED, 3),new GameItem(Items.TARROMIN_SEED, 3),
-						new GameItem(Items.HARRALANDER_SEED, 3),
+		MAN(1, 8, 20000, new HashMap<>() {
+            {
+                put(Rarity.ALWAYS, List.of(new GameItem(995, 100)));
+            }
+        }),
+		HAM_MEMBER(15, 22, 20000, new HashMap<>() {
+            {
+                put(Rarity.ALWAYS, List.of(new GameItem(995, 300)));
+                put(Rarity.UNCOMMON, Lists.newArrayList(new GameItem(2677, 1)));
+            }
+        }),
+		WARRIOR(25, 26, 20000, new HashMap<>() {
+            {
+                put(Rarity.ALWAYS, List.of(new GameItem(995, 500)));
+            }
+        }),
+		FARMER(38, 43, 20000, new HashMap<>() {
+            {
+                put(Rarity.COMMON, Lists.newArrayList(
+                        new GameItem(Items.GUAM_SEED, 3), new GameItem(Items.MARRENTILL_SEED, 3), new GameItem(Items.TARROMIN_SEED, 3),
+                        new GameItem(Items.HARRALANDER_SEED, 3),
 
-						new GameItem(Items.POTATO_SEED, 4),new GameItem(Items.ONION_SEED, 4),new GameItem(Items.CABBAGE_SEED, 4),
-						new GameItem(Items.TOMATO_SEED, 4),new GameItem(Items.SWEETCORN_SEED, 4),new GameItem(Items.STRAWBERRY_SEED, 4),
-						new GameItem(Items.WATERMELON_SEED, 4),new GameItem(Items.MARIGOLD_SEED, 4),new GameItem(Items.NASTURTIUM_SEED, 4),
-						new GameItem(Items.WOAD_SEED, 4),new GameItem(Items.LIMPWURT_SEED, 4)
-				));
+                        new GameItem(Items.POTATO_SEED, 4), new GameItem(Items.ONION_SEED, 4), new GameItem(Items.CABBAGE_SEED, 4),
+                        new GameItem(Items.TOMATO_SEED, 4), new GameItem(Items.SWEETCORN_SEED, 4), new GameItem(Items.STRAWBERRY_SEED, 4),
+                        new GameItem(Items.WATERMELON_SEED, 4), new GameItem(Items.MARIGOLD_SEED, 4), new GameItem(Items.NASTURTIUM_SEED, 4),
+                        new GameItem(Items.WOAD_SEED, 4), new GameItem(Items.LIMPWURT_SEED, 4)
+                ));
 
-				put(Rarity.UNCOMMON, Lists.newArrayList(
-						new GameItem(Items.RANARR_SEED, 3),new GameItem(Items.TOADFLAX_SEED, 3),
-						new GameItem(Items.IRIT_SEED, 3),new GameItem(Items.AVANTOE_SEED, 3),
-						new GameItem(Items.KWUARM_SEED, 3),new GameItem(Items.SNAPDRAGON_SEED, 3),
-						new GameItem(Items.CADANTINE_SEED, 3),new GameItem(Items.LANTADYME_SEED, 3),
-						new GameItem(Items.DWARF_WEED_SEED, 3),new GameItem(Items.TORSTOL_SEED, 3)
-				));
-			}
+                put(Rarity.UNCOMMON, Lists.newArrayList(
+                        new GameItem(Items.RANARR_SEED, 3), new GameItem(Items.TOADFLAX_SEED, 3),
+                        new GameItem(Items.IRIT_SEED, 3), new GameItem(Items.AVANTOE_SEED, 3),
+                        new GameItem(Items.KWUARM_SEED, 3), new GameItem(Items.SNAPDRAGON_SEED, 3),
+                        new GameItem(Items.CADANTINE_SEED, 3), new GameItem(Items.LANTADYME_SEED, 3),
+                        new GameItem(Items.DWARF_WEED_SEED, 3), new GameItem(Items.TORSTOL_SEED, 3)
+                ));
+            }
 
-		}),
-		GUARD(40, 46, 20000, new HashMap<Rarity, List<GameItem>>() {
-			{
-				put(Rarity.ALWAYS, Arrays.asList(new GameItem(995, 750)));
-				put(Rarity.RARE, Arrays.asList(new GameItem(2801, 1)));
-			}
-		}),
-		ARDOUGNE_KNIGHT(55, 84, 15000, new HashMap<Rarity, List<GameItem>>() {
-			{
-				put(Rarity.ALWAYS, Arrays.asList(new GameItem(995, 5000)));
-			}
-		}),
-		PALADIN(70, 151, 13500, new HashMap<Rarity, List<GameItem>>() {
-			{
-				put(Rarity.ALWAYS, Arrays.asList(new GameItem(995, 7500)));
-			}
-		}),
+        }),
+		GUARD(40, 46, 20000, new HashMap<>() {
+            {
+                put(Rarity.ALWAYS, List.of(new GameItem(995, 750)));
+                put(Rarity.RARE, List.of(new GameItem(2801, 1)));
+            }
+        }),
+		ARDOUGNE_KNIGHT(55, 84, 15000, new HashMap<>() {
+            {
+                put(Rarity.ALWAYS, List.of(new GameItem(995, 5000)));
+            }
+        }),
+		PALADIN(70, 151, 13500, new HashMap<>() {
+            {
+                put(Rarity.ALWAYS, List.of(new GameItem(995, 7500)));
+            }
+        }),
 
-		DRUNKEN_DWARF(75, 90, 20000, new HashMap<Rarity, List<GameItem>>() {
-			{
-				put(Rarity.ALWAYS, Arrays.asList(
-						new GameItem(995, 950),
-						new GameItem(Items.COAL),
-						new GameItem(Items.IRON_ORE),
-						new GameItem(Items.BRONZE_BAR),
-						new GameItem(Items.SEAWEED),
-						new GameItem(Items.BEER),
-						new GameItem(Items.BRONZE_PICKAXE),
-						new GameItem(Items.RAW_COD)));
+		DRUNKEN_DWARF(75, 90, 20000, new HashMap<>() {
+            {
+                put(Rarity.ALWAYS, Arrays.asList(
+                        new GameItem(995, 950),
+                        new GameItem(Items.COAL),
+                        new GameItem(Items.IRON_ORE),
+                        new GameItem(Items.BRONZE_BAR),
+                        new GameItem(Items.SEAWEED),
+                        new GameItem(Items.BEER),
+                        new GameItem(Items.BRONZE_PICKAXE),
+                        new GameItem(Items.RAW_COD)));
 
-				put(Rarity.VERY_RARE, Arrays.asList(
-						new GameItem(995, 7850),
-						new GameItem(Items.RUNITE_ORE),
-						new GameItem(Items.COAL_NOTED, 25),
-						new GameItem(Items.RUNITE_BAR),
-						new GameItem(Items.RUNE_PICKAXE)));
-			}
-		}),
-		MENAPHITE_THUG(65, 75, 18000, new HashMap<Rarity, List<GameItem>>() {
-			{
-				put(Rarity.ALWAYS, Arrays.asList(new GameItem(995, 1000), new GameItem(995, 800), new GameItem(995, 950)));
-			} 
-		}), GNOME(75, 85, 18000, new HashMap<Rarity, List<GameItem>>() {
-			{
-				put(Rarity.ALWAYS, Arrays.asList(new GameItem(995, 1200), new GameItem(995, 800), new GameItem(995, 1250)));
-				put(Rarity.UNCOMMON, Arrays.asList(new GameItem(444), new GameItem(557), new GameItem(13431, 5)));
-			}
-		}), HERO(80, 273, 17000, new HashMap<Rarity, List<GameItem>>() {
-			{
-				put(Rarity.ALWAYS, Arrays.asList(new GameItem(995, 1500), new GameItem(995, 1800), new GameItem(995, 3500)));
-				put(Rarity.UNCOMMON, Arrays.asList(new GameItem(560, 2), new GameItem(565), new GameItem(444), new GameItem(1601)));
-			}
-		});
+                put(Rarity.VERY_RARE, Arrays.asList(
+                        new GameItem(995, 7850),
+                        new GameItem(Items.RUNITE_ORE),
+                        new GameItem(Items.COAL_NOTED, 25),
+                        new GameItem(Items.RUNITE_BAR),
+                        new GameItem(Items.RUNE_PICKAXE)));
+            }
+        }),
+		MENAPHITE_THUG(65, 75, 18000, new HashMap<>() {
+            {
+                put(Rarity.ALWAYS, Arrays.asList(new GameItem(995, 1000), new GameItem(995, 800), new GameItem(995, 950)));
+            }
+        }), GNOME(75, 85, 18000, new HashMap<>() {
+            {
+                put(Rarity.ALWAYS, Arrays.asList(new GameItem(995, 1200), new GameItem(995, 800), new GameItem(995, 1250)));
+                put(Rarity.UNCOMMON, Arrays.asList(new GameItem(444), new GameItem(557), new GameItem(13431, 5)));
+            }
+        }), HERO(80, 273, 17000, new HashMap<>() {
+            {
+                put(Rarity.ALWAYS, Arrays.asList(new GameItem(995, 1500), new GameItem(995, 1800), new GameItem(995, 3500)));
+                put(Rarity.UNCOMMON, Arrays.asList(new GameItem(560, 2), new GameItem(565), new GameItem(444), new GameItem(1601)));
+            }
+        });
 
 
 		/**

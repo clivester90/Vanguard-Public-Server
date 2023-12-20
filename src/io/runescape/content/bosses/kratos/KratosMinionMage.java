@@ -2,7 +2,6 @@ package io.runescape.content.bosses.kratos;
 
 import io.runescape.content.combat.npc.NPCAutoAttack;
 import io.runescape.content.combat.npc.NPCAutoAttackBuilder;
-import io.runescape.content.combat.npc.NPCCombatAttack;
 import io.runescape.model.Animation;
 import io.runescape.model.CombatType;
 import io.runescape.model.ProjectileBase;
@@ -32,12 +31,7 @@ public class KratosMinionMage implements Function<KratosNpc, NPCAutoAttack> {
                 .setAttackDelay(4)
                 .setDistanceRequiredForAttack(44)
                 .setMultiAttack(false)
-                .setPrayerProtectionPercentage(new Function<NPCCombatAttack, Double>() {
-                    @Override
-                    public Double apply(NPCCombatAttack npcCombatAttack) {
-                        return 0.3;
-                    }
-                })
+                .setPrayerProtectionPercentage(npcCombatAttack -> 0.3)
                 .setProjectile(projectile())
                 .createNPCAutoAttack();
     }

@@ -2,7 +2,6 @@ package io.runescape.content.bosses.mimic;
 
 import io.runescape.content.combat.npc.NPCAutoAttack;
 import io.runescape.content.combat.npc.NPCAutoAttackBuilder;
-import io.runescape.content.combat.npc.NPCCombatAttack;
 import io.runescape.model.Animation;
 import io.runescape.model.CombatType;
 import io.runescape.model.ProjectileBase;
@@ -32,12 +31,7 @@ public class ThirdAgeMager implements Function<MimicNpc, NPCAutoAttack> {
                 .setAttackDelay(4)
                 .setDistanceRequiredForAttack(24)
                 .setMultiAttack(false)
-                .setPrayerProtectionPercentage(new Function<NPCCombatAttack, Double>() {
-                    @Override
-                    public Double apply(NPCCombatAttack npcCombatAttack) {
-                        return 0.3;
-                    }
-                })
+                .setPrayerProtectionPercentage(npcCombatAttack -> 0.3)
                 .setProjectile(projectile())
                 .createNPCAutoAttack();
     }

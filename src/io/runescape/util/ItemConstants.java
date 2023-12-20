@@ -38,7 +38,7 @@ public class ItemConstants {
         String string = idsToNames.get(id);
         if (string == null) {
             System.err.println("No name for item id: " + id);
-            return "" + id;
+            return String.valueOf(id);
         }
         return "Items." + string;
     }

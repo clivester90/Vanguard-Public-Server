@@ -45,7 +45,7 @@ public class Stuck extends Command {
 			List<Player> staff = PlayerHandler.nonNullStream().filter(Objects::nonNull).filter(p -> p.getRights().isOrInherits(Right.MODERATOR)).collect(Collectors.toList());
 			
 			if (staff.size() > 0) {
-				Discord.writeServerSyncMessage("[Stuck] " + c.getDisplayName() + "" + " is stuck, teleport and help them.");
+				Discord.writeServerSyncMessage("[Stuck] " + c.getDisplayName() + " is stuck, teleport and help them.");
 				c.sendMessage("@red@You've activated stuck command and the staff online has been notified.");
 				c.sendMessage("@red@Your account will be moved home in approximately 2 minutes.");
 				c.sendMessage("@red@You cannot attempt ANY actions whatsoever other than talking.");

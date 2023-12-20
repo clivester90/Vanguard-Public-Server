@@ -19,9 +19,7 @@ public class Viewaccounts extends Command {
     public void execute(Player player, String commandName, String input) {
         boolean hideAddresses = !player.getRights().contains(Right.OWNER) && !player.getRights().contains(Right.ADMINISTRATOR);
         Map<String, List<Player>> playersForAddress = Maps.newHashMap();
-        PlayerHandler.getPlayers().stream().filter(Objects::nonNull).forEach(it -> {
-            add(playersForAddress, it, "IP: " + it.getIpAddress() + ", Mac: " + it.getMacAddress());
-        });
+        PlayerHandler.getPlayers().stream().filter(Objects::nonNull).forEach(it -> add(playersForAddress, it, "IP: " + it.getIpAddress() + ", Mac: " + it.getMacAddress()));
 
         List<String> lines = Lists.newArrayList();
         playersForAddress.forEach((key, value) -> {

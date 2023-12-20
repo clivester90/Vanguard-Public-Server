@@ -153,8 +153,8 @@ public class CollectionLog {
 			player.getPA().sendConfig(type.ordinal() == 0 ? 519 : 570 + type.ordinal(), 1);
 			for(int i = 0; i < npcs.size(); i++) {
 				boolean found = false;
-				if (getCollections().containsKey(npcs.get(i) + "")) {
-					ArrayList<GameItem> itemsObtained = getCollections().get(npcs.get(i) + "");
+				if (getCollections().containsKey(String.valueOf(npcs.get(i)))) {
+					ArrayList<GameItem> itemsObtained = getCollections().get(String.valueOf(npcs.get(i)));
 					if (itemsObtained != null) {
 						List<GameItem> drops = Server.getDropManager().getNPCdrops(npcs.get(i));
 						if (npcs.get(i) == 8028) {
@@ -260,8 +260,8 @@ public class CollectionLog {
 	 * @param npcId
 	 */
 	public void populateInterface(Player player, int npcId) {
-		if (!getCollections().containsKey("" + npcId)) { //If they've never looked at that NPC before, initialize a blank arraylist
-			getCollections().put("" + npcId, new ArrayList<>());
+		if (!getCollections().containsKey(String.valueOf(npcId))) { //If they've never looked at that NPC before, initialize a blank arraylist
+			getCollections().put(String.valueOf(npcId), new ArrayList<>());
 			saveToJSON();
 		}
 
@@ -294,7 +294,7 @@ public class CollectionLog {
 			player.getPA().itemOnInterface(new GameItem(CollectionRewards.getForNpcID(npcId).get(i).getId(),CollectionRewards.getForNpcID(npcId).get(i).getAmount()), 23235, i);
 		}
 
-		ArrayList<GameItem> items = getCollections().get(npcId + "");
+		ArrayList<GameItem> items = getCollections().get(String.valueOf(npcId));
 		Server.getDropManager().getDrops(player, npcId);
 		if (npcId == 8028) {
 			player.dropItems = Vorkath.getVeryRareDrops();
@@ -383,7 +383,7 @@ public class CollectionLog {
 			return;
 		}
 
-		ArrayList<GameItem> currentItems = getCollections().get("" + npcId);
+		ArrayList<GameItem> currentItems = getCollections().get(String.valueOf(npcId));
 		if (currentItems == null) {
 			currentItems = new ArrayList<>();
 			currentItems.add(new GameItem(dropId, dropAmount));
@@ -407,7 +407,7 @@ public class CollectionLog {
 					player.sendMessage("You have unlocked another item in your collection log!");
 			}
 		}
-		getCollections().put("" + npcId, currentItems);
+		getCollections().put(String.valueOf(npcId), currentItems);
 		//As soon as it gets a drop it saves Kraken has been getting the most complaints
 		saveToJSON();
 	}

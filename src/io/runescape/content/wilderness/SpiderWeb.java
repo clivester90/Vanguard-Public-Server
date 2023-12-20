@@ -53,7 +53,7 @@ public class SpiderWeb {
         /**
          * Check to see if the player has a wilderness weapon
          */
-        boolean isWildernessWeapon = wildernessWeapons.stream().filter(Objects::nonNull).anyMatch(i -> i.intValue() == weaponId);
+        boolean isWildernessWeapon = wildernessWeapons.stream().filter(Objects::nonNull).anyMatch(i -> i == weaponId);
 
         /**
          * Randomly generated number into %

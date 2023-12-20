@@ -117,7 +117,7 @@ public class Wogw {
 		String towards = Objects.equals(player.wogwOption, "minigame") ? "+ bonus PC points!" : Objects.equals(player.wogwOption, "experience") ? "bonus experience!" : Objects.equals(player.wogwOption, "drops") ? "double drop rate!" : Objects.equals(player.wogwOption, "barrows") ? "double barrows drop rate!" : "";
 		player.sendMessage("You successfully donated " + Misc.format((int) player.wogwDonationAmount) + "gp to the well of goodwill towards");
 		player.sendMessage(towards);
-		Discord.writeWellMessage(""+player.getLoginName()+" as donated " + Misc.format((int) player.wogwDonationAmount) + "gp to the well of goodwill towards");
+		Discord.writeWellMessage(player.getLoginName()+" as donated " + Misc.format((int) player.wogwDonationAmount) + "gp to the well of goodwill towards");
 		Discord.writeWellMessage(towards);
 		AchievementHandler.activate(player, AchievementList.DONATE_WELL, 1);//NEW ACHIEVEMNTS
 		//Wogw.lastDonators[Wogw.slot] = "" + Misc.formatPlayerName(player.playerName) + " donated " + Misc.getValueWithoutRepresentation(player.wogwDonationAmount) + " towards " + towards;

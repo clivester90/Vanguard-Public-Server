@@ -133,10 +133,10 @@ public class Barrows {
 	public final static int[] BARROWS_ITEMS =
 			{4708, 4710, 4712, 4714, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 4736, 4738, 4745, 4747, 4749, 4751, 4753, 4755, 4757, 4759};
 
-	public static int Runes[] =
+	public static int[] Runes =
 			{4740, 558, 560, 565, 4740};
 
-	public static int Resources[] =
+	public static int[] Resources =
 			{2364, 452, 13442, 537};
 
 	public static int randomBarrows() {
@@ -352,7 +352,7 @@ public class Barrows {
 			if (player.getBarrowsRunCompleted() == 1000) {
 				player.getItems().addItem(995, 20000000);
 				PlayerHandler.executeGlobalMessage("@blu@"+ Misc.capitalize(player.getLoginName()) + " has received @red@20m @blu@for completing @red@1000 barrows runs.");
-				Discord.writeDropsSyncMessage(""+ player.getLoginName() + " has received: 20m for completing 1000 Barrows Runs.");
+				Discord.writeDropsSyncMessage(player.getLoginName() + " has received: 20m for completing 1000 Barrows Runs.");
 			}
 			if (Misc.hasOneOutOf(AMULET_CHANCE)) {
 				player.getItems().addItem(12853, 1);
@@ -362,7 +362,7 @@ public class Barrows {
 			if (Misc.hasOneOutOf(DHAROK_PET_CHANCE)) {
 				player.getItems().addItem(16015, 1);
 				PlayerHandler.executeGlobalMessage("@blu@"+ Misc.capitalize(player.getLoginName()) + " has received the @red@dharok pet @blu@from barrows");
-				Discord.writeDropsSyncMessage(""+ player.getLoginName() + " has received: the Dharok Pet from Barrows.");
+				Discord.writeDropsSyncMessage(player.getLoginName() + " has received: the Dharok Pet from Barrows.");
 			}
 			if (Misc.hasOneOutOf(SLAYER_TIER4_CHANCE)) {
 				player.getItems().addItem(21053, 1);
@@ -386,7 +386,7 @@ public class Barrows {
 		player.getItems().addItem(randomBarrows, 1);
 		player.sendMessage("You have received " + Misc.getAorAn(ItemAssistant.getItemName(randomBarrows)) + "!");
 		PlayerHandler.executeGlobalMessage("@blu@"+ Misc.capitalize(player.getLoginName()) + " has received @red@" + ItemAssistant.getItemName(randomBarrows) + " @blu@from Barrows.");
-		Discord.writeDropsSyncMessage(""+ player.getLoginName() + " has received:" + ItemAssistant.getItemName(randomBarrows) + " from Barrows.");
+		Discord.writeDropsSyncMessage(player.getLoginName() + " has received:" + ItemAssistant.getItemName(randomBarrows) + " from Barrows.");
 		player.getCollectionLog().handleDrop(player, CollectionLog.BARROWS_ID, randomBarrows(), 1);
 		return randomBarrows + " 1";
 	}

@@ -25,7 +25,7 @@ public class NpcAggression {
 
     private static final int[] REVS = {7931, 7932, 7933, 7934, 7935, 7936, 7937, 7938, 7939, 7940};
 
-    private static List<Integer> none_aggressive_npcs = Arrays.asList(
+    private static List<Integer> none_aggressive_npcs = List.of(
             7514//Energy orb from Mage Arena2
 
     );
@@ -55,7 +55,7 @@ public class NpcAggression {
                     continue;
                 }
 
-                if (none_aggressive_npcs.stream().filter(Objects::nonNull).anyMatch(i -> i.intValue() == npc.getNpcId()))
+                if (none_aggressive_npcs.stream().filter(Objects::nonNull).anyMatch(i -> i == npc.getNpcId()))
                     continue;
 
                 if (player.getInstance() != npc.getInstance() || player.isIdle || player.isAggressionTimeout(player)|| player.isInvisible()

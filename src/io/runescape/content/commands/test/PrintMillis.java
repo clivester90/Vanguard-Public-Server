@@ -8,7 +8,7 @@ import io.runescape.model.entity.player.Player;
 public class PrintMillis extends Command {
     @Override
     public void execute(Player player, String commandName, String input) {
-        player.sendMessage("" + System.currentTimeMillis());
+        player.sendMessage(String.valueOf(System.currentTimeMillis()));
         System.out.println(System.currentTimeMillis());
     }
 

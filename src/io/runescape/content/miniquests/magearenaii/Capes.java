@@ -12,5 +12,4 @@ public enum Capes {
         this.capeId = capeId;
         this.imbueCapeId = imbueCapeId;
     }
-    ;
 }

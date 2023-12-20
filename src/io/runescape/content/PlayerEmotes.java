@@ -197,7 +197,7 @@ public class PlayerEmotes {
 			this.delay = delay;
 		}
 		
-		private static final Map<Integer, SKILLCAPE_ANIMATION_DATA> SKILLCAPE_DATA = new HashMap<Integer, SKILLCAPE_ANIMATION_DATA>();
+		private static final Map<Integer, SKILLCAPE_ANIMATION_DATA> SKILLCAPE_DATA = new HashMap<>();
 
 		static {
 			for (SKILLCAPE_ANIMATION_DATA animations : values()) {
