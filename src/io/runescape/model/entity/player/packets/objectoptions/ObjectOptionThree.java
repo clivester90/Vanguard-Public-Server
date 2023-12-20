@@ -1,7 +1,6 @@
 package io.runescape.model.entity.player.packets.objectoptions;
 
 import io.runescape.Server;
-import io.runescape.content.hs.WogwHighscore;
 import io.runescape.content.skills.agility.AgilityHandler;
 import io.runescape.content.tradingpost.Listing;
 import io.runescape.model.entity.player.Player;
@@ -23,17 +22,11 @@ public class ObjectOptionThree {
 
 
 		if (c.getRights().isOrInherits(Right.OWNER) && c.debugMessage)
-			c.sendMessage("Clicked Object Option 3:  "+objectType+"");
+			c.sendMessage("Clicked Object Option 3:  "+objectType);
 
 
 
 		switch (objectType) {
-
-		case 6097://Wogw leaderboard
-			c.setHighscore(new WogwHighscore());
-			c.getHighscore().process();
-			c.getHighscore().generateList(c);
-			break;
 
 		case 23609:
 			c.getPA().movePlayer(3506, 9493, 0);
