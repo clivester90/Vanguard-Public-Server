@@ -36,7 +36,7 @@ public class Cannon {
     ));
 
     public static void attemptPlace(Player player) {
-        if (Arrays.stream(PROHIBITED_CANNON_AREAS).anyMatch(boundary -> boundary.in(player)) && !Arrays.stream(ALLOWED_REV_AREAS).anyMatch(boundary -> boundary.in(player))) {
+        if (Arrays.stream(PROHIBITED_CANNON_AREAS).anyMatch(boundary -> boundary.in(player)) && Arrays.stream(ALLOWED_REV_AREAS).noneMatch(boundary -> boundary.in(player))) {
             player.sendMessage("You can't place a cannon in this area.");
         } else if ((player.getInstance() != null || player.getHeight() > 3) && !Boundary.CORPOREAL_BEAST_LAIR.in(player) && !Boundary.CRYSTAL_CAVE_AREA.in(player)) {
             player.sendMessage("You can't place a cannon inside an instance.");
@@ -223,11 +223,10 @@ public class Cannon {
         if (cannonballsLoaded > 0) {
             if (player.getItems().hasRoomInInventory(item, cannonballsLoaded)) {
                 player.getItems().addItem(item, cannonballsLoaded);
-                cannonballsLoaded = 0;
             } else {
                 player.getItems().sendItemToAnyTab(item, cannonballsLoaded);
-                cannonballsLoaded = 0;
             }
+            cannonballsLoaded = 0;
         } else {
             player.sendMessage("Your cannon is empty.");
         }
